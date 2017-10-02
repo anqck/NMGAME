@@ -26,6 +26,9 @@ protected:
 	DWORD _DeltaTime;
 
 	virtual void		RenderFrame(int Delta);	
+	void				 _ProcessKeyBoard();
+	virtual void		LoadResource();
+	virtual void		ProcessInput(int Delta);
 
 public:
 	GAME(HINSTANCE hInstance, LPWSTR Name, int windowsWidth, int windowsHeight, int IsFullScreen, int FrameRate);
@@ -36,20 +39,12 @@ public:
 
 	int					IsKeyDown(int KeyCode);
 	virtual void		OnKeyDown(int KeyCode);
-	virtual void		OnKeyUp(int KeyCode);
-
-	void				 _ProcessKeyBoard();
+	virtual void		OnKeyUp(int KeyCode);	
 
 private:
 	static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	void				InitWindows();
 	void				InitDevice();
-	void				InitKeyboard();
-	virtual void		LoadResource();
+	void				InitKeyboard();	
 	void				_RenderFrame();
-	virtual void		ProcessInput( int Delta);
-	
-	
-	
-
 };

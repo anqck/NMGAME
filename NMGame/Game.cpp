@@ -61,7 +61,7 @@ void GAME::Run()
 	MSG msg;
 	int done = 1;
 	DWORD frameStart = GetTickCount();
-	DWORD delta;
+
 	while (done)
 	{
 		DWORD tick_per_frame = 1000 / GLOBAL::GetFrameRate();
@@ -73,16 +73,18 @@ void GAME::Run()
 			DispatchMessage(&msg);
 		}
 		DWORD now = GetTickCount();
-		delta = now - frameStart;
-		if (delta >= tick_per_frame)
+		_DeltaTime = now - frameStart;
+		if (_DeltaTime >= tick_per_frame)
 		{
+			frameStart = now;		
 			_RenderFrame();
-			frameStart = now;			
+
+			
 		}
 
 		_ProcessKeyBoard();
-
-		ProcessInput(delta);
+		ProcessInput(_DeltaTime);
+		
 	}
 }
 
