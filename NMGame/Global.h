@@ -27,8 +27,8 @@ public:
 	static	LPD3DXSPRITE					GetSpriteHandler() { return GLOBAL::mSpriteHandler; }
 	static	void							SetSpriteHandler(LPD3DXSPRITE spriteHandler) { GLOBAL::mSpriteHandler = spriteHandler; }
 
-	static	bool							GetFullScreen() { return GLOBAL::isFullScreen; }
-	static	void							SetFullScreen(bool fullscreen) { GLOBAL::isFullScreen = fullscreen; }
+	static	bool							GetFullScreen() { return GLOBAL::misFullScreen; }
+	static	void							SetFullScreen(bool fullscreen) { GLOBAL::misFullScreen = fullscreen; }
 
 	static	int								GetWindowsWidth() { return GLOBAL::mWindowsWidth; }
 	static	void							SetWindowsWidth(int width) { GLOBAL::mWindowsWidth = width; }
@@ -51,7 +51,7 @@ private:
 	static	LPDIRECT3DDEVICE9				mDirectDevice;
 	static	LPDIRECT3DSURFACE9				mBackBuffer; 
 	static	LPD3DXSPRITE					mSpriteHandler; 
-	static	bool							isFullScreen;
+	static	bool							misFullScreen;
 	static	int								mWindowsWidth;
 	static	int								mWindowsHeight;
 	static	LPWSTR							mGameName;

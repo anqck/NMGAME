@@ -145,13 +145,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AladdinGame.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Ultils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AladdinGame.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="Ultils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

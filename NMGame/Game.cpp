@@ -25,7 +25,7 @@ void GAME::Initialize()
 {
 	this->InitWindows();
 	this->InitDevice();
-	//this->LoadResource();
+	this->LoadResource();
 }
 
 LRESULT GAME::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -141,7 +141,7 @@ void GAME::InitDevice()
 
 void GAME::LoadResource()
 {
-
+	
 }
 
 void GAME::Run()
@@ -149,7 +149,14 @@ void GAME::Run()
 
 	if (GLOBAL::GetDirectDevice()->BeginScene())
 	{
-
+		//GLOBAL::GetDirectDevice()->ColorFill(GLOBAL::GetBackBuffer(), NULL, D3DCOLOR_XRGB(0, 255, 255));
+		RenderFrame();
+		GLOBAL::GetDirectDevice()->EndScene();
 	}
 	GLOBAL::GetDirectDevice()->Present(NULL, NULL, NULL, NULL);
+}
+
+void GAME::RenderFrame()
+{
+	
 }

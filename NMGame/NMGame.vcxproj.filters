@@ -24,12 +24,24 @@
     <ClCompile Include="Global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ultils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Global.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ultils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinGame.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

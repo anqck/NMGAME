@@ -1,4 +1,4 @@
-﻿#include "Game.h"
+﻿#include "AladdinGame.h"
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 #define WINDOWS_WIDTH	800
@@ -7,7 +7,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)
 {
-	GAME game(hInstance,L"Aladdin", WINDOWS_WIDTH, WINDOWS_HEIGHT, FALSE, FRAME_RATE);
+	AladdinGame game(hInstance,L"Aladdin", WINDOWS_WIDTH, WINDOWS_HEIGHT, FALSE, FRAME_RATE);
 	game.Initialize();
 
 	MSG msg;

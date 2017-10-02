@@ -3,6 +3,7 @@
 #include<Windows.h>
 #include<d3d9.h>
 #include "Global.h"
+#include "Ultils.h"
 
 using namespace std;
 class GAME
@@ -18,6 +19,9 @@ private:
 	static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	void					InitWindows();
 	void					InitDevice();
-	void					LoadResource();
+	virtual void			LoadResource();
+	virtual void			RenderFrame();
+
+	
 
 };

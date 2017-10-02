@@ -7,7 +7,7 @@ LPDIRECT3D9						GLOBAL::mDirect = NULL;
 LPDIRECT3DDEVICE9				GLOBAL::mDirectDevice = NULL;
 LPDIRECT3DSURFACE9				GLOBAL::mBackBuffer = NULL;
 LPD3DXSPRITE					GLOBAL::mSpriteHandler = NULL;
-bool							GLOBAL::isFullScreen = FALSE;
+bool							GLOBAL::misFullScreen = FALSE;
 int								GLOBAL::mWindowsWidth;
 int								GLOBAL::mWindowsHeight;
 LPWSTR							GLOBAL::mGameName = L"TEST GAME";
