@@ -48,8 +48,8 @@ void AladdinCharacter::Animate()
 	if (now - last_time > 1000 / ANIMATE_RATE)
 	{
 		//if (kitty_vx > 0) this->mSprite->Next();
-		if (this->GetVelocity().x > 0) this->nextFrame();
-
+		if (this->GetVelocity().x > 0) { this->mSprite->FlipVertical(false); this->nextFrame(); }
+		else if (this->GetVelocity().x < 0) { this->mSprite->FlipVertical(true);  this->nextFrame(); }
 		last_time = now;
 	}
 }
@@ -61,12 +61,15 @@ void AladdinCharacter::Move(int delta_time)
 
 void AladdinCharacter::nextFrame()
 {
-	this->mSprite->Next();
+	//this->mSprite->Next();
+	mCurrentIdx = (mCurrentIdx + mEndIdx - 1) % mEndIdx;
+	this->mSprite->SetFrame(mCurrentIdx);
 }
 
 void AladdinCharacter::resetFrame()
 {
 	this->mSprite->Reset();
+	this->mSprite->SetFrame(0);
 }
 
 D3DXVECTOR3 AladdinCharacter::GetPosition()

@@ -32,7 +32,8 @@ protected:
 	int					mEndIdx;		//
 	int					mCurrentIdx;	//Index hiện tại
 	D3DXVECTOR3			mPosition;		//Vị trí của Aladdin
-	D3DXVECTOR2			mVelocity;		//Vận tốc của Aladdin
+	D3DXVECTOR2			mVelocity;		//Vận tốc hiện tại của Aladdin
+	D3DXVECTOR2			mDefaultSpeed;	//Vận tốc mặc định khi di chuyển
 	DWORD last_time;	 // this is to control the animate rate of kitty
 	int ANIMATE_RATE;
 	

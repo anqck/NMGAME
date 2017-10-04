@@ -1,13 +1,13 @@
-#include "Sprite.h"
+﻿#include "Sprite.h"
 
 Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR FilePath, D3DCOLOR transcolor, vector<RECT> listSourceRect)
 {
 	mSpriteHandler = SpriteHandler;
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
 	this->mListRect = listSourceRect;
-	this->_Index = 0;
-
 	mSourceRect = listSourceRect.at(0);
+
+	this->isFlipVertical = false;
 
 	D3DXGetImageInfoFromFile(FilePath, &mImageInfo);
 
@@ -24,8 +24,6 @@ Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR FilePath, D3DCOLOR transcolor,
 		NULL,
 		&mTexture);
 
-	this->_Count = 13;
-	
 
 }
 
@@ -45,6 +43,11 @@ void Sprite::Reset()
 {
 	_Index = 0;
 	mSourceRect = mListRect.at(_Index);
+}
+
+void Sprite::SetFrame(int frameIdx)
+{
+	mSourceRect = mListRect.at(frameIdx);
 }
 
 D3DXVECTOR3 Sprite::GetPosition()
@@ -78,14 +81,47 @@ void Sprite::SetScale(float x, float y)
 	this->mScale = D3DXVECTOR2(x, y);
 }
 
+bool Sprite::IsFlipVertical()
+{
+	return this->isFlipVertical;
+}
+
+void Sprite::FlipVertical(bool flip_vertical)
+{
+	this->isFlipVertical = flip_vertical;
+}
+
 void Sprite::Render()
 {
+	//Temp code
+	D3DXVECTOR2 tempScale = D3DXVECTOR2(((isFlipVertical)?-1:1) * 2.3, 2.5);
+	D3DXVECTOR2	scalingCenter = this->mPosition;
+	
+	D3DXMATRIX oldMatrix;
+
+	D3DXMatrixTransformation2D(
+		&mMatrix,
+		&scalingCenter,
+		0,
+		&tempScale,
+		NULL,
+		0,
+		&D3DXVECTOR2(0, 0));
+
+
+	this->mSpriteHandler->GetTransform(&oldMatrix);
+	this->mSpriteHandler->SetTransform(&mMatrix);
+
+	D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top) / 2, 0);//Tâm của sprite cần vẽ
+
 	mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	mSpriteHandler->Draw(
 		mTexture,
 		&mSourceRect,
-		NULL,
+		&center,
 		&mPosition,
 		D3DCOLOR_XRGB(255, 255, 255));
 	mSpriteHandler->End();
+
+	//this->mSpriteHandler->SetTransform(&oldMatrix);
 }

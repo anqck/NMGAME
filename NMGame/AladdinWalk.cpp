@@ -2,9 +2,16 @@
 
 
 
+void AladdinWalk::Initialize()
+{
+	
+}
+
 void AladdinWalk::LoadResource()
 {
-	this->ANIMATE_RATE = 21;
+	this->ANIMATE_RATE = 20;
+	this->mCurrentIdx = 0;
+	this->mEndIdx = 13;
 
 	vector<RECT> temp;
 	/*RECT rect;

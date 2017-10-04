@@ -93,7 +93,13 @@ void AladdinGame::LoadResource()
  {
 	 if (IsKeyDown(DIK_RIGHT))
 	 {
-		 this->mAladdin->SetVelocity(0.3f, .0f);
+		 this->mAladdin->SetVelocity(0.5f, .0f);
+		 kitty_vx = 0.3f;
+		 kitty_vx_last = kitty_vx;
+	 }
+	 else if (IsKeyDown(DIK_LEFT))
+	 {
+		 this->mAladdin->SetVelocity(-0.5f, .0f);
 		 kitty_vx = 0.3f;
 		 kitty_vx_last = kitty_vx;
 	 }

@@ -13,6 +13,7 @@ public:
 
 	void			 Draw();
 protected:
+	void			Initialize();
 	void			LoadResource();
 
 };
