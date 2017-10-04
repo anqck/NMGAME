@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="AladdinCharacter.cpp" />
     <ClCompile Include="AladdinGame.cpp" />
+    <ClCompile Include="AladdinWalk.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="main.cpp" />
@@ -156,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h" />
     <ClInclude Include="AladdinGame.h" />
+    <ClInclude Include="AladdinWalk.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Sprite.h" />

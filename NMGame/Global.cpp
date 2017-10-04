@@ -6,7 +6,7 @@ HWND							GLOBAL::mHwnd = NULL;
 LPDIRECT3D9						GLOBAL::mDirect = NULL;
 LPDIRECT3DDEVICE9				GLOBAL::mDirectDevice = NULL;
 LPDIRECT3DSURFACE9				GLOBAL::mBackBuffer = NULL;
-LPD3DXSPRITE					GLOBAL::mSpriteHandler = NULL;
+LPD3DXSPRITE					GLOBAL::mAladdinSpriteHandler = NULL;
 bool							GLOBAL::misFullScreen = FALSE;
 int								GLOBAL::mWindowsWidth;
 int								GLOBAL::mWindowsHeight;

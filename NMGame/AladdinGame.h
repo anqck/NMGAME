@@ -1,6 +1,8 @@
 #pragma once
 #include "Game.h"
 #include "Sprite.h"
+#include "AladdinCharacter.h"
+#include "AladdinWalk.h"
 
 class AladdinGame :public GAME
 {
@@ -11,12 +13,11 @@ public:
 	
 protected:
 	LPDIRECT3DSURFACE9		mBackground;
-	LPD3DXSPRITE			mAladdin;
+	AladdinCharacter		*mAladdin;
+	LPD3DXSPRITE			mAladdinSpriteHandler;
 
-	Sprite					*mSprite;
 
 	LPDIRECT3DTEXTURE9 imagetex;
-	LPD3DXSPRITE sprite; //sprite to display our image
 
 	D3DXVECTOR3 imagepos; //vector for the position of the sprite
 

@@ -24,8 +24,8 @@ public:
 	static	LPDIRECT3DSURFACE9				GetBackBuffer() { return GLOBAL::mBackBuffer; }
 	static	void							SetBackBuffer(LPDIRECT3DSURFACE9 backbuffer) { GLOBAL::mBackBuffer = backbuffer; }
 
-	static	LPD3DXSPRITE					GetSpriteHandler() { return GLOBAL::mSpriteHandler; }
-	static	void							SetSpriteHandler(LPD3DXSPRITE spriteHandler) { GLOBAL::mSpriteHandler = spriteHandler; }
+	static	LPD3DXSPRITE					GetSpriteHandler() { return GLOBAL::mAladdinSpriteHandler; }
+	static	void							SetSpriteHandler(LPD3DXSPRITE spriteHandler) { GLOBAL::mAladdinSpriteHandler = spriteHandler; }
 
 	static	bool							GetFullScreen() { return GLOBAL::misFullScreen; }
 	static	void							SetFullScreen(bool fullscreen) { GLOBAL::misFullScreen = fullscreen; }
@@ -50,7 +50,7 @@ private:
 	static	LPDIRECT3D9						mDirect;
 	static	LPDIRECT3DDEVICE9				mDirectDevice;
 	static	LPDIRECT3DSURFACE9				mBackBuffer; 
-	static	LPD3DXSPRITE					mSpriteHandler; 
+	static	LPD3DXSPRITE					mAladdinSpriteHandler;
 	static	bool							misFullScreen;
 	static	int								mWindowsWidth;
 	static	int								mWindowsHeight;
