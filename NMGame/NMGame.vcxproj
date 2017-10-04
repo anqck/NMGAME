@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AladdinCharacter.cpp" />
     <ClCompile Include="AladdinGame.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="Ultils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AladdinCharacter.h" />
     <ClInclude Include="AladdinGame.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />

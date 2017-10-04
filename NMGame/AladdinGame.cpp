@@ -1,6 +1,6 @@
 #include "AladdinGame.h"
 
-#define ANIMATE_RATE 20
+#define ANIMATE_RATE 21
 
 AladdinGame::~AladdinGame()
 {
@@ -36,7 +36,7 @@ void AladdinGame::LoadResource()
 
 	
 	imagepos.x = 8.0f; //coord x of our sprite
-	imagepos.y = 450.0f; //coord y of out sprite
+	imagepos.y = 480.0f; //coord y of out sprite
 	imagepos.z = 0.0f; //coord z of out sprite
 
 	//Temp code
@@ -144,6 +144,7 @@ void AladdinGame::LoadResource()
 
 
 	mSprite = new Sprite(sprite, L"Aladdin.png", D3DCOLOR_XRGB(255, 0, 255),temp);
+	mSprite->SetPosition(imagepos);
 	
 }
 
@@ -165,13 +166,14 @@ void AladdinGame::LoadResource()
 	}
 
 
-	//mSprite->SetPosition(mSprite->GetPosition().x + kitty_vx * Delta, mSprite->GetPosition().y+ kitty_vy * Delta);
+	mSprite->SetPosition(mSprite->GetPosition().x + kitty_vx * Delta, mSprite->GetPosition().y+ kitty_vy * Delta);
 	//mSprite->SetPosition(122 + Delta, 122);
 	mSprite->Render();
 
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
+	/*sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	sprite->Draw(imagetex, NULL, NULL, &imagepos, 0xFFFFFFFF);
-	sprite->End();
+	sprite->End();*/
+	
 }
 
  void AladdinGame::ProcessInput(int Delta)
