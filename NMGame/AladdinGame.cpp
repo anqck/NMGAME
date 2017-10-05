@@ -42,8 +42,9 @@ void AladdinGame::LoadResource()
 	//Temp code
 	D3DXCreateSprite(GLOBAL::GetDirectDevice(), &mAladdinSpriteHandler);
 	
-	this->mAladdin = new AladdinWalk(this->mAladdinSpriteHandler);
-	this->mAladdin->SetPosition(imagepos);
+	this->mAladdinHelper = new AladdinHelper(this->mAladdinSpriteHandler, imagepos);
+	/*this->mAladdin = new AladdinWalk(this->mAladdinSpriteHandler);
+	this->mAladdin->SetPosition(imagepos);*/
 
 
 	/*kitty_vx = 0;
@@ -62,25 +63,17 @@ void AladdinGame::LoadResource()
 		GLOBAL::GetBackBuffer(),		// to 
 		NULL,				// which portion?
 		D3DTEXF_NONE);
+	/* GLOBAL::GetDirectDevice()->ColorFill(
+		 GLOBAL::GetBackBuffer(),
+		 NULL,
+		 D3DCOLOR_XRGB(0, 0, 0));*/
 
-	this->mAladdin->Animate();
+	 this->mAladdinHelper->Render(Delta);
+
+	/*this->mAladdin->Animate();
 	this->mAladdin->Move(Delta);
-	this->mAladdin->Draw();
-
-	//DWORD now = GetTickCount();
-	//if (now - last_time > 1000 / ANIMATE_RATE)
-	//{
-	//	//if (kitty_vx > 0) this->mSprite->Next();
-	//	if (this->mAladdin->GetVelocity().x > 0) this->mAladdin->nextFrame();
-
-	//	last_time = now;
-	//}
-
-
-	//mSprite->SetPosition(mSprite->GetPosition().x + kitty_vx * Delta, mSprite->GetPosition().y+ kitty_vy * Delta);
-	//mSprite->SetPosition(122 + Delta, 122);
-	//mSprite->Render();
-
+	this->mAladdin->Draw();*/
+	 
 	/*sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	sprite->Draw(imagetex, NULL, NULL, &imagepos, 0xFFFFFFFF);
 	sprite->End();*/
@@ -93,22 +86,22 @@ void AladdinGame::LoadResource()
  {
 	 if (IsKeyDown(DIK_RIGHT))
 	 {
-		 this->mAladdin->SetVelocity(0.5f, .0f);
-		 kitty_vx = 0.3f;
-		 kitty_vx_last = kitty_vx;
+		 this->mAladdinHelper->setAladdinState(AladdinState::Walk);
+		 this->mAladdinHelper->setDirection(Direction::Right);
+		// this->mAladdin->SetVelocity(0.5f, .0f);
 	 }
 	 else if (IsKeyDown(DIK_LEFT))
 	 {
-		 this->mAladdin->SetVelocity(-0.5f, .0f);
-		 kitty_vx = 0.3f;
-		 kitty_vx_last = kitty_vx;
+		 this->mAladdinHelper->setAladdinState(AladdinState::Walk);
+		 this->mAladdinHelper->setDirection(Direction::Left);
+		// this->mAladdin->SetVelocity(-0.5f, .0f);
+
 	 }
 	 else
 	 {
-		 this->mAladdin->SetVelocity(0.0f, .0f);
-		 this->mAladdin->resetFrame();
-		 kitty_vx = 0;
-		// mSprite->Reset();
+		 this->mAladdinHelper->setAladdinState(AladdinState::DoNothing);
+		// this->mAladdin->SetVelocity(0.0f, .0f);
+		 //this->mAladdin->resetFrame();
 	 }
  }
 

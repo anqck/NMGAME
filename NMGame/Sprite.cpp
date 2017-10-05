@@ -95,6 +95,7 @@ void Sprite::Render()
 {
 	//Temp code
 	D3DXVECTOR2 tempScale = D3DXVECTOR2(((isFlipVertical)?-1:1) * 2.3, 2.5);
+	//D3DXVECTOR2 tempScale = D3DXVECTOR2(((isFlipVertical) ? -1 : 1) * 2, 2);
 	D3DXVECTOR2	scalingCenter = this->mPosition;
 	
 	D3DXMATRIX oldMatrix;

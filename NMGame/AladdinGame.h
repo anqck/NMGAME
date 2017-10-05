@@ -1,8 +1,7 @@
 #pragma once
 #include "Game.h"
 #include "Sprite.h"
-#include "AladdinCharacter.h"
-#include "AladdinWalk.h"
+#include "AladdinHelper.h"
 
 class AladdinGame :public GAME
 {
@@ -14,6 +13,7 @@ public:
 protected:
 	LPDIRECT3DSURFACE9		mBackground;
 	AladdinCharacter		*mAladdin;
+	AladdinHelper			*mAladdinHelper;
 	LPD3DXSPRITE			mAladdinSpriteHandler;
 
 

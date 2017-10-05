@@ -13,19 +13,19 @@ void GAME::_ProcessKeyBoard()
 	}
 
 	// Collect all buffered events
-	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
-	HRESULT hr = _Keyboard->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), _KeyEvents, &dwElements, 0);
+	//DWORD dwElements = KEYBOARD_BUFFER_SIZE;
+	//HRESULT hr = _Keyboard->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), _KeyEvents, &dwElements, 0);
 
-	// Scan through all data, check if the key is pressed or released
-	for (DWORD i = 0; i < dwElements; i++)
-	{
-		int KeyCode = _KeyEvents[i].dwOfs;
-		int KeyState = _KeyEvents[i].dwData;
-		if ((KeyState & 0x80) > 0)
-			OnKeyDown(KeyCode);
-		else
-			OnKeyUp(KeyCode);
-	}
+	//// Scan through all data, check if the key is pressed or released
+	//for (DWORD i = 0; i < dwElements; i++)
+	//{
+	//	int KeyCode = _KeyEvents[i].dwOfs;
+	//	int KeyState = _KeyEvents[i].dwData;
+	//	if ((KeyState & 0x80) > 0)
+	//		OnKeyDown(KeyCode);
+	//	else
+	//		OnKeyUp(KeyCode);
+	//}
 }
 
 GAME::GAME(HINSTANCE hInstance, LPWSTR Name, int windowsWidth, int windowsHeight, int IsFullScreen, int FrameRate)

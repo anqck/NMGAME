@@ -46,6 +46,7 @@ void AladdinCharacter::Animate()
 {
 	DWORD now = GetTickCount();
 	if (now - last_time > 1000 / ANIMATE_RATE)
+	
 	{
 		//if (kitty_vx > 0) this->mSprite->Next();
 		if (this->GetVelocity().x > 0) { this->mSprite->FlipVertical(false); this->nextFrame(); }
@@ -68,7 +69,7 @@ void AladdinCharacter::nextFrame()
 
 void AladdinCharacter::resetFrame()
 {
-	this->mSprite->Reset();
+	//this->mSprite->Reset();
 	this->mSprite->SetFrame(0);
 }
 

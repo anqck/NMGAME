@@ -39,27 +39,33 @@
     <ClCompile Include="AladdinWalk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AladdinHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Global.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Ultils.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinGame.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AladdinCharacter.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinGame.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AladdinWalk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinHelper.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
