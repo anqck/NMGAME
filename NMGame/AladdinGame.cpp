@@ -97,6 +97,13 @@ void AladdinGame::LoadResource()
 		// this->mAladdin->SetVelocity(-0.5f, .0f);
 
 	 }
+	 else if (IsKeyDown(DIK_UP))
+	 {
+		 this->mAladdinHelper->setAladdinState(AladdinState::LookUp);
+		// this->mAladdinHelper->setDirection(Direction::Left);
+		 // this->mAladdin->SetVelocity(-0.5f, .0f);
+
+	 }
 	 else
 	 {
 		 this->mAladdinHelper->setAladdinState(AladdinState::DoNothing);

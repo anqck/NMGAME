@@ -46,11 +46,19 @@ void AladdinCharacter::Animate()
 {
 	DWORD now = GetTickCount();
 	if (now - last_time > 1000 / ANIMATE_RATE)
-	
-	{
+		{
+		
 		//if (kitty_vx > 0) this->mSprite->Next();
-		if (this->GetVelocity().x > 0) { this->mSprite->FlipVertical(false); this->nextFrame(); }
-		else if (this->GetVelocity().x < 0) { this->mSprite->FlipVertical(true);  this->nextFrame(); }
+		/*if (this->GetVelocity().x > 0) { this->mSprite->FlipVertical(false);  this->nextFrame();
+		}
+		else if (this->GetVelocity().x < 0) { this->mSprite->FlipVertical(true);  this->nextFrame();}*/
+		
+		if(this->mIsFlipVertical != this->mSprite->IsFlipVertical())
+			this->mSprite->FlipVertical(this->mIsFlipVertical);
+		if (this->GetVelocity().x != 0) 
+			this->nextFrame();
+		
+
 		last_time = now;
 	}
 }
@@ -67,9 +75,18 @@ void AladdinCharacter::nextFrame()
 	this->mSprite->SetFrame(mCurrentIdx);
 }
 
+void AladdinCharacter::nextFrameWithoutLoop()
+{
+	this->mSprite->SetFrame(mCurrentIdx);
+	if (mCurrentIdx < mEndIdx - 1)
+		mCurrentIdx += 1;
+	
+}
+
 void AladdinCharacter::resetFrame()
 {
 	//this->mSprite->Reset();
+	mCurrentIdx = 0;
 	this->mSprite->SetFrame(0);
 }
 
@@ -92,6 +109,16 @@ void AladdinCharacter::SetVelocity(float X, float Y)
 {
 	this->mVelocity.x = X;
 	this->mVelocity.y = Y;
+}
+
+bool AladdinCharacter::GetFlipVertical()
+{
+	return this->mIsFlipVertical;
+}
+
+void AladdinCharacter::SetFlipVertical(bool flipV)
+{
+	this->mIsFlipVertical = flipV;
 }
 
 

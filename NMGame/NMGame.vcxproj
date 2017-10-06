@@ -148,6 +148,7 @@
     <ClCompile Include="AladdinCharacter.cpp" />
     <ClCompile Include="AladdinGame.cpp" />
     <ClCompile Include="AladdinHelper.cpp" />
+    <ClCompile Include="AladdinLookUp.cpp" />
     <ClCompile Include="AladdinWalk.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="AladdinCharacter.h" />
     <ClInclude Include="AladdinGame.h" />
     <ClInclude Include="AladdinHelper.h" />
+    <ClInclude Include="AladdinLookUp.h" />
     <ClInclude Include="AladdinWalk.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />

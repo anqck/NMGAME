@@ -12,9 +12,10 @@ public:
 	~AladdinCharacter();
 
 	void			Draw();			//
-	void			Animate();
+	virtual void	Animate();
 	void			Move(int delta_time);
 	void			nextFrame();
+	void			nextFrameWithoutLoop();
 	void			resetFrame();
 
 	D3DXVECTOR3			GetPosition();
@@ -25,6 +26,9 @@ public:
 	void				SetVelocity(D3DXVECTOR2 Velocity);
 	void				SetVelocity(float X, float Y);
 
+	bool				GetFlipVertical();
+	void				SetFlipVertical(bool flipV);
+
 protected:
 	Sprite*				mSprite;
 	LPD3DXSPRITE		mSpriteHandle;
@@ -34,6 +38,7 @@ protected:
 	D3DXVECTOR3			mPosition;		//Vị trí của Aladdin
 	D3DXVECTOR2			mVelocity;		//Vận tốc hiện tại của Aladdin
 	D3DXVECTOR2			mDefaultSpeed;	//Vận tốc mặc định khi di chuyển
+	bool				mIsFlipVertical; //Lat hinh doc
 	DWORD last_time;	 // this is to control the animate rate of kitty
 	int ANIMATE_RATE;
 	

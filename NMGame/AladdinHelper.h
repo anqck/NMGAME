@@ -1,6 +1,7 @@
 #pragma once
 #include "AladdinCharacter.h"
 #include "AladdinWalk.h"
+#include "AladdinLookUp.h"
 
 enum AladdinState
 {
@@ -22,8 +23,10 @@ protected:
 	AladdinCharacter	*mAladdin;
 	Direction			mDir;
 	LPD3DXSPRITE		mSpriteHandler;
+	D3DXVECTOR3			mPosition;
 
 	AladdinWalk			*_mAladdinWalk;
+	AladdinLookUp		*_mAladdinLookUp;
 public:
 	AladdinHelper(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3 pos);
 	void setAladdinState(AladdinState state);
