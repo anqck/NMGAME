@@ -1,6 +1,5 @@
 #pragma once
 
-#pragma once
 #include "AladdinCharacter.h"
 
 
@@ -17,6 +16,6 @@ public:
 protected:
 	void			Initialize();
 	void			LoadResource();
-	void			Animate();
+	void			Animate(float DeltaTime);
 
 };

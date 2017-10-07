@@ -1,7 +1,11 @@
 #pragma once
+#ifndef AladdinGame_H
+#define AladdinGame_H
 #include "Game.h"
 #include "Sprite.h"
 #include "AladdinHelper.h"
+
+#include "SceneManager.h"
 
 class AladdinGame :public GAME
 {
@@ -12,14 +16,13 @@ public:
 	
 protected:
 	LPDIRECT3DSURFACE9		mBackground;
-	AladdinCharacter		*mAladdin;
-	AladdinHelper			*mAladdinHelper;
 	LPD3DXSPRITE			mAladdinSpriteHandler;
+	
 
 
 	LPDIRECT3DTEXTURE9 imagetex;
 
-	D3DXVECTOR3 imagepos; //vector for the position of the sprite
+
 
 	float kitty_vx;		// velocity of kitty
 	float kitty_vy;
@@ -33,3 +36,5 @@ protected:
 	virtual void			RenderFrame(int Delta);
 	virtual void			OnKeyDown(int KeyCode);
 };
+
+#endif

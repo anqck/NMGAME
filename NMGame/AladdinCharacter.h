@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Global.h"
 #include "Sprite.h"
+#include "MyRECT.h"
 
 class AladdinCharacter
 {
@@ -12,7 +13,7 @@ public:
 	~AladdinCharacter();
 
 	void			Draw();			//
-	virtual void	Animate();
+	virtual void	Animate(float DeltaTime);
 	void			Move(int delta_time);
 	void			nextFrame();
 	void			nextFrameWithoutLoop();
@@ -29,6 +30,9 @@ public:
 	bool				GetFlipVertical();
 	void				SetFlipVertical(bool flipV);
 
+	int					GetCurrentIdx();
+	int					GetEndIdx();
+
 protected:
 	Sprite*				mSprite;
 	LPD3DXSPRITE		mSpriteHandle;
@@ -40,6 +44,9 @@ protected:
 	D3DXVECTOR2			mDefaultSpeed;	//Vận tốc mặc định khi di chuyển
 	bool				mIsFlipVertical; //Lat hinh doc
 	DWORD last_time;	 // this is to control the animate rate of kitty
+
+	//float       mTimePerFrame, //thoi gian luan chuyen 1 frame
+	//			mCurrentTotalTime;
 	int ANIMATE_RATE;
 	
 

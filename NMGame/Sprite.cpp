@@ -1,6 +1,6 @@
 ﻿#include "Sprite.h"
 
-Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR FilePath, D3DCOLOR transcolor, vector<RECT> listSourceRect)
+Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect)
 {
 	mSpriteHandler = SpriteHandler;
 	this->mPosition = D3DXVECTOR3(0, 0, 0);

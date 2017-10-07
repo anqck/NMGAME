@@ -1,4 +1,5 @@
 #include "AladdinGame.h"
+#include "DemoScene.h"
 
 #define ANIMATE_RATE 21
 
@@ -35,23 +36,16 @@ void AladdinGame::LoadResource()
 		&imagetex);
 
 	
-	imagepos.x = 8.0f; //coord x of our sprite
-	imagepos.y = 480.0f; //coord y of out sprite
-	imagepos.z = 0.0f; //coord z of out sprite
+	
 
 	//Temp code
 	D3DXCreateSprite(GLOBAL::GetDirectDevice(), &mAladdinSpriteHandler);
-	
-	this->mAladdinHelper = new AladdinHelper(this->mAladdinSpriteHandler, imagepos);
-	/*this->mAladdin = new AladdinWalk(this->mAladdinSpriteHandler);
-	this->mAladdin->SetPosition(imagepos);*/
+	GLOBAL::SetSpriteHandler(mAladdinSpriteHandler);
 
-
-	/*kitty_vx = 0;
-	kitty_vx_last = 1.0f;
-	kitty_vy = 0;*/
-
-
+	DemoScene* scene = new DemoScene(this);
+	this->AddScene(scene);
+	SceneManager::GetInstance()->ReplaceScene(scene);
+	//this->mAladdinHelper = new AladdinHelper(this->mAladdinSpriteHandler, imagepos);
 	
 }
 
@@ -68,7 +62,9 @@ void AladdinGame::LoadResource()
 		 NULL,
 		 D3DCOLOR_XRGB(0, 0, 0));*/
 
-	 this->mAladdinHelper->Render(Delta);
+
+	SceneManager::GetInstance()->GetCurrentScene()->Update(Delta);
+	 //this->mAladdinHelper->Render(Delta);
 
 	/*this->mAladdin->Animate();
 	this->mAladdin->Move(Delta);
@@ -84,32 +80,7 @@ void AladdinGame::LoadResource()
 
  void AladdinGame::ProcessInput(int Delta)
  {
-	 if (IsKeyDown(DIK_RIGHT))
-	 {
-		 this->mAladdinHelper->setAladdinState(AladdinState::Walk);
-		 this->mAladdinHelper->setDirection(Direction::Right);
-		// this->mAladdin->SetVelocity(0.5f, .0f);
-	 }
-	 else if (IsKeyDown(DIK_LEFT))
-	 {
-		 this->mAladdinHelper->setAladdinState(AladdinState::Walk);
-		 this->mAladdinHelper->setDirection(Direction::Left);
-		// this->mAladdin->SetVelocity(-0.5f, .0f);
-
-	 }
-	 else if (IsKeyDown(DIK_UP))
-	 {
-		 this->mAladdinHelper->setAladdinState(AladdinState::LookUp);
-		// this->mAladdinHelper->setDirection(Direction::Left);
-		 // this->mAladdin->SetVelocity(-0.5f, .0f);
-
-	 }
-	 else
-	 {
-		 this->mAladdinHelper->setAladdinState(AladdinState::DoNothing);
-		// this->mAladdin->SetVelocity(0.0f, .0f);
-		 //this->mAladdin->resetFrame();
-	 }
+	 SceneManager::GetInstance()->GetCurrentScene()->ProcessInput();
  }
 
  void AladdinGame::OnKeyDown(int KeyCode)

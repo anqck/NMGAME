@@ -6,7 +6,7 @@ void AladdinLookUp::LoadResource()
 	this->mCurrentIdx = 0;
 	this->mEndIdx = 3;
 
-	vector<RECT> temp;
+	vector<MyRECT> temp;
 	/*RECT rect;
 	rect.top = 1212;
 	rect.bottom = 1275;
@@ -15,7 +15,7 @@ void AladdinLookUp::LoadResource()
 	temp.push_back(rect);*/
 	for (int i = 1; i <= 3; i++)
 	{
-		RECT rect;
+		MyRECT rect;
 		rect.top = 488;
 		rect.bottom = 551;
 		switch (i)
@@ -45,7 +45,7 @@ void AladdinLookUp::LoadResource()
 
 }
 
-void AladdinLookUp::Animate()
+void AladdinLookUp::Animate(float DeltaTime)
 {
 	DWORD now = GetTickCount();
 	if (now - last_time > 1000 / ANIMATE_RATE)

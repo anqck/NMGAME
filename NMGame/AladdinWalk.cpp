@@ -13,7 +13,8 @@ void AladdinWalk::LoadResource()
 	this->mCurrentIdx = 0;
 	this->mEndIdx = 13;
 
-	vector<RECT> temp;
+
+	vector<MyRECT> temp;
 	/*RECT rect;
 	rect.top = 1212;
 	rect.bottom = 1275;
@@ -22,7 +23,7 @@ void AladdinWalk::LoadResource()
 	temp.push_back(rect);*/
 	for (int i = 1; i <= 13; i++)
 	{
-		RECT rect;
+		MyRECT rect;
 		rect.top = 1212;
 		rect.bottom = 1275;
 		switch (i)

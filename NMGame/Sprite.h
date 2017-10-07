@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "Global.h"
-
+#include "MyRECT.h"
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <vector>
@@ -19,14 +19,14 @@ protected:
 	LPDIRECT3DTEXTURE9		mTexture;
 	D3DXIMAGE_INFO			mImageInfo;
 	D3DXVECTOR3				mPosition;
-	vector<RECT>			mListRect;			// Hình chữ nhật chứa các sprite
-	RECT					mSourceRect;		// Hình chữ nhật chứ sprite cần vẽ
+	vector<MyRECT>			mListRect;			// Hình chữ nhật chứa các sprite
+	MyRECT					mSourceRect;		// Hình chữ nhật chứ sprite cần vẽ
 	D3DXVECTOR2				mScale;				// Phóng to, thu nhỏ sprite
 	D3DXMATRIX				mMatrix;			// Ma trận hỗ trợ dời hình
 	bool					isFlipVertical;		// Lât hình theo trục dọc
 
 public:
-	Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR FilePath, D3DCOLOR transcolor, vector<RECT> listSourceRect);
+	Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect);
 	~Sprite();
 
 	void Next(); // ???

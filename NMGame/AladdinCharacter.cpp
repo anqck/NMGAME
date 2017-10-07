@@ -42,8 +42,22 @@ void AladdinCharacter::Draw()
 	this->mSprite->Render();
 }
 
-void AladdinCharacter::Animate()
+void AladdinCharacter::Animate(float DeltaTime)
 {
+	/*if (mCurrentTotalTime >= mTimePerFrame)
+	{
+		mCurrentTotalTime = 0;
+		
+		if (this->mIsFlipVertical != this->mSprite->IsFlipVertical())
+			this->mSprite->FlipVertical(this->mIsFlipVertical);
+
+		if (this->GetVelocity().x != 0)
+			this->nextFrame();
+	}
+	else
+	{
+		mCurrentTotalTime += DeltaTime;
+	}*/
 	DWORD now = GetTickCount();
 	if (now - last_time > 1000 / ANIMATE_RATE)
 		{
@@ -55,6 +69,7 @@ void AladdinCharacter::Animate()
 		
 		if(this->mIsFlipVertical != this->mSprite->IsFlipVertical())
 			this->mSprite->FlipVertical(this->mIsFlipVertical);
+
 		if (this->GetVelocity().x != 0) 
 			this->nextFrame();
 		
@@ -119,6 +134,16 @@ bool AladdinCharacter::GetFlipVertical()
 void AladdinCharacter::SetFlipVertical(bool flipV)
 {
 	this->mIsFlipVertical = flipV;
+}
+
+int AladdinCharacter::GetCurrentIdx()
+{
+	return this->mCurrentIdx;
+}
+
+int AladdinCharacter::GetEndIdx()
+{
+	return this->mEndIdx;
 }
 
 

@@ -3,9 +3,13 @@
 #include<Windows.h>
 #include<d3d9.h>
 #include <dinput.h>
+#include <vector>
 
 #include "Global.h"
 #include "Ultils.h"
+#include "SceneManager.h"
+#include "Scene.h"
+
 
 
 #define KEY_DOWN(code) ( IsKeyDown(code) )
@@ -25,10 +29,15 @@ protected:
 
 	DWORD _DeltaTime;
 
+	vector<IScene*>			mListSence;
+
+
+
 	virtual void		RenderFrame(int Delta);	
 	void				 _ProcessKeyBoard();
 	virtual void		LoadResource();
 	virtual void		ProcessInput(int Delta);
+	void				AddScene(IScene *sence);
 
 public:
 	GAME(HINSTANCE hInstance, LPWSTR Name, int windowsWidth, int windowsHeight, int IsFullScreen, int FrameRate);

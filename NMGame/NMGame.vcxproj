@@ -145,25 +145,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AladdinAttack1.cpp" />
     <ClCompile Include="AladdinCharacter.cpp" />
     <ClCompile Include="AladdinGame.cpp" />
     <ClCompile Include="AladdinHelper.cpp" />
     <ClCompile Include="AladdinLookUp.cpp" />
+    <ClCompile Include="AladdinRest.cpp" />
+    <ClCompile Include="AladdinStand.cpp" />
     <ClCompile Include="AladdinWalk.cpp" />
+    <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyRECT.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Ultils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AladdinAttack1.h" />
     <ClInclude Include="AladdinCharacter.h" />
     <ClInclude Include="AladdinGame.h" />
     <ClInclude Include="AladdinHelper.h" />
     <ClInclude Include="AladdinLookUp.h" />
+    <ClInclude Include="AladdinRest.h" />
+    <ClInclude Include="AladdinStand.h" />
     <ClInclude Include="AladdinWalk.h" />
+    <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="IScene.h" />
+    <ClInclude Include="MyRECT.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Ultils.h" />
   </ItemGroup>

@@ -77,9 +77,7 @@ void GAME::Run()
 		if (_DeltaTime >= tick_per_frame)
 		{
 			frameStart = now;		
-			_RenderFrame();
-
-			
+			_RenderFrame();			
 		}
 
 		_ProcessKeyBoard();
@@ -99,6 +97,17 @@ LRESULT GAME::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		return 0;
 	}
+	case WM_KEYDOWN:
+	{
+		SceneManager::GetInstance()->GetCurrentScene()->OnKeyDown(wParam);
+		break;
+	}
+	case WM_KEYUP:
+	{
+		SceneManager::GetInstance()->GetCurrentScene()->OnKeyUp(wParam);
+		break;
+	}
+		
 	} // End switch
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
@@ -275,6 +284,7 @@ void GAME::_RenderFrame()
 	
 	if (GLOBAL::GetDirectDevice()->BeginScene())
 	{
+		
 		RenderFrame( _DeltaTime);
 
 		GLOBAL::GetDirectDevice()->EndScene();
@@ -297,6 +307,14 @@ void GAME::RenderFrame(int Delta)
 
 
 void GAME::ProcessInput(int Delta){}
+
+void GAME::AddScene(IScene * sence)
+{
+	this->mListSence.push_back(sence);
+	sence->LoadResource();
+}
+
+
 
 int GAME::IsKeyDown(int KeyCode)
 {
