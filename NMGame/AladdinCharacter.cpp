@@ -146,6 +146,12 @@ int AladdinCharacter::GetEndIdx()
 	return this->mEndIdx;
 }
 
+void AladdinCharacter::GoToLastFrameIdx()
+{
+	this->mCurrentIdx = this->mEndIdx - 1;
+	this->mSprite->SetFrame(this->mEndIdx - 1);
+}
+
 
 
 void AladdinCharacter::SetPosition(D3DXVECTOR3 Position)

@@ -33,6 +33,8 @@ public:
 	int					GetCurrentIdx();
 	int					GetEndIdx();
 
+	void				GoToLastFrameIdx();
+
 protected:
 	Sprite*				mSprite;
 	LPD3DXSPRITE		mSpriteHandle;

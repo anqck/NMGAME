@@ -23,7 +23,7 @@ public:
 protected:
 	AladdinHelper	*mAladdinHelper;
 	AladdinGame		*mGame;
-
+	bool			allowAttack;
 };
 
 #endif
