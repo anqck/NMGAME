@@ -1,6 +1,7 @@
 #pragma once
 #include "AladdinCharacter.h"
 #include "AladdinWalk.h"
+#include "AladdinStopWalk.h"
 #include "AladdinLookUp.h"
 #include "AladdinRest.h"
 #include "AladdinStand.h"
@@ -12,6 +13,7 @@ enum AladdinState
 {
 	DoNothing,
 	Walk,
+	StopWalk,
 	LookUp,
 	Stand,
 	Sit,
@@ -36,15 +38,21 @@ protected:
 	Direction			mDir;
 	LPD3DXSPRITE		mSpriteHandler;
 	D3DXVECTOR3			mPosition;
+
 	float				mTime;
+	float				mStopWalkThresHold;
+	bool				mIsStopAnimation;
 
 	AladdinWalk			*_mAladdinWalk;
+	AladdinStopWalk		*_mAladdinStopWalk;
 	AladdinLookUp		*_mAladdinLookUp;
 	AladdinStand		*_mAladdinStand;
 	AladdinRest			*_mAladdinRest;
 	AladdinAttack1		*_mAladdinAttack1;
 	AladdinSit			*_mAladdinSit;
 	AladdinSitAttack	*_mAladdinSitAttack;
+
+
 
 	bool				allowStateChange;
 public:
@@ -53,5 +61,6 @@ public:
 	void setAladdinState(AladdinState state);
 	void setDirection(Direction dir);
 	void	setAllowStateChange(bool allow);
-	void Render(int DeltaTime);
+	void	 Render(int DeltaTime);
+	void	Update(int DeltaTime);
 };

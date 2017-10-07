@@ -33,7 +33,8 @@ protected:
 
 
 
-	virtual void		RenderFrame(int Delta);	
+	virtual void		RenderFrame(int DeltaTime);	
+	virtual void		Update(int DeltaTime);
 	void				 _ProcessKeyBoard();
 	virtual void		LoadResource();
 	virtual void		ProcessInput(int Delta);

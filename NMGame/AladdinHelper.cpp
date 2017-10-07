@@ -3,6 +3,7 @@
 AladdinHelper::AladdinHelper(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3	pos)
 {
 	this->_mAladdinWalk = new AladdinWalk(SpriteHandle);
+	this->_mAladdinStopWalk = new AladdinStopWalk(SpriteHandle);
 	this->_mAladdinLookUp = new AladdinLookUp(SpriteHandle);
 	this->_mAladdinStand = new AladdinStand(SpriteHandle);
 	this->_mAladdinRest = new AladdinRest(SpriteHandle);
@@ -42,6 +43,13 @@ void AladdinHelper::setAladdinState(AladdinState state)
 		return;
 	}
 
+	if ((state == AladdinState::DoNothing) && (this->mState == AladdinState::Walk) && (this->mIsStopAnimation == true))
+	{
+		this->mState = AladdinState::StopWalk;
+		this->allowStateChange = false;
+		return;
+	}
+
 	/*if (state == AladdinState::DoNothing && (this->mState == AladdinState::Stand || this->mState == AladdinState::Attack1|| this->mState == AladdinState::SitAttack))
 		return; */
 
@@ -49,12 +57,15 @@ void AladdinHelper::setAladdinState(AladdinState state)
 
 	if (this->mState != state)
 	{
+		_mAladdinWalk->resetFrame();
 		_mAladdinAttack1->resetFrame();
 		_mAladdinSitAttack->resetFrame();
+		_mAladdinStopWalk->resetFrame();
 		switch (this->mState)
 		{
 		case AladdinState::DoNothing:
 		{			
+			
 			break;
 		}
 		case AladdinState::Walk:
@@ -88,6 +99,17 @@ void AladdinHelper::setAladdinState(AladdinState state)
 
 		if (state == AladdinState::SitAttack|| state == AladdinState::Attack1)
 			allowStateChange = false;
+
+		if (state == AladdinState::Walk)
+		{
+			this->mIsStopAnimation = false;
+			this->mTime = 0;
+		}
+
+		if (state == AladdinState::DoNothing)
+		{
+			this->mTime = 0;
+		}
 	}
 }
 
@@ -103,18 +125,27 @@ void AladdinHelper::setAllowStateChange(bool allow)
 
 void AladdinHelper::Render(int DeltaTime)
 {
+	
+	this->mAladdin->Draw();
+
+}
+
+void AladdinHelper::Update(int DeltaTime)
+{
 	switch (this->mState)
 	{
 	case AladdinState::DoNothing:
 	{
 		this->mAladdin = _mAladdinWalk;
+		this->allowStateChange = false;
 		//this->mAladdin->resetFrame();
-		
+
 		if (this->mTime >= 25 * DeltaTime)
 		{
 			this->mState = AladdinState::Stand;
+			this->allowStateChange = false;
 			this->mTime = 0;
-			
+
 		}
 		else
 		{
@@ -127,11 +158,19 @@ void AladdinHelper::Render(int DeltaTime)
 	}
 	case AladdinState::Walk:
 	{
-		
+
 		this->mAladdin = _mAladdinWalk;
-		
-		this->mAladdin->SetVelocity(((mDir==Direction::Right)?(1.0f):(-1.0f)) * 0.7f, .0f);
-		
+
+		this->mAladdin->SetVelocity(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 0.7f, .0f);
+
+		if (this->mTime >= 20 * DeltaTime)
+		{
+			this->mIsStopAnimation = true;
+		}
+		else
+		{
+			this->mTime += DeltaTime;
+		}
 
 		break;
 	}
@@ -153,7 +192,7 @@ void AladdinHelper::Render(int DeltaTime)
 	}
 	case AladdinState::Attack1:
 	{
-		 
+
 		this->mAladdin = _mAladdinAttack1;
 
 		if (this->mAladdin->GetCurrentIdx() == this->mAladdin->GetEndIdx() - 1)
@@ -161,17 +200,15 @@ void AladdinHelper::Render(int DeltaTime)
 			this->mState = AladdinState::DoNothing;
 			allowStateChange = true;
 		}
-			
-			//
+
+		//
 
 		break;
 	}
 	case AladdinState::SitAttack:
 	{
 
- 		this->mAladdin = _mAladdinSitAttack;
-		
-
+		this->mAladdin = _mAladdinSitAttack;
 
 		if (this->mAladdin->GetCurrentIdx() == this->mAladdin->GetEndIdx() - 1)
 		{
@@ -181,20 +218,31 @@ void AladdinHelper::Render(int DeltaTime)
 
 		break;
 	}
+	case AladdinState::StopWalk:
+	{
+
+		this->mAladdin = _mAladdinStopWalk;
+		this->mAladdin->SetVelocity(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 0.3f, .0f);
+
+		if (this->mAladdin->GetCurrentIdx() == this->mAladdin->GetEndIdx() - 1)
+		{
+			allowStateChange = true;
+		}
+
+		break;
+	}
 	case AladdinState::Rest:
 	{
 		this->mAladdin = _mAladdinRest;
-		
+
 		break;
 
 	}
 	}
-	
+
 	this->mAladdin->SetFlipVertical((mDir == Direction::Right) ? (false) : (true));
 	this->mAladdin->SetPosition(this->mPosition);
 	this->mAladdin->Animate(DeltaTime);
 	this->mAladdin->Move(DeltaTime);
 	this->mPosition = this->mAladdin->GetPosition();
-	this->mAladdin->Draw();
-
 }

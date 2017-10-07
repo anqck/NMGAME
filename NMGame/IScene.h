@@ -11,6 +11,7 @@ class IScene
 public:
 	//public virtual method for class "Game" call
 	virtual void Update(float DeltaTime) = 0;
+	virtual void Render(float DeltaTime) = 0;
 	virtual void ProcessInput() = 0;
 	virtual void OnKeyDown(int keyCode) = 0;
 	virtual void OnKeyUp(int keyCode) = 0;

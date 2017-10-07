@@ -5,7 +5,9 @@
 #include "Sprite.h"
 #include "AladdinHelper.h"
 
+
 #include "SceneManager.h"
+#include <vector>
 
 class AladdinGame :public GAME
 {
@@ -15,17 +17,12 @@ public:
 
 	
 protected:
-	LPDIRECT3DSURFACE9		mBackground;
 	LPD3DXSPRITE			mAladdinSpriteHandler;
 	
 
 
-	LPDIRECT3DTEXTURE9 imagetex;
+	
 
-
-
-	float kitty_vx;		// velocity of kitty
-	float kitty_vy;
 
 	float kitty_vx_last;  // last vx of kitty before stop ( to determine the direction of kitty )
 	DWORD last_time;	 // this is to control the animate rate of kitty
@@ -33,6 +30,7 @@ protected:
 
 	virtual void			ProcessInput(int Delta);
 	virtual void			LoadResource();
+	virtual void			Update(int DeltaTime);
 	virtual void			RenderFrame(int Delta);
 	virtual void			OnKeyDown(int KeyCode);
 };

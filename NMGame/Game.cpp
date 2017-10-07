@@ -76,7 +76,8 @@ void GAME::Run()
 		_DeltaTime = now - frameStart;
 		if (_DeltaTime >= tick_per_frame)
 		{
-			frameStart = now;		
+			frameStart = now;
+			Update(_DeltaTime);
 			_RenderFrame();			
 		}
 
@@ -292,16 +293,20 @@ void GAME::_RenderFrame()
 	GLOBAL::GetDirectDevice()->Present(NULL, NULL, NULL, NULL);
 }
 
-void GAME::RenderFrame(int Delta)
+void GAME::RenderFrame(int DeltaTime)
 {
 
 	if (GLOBAL::GetDirectDevice()->BeginScene())
 	{
-		//GLOBAL::GetDirectDevice()->ColorFill(GLOBAL::GetBackBuffer(), NULL, D3DCOLOR_XRGB(0, 255, 255));
-	
+
 		GLOBAL::GetDirectDevice()->EndScene();
 	}
 	GLOBAL::GetDirectDevice()->Present(NULL, NULL, NULL, NULL);
+}
+
+void GAME::Update(int DeltaTime)
+{
+	
 }
 
 
@@ -311,7 +316,7 @@ void GAME::ProcessInput(int Delta){}
 void GAME::AddScene(IScene * sence)
 {
 	this->mListSence.push_back(sence);
-	sence->LoadResource();
+	//sence->LoadResource();
 }
 
 

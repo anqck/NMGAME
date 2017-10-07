@@ -23,6 +23,11 @@ void SceneManager::Update(float DeltaTime)
 	this->mCurrentScene->Update(DeltaTime);
 }
 
+void SceneManager::Render(float DeltaTime)
+{
+	this->mCurrentScene->Render(DeltaTime);
+}
+
 void SceneManager::ReplaceScene(IScene * scene)
 {
 	/*if (this->mCurrentScene)

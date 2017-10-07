@@ -154,9 +154,11 @@
     <ClCompile Include="AladdinSit.cpp" />
     <ClCompile Include="AladdinSitAttack.cpp" />
     <ClCompile Include="AladdinStand.cpp" />
+    <ClCompile Include="AladdinStopWalk.cpp" />
     <ClCompile Include="AladdinWalk.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameVisibleEntity.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyRECT.cpp" />
@@ -174,9 +176,11 @@
     <ClInclude Include="AladdinSit.h" />
     <ClInclude Include="AladdinSitAttack.h" />
     <ClInclude Include="AladdinStand.h" />
+    <ClInclude Include="AladdinStopWalk.h" />
     <ClInclude Include="AladdinWalk.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameVisibleEntity.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="MyRECT.h" />

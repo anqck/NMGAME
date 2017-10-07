@@ -75,6 +75,12 @@
     <ClCompile Include="AladdinSitAttack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AladdinStopWalk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameVisibleEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ultils.h">
@@ -133,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="AladdinSitAttack.h">
       <Filter>Aladdin</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinStopWalk.h">
+      <Filter>Aladdin</Filter>
+    </ClInclude>
+    <ClInclude Include="GameVisibleEntity.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

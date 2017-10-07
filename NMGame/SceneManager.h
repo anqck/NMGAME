@@ -14,8 +14,9 @@ public:
 	~SceneManager();
 
 	IScene* GetCurrentScene();
-	void Update(float DeltaTime);
-	void ReplaceScene(IScene *scene);
+	void	 Update(float DeltaTime);
+	void	Render(float DeltaTime);
+	void	 ReplaceScene(IScene *scene);
 	//void ReplaceScene(Scene *scenedest, TransitionEffect *effect);
 	//void OnFinishTransition();
 
