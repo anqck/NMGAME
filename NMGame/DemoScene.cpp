@@ -25,12 +25,7 @@ void DemoScene::Update(float DeltaTime)
 
 void DemoScene::Render(float DeltaTime)
 {
-	GLOBAL::GetDirectDevice()->StretchRect(
-		this->mBackground,			// from 
-		NULL,				// which portion?
-		GLOBAL::GetBackBuffer(),		// to 
-		NULL,				// which portion?
-		D3DTEXF_NONE);
+	this->mMap->Render(DeltaTime);
 
 
 	for (int i = 0; i < this->mNumberOfSprite; i++)
@@ -41,23 +36,8 @@ void DemoScene::Render(float DeltaTime)
 
 void DemoScene::LoadResource()
 {
-	this->mBackground = CreateSurfaceFromFile(GLOBAL::GetDirectDevice(), L"Map\\Map1.PNG");
-
-	D3DXIMAGE_INFO mImageInfo;
-	D3DXGetImageInfoFromFile(L"temp.png", &mImageInfo);
-	D3DXCreateTextureFromFileEx(GLOBAL::GetDirectDevice(), L"temp.png", mImageInfo.Width,
-		mImageInfo.Height,
-		1,
-		D3DUSAGE_DYNAMIC,
-		D3DFMT_UNKNOWN,
-		D3DPOOL_DEFAULT,
-		D3DX_DEFAULT,
-		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(255, 0, 255),
-		&mImageInfo,
-		NULL,
-		&imagetex);
-
+	this->mMap = new DemoMap();
+	
 	D3DXVECTOR3 imagepos; //vector for the position of the sprite
 
 	imagepos.x = 40.0f; //coord x of our sprite
@@ -73,9 +53,7 @@ void DemoScene::LoadResource()
 	vector<D3DXVECTOR3> vPos;
 	vPos.push_back(imagepos);
 	vPos.push_back(imagepos1);
-
-	//this->mAladdinHelper = new AladdinHelper(GLOBAL::GetSpriteHandler(), imagepos);
-
+	
 	this->mMainIdx = 0;
 	this->mNumberOfSprite = 1;
 	for (int i = 0; i < this->mNumberOfSprite; i++)
@@ -89,8 +67,6 @@ void DemoScene::LoadResource()
 	}
 	
 
-
-	//GLOBAL::SetSpriteHandler(mAladdinSpriteHandler);
 }
 
 void DemoScene::OnKeyDown(int keyCode)

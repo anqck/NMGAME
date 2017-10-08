@@ -15,5 +15,8 @@ protected:
 	void			Initialize();
 	void			LoadResource();
 	void			Update(float DeltaTime);
+	void			nextFrame();
+
+	bool			flagLoop;
 
 };

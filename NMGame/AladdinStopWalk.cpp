@@ -5,21 +5,26 @@ void AladdinStopWalk::LoadResource()
 	vector<MyRECT> temp;
 	float top = 1280, bottom = 1353;
 
-	temp.push_back(MyRECT(top, 8, 70, bottom));
-	temp.push_back(MyRECT(top, 81, 130, bottom));
-	temp.push_back(MyRECT(top, 128, 187, bottom));
-	temp.push_back(MyRECT(top, 194, 249, bottom));
-	temp.push_back(MyRECT(top, 254, 301, bottom));
-	temp.push_back(MyRECT(top, 301, 365, bottom));
-	temp.push_back(MyRECT(top, 374, 428, bottom));
-	temp.push_back(MyRECT(top, 431, 484, bottom));
-	temp.push_back(MyRECT(top, 487, 550, bottom));
+	temp.push_back(MyRECT(0, 56, 110, 57));
+	temp.push_back(MyRECT(106, 105, 143, 162));
+	temp.push_back(MyRECT(58, 53, 104, 124));
+	temp.push_back(MyRECT(53, 155, 202, 118));
+	temp.push_back(MyRECT(92, 0, 42, 156));
+	temp.push_back(MyRECT(0, 0, 55, 46));
+	temp.push_back(MyRECT(47, 0, 52, 91));
+	temp.push_back(MyRECT(51, 203, 249, 103));
+	temp.push_back(MyRECT(58, 105, 154, 105));
+	temp.push_back(MyRECT(0, 111, 162, 52));
+	temp.push_back(MyRECT(0, 163, 214, 50));
+	temp.push_back(MyRECT(104, 203, 240, 154));
+
+
 
 	this->ANIMATE_RATE = 20;
 	this->mCurrentIdx = 0;
 	this->mEndIdx = temp.size();
 
-	this->mSprite = new Sprite(this->mSpriteHandle, L"Aladdin.png", D3DCOLOR_XRGB(255, 0, 255), temp);
+	this->mSprite = new Sprite(this->mSpriteHandle, L"WalkStop.png", D3DCOLOR_XRGB(255, 0, 255), temp);
 }
 
 void AladdinStopWalk::Animate(float DeltaTime)

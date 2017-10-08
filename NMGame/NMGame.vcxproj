@@ -158,6 +158,7 @@
     <ClCompile Include="AladdinState.cpp" />
     <ClCompile Include="AladdinStopWalk.cpp" />
     <ClCompile Include="AladdinWalk.cpp" />
+    <ClCompile Include="DemoMap.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameLog.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="AladdinState.h" />
     <ClInclude Include="AladdinStopWalk.h" />
     <ClInclude Include="AladdinWalk.h" />
+    <ClInclude Include="DemoMap.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLog.h" />

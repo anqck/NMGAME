@@ -11,7 +11,7 @@ void AladdinAttack1::LoadResource()
 	temp.push_back( MyRECT(top, 168, 256, bottom));
 	temp.push_back( MyRECT(top, 258, 318, bottom));
 
-	this->ANIMATE_RATE = 12;
+	this->ANIMATE_RATE = 15;
 	this->mCurrentIdx = 0;
 	this->mEndIdx = temp.size();
 

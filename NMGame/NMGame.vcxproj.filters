@@ -93,6 +93,9 @@
     <ClCompile Include="AladdinStopWalk.cpp">
       <Filter>Aladdin</Filter>
     </ClCompile>
+    <ClCompile Include="DemoMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ultils.h">
@@ -166,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="AladdinStopWalk.h">
       <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMap.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

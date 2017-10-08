@@ -113,16 +113,14 @@ void Sprite::Render()
 	this->mSpriteHandler->GetTransform(&oldMatrix);
 	this->mSpriteHandler->SetTransform(&mMatrix);
 
-	D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top) / 2, 0);//Tâm của sprite cần vẽ
+	//D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top) / 2, 0);//Tâm của sprite cần vẽ
+	D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top) / 2, 0);
 
 	mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	mSpriteHandler->Draw(
-		mTexture,
-		&mSourceRect,
-		&center,
-		&mPosition,
-		D3DCOLOR_XRGB(255, 255, 255));
+	mSpriteHandler->Draw(mTexture, &mSourceRect, &center, &mPosition, D3DCOLOR_XRGB(255, 255, 255));
+
+
 	mSpriteHandler->End();
 
-	//this->mSpriteHandler->SetTransform(&oldMatrix);
+	this->mSpriteHandler->SetTransform(&oldMatrix);
 }

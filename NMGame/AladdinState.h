@@ -18,7 +18,7 @@ public:
 	virtual void	Update(float DeltaTime);
 	virtual void	Animate(float DeltaTime);
 	void			Move(float delta_time);
-	void			nextFrame();
+	virtual void	nextFrame();
 	void			nextFrameWithoutLoop();
 	void			resetFrame();
 	void			GoToLastFrameIdx();

@@ -1,5 +1,5 @@
 #include "AladdinWalk.h"
-
+#include "GameLog.h"
 
 
 void AladdinWalk::Initialize()
@@ -9,107 +9,32 @@ void AladdinWalk::Initialize()
 
 void AladdinWalk::LoadResource()
 {
-	this->ANIMATE_RATE = 16;
+	this->ANIMATE_RATE = 15;
 	this->mCurrentIdx = 0;
-	this->mEndIdx = 13;
+	
 
 
 	vector<MyRECT> temp;
-	/*RECT rect;
-	rect.top = 1212;
-	rect.bottom = 1275;
-	rect.left = 60;
-	rect.right = 110;
-	temp.push_back(rect);*/
-	for (int i = 1; i <= 13; i++)
-	{
-		MyRECT rect;
-		rect.top = 1212;
-		rect.bottom = 1275;
-		switch (i)
-		{
-		case 1:
-		{
-			rect.left = 9;
-			rect.right = 57;
-			break;
-		}
-		case 2:
-		{
-			rect.left = 60;
-			rect.right = 112;
-			break;
-		}
-		case 3:
-		{
-			rect.left = 117;
-			rect.right = 163;
-			break;
-		}
-		case 4:
-		{
-			rect.left = 161;
-			rect.right = 215;
-			break;
-		}
-		case 5:
-		{
-			rect.left = 216;
-			rect.right = 277;
-			break;
-		}
-		case 6:
-		{
-			rect.left = 276;
-			rect.right = 331;
-			break;
-		}
-		case 7:
-		{
-			rect.left = 329;
-			rect.right = 383;
-			break;
-		}
-		case 8:
-		{
-			rect.left = 378;
-			rect.right = 432;
-			break;
-		}
-		case 9:
-		{
-			rect.left = 429;
-			rect.right = 485;
-			break;
-		}
-		case 10:
-		{
-			rect.left = 486;
-			rect.right = 541;
-			break;
-		}
-		case 11:
-		{
-			rect.left = 544;
-			rect.right = 607;
-			break;
-		}
-		case 12:
-		{
-			rect.left = 607;
-			rect.right = 670;
-			break;
-		}
-		case 13:
-		{
-			rect.left = 670;
-			rect.right = 727;
-			break;
-		}
-		}
-		temp.push_back(rect);
-	}
-	this->mSprite = new Sprite(this->mSpriteHandle, L"Aladdin.png", D3DCOLOR_XRGB(255, 0, 255), temp);
+
+	temp.push_back(MyRECT(117, 42, 82, 165));
+	temp.push_back(MyRECT(56, 103, 146, 107));
+	temp.push_back(MyRECT(117, 83, 120, 167));
+	temp.push_back(MyRECT(0, 0, 55, 58));
+	temp.push_back(MyRECT(0, 56, 111, 55));
+	temp.push_back(MyRECT(0, 159, 203, 57));
+	temp.push_back(MyRECT(59, 189, 230, 112));
+	temp.push_back(MyRECT(58, 147, 188, 115));
+	temp.push_back(MyRECT(59, 0, 52, 116));
+	temp.push_back(MyRECT(0, 112, 158, 54));
+	temp.push_back(MyRECT(0, 204, 246, 58));
+	temp.push_back(MyRECT(117, 0, 41, 169));
+	temp.push_back(MyRECT(116, 121, 155, 170));
+	temp.push_back(MyRECT(59, 53, 102, 116));
+
+
+	this->mEndIdx = temp.size();
+
+	this->mSprite = new Sprite(this->mSpriteHandle, L"AladdinWalk.png", D3DCOLOR_XRGB(255, 0, 255), temp);
 }
 
 void AladdinWalk::Update(float DeltaTime)
@@ -118,4 +43,34 @@ void AladdinWalk::Update(float DeltaTime)
 	this->SetVelocity(((!this->GetFlipVertical()) ? (1.0f) : (-1.0f)) * 0.5f, .0f);
 	this->Move(DeltaTime);
 
+}
+
+void AladdinWalk::nextFrame()
+{
+	if (this->ResetFlag)
+	{
+		flagLoop = false;
+		ResetFlag = false;
+		return;
+	}
+
+	if (flagLoop)
+	{
+		if (mCurrentIdx == mEndIdx - 1)
+			mCurrentIdx = 4;
+		else
+			mCurrentIdx += 1;
+		//mCurrentIdx = (mCurrentIdx + mEndIdx - 1) % (mEndIdx -4) + 4;
+		//printLog( std::to_string(mCurrentIdx).c_str());
+	}
+	else
+	{
+		if (this->GetCurrentIdx() == 4)
+			flagLoop = true;
+
+		mCurrentIdx = (mCurrentIdx + mEndIdx - 1) % mEndIdx;
+	}
+
+	
+	this->mSprite->SetFrame(mCurrentIdx);
 }

@@ -38,7 +38,7 @@ AladdinCharacter::AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3  pos)
 
 void AladdinCharacter::Update(float DeltaTime)
 {
-	switch (this->mCurrentState)
+	/*switch (this->mCurrentState)
 	{
 	case AState::DoNothing:
 		printLog("DoNothing");
@@ -64,7 +64,7 @@ void AladdinCharacter::Update(float DeltaTime)
 	default:
 		printLog("Else");
 		break;
-	}
+	}*/
 
 	this->mAladdinState.at(mCurrentState)->SetFlipVertical((mDir == Direction::Right) ? (false) : (true));
 	this->mAladdinState.at(mCurrentState)->SetPosition(this->mPosition);
@@ -95,11 +95,11 @@ void AladdinCharacter::Update(float DeltaTime)
 			if (this->mTime >= 15 * DeltaTime)
 			{
 				this->mIsStopAnimation = true;
-				printLog("OKOKOKO");
+			//	printLog("OKOKOKO");
 			}
 			else
 			{
-				printLog(std::to_string(mTime).c_str());
+				//printLog(std::to_string(mTime).c_str());
 				this->mTime += DeltaTime;
 			}
 		break;
