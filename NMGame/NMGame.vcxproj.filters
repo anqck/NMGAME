@@ -19,6 +19,9 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{fa8bd96b-37c4-4bda-8c4a-83461c0e8af0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Aladdin\Header">
+      <UniqueIdentifier>{85b884cb-c4c4-4754-8cc1-ff2823563940}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,17 +72,26 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="AladdinSit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AladdinSitAttack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AladdinStopWalk.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameVisibleEntity.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinDoNothing.cpp">
+      <Filter>Aladdin</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinSit.cpp">
+      <Filter>Aladdin</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinSitAttack.cpp">
+      <Filter>Aladdin</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinState.cpp">
+      <Filter>Aladdin</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinStopWalk.cpp">
+      <Filter>Aladdin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,27 +113,6 @@
     <ClInclude Include="MyRECT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AladdinWalk.h">
-      <Filter>Aladdin</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinAttack1.h">
-      <Filter>Aladdin</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinCharacter.h">
-      <Filter>Aladdin</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinHelper.h">
-      <Filter>Aladdin</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinLookUp.h">
-      <Filter>Aladdin</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinRest.h">
-      <Filter>Aladdin</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinStand.h">
-      <Filter>Aladdin</Filter>
-    </ClInclude>
     <ClInclude Include="IScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -134,17 +125,47 @@
     <ClInclude Include="DemoScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="AladdinSit.h">
-      <Filter>Aladdin</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinSitAttack.h">
-      <Filter>Aladdin</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinStopWalk.h">
-      <Filter>Aladdin</Filter>
-    </ClInclude>
     <ClInclude Include="GameVisibleEntity.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLog.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinAttack1.h">
+      <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinDoNothing.h">
+      <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinLookUp.h">
+      <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinRest.h">
+      <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinSit.h">
+      <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinSitAttack.h">
+      <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinStand.h">
+      <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinState.h">
+      <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinWalk.h">
+      <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinCharacter.h">
+      <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinHelper.h">
+      <Filter>Aladdin\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinStopWalk.h">
+      <Filter>Aladdin\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

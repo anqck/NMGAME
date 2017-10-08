@@ -4,6 +4,7 @@
 #define DemoScene_H
 #include "IScene.h"
 #include "AladdinGame.h"
+#include <map>
 
 using namespace std;
 
@@ -25,14 +26,16 @@ public:
 protected:
 	LPDIRECT3DSURFACE9		mBackground;
 	LPDIRECT3DTEXTURE9		imagetex;
-	AladdinHelper			*mAladdinHelper;
+	AladdinCharacter		*mAladdinHelper;
 	AladdinGame				*mGame;
 	bool					allowAttack;
 
 	vector<LPD3DXSPRITE>	mSpriteHandle;
 	int						mNumberOfSprite;
 	int						mMainIdx;
-	vector<AladdinHelper*>	mAladdinHelperArr;
+	vector<AladdinCharacter*>	mAladdinHelperArr;
+
+	std::map<int, bool> keys;
 };
 
 #endif

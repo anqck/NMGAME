@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="AladdinAttack1.cpp" />
     <ClCompile Include="AladdinCharacter.cpp" />
+    <ClCompile Include="AladdinDoNothing.cpp" />
     <ClCompile Include="AladdinGame.cpp" />
     <ClCompile Include="AladdinHelper.cpp" />
     <ClCompile Include="AladdinLookUp.cpp" />
@@ -154,10 +155,12 @@
     <ClCompile Include="AladdinSit.cpp" />
     <ClCompile Include="AladdinSitAttack.cpp" />
     <ClCompile Include="AladdinStand.cpp" />
+    <ClCompile Include="AladdinState.cpp" />
     <ClCompile Include="AladdinStopWalk.cpp" />
     <ClCompile Include="AladdinWalk.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameLog.cpp" />
     <ClCompile Include="GameVisibleEntity.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="main.cpp" />
@@ -169,6 +172,7 @@
   <ItemGroup>
     <ClInclude Include="AladdinAttack1.h" />
     <ClInclude Include="AladdinCharacter.h" />
+    <ClInclude Include="AladdinDoNothing.h" />
     <ClInclude Include="AladdinGame.h" />
     <ClInclude Include="AladdinHelper.h" />
     <ClInclude Include="AladdinLookUp.h" />
@@ -176,10 +180,12 @@
     <ClInclude Include="AladdinSit.h" />
     <ClInclude Include="AladdinSitAttack.h" />
     <ClInclude Include="AladdinStand.h" />
+    <ClInclude Include="AladdinState.h" />
     <ClInclude Include="AladdinStopWalk.h" />
     <ClInclude Include="AladdinWalk.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameLog.h" />
     <ClInclude Include="GameVisibleEntity.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="IScene.h" />

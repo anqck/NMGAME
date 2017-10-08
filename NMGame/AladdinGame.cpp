@@ -17,7 +17,7 @@ AladdinGame::~AladdinGame()
 
 void AladdinGame::LoadResource()
 {
-	
+
 	//Temp code
 	DemoScene* scene = new DemoScene(this);
 	scene->LoadResource();
@@ -29,21 +29,20 @@ void AladdinGame::LoadResource()
 	
 }
 
-void AladdinGame::Update(int DeltaTime)
+void AladdinGame::Update(float DeltaTime)
 {
 	SceneManager::GetInstance()->GetCurrentScene()->Update(DeltaTime);
 }
 
- void AladdinGame::RenderFrame(int DeltaTime)
+ void AladdinGame::RenderFrame(float DeltaTime)
 {
-
-	SceneManager::GetInstance()->GetCurrentScene()->Render(DeltaTime);
-
-
+	
+	 SceneManager::GetInstance()->GetCurrentScene()->Render(DeltaTime);
 }
 
  void AladdinGame::ProcessInput(int Delta)
  {
+	 _Keyboard->Acquire();
 	 SceneManager::GetInstance()->GetCurrentScene()->ProcessInput();
  }
 

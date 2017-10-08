@@ -29,7 +29,7 @@ void AladdinStopWalk::Animate(float DeltaTime)
 
 	{
 
-		this->mSprite->FlipVertical(this->mIsFlipVertical);
+		//this->mSprite->FlipVertical(this->mIsFlipVertical);
 
 		this->nextFrameWithoutLoop();
 

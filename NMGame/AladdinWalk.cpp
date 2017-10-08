@@ -9,7 +9,7 @@ void AladdinWalk::Initialize()
 
 void AladdinWalk::LoadResource()
 {
-	this->ANIMATE_RATE = 21;
+	this->ANIMATE_RATE = 16;
 	this->mCurrentIdx = 0;
 	this->mEndIdx = 13;
 
@@ -110,4 +110,12 @@ void AladdinWalk::LoadResource()
 		temp.push_back(rect);
 	}
 	this->mSprite = new Sprite(this->mSpriteHandle, L"Aladdin.png", D3DCOLOR_XRGB(255, 0, 255), temp);
+}
+
+void AladdinWalk::Update(float DeltaTime)
+{
+	this->Animate(DeltaTime);
+	this->SetVelocity(((!this->GetFlipVertical()) ? (1.0f) : (-1.0f)) * 0.5f, .0f);
+	this->Move(DeltaTime);
+
 }

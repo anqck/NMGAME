@@ -1,17 +1,16 @@
 #pragma once
 
-#include "AladdinCharacter.h"
+#include "AladdinState.h"
 
-class AladdinSitAttack : public AladdinCharacter
+class AladdinSitAttack : public AladdinState
 {
 public:
-	AladdinSitAttack() : AladdinCharacter() { this->LoadResource(); };
-	AladdinSitAttack(LPD3DXSPRITE SpriteHandle) : AladdinCharacter(SpriteHandle) { this->LoadResource(); };
-	AladdinSitAttack(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3 Position) : AladdinCharacter(SpriteHandle, Position) { this->LoadResource(); };
-	AladdinSitAttack(LPD3DXSPRITE SpriteHandle, int X, int Y) : AladdinCharacter(SpriteHandle, X, Y) { this->LoadResource(); };
+	AladdinSitAttack() : AladdinState() { this->LoadResource(); };
+	AladdinSitAttack(LPD3DXSPRITE SpriteHandle) : AladdinState(SpriteHandle) { this->LoadResource(); };
+	AladdinSitAttack(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3 Position) : AladdinState(SpriteHandle, Position) { this->LoadResource(); };
+	AladdinSitAttack(LPD3DXSPRITE SpriteHandle, int X, int Y) : AladdinState(SpriteHandle, X, Y) { this->LoadResource(); };
 	~AladdinSitAttack();
 
-	void			 Draw();
 protected:
 	void			Initialize();
 	void			LoadResource();

@@ -1,58 +1,80 @@
 ﻿#pragma once
 #include "Global.h"
-#include "Sprite.h"
+#include "AladdinDoNothing.h"
+#include "AladdinState.h"
+#include "AladdinWalk.h"
+#include "AladdinStopWalk.h"
+#include "AladdinLookUp.h"
+#include "AladdinRest.h"
+#include "AladdinStand.h"
+#include "AladdinAttack1.h"
+#include "AladdinSit.h"
+#include "AladdinSitAttack.h"
+#include "GameLog.h"
+#include "GameVisibleEntity.h"
 #include "MyRECT.h"
+#include <vector>
+#include <map>
 
-class AladdinCharacter
+enum AState
+{
+	DoNothing,
+	Walk,
+	StopWalk,
+	LookUp,
+	Stand,
+	Sit,
+	Rest,
+	SitAttack,
+	Attack1
+};
+
+enum Direction
+{
+	Left,
+	Right,
+	Up,
+	Down
+};
+
+class AladdinCharacter : public GameVisibleEntity
 {
 public:
 	AladdinCharacter();
-	AladdinCharacter(LPD3DXSPRITE SpriteHandle);
-	AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3 Position);
-	AladdinCharacter(LPD3DXSPRITE SpriteHandle, int X, int Y);
-	~AladdinCharacter();
+	AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3	pos);
 
-	void			Draw();			//
-	virtual void	Animate(float DeltaTime);
-	void			Move(int delta_time);
-	void			nextFrame();
-	void			nextFrameWithoutLoop();
-	void			resetFrame();
 
-	D3DXVECTOR3			GetPosition();
-	void				SetPosition(D3DXVECTOR3 Position);
-	void				SetPosition(int X, int Y);
+	void			Update(float DeltaTime);
+	void			Render(float DeltaTime);			//
+	void			OnKeyDown(int keyCode);
+	void			OnKeyUp(int keyCode);
+	void			ProcessInput(std::map<int, bool> keys);
 
-	D3DXVECTOR2			GetVelocity();
-	void				SetVelocity(D3DXVECTOR2 Velocity);
-	void				SetVelocity(float X, float Y);
+	AState			getCurrentState();
+	void			setCurrentState(AState state);
 
-	bool				GetFlipVertical();
-	void				SetFlipVertical(bool flipV);
+	void			setDirection(Direction dir);
 
-	int					GetCurrentIdx();
-	int					GetEndIdx();
+	void			setAllowStateChange(bool allow);
 
-	void				GoToLastFrameIdx();
+
 
 protected:
-	Sprite*				mSprite;
-	LPD3DXSPRITE		mSpriteHandle;
-	int					mStartIdx;		//Index bắt đầu của các Rect chứa các Sprite
-	int					mEndIdx;		//
-	int					mCurrentIdx;	//Index hiện tại
-	D3DXVECTOR3			mPosition;		//Vị trí của Aladdin
-	D3DXVECTOR2			mVelocity;		//Vận tốc hiện tại của Aladdin
-	D3DXVECTOR2			mDefaultSpeed;	//Vận tốc mặc định khi di chuyển
-	bool				mIsFlipVertical; //Lat hinh doc
-	DWORD last_time;	 // this is to control the animate rate of kitty
+	vector<AladdinState*>	mAladdinState;
+	AState					mCurrentState;
+	Direction				mDir;
+	//LPD3DXSPRITE			mSpriteHandle;
+	//D3DXVECTOR3				mPosition;
 
-	//float       mTimePerFrame, //thoi gian luan chuyen 1 frame
-	//			mCurrentTotalTime;
-	int ANIMATE_RATE;
+	bool					allowStateChange;
+	//float					mTime;
+	float					mStopWalkThresHold;
+	bool					mIsStopAnimation;
+
+	bool					allowAttack;
+
+	void					_BeforeStateChange(AState changeTo);
+	void					_AfterStateChange();
+
 	
-
-
-
-
 };

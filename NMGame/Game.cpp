@@ -13,19 +13,19 @@ void GAME::_ProcessKeyBoard()
 	}
 
 	// Collect all buffered events
-	//DWORD dwElements = KEYBOARD_BUFFER_SIZE;
-	//HRESULT hr = _Keyboard->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), _KeyEvents, &dwElements, 0);
+	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
+	HRESULT hr = _Keyboard->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), _KeyEvents, &dwElements, 0);
 
-	//// Scan through all data, check if the key is pressed or released
-	//for (DWORD i = 0; i < dwElements; i++)
-	//{
-	//	int KeyCode = _KeyEvents[i].dwOfs;
-	//	int KeyState = _KeyEvents[i].dwData;
-	//	if ((KeyState & 0x80) > 0)
-	//		OnKeyDown(KeyCode);
-	//	else
-	//		OnKeyUp(KeyCode);
-	//}
+	// Scan through all data, check if the key is pressed or released
+	for (DWORD i = 0; i < dwElements; i++)
+	{
+		int KeyCode = _KeyEvents[i].dwOfs;
+		int KeyState = _KeyEvents[i].dwData;
+		if ((KeyState & 0x80) > 0)
+			OnKeyDown(KeyCode);
+		else
+			OnKeyUp(KeyCode);
+	}
 }
 
 GAME::GAME(HINSTANCE hInstance, LPWSTR Name, int windowsWidth, int windowsHeight, int IsFullScreen, int FrameRate)
@@ -53,7 +53,7 @@ void GAME::Initialize()
 	this->InitWindows();
 	this->InitDevice();
 	this->InitKeyboard();
-	this->LoadResource();
+	this->LoadResource();	
 }
 
 void GAME::Run()
@@ -78,7 +78,8 @@ void GAME::Run()
 		{
 			frameStart = now;
 			Update(_DeltaTime);
-			_RenderFrame();			
+			_RenderFrame();	
+			
 		}
 
 		_ProcessKeyBoard();
@@ -198,7 +199,7 @@ void GAME::InitDevice()
 
 	GLOBAL::SetBackBuffer(backbuffer);
 
-	LPD3DXSPRITE spriteHandler;
+	/*LPD3DXSPRITE spriteHandler;
 
 	if (D3DXCreateSprite(GLOBAL::GetDirectDevice(), &spriteHandler) != D3D_OK)
 	{
@@ -206,7 +207,7 @@ void GAME::InitDevice()
 		return;
 	}
 
-	GLOBAL::SetSpriteHandler(spriteHandler);
+	GLOBAL::SetSpriteHandler(spriteHandler);*/
 }
 
 void GAME::InitKeyboard()
@@ -293,7 +294,7 @@ void GAME::_RenderFrame()
 	GLOBAL::GetDirectDevice()->Present(NULL, NULL, NULL, NULL);
 }
 
-void GAME::RenderFrame(int DeltaTime)
+void GAME::RenderFrame(float DeltaTime)
 {
 
 	if (GLOBAL::GetDirectDevice()->BeginScene())
@@ -304,7 +305,7 @@ void GAME::RenderFrame(int DeltaTime)
 	GLOBAL::GetDirectDevice()->Present(NULL, NULL, NULL, NULL);
 }
 
-void GAME::Update(int DeltaTime)
+void GAME::Update(float DeltaTime)
 {
 	
 }

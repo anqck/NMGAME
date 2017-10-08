@@ -32,6 +32,7 @@ void DemoScene::Render(float DeltaTime)
 		NULL,				// which portion?
 		D3DTEXF_NONE);
 
+
 	for (int i = 0; i < this->mNumberOfSprite; i++)
 	{
 		this->mAladdinHelperArr.at(i)->Render(DeltaTime);
@@ -76,7 +77,7 @@ void DemoScene::LoadResource()
 	//this->mAladdinHelper = new AladdinHelper(GLOBAL::GetSpriteHandler(), imagepos);
 
 	this->mMainIdx = 0;
-	this->mNumberOfSprite = 2;
+	this->mNumberOfSprite = 1;
 	for (int i = 0; i < this->mNumberOfSprite; i++)
 	{
 		LPD3DXSPRITE temp;
@@ -84,7 +85,7 @@ void DemoScene::LoadResource()
 		this->mSpriteHandle.push_back(temp);
 
 
-		this->mAladdinHelperArr.push_back(new AladdinHelper(temp, vPos.at(i)));
+		this->mAladdinHelperArr.push_back(new AladdinCharacter(temp, vPos.at(i)));
 	}
 	
 
@@ -94,71 +95,21 @@ void DemoScene::LoadResource()
 
 void DemoScene::OnKeyDown(int keyCode)
 {
+
+	keys[keyCode] = true;
 	//this->mAladdinHelperArr.at(mMainIdx)->setAllowStateChange(true);
+	this->mAladdinHelperArr.at(mMainIdx)->OnKeyDown(keyCode);
 
-	switch (keyCode)
-	{
-	case VK_SPACE:
-
-		if (allowAttack && (this->mAladdinHelperArr.at(mMainIdx)->getAladdinState() != AladdinState::Attack1) && (this->mAladdinHelperArr.at(mMainIdx)->getAladdinState() != AladdinState::SitAttack))
-		{
-			allowAttack = false;
-			this->mAladdinHelperArr.at(mMainIdx)->setAllowStateChange(true);
-
-			if (this->mAladdinHelperArr.at(mMainIdx)->getAladdinState() == AladdinState::Sit)
-				this->mAladdinHelperArr.at(mMainIdx)->setAladdinState(AladdinState::SitAttack);
-			else
-  				this->mAladdinHelperArr.at(mMainIdx)->setAladdinState(AladdinState::Attack1);
-		}
-		break;
-	default:
-		this->mAladdinHelperArr.at(mMainIdx)->setAllowStateChange(true);
-		break;
-	}
 }
 
 void DemoScene::OnKeyUp(int keyCode)
 {
-
-	if (keyCode == VK_SPACE)
-	{
-		allowAttack = true;
-		
-	}
+	keys[keyCode] = false;
+	this->mAladdinHelperArr.at(mMainIdx)->OnKeyUp(keyCode);
 }
 
 void DemoScene::ProcessInput()
 {
+	this->mAladdinHelperArr.at(mMainIdx)->ProcessInput(keys);	
 
-	if (this->mGame->IsKeyDown(DIK_RIGHT))
-	{
-	 this->mAladdinHelperArr.at(mMainIdx)->setAladdinState(AladdinState::Walk);
-	 this->mAladdinHelperArr.at(mMainIdx)->setDirection(Direction::Right);
-	
-	}
-	else if (this->mGame->IsKeyDown(DIK_LEFT))
-	{
-	 this->mAladdinHelperArr.at(mMainIdx)->setAladdinState(AladdinState::Walk);
-	 this->mAladdinHelperArr.at(mMainIdx)->setDirection(Direction::Left);
-
-	}
-	else if (this->mGame->IsKeyDown(DIK_UP))
-	{
-	 this->mAladdinHelperArr.at(mMainIdx)->setAladdinState(AladdinState::LookUp);
-	}
-	else if (this->mGame->IsKeyDown(DIK_DOWN))
-	{
-		
-			this->mAladdinHelperArr.at(mMainIdx)->setAladdinState(AladdinState::Sit);
-	}
-	else if (this->mGame->IsKeyDown(VK_SPACE))
-	{
-		
-		
-	}
-	else
-	{
-	 this->mAladdinHelperArr.at(mMainIdx)->setAladdinState(AladdinState::DoNothing);
-
-	}
 }

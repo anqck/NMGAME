@@ -1,11 +1,13 @@
 #pragma once
 
 #include<Windows.h>
+
 #include<d3d9.h>
 #include<d3dx9.h>
 
 class GLOBAL
 {
+	//typedef int(*FPTR)(int a);
 public:
 	GLOBAL();
 	~GLOBAL();
@@ -22,10 +24,7 @@ public:
 	static	void							SetDirectDevice(LPDIRECT3DDEVICE9 device) { GLOBAL::mDirectDevice = device; }
 
 	static	LPDIRECT3DSURFACE9				GetBackBuffer() { return GLOBAL::mBackBuffer; }
-	static	void							SetBackBuffer(LPDIRECT3DSURFACE9 backbuffer) { GLOBAL::mBackBuffer = backbuffer; }
-
-	static	LPD3DXSPRITE					GetSpriteHandler() { return GLOBAL::mAladdinSpriteHandler; }
-	static	void							SetSpriteHandler(LPD3DXSPRITE spriteHandler) { GLOBAL::mAladdinSpriteHandler = spriteHandler; }
+	static	void							SetBackBuffer(LPDIRECT3DSURFACE9 backbuffer) { GLOBAL::mBackBuffer = backbuffer; }	
 
 	static	bool							GetFullScreen() { return GLOBAL::misFullScreen; }
 	static	void							SetFullScreen(bool fullscreen) { GLOBAL::misFullScreen = fullscreen; }
@@ -41,6 +40,12 @@ public:
 
 	static	int								GetFrameRate() { return GLOBAL::mFrameRate; }
 	static	void							SetFrameRate(int frameRate) { GLOBAL::mFrameRate = frameRate; }
+
+	static	LPD3DXSPRITE					GetSpriteHandler() { return GLOBAL::mAladdinSpriteHandler; }
+	static	void							SetSpriteHandler(LPD3DXSPRITE spriteHandler) { GLOBAL::mAladdinSpriteHandler = spriteHandler; }
+
+	//static	FPTR							cb;
+	
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------

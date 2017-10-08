@@ -4,9 +4,8 @@
 #include "Game.h"
 #include "Sprite.h"
 #include "AladdinHelper.h"
-
-
 #include "SceneManager.h"
+
 #include <vector>
 
 class AladdinGame :public GAME
@@ -30,8 +29,8 @@ protected:
 
 	virtual void			ProcessInput(int Delta);
 	virtual void			LoadResource();
-	virtual void			Update(int DeltaTime);
-	virtual void			RenderFrame(int Delta);
+	void					Update(float DeltaTime) ;
+	virtual void			RenderFrame(float Delta);
 	virtual void			OnKeyDown(int KeyCode);
 };
 

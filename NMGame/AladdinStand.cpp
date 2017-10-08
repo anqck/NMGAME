@@ -19,7 +19,7 @@ void AladdinStand::LoadResource()
 	temp.push_back(MyRECT(top, 243, 294, bottom));
 	temp.push_back(MyRECT(top, 191, 241, bottom));
 
-	this->ANIMATE_RATE = 10;
+	this->ANIMATE_RATE = 7;
 	this->mCurrentIdx = 0;
 	this->mEndIdx = temp.size();
 
