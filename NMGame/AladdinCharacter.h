@@ -1,17 +1,8 @@
 ﻿#pragma once
 #include "Global.h"
-#include "AladdinDoNothing.h"
-#include "AladdinState.h"
-#include "AladdinWalk.h"
-#include "AladdinStopWalk.h"
-#include "AladdinLookUp.h"
-#include "AladdinRest.h"
-#include "AladdinStand.h"
-#include "AladdinAttack1.h"
-#include "AladdinSit.h"
-#include "AladdinSitAttack.h"
 #include "GameLog.h"
 #include "GameVisibleEntity.h"
+#include "ObjectStateWithLoop.h"
 #include "MyRECT.h"
 #include <vector>
 #include <map>
@@ -26,7 +17,9 @@ enum AState
 	Sit,
 	Rest,
 	SitAttack,
-	Attack1
+	Attack1,
+	RopeClimb,
+	RunAndJump
 };
 
 enum Direction
@@ -48,7 +41,7 @@ public:
 	void			Render(float DeltaTime);			//
 	void			OnKeyDown(int keyCode);
 	void			OnKeyUp(int keyCode);
-	void			ProcessInput(std::map<int, bool> keys);
+	void			ProcessInput();
 
 	AState			getCurrentState();
 	void			setCurrentState(AState state);
@@ -60,7 +53,10 @@ public:
 
 
 protected:
-	vector<AladdinState*>	mAladdinState;
+	//vector<AladdinState*>	mAladdinState;
+
+	vector<ObjectState*>	mAladdinState;
+
 	AState					mCurrentState;
 	Direction				mDir;
 	//LPD3DXSPRITE			mSpriteHandle;
@@ -72,6 +68,7 @@ protected:
 	bool					mIsStopAnimation;
 
 	bool					allowAttack;
+	bool					allowAction;
 
 	void					_BeforeStateChange(AState changeTo);
 	void					_AfterStateChange();

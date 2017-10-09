@@ -28,9 +28,11 @@ void DemoScene::Render(float DeltaTime)
 {
 	this->mMap->Render(DeltaTime);
 
+	this->mCamel->Render(DeltaTime);
+
 	this->mAladdinHelperArr.at(0)->Render(DeltaTime);
 
-	this->mCamel->Render(DeltaTime);
+	
 
 	/*for (int i = 0; i < this->mNumberOfSprite; i++)
 	{
@@ -76,7 +78,7 @@ void DemoScene::LoadResource()
 void DemoScene::OnKeyDown(int keyCode)
 {
 
-	keys[keyCode] = true;
+
 	//this->mAladdinHelperArr.at(mMainIdx)->setAllowStateChange(true);
 	this->mAladdinHelperArr.at(mMainIdx)->OnKeyDown(keyCode);
 
@@ -84,12 +86,12 @@ void DemoScene::OnKeyDown(int keyCode)
 
 void DemoScene::OnKeyUp(int keyCode)
 {
-	keys[keyCode] = false;
+
 	this->mAladdinHelperArr.at(mMainIdx)->OnKeyUp(keyCode);
 }
 
 void DemoScene::ProcessInput()
 {
-	this->mAladdinHelperArr.at(mMainIdx)->ProcessInput(keys);	
+	this->mAladdinHelperArr.at(mMainIdx)->ProcessInput();	
 
 }

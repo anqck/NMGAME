@@ -145,19 +145,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AladdinAttack1.cpp" />
     <ClCompile Include="AladdinCharacter.cpp" />
-    <ClCompile Include="AladdinDoNothing.cpp" />
     <ClCompile Include="AladdinGame.cpp" />
     <ClCompile Include="AladdinHelper.cpp" />
-    <ClCompile Include="AladdinLookUp.cpp" />
-    <ClCompile Include="AladdinRest.cpp" />
-    <ClCompile Include="AladdinSit.cpp" />
-    <ClCompile Include="AladdinSitAttack.cpp" />
-    <ClCompile Include="AladdinStand.cpp" />
     <ClCompile Include="AladdinState.cpp" />
-    <ClCompile Include="AladdinStopWalk.cpp" />
-    <ClCompile Include="AladdinWalk.cpp" />
     <ClCompile Include="Camel.cpp" />
     <ClCompile Include="DemoMap.cpp" />
     <ClCompile Include="DemoScene.cpp" />
@@ -165,26 +156,20 @@
     <ClCompile Include="GameLog.cpp" />
     <ClCompile Include="GameVisibleEntity.cpp" />
     <ClCompile Include="Global.cpp" />
+    <ClCompile Include="KeyboardHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyRECT.cpp" />
+    <ClCompile Include="ObjectState.cpp" />
+    <ClCompile Include="ObjectStateWithLoop.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Ultils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AladdinAttack1.h" />
     <ClInclude Include="AladdinCharacter.h" />
-    <ClInclude Include="AladdinDoNothing.h" />
     <ClInclude Include="AladdinGame.h" />
     <ClInclude Include="AladdinHelper.h" />
-    <ClInclude Include="AladdinLookUp.h" />
-    <ClInclude Include="AladdinRest.h" />
-    <ClInclude Include="AladdinSit.h" />
-    <ClInclude Include="AladdinSitAttack.h" />
-    <ClInclude Include="AladdinStand.h" />
     <ClInclude Include="AladdinState.h" />
-    <ClInclude Include="AladdinStopWalk.h" />
-    <ClInclude Include="AladdinWalk.h" />
     <ClInclude Include="Camel.h" />
     <ClInclude Include="DemoMap.h" />
     <ClInclude Include="DemoScene.h" />
@@ -193,11 +178,17 @@
     <ClInclude Include="GameVisibleEntity.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="IScene.h" />
+    <ClInclude Include="KeyboardHelper.h" />
     <ClInclude Include="MyRECT.h" />
+    <ClInclude Include="ObjectState.h" />
+    <ClInclude Include="ObjectStateWithLoop.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Ultils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

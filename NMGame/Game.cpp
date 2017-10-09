@@ -52,7 +52,8 @@ void GAME::Initialize()
 {
 	this->InitWindows();
 	this->InitDevice();
-	this->InitKeyboard();
+	//this->InitKeyboard();
+	KeyboardHelper::GetInstance()->Initialize();
 	this->LoadResource();	
 }
 
@@ -82,7 +83,7 @@ void GAME::Run()
 			
 		}
 
-		_ProcessKeyBoard();
+		//_ProcessKeyBoard();
 		ProcessInput(_DeltaTime);
 		
 	}

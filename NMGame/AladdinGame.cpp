@@ -42,7 +42,7 @@ void AladdinGame::Update(float DeltaTime)
 
  void AladdinGame::ProcessInput(int Delta)
  {
-	 _Keyboard->Acquire();
+	 KeyboardHelper::GetInstance()->Acquire();
 	 SceneManager::GetInstance()->GetCurrentScene()->ProcessInput();
  }
 

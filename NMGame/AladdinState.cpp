@@ -75,7 +75,6 @@ void AladdinState::nextFrame()
 		return;
 	}
 
-
 	mCurrentIdx = (mCurrentIdx + mEndIdx - 1) % mEndIdx;
 	this->mSprite->SetFrame(mCurrentIdx);
 }

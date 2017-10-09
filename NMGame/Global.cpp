@@ -13,6 +13,8 @@ LPWSTR							GLOBAL::mGameName = L"TEST GAME";
 int								GLOBAL::mFrameRate;
 int								GLOBAL::mCurrentFrame = 0;
 LPD3DXSPRITE					GLOBAL::mAladdinSpriteHandler = NULL;
+LPDIRECTINPUT8				GLOBAL::mDirectInput = NULL;
+LPDIRECTINPUTDEVICE8		GLOBAL::mDirectInputKeyboard = NULL;
 
 
 GLOBAL::GLOBAL()
@@ -23,6 +25,26 @@ GLOBAL::GLOBAL()
 
 GLOBAL::~GLOBAL()
 {
+}
+
+LPDIRECTINPUT8 GLOBAL::GetDirectInput()
+{
+	return GLOBAL::mDirectInput;
+}
+
+void GLOBAL::SetDirectInput(LPDIRECTINPUT8 dinput)
+{
+	GLOBAL::mDirectInput = dinput;
+}
+
+LPDIRECTINPUTDEVICE8 GLOBAL::GetDirectInputKeyboard()
+{
+	return GLOBAL::mDirectInputKeyboard;
+}
+
+void GLOBAL::SetDirectInputKeyboard(LPDIRECTINPUTDEVICE8 dinputdev)
+{
+	GLOBAL::mDirectInputKeyboard = dinputdev;
 }
 
 

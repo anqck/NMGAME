@@ -1,9 +1,10 @@
 #pragma once
 
 #include<Windows.h>
-
+#include<dinput.h>
 #include<d3d9.h>
 #include<d3dx9.h>
+
 
 class GLOBAL
 {
@@ -44,6 +45,12 @@ public:
 	static	LPD3DXSPRITE					GetSpriteHandler() { return GLOBAL::mAladdinSpriteHandler; }
 	static	void							SetSpriteHandler(LPD3DXSPRITE spriteHandler) { GLOBAL::mAladdinSpriteHandler = spriteHandler; }
 
+
+	static LPDIRECTINPUT8		GetDirectInput();
+	static void					SetDirectInput(LPDIRECTINPUT8 dinput);
+	
+	static LPDIRECTINPUTDEVICE8	GetDirectInputKeyboard();
+	static void					SetDirectInputKeyboard(LPDIRECTINPUTDEVICE8 dinputdev);
 	//static	FPTR							cb;
 	
 
@@ -62,5 +69,7 @@ private:
 	static	LPWSTR							mGameName;
 	static	int								mFrameRate; 
 	static	int								mCurrentFrame;
+	static LPDIRECTINPUT8			mDirectInput;
+	static LPDIRECTINPUTDEVICE8		mDirectInputKeyboard;
 };
 

@@ -6,7 +6,7 @@
 #include "AladdinGame.h"
 #include "Camel.h"
 #include "DemoMap.h"
-#include <map>
+
 
 using namespace std;
 
