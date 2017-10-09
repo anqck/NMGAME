@@ -17,6 +17,7 @@ DemoScene::~DemoScene()
 void DemoScene::Update(float DeltaTime)
 {
 	//this->mAladdinHelper->Update(DeltaTime);	
+	this->mCamel->Update(DeltaTime);
 	for (int i = 0; i < this->mNumberOfSprite; i++)
 	{
 		this->mAladdinHelperArr.at(i)->Update(DeltaTime);
@@ -27,11 +28,14 @@ void DemoScene::Render(float DeltaTime)
 {
 	this->mMap->Render(DeltaTime);
 
+	this->mAladdinHelperArr.at(0)->Render(DeltaTime);
 
-	for (int i = 0; i < this->mNumberOfSprite; i++)
+	this->mCamel->Render(DeltaTime);
+
+	/*for (int i = 0; i < this->mNumberOfSprite; i++)
 	{
 		this->mAladdinHelperArr.at(i)->Render(DeltaTime);
-	}
+	}*/
 }
 
 void DemoScene::LoadResource()
@@ -55,16 +59,16 @@ void DemoScene::LoadResource()
 	vPos.push_back(imagepos1);
 	
 	this->mMainIdx = 0;
-	this->mNumberOfSprite = 1;
+	this->mNumberOfSprite = 2;
+
+	
+
 	for (int i = 0; i < this->mNumberOfSprite; i++)
 	{
-		LPD3DXSPRITE temp;
-		D3DXCreateSprite(GLOBAL::GetDirectDevice(), &temp);		
-		this->mSpriteHandle.push_back(temp);
-
-
-		this->mAladdinHelperArr.push_back(new AladdinCharacter(temp, vPos.at(i)));
+				this->mAladdinHelperArr.push_back(new AladdinCharacter(GLOBAL::GetSpriteHandler(), vPos.at(i)));
 	}
+
+	this->mCamel = new Camel(imagepos1);
 	
 
 }

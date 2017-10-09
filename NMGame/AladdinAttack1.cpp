@@ -11,11 +11,11 @@ void AladdinAttack1::LoadResource()
 	temp.push_back( MyRECT(top, 168, 256, bottom));
 	temp.push_back( MyRECT(top, 258, 318, bottom));
 
-	this->ANIMATE_RATE = 15;
+	this->ANIMATE_RATE = 13;
 	this->mCurrentIdx = 0;
 	this->mEndIdx = temp.size();
 
-	this->mSprite = new Sprite(this->mSpriteHandle, L"Aladdin.png", D3DCOLOR_XRGB(255, 0, 255), temp);
+	this->mSprite = new Sprite( L"Aladdin.png", D3DCOLOR_XRGB(255, 0, 255), temp);
 }
 
 void AladdinAttack1::Update(float DeltaTime)

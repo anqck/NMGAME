@@ -24,7 +24,7 @@ void AladdinStopWalk::LoadResource()
 	this->mCurrentIdx = 0;
 	this->mEndIdx = temp.size();
 
-	this->mSprite = new Sprite(this->mSpriteHandle, L"WalkStop.png", D3DCOLOR_XRGB(255, 0, 255), temp);
+	this->mSprite = new Sprite( L"WalkStop.png", D3DCOLOR_XRGB(255, 0, 255), temp);
 }
 
 void AladdinStopWalk::Animate(float DeltaTime)

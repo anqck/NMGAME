@@ -64,7 +64,7 @@ protected:
 	AState					mCurrentState;
 	Direction				mDir;
 	//LPD3DXSPRITE			mSpriteHandle;
-	//D3DXVECTOR3				mPosition;
+	//D3DXVECTOR3			mPosition;
 
 	bool					allowStateChange;
 	//float					mTime;

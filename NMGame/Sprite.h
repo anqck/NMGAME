@@ -26,7 +26,7 @@ protected:
 	bool					isFlipVertical;		// Lât hình theo trục dọc
 
 public:
-	Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect);
+	Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect);
 	~Sprite();
 
 	void Next(); // ???

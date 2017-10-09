@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "AladdinState.h"
 
 
@@ -17,6 +17,6 @@ protected:
 	void			Update(float DeltaTime);
 	void			nextFrame();
 
-	bool			flagLoop;
+	bool			flagLoop; // Cờ lặp từ frame số 4
 
 };

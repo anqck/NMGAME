@@ -1,8 +1,8 @@
 ﻿#include "Sprite.h"
 
-Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect)
+Sprite::Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect)
 {
-	mSpriteHandler = SpriteHandler;
+	mSpriteHandler = GLOBAL::GetSpriteHandler();
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
 	this->mListRect = listSourceRect;
 	mSourceRect = listSourceRect.at(0);

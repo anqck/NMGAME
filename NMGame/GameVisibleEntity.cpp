@@ -2,10 +2,17 @@
 
 GameVisibleEntity::GameVisibleEntity()
 {
+	this->mPosition = D3DXVECTOR3(0, 0, 0);
 }
 
-GameVisibleEntity::GameVisibleEntity(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3 pos)
+
+GameVisibleEntity::GameVisibleEntity( D3DXVECTOR3 pos)
 {
-	this->mSpriteHandle = SpriteHandle;
 	this->mPosition = pos;
+}
+
+GameVisibleEntity::GameVisibleEntity( int X, int Y)
+{
+	this->mPosition.x = X;
+	this->mPosition.y = Y;
 }

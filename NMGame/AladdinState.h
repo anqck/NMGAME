@@ -5,7 +5,7 @@
 #include "Sprite.h"
 #include "MyRECT.h"
 
-class AladdinState
+class AladdinState 
 {
 public:
 	AladdinState();
@@ -14,7 +14,7 @@ public:
 	AladdinState(LPD3DXSPRITE SpriteHandle, int X, int Y);
 	~AladdinState();
 
-	virtual void	Render();
+	virtual void	Render() ;
 	virtual void	Update(float DeltaTime);
 	virtual void	Animate(float DeltaTime);
 	void			Move(float delta_time);
@@ -49,9 +49,8 @@ public:
 	D3DXVECTOR2			mDefaultSpeed;	//Vận tốc mặc định khi di chuyển
 	bool				mIsFlipVertical; //Lat hinh doc
 	DWORD last_time;	 // this is to control the animate rate of kitty
-
-						 //float       mTimePerFrame, //thoi gian luan chuyen 1 frame
-						 //			mCurrentTotalTime;
 	int ANIMATE_RATE;
+
+	
 	bool				ResetFlag;
 };

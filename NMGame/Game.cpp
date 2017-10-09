@@ -199,7 +199,7 @@ void GAME::InitDevice()
 
 	GLOBAL::SetBackBuffer(backbuffer);
 
-	/*LPD3DXSPRITE spriteHandler;
+	LPD3DXSPRITE spriteHandler;
 
 	if (D3DXCreateSprite(GLOBAL::GetDirectDevice(), &spriteHandler) != D3D_OK)
 	{
@@ -207,7 +207,9 @@ void GAME::InitDevice()
 		return;
 	}
 
-	GLOBAL::SetSpriteHandler(spriteHandler);*/
+	GLOBAL::SetSpriteHandler(spriteHandler);
+
+
 }
 
 void GAME::InitKeyboard()

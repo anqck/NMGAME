@@ -16,7 +16,7 @@ void AladdinSitAttack::LoadResource()
 	this->mCurrentIdx = 0;
 	this->mEndIdx = temp.size();
 
-	this->mSprite = new Sprite(this->mSpriteHandle, L"Aladdin.png", D3DCOLOR_XRGB(255, 0, 255), temp);
+	this->mSprite = new Sprite( L"Aladdin.png", D3DCOLOR_XRGB(255, 0, 255), temp);
 }
 
 void AladdinSitAttack::Animate(float DeltaTime)

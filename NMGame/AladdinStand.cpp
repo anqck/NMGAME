@@ -23,7 +23,7 @@ void AladdinStand::LoadResource()
 	this->mCurrentIdx = 0;
 	this->mEndIdx = temp.size();
 
-	this->mSprite = new Sprite(this->mSpriteHandle, L"AladdinStand.png", D3DCOLOR_XRGB(255, 0, 255), temp);
+	this->mSprite = new Sprite( L"AladdinStand.png", D3DCOLOR_XRGB(255, 0, 255), temp);
 }
 
 void AladdinStand::Animate(float DeltaTime)

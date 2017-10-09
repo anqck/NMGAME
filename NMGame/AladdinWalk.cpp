@@ -34,7 +34,7 @@ void AladdinWalk::LoadResource()
 
 	this->mEndIdx = temp.size();
 
-	this->mSprite = new Sprite(this->mSpriteHandle, L"AladdinWalk.png", D3DCOLOR_XRGB(255, 0, 255), temp);
+	this->mSprite = new Sprite( L"AladdinWalk.png", D3DCOLOR_XRGB(255, 0, 255), temp);
 }
 
 void AladdinWalk::Update(float DeltaTime)
