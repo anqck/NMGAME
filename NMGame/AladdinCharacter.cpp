@@ -1,4 +1,4 @@
-#include "AladdinCharacter.h"
+﻿#include "AladdinCharacter.h"
 
 #include"KeyboardHelper.h"
 #include <dinput.h>
@@ -64,7 +64,7 @@ AladdinCharacter::AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3  pos)
 	temp.push_back(MyRECT(0, 132, 172, 52));
 	temp.push_back(MyRECT(0, 173, 213, 52));
 	temp.push_back(MyRECT(0, 90, 131, 47));
-	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 7, L"AladdinStand.png", D3DXVECTOR2(0, 0)));
+	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 8, L"AladdinStand.png", D3DXVECTOR2(0, 0)));
 	temp.clear();
 
 	temp.push_back(MyRECT(498, 204, 257, 550));
@@ -138,13 +138,14 @@ AladdinCharacter::AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3  pos)
 
 	this->mTime = 0;
 	this->allowStateChange = true;
+	this->allowAttack = true;
 
 
 }
 
 void AladdinCharacter::Update(float DeltaTime)
 {
-	/*switch (this->mCurrentState)
+	switch (this->mCurrentState)
 	{
 	case AState::DoNothing:
 		printLog("DoNothing");
@@ -167,104 +168,70 @@ void AladdinCharacter::Update(float DeltaTime)
 	case AState::Sit:
 		printLog("Sit");
 		break;
+	case AState::SitAttack:
+		printLog("SitAttack");
+		break;
 	default:
 		printLog("Else");
 		break;
-	}*/
-
-
-	if (this->mPosition.x >= 500 && this->mCurrentState != AState::RopeClimb)
-	{
-		this->mCurrentState = AState::RopeClimb;
-		this->allowStateChange = false;
 	}
 
 	this->mAladdinState.at(mCurrentState)->SetFlipVertical((mDir == Direction::Right) ? (false) : (true));
-	this->mAladdinState.at(mCurrentState)->SetPosition(this->mPosition);
-	//this->mAladdinState.at(mCurrentState)->Animate(DeltaTime);
 	
 	this->mAladdinState.at(mCurrentState)->Update(DeltaTime);
 
-	
-
-
 	switch (this->mCurrentState)
 	{
-	case AState::DoNothing:
+	case AState::DoNothing: //Trường hợp không làm gì
 	{
 		if (this->mTime >= 50 * DeltaTime)
 		{
-			this->mAladdinState.at(AState::Stand)->SetPosition(this->mPosition);
-			this->mCurrentState = AState::Stand;
-			this->allowStateChange = false;
+			//this->mAladdinState.at(AState::Stand)->SetPosition(this->mPosition);
+			this->allowStateChange = true;
+			this->setCurrentState(AState::Stand);
 			this->mTime = 0;
+		}
+		else
+		{			
+			this->mTime += DeltaTime;			
+		}
+		break;
+	}
+	case AState::Walk: //Trường hợp đang đi
+	{
+		if (this->mTime >= 30 * DeltaTime)
+		{
+			this->mIsStopAnimation = true;	//Cờ hiệu cho hành động dừng
 		}
 		else
 		{
 			this->mTime += DeltaTime;
 		}
-		this->mAladdinState.at(mCurrentState)->SetVelocity(.0f, .0f);
-		break;
 	}
-	case AState::Walk:
-		//this->mAladdinState.at(mCurrentState)->SetVelocity(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 0.5f, .0f);
-
-			if (this->mTime >= 15 * DeltaTime)
-			{
-				this->mIsStopAnimation = true;
-			//	printLog("OKOKOKO");
-			}
-			else
-			{
-				//printLog(std::to_string(mTime).c_str());
-				this->mTime += DeltaTime;
-			}
-		break;
 	case AState::Attack1:
+	{
 		if (this->mAladdinState.at(mCurrentState)->isDone())
 		{
 			this->allowStateChange = true;
-			this->setCurrentState(AState::DoNothing);
-			//this->mCurrentState = AState::DoNothing;
 		}
-		break;
+	}
 	case AState::SitAttack:
 	{
-		if (this->mAladdinState.at(mCurrentState)->GetCurrentIdx() == this->mAladdinState.at(mCurrentState)->GetEndIdx()  )
-		{
-			allowStateChange = true;
-			//this->mCurrentState = AState::Sit;
-		}
-			break;
-	}
-	case AState::StopWalk:
-	{			
-		//this->mAladdinState.at(mCurrentState)->SetVelocity(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 0.1f, .0f);
 		if (this->mAladdinState.at(mCurrentState)->isDone())
 		{
-			allowStateChange = true;
+			this->allowStateChange = true;
 		}
-		break;
+	}
+	case AState::StopWalk:
+	{
+		if (this->mAladdinState.at(mCurrentState)->isDone())
+		{
+			this->allowStateChange = true;
+		}
 	}
 	case AState::Stand:
 		break;
-	case AState::RunAndJump:
-		if (this->mAladdinState.at(mCurrentState)->isDone())
-		{
-			this->allowStateChange = true;
-			this->setCurrentState(AState::DoNothing);
-			//this->mCurrentState = AState::DoNothing;
-		}
-		break;
-
-	default:
-		break;
 	}
-
-
-	//this->mAladdinState.at(mCurrentState)->Move(DeltaTime);
-	this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
-
 
 }
 
@@ -278,118 +245,136 @@ void AladdinCharacter::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 	case VK_RIGHT:
-		this->setDirection(Direction::Right);		
+		this->setDirection(Direction::Right);
 		break;
 	case VK_LEFT:
 		this->setDirection(Direction::Left);
-		//this->setAllowStateChange(true);
-		break;
-	case VK_UP:
-		//this->setAllowStateChange(true);
-		break;
-	case VK_DOWN:
-		//this->setAllowStateChange(true);
-		break;
-	case VK_NUMPAD1:
-		this->setCurrentState(AState::RunAndJump);
-		this->setAllowStateChange(false);		
-		break;
-	case VK_SPACE:
-		if (allowAttack && (this->getCurrentState() != AState::Attack1) && (this->getCurrentState() != AState::SitAttack))
-		{
-			allowAttack = false;
-			this->setAllowStateChange(true);
-
-			if (this->getCurrentState() == AState::Sit)
-				this->setCurrentState(AState::SitAttack);
-			else
-				this->setCurrentState(AState::Attack1);
-			//this->setAllowStateChange(false);
-		}
-		break;
-	default:
-		
-		break;
+		break;	
 	}
 }
 
 void AladdinCharacter::OnKeyUp(int keyCode)
 {
-	switch (keyCode)
-	{
-	case VK_SPACE:
-		allowAttack = true;
-		break;
-
-	}
+	if(keyCode	== 83)
+		this->allowAttack = true;
 }
 
 void AladdinCharacter::ProcessInput()
 {
+	flagKeyPressed = false;
 	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT))
 	{
-		this->setAllowStateChange(true);
-		this->setCurrentState(AState::Walk);		
-	}
-	else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT))
-	{
+		flagKeyPressed = true;
 		this->setAllowStateChange(true);
 		this->setCurrentState(AState::Walk);
 	}
-	else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_UP))
+	else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT))
 	{
-		this->setAllowStateChange(true);
-		if(this->mCurrentState != AState::RopeClimb)
-			this->setCurrentState(AState::LookUp);
-	}
-	else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_DOWN))
-	{
-		//this->setAllowStateChange(true);
-		this->setCurrentState(AState::Sit);
-	}
-	else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_D))
-	{
+		flagKeyPressed = true;
+			this->setAllowStateChange(true);
+			this->setCurrentState(AState::Walk);
 		
 	}
-	else
+	else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_UP))
 	{
-		if((this->getCurrentState() != AState::Attack1) )
-			this->setCurrentState(AState::DoNothing);
-	}
-}
+		flagKeyPressed = true;
+		this->setAllowStateChange(true);
+		this->setCurrentState(AState::LookUp);
 
-AState AladdinCharacter::getCurrentState()
-{
-	return this->mCurrentState;
+	}
+	 if ((KeyboardHelper::GetInstance()->IsKeyDown(DIK_DOWN) && this->mCurrentState != AState::SitAttack)||((this->mCurrentState == AState::SitAttack) && (this->mAladdinState.at(this->mCurrentState)->isDone())))
+	{
+		flagKeyPressed = true;
+		this->setAllowStateChange(true);
+		this->setCurrentState(AState::Sit);
+
+	}
+	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_S))
+	{
+		if (this->allowAttack == true)
+		{
+			flagKeyPressed = true;
+			this->allowAttack = false;
+			//Kiểm tra xem hành động tấn công có đang diễn ra không
+			if (this->mCurrentState != AState::Attack1 && this->mCurrentState != AState::SitAttack)
+			{
+				this->setAllowStateChange(true);
+				if(this->mCurrentState == AState::Sit)
+					this->setCurrentState(AState::SitAttack);
+				else
+					this->setCurrentState(AState::Attack1);
+			}
+		}
+		else if (this->mAladdinState.at(AState::Attack1)->isDone())
+		{
+			this->setCurrentState(AState::DoNothing);
+		}
+	}
+
+	if(flagKeyPressed == false)
+	{
+		this->setCurrentState(AState::DoNothing);
+	}
 }
 
 void AladdinCharacter::setCurrentState(AState state)
 {
-	if ((this->mCurrentState == state)|| (this->allowStateChange == false))
-		return;
-
-
-	if (state == AState::Sit && (this->mCurrentState == AState::SitAttack))
+	//Kiểm tra xem state thay đổi có khác state hiện tại
+	if (this->mCurrentState == state)
 	{
-		this->mCurrentState = AState::Sit;
-		this->mAladdinState.at(AState::Sit)->GoToLastFrameIdx();
 		return;
 	}
+		
 
-	if ((state == AState::DoNothing) && (this->mCurrentState == AState::Walk) && (this->mIsStopAnimation == true))
-	{
-		this->mCurrentState = AState::StopWalk;
+
+	//Kiểm tra biến cho phép sự thay đổi
+	if (this->allowStateChange == false)
+		return;
+	else
 		this->allowStateChange = false;
-		return;
-	}
 
-
-	_BeforeStateChange(state);
+	this->_BeforeStateChange(state);
 
 	this->mCurrentState = state;
 
-	_AfterStateChange();
+	this->_AfterStateChange();
+}
+
+void AladdinCharacter::_BeforeStateChange(AState &changeTo)
+{	
+	//Khi chuyển từ hành động chạy sang hành động đứng và biến cờ hiệu hành động dừng
+	if ((this->mCurrentState == AState::Walk) && (changeTo == AState::DoNothing) && (this->mIsStopAnimation == true))
+	{
+		changeTo = AState::StopWalk;
+		this->mIsStopAnimation = false;
+	}
 	
+	//Khi chuyển từ SitAttack qua Sit thì set frame cuối cùng
+	if ((this->mCurrentState == AState::SitAttack) && (changeTo == AState::Sit) )
+	{
+		this->mAladdinState.at(AState::Sit)->GoToLastFrameIdx();
+		this->allowStateChange = true;
+	}
+
+	//Thay vị trí hiện tại cho state khác
+	this->mPosition = this->mAladdinState.at(this->mCurrentState)->GetPosition();
+	this->mAladdinState.at(changeTo)->SetPosition(this->mPosition);
+	
+	//Reset lại frame idx của state cũ
+	this->mAladdinState.at(this->mCurrentState)->resetFrame();
+}
+void AladdinCharacter::_AfterStateChange()
+{
+	switch (this->mCurrentState)
+	{
+	case AState::DoNothing:
+		this->mTime = 0;
+		break;
+	case AState::Walk:
+		this->mTime = 0;
+		break;
+
+	}
 }
 void AladdinCharacter::setDirection(Direction dir)
 {
@@ -399,73 +384,11 @@ void AladdinCharacter::setAllowStateChange(bool allow)
 {
 	this->allowStateChange = allow;
 }
-void AladdinCharacter::_BeforeStateChange(AState changeTo)
+
+AState AladdinCharacter::getCurrentState()
 {
-	this->mAladdinState.at(changeTo)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition());
-	if (this->mCurrentState != changeTo)
-	{
-		this->mAladdinState.at(AState::StopWalk)->resetFrame();
-		this->mAladdinState.at(AState::Walk)->resetFrame();
-		this->mAladdinState.at(AState::Attack1)->resetFrame();
-		this->mAladdinState.at(AState::SitAttack)->resetFrame();		
-
-		switch (this->mCurrentState)
-		{
-		case AState::DoNothing:
-		{
-			break;
-		}
-		case AState::Walk:
-		{
-			this->mAladdinState.at(AState::Walk)->resetFrame();
-			break;
-		}
-		case AState::LookUp:
-		{
-			this->mAladdinState.at(AState::LookUp)->resetFrame();
-			break;
-		}
-		case AState::Sit:
-		{
-			this->mAladdinState.at(AState::Sit)->resetFrame();
-			break;
-		}
-		case AState::Attack1:
-		{
-			this->mAladdinState.at(AState::Attack1)->resetFrame();
-			break;
-		}
-		case AState::SitAttack:
-		{
-			this->mAladdinState.at(AState::SitAttack)->resetFrame();
-			break;
-		}
-		case AState::RunAndJump:
-		{
-			this->mAladdinState.at(AState::RunAndJump)->resetFrame();
-			break;
-		}
-		}
-	}
-
+	return this->mCurrentState;
 }
-void AladdinCharacter::_AfterStateChange()
-{
-	if (this->mCurrentState == AState::SitAttack || this->mCurrentState == AState::Attack1)
-		allowStateChange = false;
 
-	if (this->mCurrentState == AState::Walk)
-	{
-		this->mIsStopAnimation = false;
-		this->mTime = 0;
-	}
-
-	if (this->mCurrentState == AState::DoNothing)
-	{
-		this->mTime = 0;
-	}
-
-	this->mTime = 0;
-}
 
 

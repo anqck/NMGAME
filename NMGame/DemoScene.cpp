@@ -26,10 +26,13 @@ void DemoScene::Update(float DeltaTime)
 
 void DemoScene::Render(float DeltaTime)
 {
+	
+
 	this->mMap->Render(DeltaTime);
 
 	this->mCamel->Render(DeltaTime);
 
+	
 	this->mAladdinHelperArr.at(0)->Render(DeltaTime);
 
 	
@@ -61,7 +64,7 @@ void DemoScene::LoadResource()
 	vPos.push_back(imagepos1);
 	
 	this->mMainIdx = 0;
-	this->mNumberOfSprite = 2;
+	this->mNumberOfSprite = 1;
 
 	
 

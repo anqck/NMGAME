@@ -70,8 +70,10 @@ protected:
 	bool					allowAttack;
 	bool					allowAction;
 
-	void					_BeforeStateChange(AState changeTo);
+	void					_BeforeStateChange(AState &changeTo);
 	void					_AfterStateChange();
+
+	bool		 flagKeyPressed ;
 
 	
 };
