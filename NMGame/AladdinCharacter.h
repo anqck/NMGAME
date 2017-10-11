@@ -70,6 +70,7 @@ protected:
 	bool					allowAttack;
 	bool					allowJump;
 	bool					allowAction;
+	bool					isClimbing;
 
 	void					_BeforeStateChange(AState &changeTo);
 	void					_AfterStateChange();

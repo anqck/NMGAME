@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿
+
+
+
+
+#pragma once
 #include "GameVisibleEntity.h"
 
 class Camel : public GameVisibleEntity
