@@ -139,6 +139,7 @@ AladdinCharacter::AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3  pos)
 	this->mTime = 0;
 	this->allowStateChange = true;
 	this->allowAttack = true;
+	this->allowJump = true;
 
 
 }
@@ -178,7 +179,10 @@ void AladdinCharacter::Update(float DeltaTime)
 
 	this->mAladdinState.at(mCurrentState)->SetFlipVertical((mDir == Direction::Right) ? (false) : (true));
 	
-	this->mAladdinState.at(mCurrentState)->Update(DeltaTime);
+	if(this->mCurrentState != AState::RunAndJump)
+		this->mAladdinState.at(mCurrentState)->Update(DeltaTime);
+	else
+		this->mAladdinState.at(mCurrentState)->Update(mTime);
 
 	switch (this->mCurrentState)
 	{
@@ -237,24 +241,29 @@ void AladdinCharacter::Update(float DeltaTime)
 	{
 		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
 			|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
-			1.5 *  0.5  * cos(0.785) : 0;//0.785 ~ PI/4
+			2.2 *  0.5  * cos(0.785) : 0;//0.785 ~ PI/4
 		
 		//float vy = -2 * 0.5 *0.7;//Sin(PI/4) ~ 0.7
-		float vy = -10;
-		printLog(to_string(this->mAladdinState.at(mCurrentState)->GetPosition().y).c_str());
+		/*float vy = -10;
+		printLog(to_string(this->mAladdinState.at(mCurrentState)->GetPosition().y).c_str());*/
 		
-
+		mTime += DeltaTime/50;
 	/*	if (vy < 460)
 		{
 			vy = 480;
 			this->allowStateChange = true;
 		}*/
 
-		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, -10);
-		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, 0.001);
-		if (this->mAladdinState.at(mCurrentState)->isDone())
+		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, -1.8);
+		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, 0.3);
+		if (this->mAladdinState.at(mCurrentState)->GetPosition().y > 480)
 		{
-			//this->allowStateChange = true;
+			this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, 480);
+			this->allowStateChange = true;
+		}
+		//if (this->mAladdinState.at(mCurrentState)->isDone())
+		{
+			
 			
 		}
 
@@ -282,13 +291,18 @@ void AladdinCharacter::OnKeyDown(int keyCode)
 	case VK_LEFT:
 		this->setDirection(Direction::Left);
 		break;	
+	case VK_ESCAPE:
+		PostMessage(GLOBAL::GetHWND(), WM_CLOSE, 0, 0);
 	}
 }
 
 void AladdinCharacter::OnKeyUp(int keyCode)
 {
-	if(keyCode	== 83)
+	if(keyCode	== 83) //S
 		this->allowAttack = true;
+	
+	if (keyCode == 68) //D
+		this->allowJump = true;
 }
 
 void AladdinCharacter::ProcessInput()
@@ -324,18 +338,21 @@ void AladdinCharacter::ProcessInput()
 	}
 	 if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_D))
 	 {
-		 if (this->mCurrentState != AState::RunAndJump)
+		 if (this->allowJump == true)
 		 {
-			 flagKeyPressed = true;
-			 if (this->mCurrentState == AState::Walk)
+			 if (this->mCurrentState != AState::RunAndJump)
 			 {
-				 this->setAllowStateChange(true);
-				 this->setCurrentState(AState::RunAndJump);
+				 flagKeyPressed = true;
+				 if (this->mCurrentState == AState::Walk)
+				 {
+					 this->setAllowStateChange(true);
+					 this->setCurrentState(AState::RunAndJump);
 
+				 }
 			 }
 		 }
 	 }
-	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_S))
+	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_S) && (this->mCurrentState != AState::RunAndJump))
 	{
 		if (this->allowAttack == true)
 		{

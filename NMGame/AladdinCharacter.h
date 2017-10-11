@@ -63,11 +63,12 @@ protected:
 	//D3DXVECTOR3			mPosition;
 
 	bool					allowStateChange;
-	float					mTime;					//Đếm thời gian để dy chuyển
+	float					mTime;					//Đếm thời gian 
 	float					mStopWalkThresHold;
 	bool					mIsStopAnimation;
 
 	bool					allowAttack;
+	bool					allowJump;
 	bool					allowAction;
 
 	void					_BeforeStateChange(AState &changeTo);
