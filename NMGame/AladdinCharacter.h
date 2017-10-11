@@ -63,7 +63,7 @@ protected:
 	//D3DXVECTOR3			mPosition;
 
 	bool					allowStateChange;
-	//float					mTime;
+	float					mTime;					//Đếm thời gian để dy chuyển
 	float					mStopWalkThresHold;
 	bool					mIsStopAnimation;
 
@@ -74,6 +74,7 @@ protected:
 	void					_AfterStateChange();
 
 	bool		 flagKeyPressed ;
+
 
 	
 };

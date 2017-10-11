@@ -115,7 +115,7 @@ AladdinCharacter::AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3  pos)
 	temp.push_back( MyRECT(680, 260, 335, 766));
 	temp.push_back( MyRECT(680, 348, 410, 766));
 	temp.push_back( MyRECT(680, 410, 473, 766));
-	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdin.png", D3DXVECTOR2(0, 0)));
+	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdin.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0.1)));
 	temp.clear();
 
 	//this->mAladdinState.push_back(new AladdinDoNothing(SpriteHandle));
@@ -207,6 +207,7 @@ void AladdinCharacter::Update(float DeltaTime)
 		{
 			this->mTime += DeltaTime;
 		}
+		break;
 	}
 	case AState::Attack1:
 	{
@@ -214,6 +215,7 @@ void AladdinCharacter::Update(float DeltaTime)
 		{
 			this->allowStateChange = true;
 		}
+		break;
 	}
 	case AState::SitAttack:
 	{
@@ -221,6 +223,7 @@ void AladdinCharacter::Update(float DeltaTime)
 		{
 			this->allowStateChange = true;
 		}
+		break;
 	}
 	case AState::StopWalk:
 	{
@@ -228,6 +231,34 @@ void AladdinCharacter::Update(float DeltaTime)
 		{
 			this->allowStateChange = true;
 		}
+		break;
+	}
+	case AState::RunAndJump:
+	{
+		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
+			|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
+			1.5 *  0.5  * cos(0.785) : 0;//0.785 ~ PI/4
+		
+		//float vy = -2 * 0.5 *0.7;//Sin(PI/4) ~ 0.7
+		float vy = -10;
+		printLog(to_string(this->mAladdinState.at(mCurrentState)->GetPosition().y).c_str());
+		
+
+	/*	if (vy < 460)
+		{
+			vy = 480;
+			this->allowStateChange = true;
+		}*/
+
+		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, -10);
+		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, 0.001);
+		if (this->mAladdinState.at(mCurrentState)->isDone())
+		{
+			//this->allowStateChange = true;
+			
+		}
+
+		break;
 	}
 	case AState::Stand:
 		break;
@@ -242,6 +273,7 @@ void AladdinCharacter::Render(float DeltaTime)
 
 void AladdinCharacter::OnKeyDown(int keyCode)
 {
+
 	switch (keyCode)
 	{
 	case VK_RIGHT:
@@ -261,34 +293,48 @@ void AladdinCharacter::OnKeyUp(int keyCode)
 
 void AladdinCharacter::ProcessInput()
 {
-	flagKeyPressed = false;
-	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT))
+	flagKeyPressed = false; 
+	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)&&(this->mCurrentState != AState::RunAndJump))
 	{
+		
 		flagKeyPressed = true;
 		this->setAllowStateChange(true);
 		this->setCurrentState(AState::Walk);
 	}
-	else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT))
+	else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT) && (this->mCurrentState != AState::RunAndJump))
 	{
 		flagKeyPressed = true;
 			this->setAllowStateChange(true);
 			this->setCurrentState(AState::Walk);
 		
 	}
-	else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_UP))
+	else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_UP) && (this->mCurrentState != AState::RunAndJump))
 	{
 		flagKeyPressed = true;
 		this->setAllowStateChange(true);
 		this->setCurrentState(AState::LookUp);
 
 	}
-	 if ((KeyboardHelper::GetInstance()->IsKeyDown(DIK_DOWN) && this->mCurrentState != AState::SitAttack)||((this->mCurrentState == AState::SitAttack) && (this->mAladdinState.at(this->mCurrentState)->isDone())))
+	 if (((KeyboardHelper::GetInstance()->IsKeyDown(DIK_DOWN) && this->mCurrentState != AState::SitAttack)||((this->mCurrentState == AState::SitAttack) && (this->mAladdinState.at(this->mCurrentState)->isDone())))&&(this->mCurrentState != AState::RunAndJump))
 	{
 		flagKeyPressed = true;
 		this->setAllowStateChange(true);
 		this->setCurrentState(AState::Sit);
 
 	}
+	 if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_D))
+	 {
+		 if (this->mCurrentState != AState::RunAndJump)
+		 {
+			 flagKeyPressed = true;
+			 if (this->mCurrentState == AState::Walk)
+			 {
+				 this->setAllowStateChange(true);
+				 this->setCurrentState(AState::RunAndJump);
+
+			 }
+		 }
+	 }
 	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_S))
 	{
 		if (this->allowAttack == true)
@@ -373,7 +419,9 @@ void AladdinCharacter::_AfterStateChange()
 	case AState::Walk:
 		this->mTime = 0;
 		break;
-
+	case AState::RunAndJump:
+		this->mTime = 0;
+		break;
 	}
 }
 void AladdinCharacter::setDirection(Direction dir)
