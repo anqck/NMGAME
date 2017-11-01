@@ -130,6 +130,7 @@ AladdinCharacter::AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3  pos)
 	temp.push_back( MyRECT(680, 120, 180, 766));
 	temp.push_back( MyRECT(680, 180, 258, 766));
 	temp.push_back( MyRECT(680, 260, 335, 766));
+	temp.push_back(MyRECT(680, 260, 335, 766));
 	temp.push_back( MyRECT(680, 348, 410, 766));
 	temp.push_back( MyRECT(680, 410, 473, 766));
 	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdin.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0)));
@@ -256,30 +257,7 @@ void AladdinCharacter::Update(float DeltaTime)
 		}
 		break;
 	}
-	case AState::Attack1:
-	{
-		if (this->mAladdinState.at(mCurrentState)->isDone())
-		{
-			this->allowStateChange = true;
-		}
-		break;
-	}
-	/*case AState::SitAttack:
-	{
-		if (this->mAladdinState.at(mCurrentState)->isDone())
-		{
-			this->allowStateChange = true;
-		}
-		break;
-	}*/
-	/*case AState::StopWalk:
-	{
-		if (this->mAladdinState.at(mCurrentState)->isDone())
-		{
-			this->allowStateChange = true;
-		}
-		break;
-	}*/
+	
 	case AState::RunAndJump:
 	{
 		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
@@ -291,23 +269,13 @@ void AladdinCharacter::Update(float DeltaTime)
 		printLog(to_string(this->mAladdinState.at(mCurrentState)->GetPosition().y).c_str());*/
 		
 		mTime += DeltaTime/45;
-	/*	if (vy < 460)
-		{
-			vy = 480;
-			this->allowStateChange = true;
-		}*/
 
-		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, -1.8);
-		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, 0.3);
+		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, -1.85);
+		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, 0.33);
 		if (this->mAladdinState.at(mCurrentState)->GetPosition().y > 480)
 		{
 			this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, 480);
 			this->allowStateChange = true;
-		}
-		//if (this->mAladdinState.at(mCurrentState)->isDone())
-		{
-			
-			
 		}
 
 		break;
@@ -461,6 +429,7 @@ void AladdinCharacter::ProcessInput()
 	{
 		switch (this->mCurrentState)
 		{
+		case AState::Attack1:
 		case AState::StopWalk:
 		case AState::SitAttack:
 			if (this->mAladdinState.at(mCurrentState)->isDone())

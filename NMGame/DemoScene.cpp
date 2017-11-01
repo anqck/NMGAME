@@ -50,7 +50,7 @@ void DemoScene::LoadResource()
 	D3DXVECTOR3 imagepos; //vector for the position of the sprite
 
 	imagepos.x = 40.0f; //coord x of our sprite
-	imagepos.y = 480.0f; //coord y of out sprite
+	imagepos.y = 580.0f; //coord y of out sprite
 	imagepos.z = 0.0f; //coord z of out sprite
 
 	D3DXVECTOR3 imagepos1; //vector for the position of the sprite
