@@ -35,7 +35,7 @@ AladdinCharacter::AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3  pos)
 	temp.push_back(MyRECT(117, 0, 41, 169));
 	temp.push_back(MyRECT(116, 121, 155, 170));
 	temp.push_back(MyRECT(59, 53, 102, 116));
-	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 15, L"AladdinWalk.png", D3DXVECTOR2(0.5f, 0.0f),4));
+	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 14, L"AladdinWalk.png", D3DXVECTOR2(0.5f, 0.0f),4));
 	temp.clear();
 
 
@@ -268,10 +268,10 @@ void AladdinCharacter::Update(float DeltaTime)
 		/*float vy = -10;
 		printLog(to_string(this->mAladdinState.at(mCurrentState)->GetPosition().y).c_str());*/
 		
-		mTime += DeltaTime/45;
+		mTime += DeltaTime/44;
 
-		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, -1.85);
-		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, 0.33);
+		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, -1.8);
+		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, 0.35);
 		if (this->mAladdinState.at(mCurrentState)->GetPosition().y > 480)
 		{
 			this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, 480);

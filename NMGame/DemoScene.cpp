@@ -28,7 +28,7 @@ void DemoScene::Render(float DeltaTime)
 {
 	
 
-	this->mMap->Render(DeltaTime);
+	//this->mMap->Render(DeltaTime);
 
 	this->mCamel->Render(DeltaTime);
 

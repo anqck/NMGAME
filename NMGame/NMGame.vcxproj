@@ -147,7 +147,6 @@
   <ItemGroup>
     <ClCompile Include="AladdinCharacter.cpp" />
     <ClCompile Include="AladdinGame.cpp" />
-    <ClCompile Include="AladdinHelper.cpp" />
     <ClCompile Include="AladdinState.cpp" />
     <ClCompile Include="Camel.cpp" />
     <ClCompile Include="DemoMap.cpp" />
@@ -156,8 +155,10 @@
     <ClCompile Include="GameLog.cpp" />
     <ClCompile Include="GameVisibleEntity.cpp" />
     <ClCompile Include="Global.cpp" />
+    <ClCompile Include="GraphicsHelper.cpp" />
     <ClCompile Include="KeyboardHelper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="MyRECT.cpp" />
     <ClCompile Include="ObjectState.cpp" />
     <ClCompile Include="ObjectStateWithLoop.cpp" />
@@ -168,7 +169,6 @@
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h" />
     <ClInclude Include="AladdinGame.h" />
-    <ClInclude Include="AladdinHelper.h" />
     <ClInclude Include="AladdinState.h" />
     <ClInclude Include="Camel.h" />
     <ClInclude Include="DemoMap.h" />
@@ -177,8 +177,10 @@
     <ClInclude Include="GameLog.h" />
     <ClInclude Include="GameVisibleEntity.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="GraphicsHelper.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="KeyboardHelper.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="MyRECT.h" />
     <ClInclude Include="ObjectState.h" />
     <ClInclude Include="ObjectStateWithLoop.h" />

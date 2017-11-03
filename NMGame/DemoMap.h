@@ -1,6 +1,6 @@
 #pragma once
+#include "Map.h"
 #include "Ultils.h"
-#include "Global.h"
 
 class DemoMap
 {
@@ -10,7 +10,7 @@ public:
 	void Update(float DeltaTime);
 	void Render(float DeltaTime);
 protected:
-	LPDIRECT3DSURFACE9		mBackground;
+	
 
 	void LoadResource();
 

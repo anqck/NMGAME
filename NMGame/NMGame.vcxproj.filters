@@ -48,9 +48,6 @@
     <ClCompile Include="AladdinCharacter.cpp">
       <Filter>Aladdin</Filter>
     </ClCompile>
-    <ClCompile Include="AladdinHelper.cpp">
-      <Filter>Aladdin</Filter>
-    </ClCompile>
     <ClCompile Include="DemoScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -79,6 +76,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="KeyboardHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,9 +128,6 @@
     <ClInclude Include="AladdinCharacter.h">
       <Filter>Aladdin\Header</Filter>
     </ClInclude>
-    <ClInclude Include="AladdinHelper.h">
-      <Filter>Aladdin\Header</Filter>
-    </ClInclude>
     <ClInclude Include="DemoMap.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -141,6 +141,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

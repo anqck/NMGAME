@@ -5,6 +5,7 @@
 #include "IScene.h"
 #include "AladdinGame.h"
 #include "Camel.h"
+#include "AladdinCharacter.h"
 #include "DemoMap.h"
 
 

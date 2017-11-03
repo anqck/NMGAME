@@ -3,7 +3,7 @@
 #define AladdinGame_H
 #include "Game.h"
 #include "Sprite.h"
-#include "AladdinHelper.h"
+
 #include "SceneManager.h"
 
 #include <vector>

@@ -5,6 +5,7 @@
 #include <dinput.h>
 #include <vector>
 
+#include "GraphicsHelper.h"
 #include "Global.h"
 #include "Ultils.h"
 #include "SceneManager.h"

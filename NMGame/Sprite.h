@@ -2,6 +2,7 @@
 
 #include "Global.h"
 #include "MyRECT.h"
+#include "GraphicsHelper.h"
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <vector>
@@ -22,15 +23,13 @@ protected:
 	vector<MyRECT>			mListRect;			// Hình chữ nhật chứa các sprite
 	MyRECT					mSourceRect;		// Hình chữ nhật chứ sprite cần vẽ
 	D3DXVECTOR2				mScale;				// Phóng to, thu nhỏ sprite
-	D3DXMATRIX				mMatrix;			// Ma trận hỗ trợ dời hình
+
 	bool					isFlipVertical;		// Lât hình theo trục dọc
 
 public:
 	Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect);
 	~Sprite();
 
-	void Next(); // ???
-	void Reset(); // ???
 	void SetFrame(int frameIdx);
 
 	D3DXVECTOR3			GetPosition();
@@ -44,6 +43,6 @@ public:
 	bool				IsFlipVertical();
 	void				FlipVertical(bool flip_vertical);
 	// Render current sprite at location (X,Y) at the target surface
-	void Render();
+	void				 Render();
 	
 };

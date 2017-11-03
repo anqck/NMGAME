@@ -2,7 +2,7 @@
 
 Sprite::Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect)
 {
-	mSpriteHandler = GLOBAL::GetSpriteHandler();
+
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
 	this->mListRect = listSourceRect;
 	mSourceRect = listSourceRect.at(0);
@@ -11,7 +11,7 @@ Sprite::Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceR
 
 	D3DXGetImageInfoFromFile(FilePath, &mImageInfo);
 
-	D3DXCreateTextureFromFileEx(GLOBAL::GetDirectDevice(), FilePath, mImageInfo.Width,
+	D3DXCreateTextureFromFileEx(GraphicsHelper::GetInstance()->GetDirectDevice(), FilePath, mImageInfo.Width,
 		mImageInfo.Height,
 		1,
 		D3DUSAGE_DYNAMIC,
@@ -33,17 +33,6 @@ Sprite::~Sprite()
 		mTexture->Release();
 }
 
-void Sprite::Next()
-{
-	_Index = (_Index + _Count - 1) % _Count;
-	mSourceRect = mListRect.at(_Index);
-}
-
-void Sprite::Reset()
-{
-	_Index = 0;
-	mSourceRect = mListRect.at(_Index);
-}
 
 void Sprite::SetFrame(int frameIdx)
 {
@@ -94,33 +83,11 @@ void Sprite::FlipVertical(bool flip_vertical)
 void Sprite::Render()
 {
 	//Temp code
-	D3DXVECTOR2 tempScale = D3DXVECTOR2(((isFlipVertical)?-1:1) * 2.3, 2.5);
-	//D3DXVECTOR2 tempScale = D3DXVECTOR2(((isFlipVertical) ? -1 : 1) * 2, 2);
-	D3DXVECTOR2	scalingCenter = this->mPosition;
-	
-	D3DXMATRIX oldMatrix;
+	D3DXVECTOR2 tempScale = D3DXVECTOR2(((isFlipVertical)?-1:1) * 2, 2.5);
 
-	D3DXMatrixTransformation2D(
-		&mMatrix,
-		&scalingCenter,
-		0,
-		&tempScale,
-		NULL,
-		0,
-		&D3DXVECTOR2(0, 0));
+	D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top), 0);
+
+	GraphicsHelper::GetInstance()->DrawTexture(mTexture, this->mSourceRect, center, this->mPosition, tempScale);
 
 
-	this->mSpriteHandler->GetTransform(&oldMatrix);
-	this->mSpriteHandler->SetTransform(&mMatrix);
-
-	//D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top) / 2, 0);//Tâm của sprite cần vẽ
-	D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top) , 0);
-
-	mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	mSpriteHandler->Draw(mTexture, &mSourceRect, &center, &mPosition, D3DCOLOR_XRGB(255, 255, 255));
-
-
-	mSpriteHandler->End();
-
-	this->mSpriteHandler->SetTransform(&oldMatrix);
 }
