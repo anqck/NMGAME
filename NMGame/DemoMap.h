@@ -2,16 +2,13 @@
 #include "Map.h"
 #include "Ultils.h"
 
-class DemoMap
+class DemoMap : public Map
 {
 public:
 	DemoMap();
 
-	void Update(float DeltaTime);
-	void Render(float DeltaTime);
+	void LoadResource();
 protected:
 	
-
-	void LoadResource();
 
 };

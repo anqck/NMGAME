@@ -16,7 +16,7 @@ protected:
 
 	int _Index;								// Current sprite index
 	int _Count;
-	LPD3DXSPRITE			mSpriteHandler;
+
 	LPDIRECT3DTEXTURE9		mTexture;
 	D3DXIMAGE_INFO			mImageInfo;
 	D3DXVECTOR3				mPosition;

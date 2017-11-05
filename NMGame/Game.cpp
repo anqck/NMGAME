@@ -27,6 +27,9 @@ void GAME::Initialize()
 	//this->InitDevice();
 	GraphicsHelper::GetInstance()->Initialize();
 	KeyboardHelper::GetInstance()->Initialize();
+
+	ViewPort::GetInstance()->Initialize(0, 0);
+
 	this->LoadResource();	
 }
 

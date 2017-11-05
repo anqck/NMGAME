@@ -97,3 +97,7 @@ bool KeyboardHelper::IsKeyDown(int keyCode)
 KeyboardHelper::KeyboardHelper()
 {
 }
+
+KeyboardHelper::~KeyboardHelper()
+{
+}

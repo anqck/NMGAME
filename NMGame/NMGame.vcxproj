@@ -149,6 +149,7 @@
     <ClCompile Include="AladdinGame.cpp" />
     <ClCompile Include="AladdinState.cpp" />
     <ClCompile Include="Camel.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DemoMap.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -165,12 +166,14 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Ultils.cpp" />
+    <ClCompile Include="ViewPort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h" />
     <ClInclude Include="AladdinGame.h" />
     <ClInclude Include="AladdinState.h" />
     <ClInclude Include="Camel.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="DemoMap.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Game.h" />
@@ -188,6 +191,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Ultils.h" />
+    <ClInclude Include="ViewPort.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -2,33 +2,26 @@
 
 Map::Map()
 {
-	//this->LoadResource();
+	this->LoadResource();
 }
 
 void Map::LoadResource()
 {
+	
 }
 
 void Map::Update(float DeltaTime)
 {
 }
 
-void Map::Render(float DeltaTime)
+void Map::Render(float DeltaTime, MapLevel mMapLevel)
 {
 	
 
 	switch (mMapLevel)
 	{
 	case MapLevel::MapLevel1:
-		//if (mMapTextureLevel1 != NULL)
-		//
-		//	GLOBAL::GetDirectDevice()->StretchRect(
-		//		this->mBackground,			// from 
-		//		NULL,				// which portion?
-		//		GLOBAL::GetBackBuffer(),		// to 
-		//		NULL,				// which portion?
-		//		D3DTEXF_NONE);
-		//	graphics->DrawTexture(map, _rectMap1, inPosition, this->_transform._scale, translation);
+		GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel1, MyRECT(0, 0, 4771, 688), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0));
 		break;
 	}
 }
