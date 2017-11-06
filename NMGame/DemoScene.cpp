@@ -17,11 +17,12 @@ DemoScene::~DemoScene()
 void DemoScene::Update(float DeltaTime)
 {
 	//this->mAladdinHelper->Update(DeltaTime);	
-	this->mCamel->Update(DeltaTime);
-	for (int i = 0; i < this->mNumberOfSprite; i++)
-	{
-		this->mAladdinHelperArr.at(i)->Update(DeltaTime);
-	}
+	//this->mCamel->Update(DeltaTime);
+
+	
+	this->mAladdinHelper->Update(DeltaTime);
+	Camera::GetInstance()->Update(this->mAladdinHelper);
+
 }
 
 void DemoScene::Render(float DeltaTime)
@@ -30,50 +31,34 @@ void DemoScene::Render(float DeltaTime)
 
 	this->mMap->Render(DeltaTime,MapLevel::MapLevel1);
 
-	this->mCamel->Render(DeltaTime);
+	//this->mCamel->Render(DeltaTime);
 
 	
-	this->mAladdinHelperArr.at(0)->Render(DeltaTime);
+	this->mAladdinHelper->Render(DeltaTime);
 
 	
 
-	/*for (int i = 0; i < this->mNumberOfSprite; i++)
-	{
-		this->mAladdinHelperArr.at(i)->Render(DeltaTime);
-	}*/
+
 }
 
 void DemoScene::LoadResource()
 {
 	this->mMap = new DemoMap();
+
 	
 	D3DXVECTOR3 imagepos; //vector for the position of the sprite
 
-	imagepos.x = 40.0f; //coord x of our sprite
-	imagepos.y = 580.0f; //coord y of out sprite
+	imagepos.x = 100.0f; //coord x of our sprite
+	imagepos.y = WORLD_Y - MAP_HEIGHT + 100; //coord y of out sprite
+	//imagepos.y = 200;
 	imagepos.z = 0.0f; //coord z of out sprite
 
-	D3DXVECTOR3 imagepos1; //vector for the position of the sprite
+	this->mAladdinHelper = new AladdinCharacter(imagepos);
 
-	imagepos1.x = 300.0f; //coord x of our sprite
-	imagepos1.y = 480.0f; //coord y of out sprite
-	imagepos1.z = 0.0f; //coord z of out sprite
+	Camera::GetInstance()->SetPosition(0, WORLD_Y - MAP_HEIGHT - GLOBAL::GetWindowsHeight());
 
-	vector<D3DXVECTOR3> vPos;
-	vPos.push_back(imagepos);
-	vPos.push_back(imagepos1);
-	
-	this->mMainIdx = 0;
-	this->mNumberOfSprite = 1;
 
-	
-
-	for (int i = 0; i < this->mNumberOfSprite; i++)
-	{
-				this->mAladdinHelperArr.push_back(new AladdinCharacter(GLOBAL::GetSpriteHandler(), vPos.at(i)));
-	}
-
-	this->mCamel = new Camel(imagepos1);
+	//this->mCamel = new Camel(imagepos);
 	
 
 }
@@ -81,20 +66,17 @@ void DemoScene::LoadResource()
 void DemoScene::OnKeyDown(int keyCode)
 {
 
-
-	//this->mAladdinHelperArr.at(mMainIdx)->setAllowStateChange(true);
-	this->mAladdinHelperArr.at(mMainIdx)->OnKeyDown(keyCode);
+	this->mAladdinHelper->OnKeyDown(keyCode);
 
 }
 
 void DemoScene::OnKeyUp(int keyCode)
 {
 
-	this->mAladdinHelperArr.at(mMainIdx)->OnKeyUp(keyCode);
+	this->mAladdinHelper->OnKeyUp(keyCode);
 }
 
 void DemoScene::ProcessInput()
 {
-	this->mAladdinHelperArr.at(mMainIdx)->ProcessInput();	
-
+	this->mAladdinHelper->ProcessInput();
 }

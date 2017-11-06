@@ -1,4 +1,6 @@
 ﻿#pragma once
+#ifndef _ALADDIN_H__
+#define _ALADDIN_H__
 #include "Global.h"
 #include "GameLog.h"
 #include "GameVisibleEntity.h"
@@ -34,7 +36,7 @@ class AladdinCharacter : public GameVisibleEntity
 {
 public:
 	AladdinCharacter();
-	AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3	pos);
+	AladdinCharacter( D3DXVECTOR3	pos);
 
 
 	void			Update(float DeltaTime);
@@ -80,3 +82,5 @@ protected:
 
 	
 };
+
+#endif _ALADDIN_H__

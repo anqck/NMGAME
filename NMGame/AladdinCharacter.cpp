@@ -9,9 +9,9 @@ AladdinCharacter::AladdinCharacter()
 {
 }
 
-AladdinCharacter::AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3  pos)
+AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 {
-	this->mSpriteHandle = SpriteHandle;
+
 
 	vector<MyRECT> temp;
 
@@ -166,14 +166,15 @@ AladdinCharacter::AladdinCharacter(LPD3DXSPRITE SpriteHandle, D3DXVECTOR3  pos)
 
 void AladdinCharacter::Update(float DeltaTime)
 {
+	
 
-	if (this->mAladdinState.at(this->mCurrentState)->GetPosition().x >= 747 && this->mAladdinState.at(this->mCurrentState)->GetPosition().x <= 753 && this->mAladdinState.at(this->mCurrentState)->GetPosition().y < 470 && isClimbing == false)
+	/*if (this->mAladdinState.at(this->mCurrentState)->GetPosition().x >= 747 && this->mAladdinState.at(this->mCurrentState)->GetPosition().x <= 753 && this->mAladdinState.at(this->mCurrentState)->GetPosition().y < 470 && isClimbing == false)
 	{
 		isClimbing = true;
 		this->mAladdinState.at(this->mCurrentState)->SetPosition(750, this->mAladdinState.at(this->mCurrentState)->GetPosition().y);
 		setAllowStateChange(true);
 		this->setCurrentState(AState::RopeClimb);
-	}
+	}*/
 	//printLog(to_string(this->mAladdinState.at(this->mCurrentState)->GetPosition().x).c_str());
 	switch (this->mCurrentState)
 	{
@@ -272,9 +273,9 @@ void AladdinCharacter::Update(float DeltaTime)
 
 		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, -1.8);
 		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, 0.35);
-		if (this->mAladdinState.at(mCurrentState)->GetPosition().y > 480)
+		if (this->mAladdinState.at(mCurrentState)->GetPosition().y >  WORLD_Y - MAP_HEIGHT + 100)
 		{
-			this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, 480);
+			this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, WORLD_Y - MAP_HEIGHT + 100);
 			this->allowStateChange = true;
 		}
 
@@ -285,10 +286,16 @@ void AladdinCharacter::Update(float DeltaTime)
 		break;
 	}
 
+	this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
+	
+	
 }
 
 void AladdinCharacter::Render(float DeltaTime)
 {
+	//this->Transform();
+	this->mAladdinState.at(this->mCurrentState)->mSprite->SetPosition(this->GetTransformPosition().mPosition);
+
 	this->mAladdinState.at(this->mCurrentState)->Render();
 }
 
@@ -445,81 +452,6 @@ void AladdinCharacter::ProcessInput()
 			break;
 		}
 	}
-	//flagKeyPressed = false; 
-	//if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)&&(this->mCurrentState != AState::RunAndJump) && isClimbing == false)
-	//{
-	//	
-	//	flagKeyPressed = true;
-	//	this->setAllowStateChange(true);
-	//	this->setCurrentState(AState::Walk);
-	//}
-	//else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT) && (this->mCurrentState != AState::RunAndJump) && isClimbing == false)
-	//{
-	//	flagKeyPressed = true;
-	//		this->setAllowStateChange(true);
-	//		this->setCurrentState(AState::Walk);
-	//	
-	//}
-	//else if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_UP) && (this->mCurrentState != AState::RunAndJump) )
-	//{
-	//	flagKeyPressed = true;
-	//	if (isClimbing == false)
-	//	{			
-	//		this->setAllowStateChange(true);
-	//		this->setCurrentState(AState::LookUp);
-	//	}
-	//	else
-	//	{
-	//		
-	//		
-	//	}
-
-	//}
-	//else if (((KeyboardHelper::GetInstance()->IsKeyDown(DIK_DOWN) && this->mCurrentState != AState::SitAttack)||((this->mCurrentState == AState::SitAttack) && (this->mAladdinState.at(this->mCurrentState)->isDone())))&&(this->mCurrentState != AState::RunAndJump) && isClimbing == false)
-	//{
-	//	flagKeyPressed = true;
-	//	this->setAllowStateChange(true);
-	//	this->setCurrentState(AState::Sit);
-
-	//}
-	// if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_D))
-	// {
-	//	 if (this->allowJump == true)
-	//	 {
-	//		 if (this->mCurrentState != AState::RunAndJump)
-	//		 {
-	//			 flagKeyPressed = true;
-	//			 if (this->mCurrentState == AState::Walk || isClimbing)
-	//			 {
-	//				 this->setAllowStateChange(true);
-	//				 this->setCurrentState(AState::RunAndJump);
-
-	//			 }
-	//		 }
-	//		 
-	//	 }
-	// }
-	//if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_S) && (this->mCurrentState != AState::RunAndJump))
-	//{
-	//	if (this->allowAttack == true)
-	//	{
-	//		flagKeyPressed = true;
-	//		this->allowAttack = false;
-	//		//Kiểm tra xem hành động tấn công có đang diễn ra không
-	//		if (this->mCurrentState != AState::Attack1 && this->mCurrentState != AState::SitAttack)
-	//		{
-	//			this->setAllowStateChange(true);
-	//			if(this->mCurrentState == AState::Sit)
-	//				this->setCurrentState(AState::SitAttack);
-	//			else
-	//				this->setCurrentState(AState::Attack1);
-	//		}
-	//	}
-	//	else if (this->mAladdinState.at(AState::Attack1)->isDone())
-	//	{
-	//		this->setCurrentState(AState::DoNothing);
-	//	}
-	//}
 
 	
 }

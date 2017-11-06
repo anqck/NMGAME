@@ -5,14 +5,7 @@
 
 AladdinGame::~AladdinGame()
 {
-	if (GLOBAL::GetDirect())
-		GLOBAL::GetDirect()->Release();
 
-	if (GLOBAL::GetDirectDevice())
-		GLOBAL::GetDirectDevice()->Release();
-
-	if (GLOBAL::GetBackBuffer())
-		GLOBAL::GetBackBuffer()->Release();
 }
 
 void AladdinGame::LoadResource()

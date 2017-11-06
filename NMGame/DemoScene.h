@@ -7,9 +7,12 @@
 #include "Camel.h"
 #include "AladdinCharacter.h"
 #include "DemoMap.h"
+#include "Camera.h"
 
 
 using namespace std;
+
+
 
 class DemoScene : public IScene
 {
@@ -37,7 +40,7 @@ protected:
 	int						mMainIdx;
 	vector<AladdinCharacter*>	mAladdinHelperArr;
 
-	std::map<int, bool> keys;
+
 };
 
 #endif

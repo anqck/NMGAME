@@ -20,8 +20,6 @@ void Camel::Update(float DeltaTime)
 void Camel::Initialize()
 {
 	LPD3DXSPRITE temp;
-	D3DXCreateSprite(GLOBAL::GetDirectDevice(), &temp);
-	this->mSpriteHandle = temp;
 
 	this->ANIMATE_RATE = 12;
 	this->mCurrentIdx = 0;

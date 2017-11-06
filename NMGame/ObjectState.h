@@ -25,8 +25,8 @@ public:
 	void			GoToLastFrameIdx();
 
 	D3DXVECTOR3			GetPosition() { return this->mPosition; };
-	void				SetPosition(D3DXVECTOR3 Position) { this->mPosition = Position; this->mSprite->SetPosition(this->mPosition);};
-	void				SetPosition(int X, int Y) { this->mPosition.x = X; this->mPosition.y = Y; this->mSprite->SetPosition(this->mPosition);	};
+	void				SetPosition(D3DXVECTOR3 Position) { this->mPosition = Position;};
+	void				SetPosition(int X, int Y) { this->mPosition.x = X; this->mPosition.y = Y; 	};
 
 	D3DXVECTOR2			GetVelocity() { return this->mVelocity; };
 	void				SetVelocity(D3DXVECTOR2 Velocity) {	this->mVelocity = Velocity;	};

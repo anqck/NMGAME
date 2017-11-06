@@ -82,12 +82,15 @@ void Sprite::FlipVertical(bool flip_vertical)
 
 void Sprite::Render()
 {
+
+
+
 	//Temp code
 	D3DXVECTOR2 tempScale = D3DXVECTOR2(((isFlipVertical)?-1:1) * 2, 2.5);
 
 	D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top), 0);
 
-	GraphicsHelper::GetInstance()->DrawTexture(mTexture, this->mSourceRect, center, this->mPosition, tempScale);
+	GraphicsHelper::GetInstance()->DrawTexture(mTexture, this->mSourceRect, center,this->mPosition, tempScale);
 
 
 }

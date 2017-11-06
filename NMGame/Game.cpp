@@ -12,14 +12,7 @@ GAME::GAME(HINSTANCE hInstance, LPWSTR Name, int windowsWidth, int windowsHeight
 
 GAME::~GAME()
 {
-	if (GLOBAL::GetDirect())
-		GLOBAL::GetDirect()->Release();
 
-	if (GLOBAL::GetDirectDevice())
-		GLOBAL::GetDirectDevice()->Release();
-
-	if (GLOBAL::GetBackBuffer())
-		GLOBAL::GetBackBuffer()->Release();
 }
 void GAME::Initialize()
 {

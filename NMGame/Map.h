@@ -2,6 +2,8 @@
 #include "Ultils.h"
 #include "Global.h"
 #include "GraphicsHelper.h"
+#include "ViewPort.h"
+#include "Camera.h"
 
 enum MapLevel
 {
@@ -20,7 +22,7 @@ public:
 	virtual void	Render(float DeltaTime, MapLevel mMapLevel);
 
 protected:
-
+	D3DXVECTOR3				mPosition;
 
 	LPDIRECT3DTEXTURE9		mMapTextureLevel1, MapTextureLevel2;
 	MyRECT					mRectMap;

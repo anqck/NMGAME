@@ -99,8 +99,8 @@ void GraphicsHelper::DrawTexture(LPDIRECT3DTEXTURE9 Texture, MyRECT sourceRect, 
 		0,
 		&scale,
 		NULL,
-		0,
-		&D3DXVECTOR2(0, 0));
+		rotation,
+		&translation);
 
 
 	this->mSpriteHandler->GetTransform(&oldMatrix);
@@ -116,6 +116,20 @@ void GraphicsHelper::DrawTexture(LPDIRECT3DTEXTURE9 Texture, MyRECT sourceRect, 
 	mSpriteHandler->End();
 
 	this->mSpriteHandler->SetTransform(&oldMatrix);
+}
+
+void GraphicsHelper::DrawSurface(LPDIRECT3DSURFACE9 surface, const RECT * sourceRect, const RECT * desRect)
+{
+	this->mDirectDevice->StretchRect(
+		surface,
+		sourceRect,
+		this->mBackBuffer,
+		desRect,
+		D3DTEXF_NONE);
+}
+
+void GraphicsHelper::DrawSurface(const RECT * sourceRect, const RECT * desRect)
+{
 }
 
 GraphicsHelper::GraphicsHelper()

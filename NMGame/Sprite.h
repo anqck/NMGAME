@@ -3,6 +3,10 @@
 #include "Global.h"
 #include "MyRECT.h"
 #include "GraphicsHelper.h"
+
+#include "ViewPort.h"
+
+
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <vector>
