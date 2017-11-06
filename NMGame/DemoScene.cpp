@@ -28,6 +28,19 @@ void DemoScene::Update(float DeltaTime)
 void DemoScene::Render(float DeltaTime)
 {
 	
+	LPDIRECT3DSURFACE9			_Surface;
+	GraphicsHelper::GetInstance()->GetDirectDevice()->CreateOffscreenPlainSurface(
+		100,
+		100,
+		D3DFMT_X8R8G8B8,
+		D3DPOOL_DEFAULT,
+		&_Surface,
+		NULL);
+
+	GraphicsHelper::GetInstance()->GetDirectDevice()->ColorFill(_Surface, NULL, D3DCOLOR_XRGB(0, 0, 0));
+
+	GraphicsHelper::GetInstance()->GetDirectDevice()->StretchRect(_Surface,	NULL, GraphicsHelper::GetInstance()->GetBackBuffer(),	NULL,D3DTEXF_NONE);
+
 
 	this->mMap->Render(DeltaTime,MapLevel::MapLevel1);
 
@@ -37,7 +50,7 @@ void DemoScene::Render(float DeltaTime)
 	this->mAladdinHelper->Render(DeltaTime);
 
 	
-
+	this->mMap->Render(DeltaTime, MapLevel::MapLevel2);
 
 }
 
@@ -49,7 +62,7 @@ void DemoScene::LoadResource()
 	D3DXVECTOR3 imagepos; //vector for the position of the sprite
 
 	imagepos.x = 100.0f; //coord x of our sprite
-	imagepos.y = WORLD_Y - MAP_HEIGHT + 100; //coord y of out sprite
+	imagepos.y = WORLD_Y - MAP_HEIGHT + 90; //coord y of out sprite
 	//imagepos.y = 200;
 	imagepos.z = 0.0f; //coord z of out sprite
 

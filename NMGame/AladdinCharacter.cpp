@@ -52,7 +52,7 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	temp.push_back(MyRECT(0, 111, 162, 52));
 	temp.push_back(MyRECT(0, 163, 214, 50));
 	temp.push_back(MyRECT(104, 203, 240, 154));
-	this->mAladdinState.push_back(new ObjectState(temp, 20, L"WalkStop.png", D3DXVECTOR2(0.2, 0)));
+	this->mAladdinState.push_back(new ObjectState(temp, 20, L"WalkStop.png", D3DXVECTOR2(0.1, 0)));
 	temp.clear();
 
 	//LookUp
@@ -261,21 +261,22 @@ void AladdinCharacter::Update(float DeltaTime)
 	
 	case AState::RunAndJump:
 	{
+
 		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
 			|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
-			0.7   : 0;//0.785 ~ PI/4
-		
+			0.6   : 0;//0.785 ~ PI/4
+		 
 		//float vy = -2 * 0.5 *0.7;//Sin(PI/4) ~ 0.7
 		/*float vy = -10;
 		printLog(to_string(this->mAladdinState.at(mCurrentState)->GetPosition().y).c_str());*/
 		
-		mTime += DeltaTime/44;
+		mTime += DeltaTime/24;
 
-		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, -1.8);
-		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, 0.35);
-		if (this->mAladdinState.at(mCurrentState)->GetPosition().y >  WORLD_Y - MAP_HEIGHT + 100)
+		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.62);
+		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, -0.057);
+		if (this->mAladdinState.at(mCurrentState)->GetPosition().y <  WORLD_Y - MAP_HEIGHT + 90)
 		{
-			this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, WORLD_Y - MAP_HEIGHT + 100);
+			this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, WORLD_Y - MAP_HEIGHT + 90);
 			this->allowStateChange = true;
 		}
 

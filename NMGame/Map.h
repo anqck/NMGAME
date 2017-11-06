@@ -24,7 +24,7 @@ public:
 protected:
 	D3DXVECTOR3				mPosition;
 
-	LPDIRECT3DTEXTURE9		mMapTextureLevel1, MapTextureLevel2;
+	LPDIRECT3DTEXTURE9		mMapTextureLevel1, mMapTextureLevel2;
 	MyRECT					mRectMap;
 
 };

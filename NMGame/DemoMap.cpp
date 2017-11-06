@@ -22,7 +22,7 @@ void DemoMap::LoadResource()
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(255, 0, 255),
+		D3DCOLOR_XRGB(63, 72, 204),
 		&mImageInfo,
 		NULL,
 		&this->mMapTextureLevel1);
@@ -30,7 +30,7 @@ void DemoMap::LoadResource()
 
 	D3DXGetImageInfoFromFile(L"MapLevel2.png", &mImageInfo);
 
-	D3DXCreateTextureFromFileEx(GraphicsHelper::GetInstance()->GetDirectDevice(), L"MapLevel1.png", mImageInfo.Width,
+	D3DXCreateTextureFromFileEx(GraphicsHelper::GetInstance()->GetDirectDevice(), L"MapLevel2.png", mImageInfo.Width,
 		mImageInfo.Height,
 		1,
 		D3DUSAGE_DYNAMIC,
@@ -38,10 +38,10 @@ void DemoMap::LoadResource()
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(255, 0, 255),
+		D3DCOLOR_XRGB(63, 72, 204),
 		&mImageInfo,
 		NULL,
-		&this->mMapTextureLevel1);
+		&this->mMapTextureLevel2);
 
 
 	
