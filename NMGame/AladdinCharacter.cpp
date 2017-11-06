@@ -272,7 +272,7 @@ void AladdinCharacter::Update(float DeltaTime)
 		
 		mTime += DeltaTime/24;
 
-		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.62);
+		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.625);
 		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, -0.057);
 		if (this->mAladdinState.at(mCurrentState)->GetPosition().y <  WORLD_Y - MAP_HEIGHT + 90)
 		{
