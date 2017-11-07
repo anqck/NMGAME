@@ -5,7 +5,7 @@
 #include "GraphicsHelper.h"
 #include "AladdinCharacter.h"
 
-#define DELTA_CAMERA 10
+#define DELTA_CAMERA 15
 
 class Camera
 {
@@ -26,6 +26,13 @@ private:
 
 	D3DXVECTOR3				mPosition;
 	D3DXVECTOR2				mVelocity;
+
+	float					cameraX, cameraY; //Center of camera
+	float					 halfWidth, halfHeight;
+
+
+	Direction				preDir; //Lưu lại hướng của Aladdin trước đó trong TH có đổi hướng
+
 
 	void					NomalizeCamera(); //Chuẩn hóa camera khi vượt ra khỏi giới hạn của map;
 };

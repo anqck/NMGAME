@@ -264,16 +264,17 @@ void AladdinCharacter::Update(float DeltaTime)
 
 		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
 			|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
-			0.6   : 0;//0.785 ~ PI/4
+			0.5   : 0;//0.785 ~ PI/4
 		 
 		//float vy = -2 * 0.5 *0.7;//Sin(PI/4) ~ 0.7
 		/*float vy = -10;
 		printLog(to_string(this->mAladdinState.at(mCurrentState)->GetPosition().y).c_str());*/
 		
-		mTime += DeltaTime/24;
+		mTime += DeltaTime/22;
 
-		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.625);
-		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, -0.057);
+		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.5);
+		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, -0.045);
+
 		if (this->mAladdinState.at(mCurrentState)->GetPosition().y <  WORLD_Y - MAP_HEIGHT + 90)
 		{
 			this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, WORLD_Y - MAP_HEIGHT + 90);
@@ -525,6 +526,10 @@ void AladdinCharacter::_AfterStateChange()
 		this->mTime = 0;
 		break;
 	}
+}
+Direction AladdinCharacter::getDirection()
+{
+	return this->mDir;
 }
 void AladdinCharacter::setDirection(Direction dir)
 {

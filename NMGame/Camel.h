@@ -16,13 +16,15 @@ public:
 
 	
 
-	void	Render(float DeltaTime);
-	void	Update(float DeltaTime);
+	void				Render(float DeltaTime);
+	void				Update(float DeltaTime);
 	//void	nextFrame();
 
 protected:
-	void			Initialize();
-	void			LoadResource();
+	vector<ObjectState*>	mAladdinState;
+
+	void				Initialize();
+	void				LoadResource();
 
 	int					mStartIdx;		//Index bắt đầu của các Rect chứa các Sprite
 	int					mEndIdx;		//
