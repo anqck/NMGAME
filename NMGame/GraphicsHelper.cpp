@@ -1,4 +1,5 @@
 ﻿#include "GraphicsHelper.h"
+#include "Camera.h"
 
 GraphicsHelper*		GraphicsHelper::mInstance = NULL;
 
@@ -130,6 +131,38 @@ void GraphicsHelper::DrawSurface(LPDIRECT3DSURFACE9 surface, const RECT * source
 
 void GraphicsHelper::DrawSurface(const RECT * sourceRect, const RECT * desRect)
 {
+}
+
+void GraphicsHelper::DrawLine(D3DXVECTOR2 lines[], int count)
+{
+	LPD3DXLINE LineDraw	;
+
+	D3DXCreateLine(GraphicsHelper::GetDirectDevice(), &LineDraw);
+
+	LineDraw->Begin();
+	LineDraw->Draw(lines, count, D3DCOLOR_XRGB(255, 0, 0));
+	LineDraw->End();
+}
+
+void GraphicsHelper::DrawBoundingBox(MyRECT rect)
+{
+	D3DXVECTOR3 cameraPositionInView = ViewPort::GetInstance()->getViewPortPosition(Camera::GetInstance()->GetPosition());
+
+	D3DXVECTOR3 _translation = D3DXVECTOR3(-cameraPositionInView.x, -cameraPositionInView.y, 0);
+
+
+	D3DXVECTOR3 lt = ViewPort::GetInstance()->getViewPortPosition(D3DXVECTOR3(rect.left,rect.top,0));
+	D3DXVECTOR3 rb = ViewPort::GetInstance()->getViewPortPosition(D3DXVECTOR3(rect.right , rect.bottom, 0));
+
+	D3DXVECTOR2 trans = D3DXVECTOR2(_translation.x, _translation.y);
+
+	D3DXVECTOR2 lines[] = { D3DXVECTOR2(lt.x + trans.x, lt.y + trans.y),
+		D3DXVECTOR2(rb.x + trans.x, lt.y + trans.y),
+		D3DXVECTOR2(rb.x + trans.x, rb.y + trans.y),
+		D3DXVECTOR2(lt.x + trans.x, rb.y + trans.y),
+		D3DXVECTOR2(lt.x + trans.x, lt.y + trans.y) };
+
+		DrawLine(lines, 5);
 }
 
 GraphicsHelper::GraphicsHelper()

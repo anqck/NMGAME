@@ -15,10 +15,15 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 
 	vector<MyRECT> temp;
 
+	this->mWidth = 63 * 2;
+	this->mHeight = 48 * 2.5 ;
+
 	//DoNothing
 	temp.push_back(MyRECT(1212, 9, 57, 1275));
 	this->mAladdinState.push_back(new ObjectState(temp, 10, L"Aladdin.png", D3DXVECTOR2(0, 0)));
 	temp.clear();
+
+
 
 	//Walk
 	temp.push_back(MyRECT(117, 42, 82, 165));
@@ -226,6 +231,8 @@ void AladdinCharacter::Update(float DeltaTime)
 		{
 			this->mAladdinState.at(this->mCurrentState)->Animate(DeltaTime);
 			this->mAladdinState.at(mCurrentState)->Move(DeltaTime);
+			
+			
 		}
 	}
 
@@ -290,13 +297,16 @@ void AladdinCharacter::Update(float DeltaTime)
 
 	this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
 	
-	
+	this->mHeight = (this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().bottom - this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().top) * 2.5;
+	this->mWidth = (this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().right - this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().left) * 2;
 }
 
 void AladdinCharacter::Render(float DeltaTime)
 {
 	//this->Transform();
 	this->mAladdinState.at(this->mCurrentState)->mSprite->SetPosition(this->GetTransformPosition().mPosition);
+
+	GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetBoundingBox());
 
 	this->mAladdinState.at(this->mCurrentState)->Render();
 }

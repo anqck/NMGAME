@@ -9,14 +9,18 @@
 
 class GameVisibleEntity {
 protected:
-	Sprite*				mSprite;
+	Sprite*					mSprite;
 
-	D3DXVECTOR3			mPosition;
-	D3DXVECTOR2			mVelocity;
+	int						mWidth, mHeight;
+
+	D3DXVECTOR3				mPosition;
+	D3DXVECTOR2				mVelocity;
+
+	MyRECT					mBoundingBox;
 
 	//TransformObject		mTransformObject;
 
-	float				mTime;
+	float					mTime;
 	int ANIMATE_RATE;
 
 public:
@@ -33,7 +37,12 @@ public:
 	void					SetPosition(D3DXVECTOR3 Position);
 	void					SetPosition(int X, int Y);
 
+	void					SetWidthAndHeight(int width, int height);
+
 	TransformObject			GetTransformPosition();
+
+	virtual MyRECT			GetBoundingBox();
+	
 
 };
 

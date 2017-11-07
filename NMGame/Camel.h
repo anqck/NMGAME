@@ -21,7 +21,7 @@ public:
 	//void	nextFrame();
 
 protected:
-	vector<ObjectState*>	mAladdinState;
+//	vector<ObjectState*>	mAladdinState;
 
 	void				Initialize();
 	void				LoadResource();
