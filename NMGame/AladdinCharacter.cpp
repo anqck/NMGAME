@@ -23,6 +23,7 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	this->mAladdinState.push_back(new ObjectState(temp, 10, L"Aladdin.png", D3DXVECTOR2(0, 0)));
 	temp.clear();
 
+	//
 
 
 	//Walk
