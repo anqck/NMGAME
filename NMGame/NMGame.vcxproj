@@ -153,6 +153,7 @@
     <ClCompile Include="AladdinState.cpp" />
     <ClCompile Include="Camel.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DemoMap.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="AladdinState.h" />
     <ClInclude Include="Camel.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="DemoMap.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Game.h" />
@@ -184,6 +186,7 @@
     <ClInclude Include="GameVisibleEntity.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="GraphicsHelper.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="KeyboardHelper.h" />
     <ClInclude Include="Map.h" />

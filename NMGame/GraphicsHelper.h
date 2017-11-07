@@ -18,6 +18,9 @@ public:
 	void						DrawSurface(LPDIRECT3DSURFACE9 surface, const RECT* sourceRect, const RECT* desRect);
 	void						DrawSurface(const RECT* sourceRect, const RECT* desRect);
 
+	void						DrawLine(D3DXVECTOR2 lines[], int count);
+	void						DrawBoundingBox(MyRECT rect);
+
 private:
 	GraphicsHelper();
 

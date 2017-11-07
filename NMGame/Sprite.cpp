@@ -70,6 +70,11 @@ void Sprite::SetScale(float x, float y)
 	this->mScale = D3DXVECTOR2(x, y);
 }
 
+MyRECT Sprite::GetSourceRect()
+{
+	return mSourceRect;
+}
+
 bool Sprite::IsFlipVertical()
 {
 	return this->isFlipVertical;
