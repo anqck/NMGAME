@@ -107,7 +107,8 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	temp.push_back(MyRECT(313, 110, 169, 390));
 	temp.push_back(MyRECT(313, 168, 256, 390));
 	temp.push_back(MyRECT(313, 258, 318, 390));
-	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdin.png", D3DXVECTOR2(0, 0)));
+	
+	this->mAladdinState.push_back(new ObjectState(temp, 20, L"Aladdin.png", D3DXVECTOR2(0, 0)));
 	temp.clear();
 
 
@@ -135,6 +136,35 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	temp.push_back( MyRECT(680, 410, 473, 766));
 	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdin.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0)));
 	temp.clear();
+
+
+	//chibinh nem qua
+	temp.push_back(MyRECT(1465, 6, 46, 1530));
+	temp.push_back(MyRECT(1465, 53, 100, 1530));
+	temp.push_back(MyRECT(1465, 107, 151, 1530));
+	temp.push_back(MyRECT(1465, 157, 198, 1530));
+	temp.push_back(MyRECT(1465, 205, 260, 1530));
+	temp.push_back(MyRECT(1465, 266, 316, 1530));
+	temp.push_back(MyRECT(1465, 323, 363, 1530));
+	temp.push_back(MyRECT(1465, 370, 413, 1530));
+	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdinblue.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0)));
+	temp.clear();
+
+	//chibinh ngoi nem
+	temp.push_back(MyRECT(1535, 6, 62, 1585));
+	temp.push_back(MyRECT(1535, 69, 130, 1585));
+	temp.push_back(MyRECT(1535, 137, 176, 1585));
+	temp.push_back(MyRECT(1535, 183, 224, 1585));
+	temp.push_back(MyRECT(1535, 230, 284, 1585));
+	temp.push_back(MyRECT(1535, 290, 374, 1585));
+	temp.push_back(MyRECT(1535, 384, 443, 1585));
+	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdinblue.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0)));
+	temp.clear();
+
+
+
+
+
 
 	//this->mAladdinState.push_back(new AladdinDoNothing(SpriteHandle));
 	//this->mAladdinState.push_back(new AladdinWalk(SpriteHandle));
@@ -203,8 +233,10 @@ void AladdinCharacter::Update(float DeltaTime)
 		printLog("SitAttack");
 		break;
 	case AState::RunAndJump:
-		printLog("SitAttack");
+		printLog("RunAndJump");
 		break;
+	case AState::ThrowApple:
+		printLog("ThrowApple");
 	default:
 		printLog("Else");
 		break;
@@ -320,9 +352,13 @@ void AladdinCharacter::OnKeyUp(int keyCode)
 {
 	if(keyCode	== 83) //S
 		this->allowAttack = true;
+
+	if (keyCode == 65) //A
+		this->allowAttack = true;
 	
 	if (keyCode == 68) //D
 		this->allowJump = true;
+
 }
 
 void AladdinCharacter::ProcessInput()
@@ -365,12 +401,14 @@ void AladdinCharacter::ProcessInput()
 		switch (this->mCurrentState)
 		{
 		case AState::SitAttack:
+		case AState::SitThrow:
 			if (this->mAladdinState.at(mCurrentState)->isDone())
 			{
 				flagKeyPressed = true;
 				this->setAllowStateChange(true);
 				this->setCurrentState(AState::Sit);
 			}
+
 			break;
 		case AState::RopeClimb:
 		case AState::RunAndJump:
@@ -411,6 +449,38 @@ void AladdinCharacter::ProcessInput()
 			}			
 		}
 	}
+	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_A))
+	{
+		switch (this->mCurrentState)
+		{
+		case AState::Attack1:
+		case AState::SitAttack:
+		case AState::RunAndJump:
+		case AState::RopeClimb:
+		case AState::ThrowApple:
+		case AState::SitThrow:
+			break;
+		case AState::Sit:
+			if (allowAttack)
+			{
+				allowAttack = false;
+				flagKeyPressed = true;
+				this->setAllowStateChange(true);
+				this->setCurrentState(AState::SitThrow);
+				break;
+			}
+					
+		default:
+			if (allowAttack)
+			{
+				allowAttack = false;
+				flagKeyPressed = true;
+				this->setAllowStateChange(true);
+				this->setCurrentState(AState::ThrowApple);
+				break;
+			}
+		}
+	}
 
 	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_D))
 	{
@@ -440,6 +510,9 @@ void AladdinCharacter::ProcessInput()
 		case AState::Attack1:
 		case AState::StopWalk:
 		case AState::SitAttack:
+		case AState::ThrowApple:
+		case AState::SitThrow:
+			
 			if (this->mAladdinState.at(mCurrentState)->isDone())
 			{
 				this->setAllowStateChange(true);
@@ -493,7 +566,7 @@ void AladdinCharacter::_BeforeStateChange(AState &changeTo)
 	}
 	
 	//Khi chuyển từ SitAttack qua Sit thì set frame cuối cùng
-	if ((this->mCurrentState == AState::SitAttack) && (changeTo == AState::Sit) )
+	if ((this->mCurrentState == AState::SitAttack || this->mCurrentState == AState::SitThrow) && (changeTo == AState::Sit) )
 	{
 		this->mAladdinState.at(AState::Sit)->GoToLastFrameIdx();
 		this->allowStateChange = true;

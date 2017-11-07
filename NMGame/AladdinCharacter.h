@@ -21,7 +21,9 @@ enum AState
 	SitAttack,
 	Attack1,
 	RopeClimb,
-	RunAndJump
+	RunAndJump,
+	ThrowApple,
+	SitThrow
 };
 
 enum Direction
