@@ -49,6 +49,7 @@ void DemoScene::Render(float DeltaTime)
 	
 	this->mAladdinHelper->Render(DeltaTime);
 
+
 	
 	this->mMap->Render(DeltaTime, MapLevel::MapLevel2);
 

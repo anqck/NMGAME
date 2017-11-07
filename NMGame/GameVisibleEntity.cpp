@@ -39,6 +39,12 @@ void GameVisibleEntity::SetPosition(int X, int Y)
 	this->mPosition.y = Y;
 }
 
+void GameVisibleEntity::SetWidthAndHeight(int width, int height)
+{
+	this->mWidth = width;
+	this->mHeight = height;
+}
+
 TransformObject GameVisibleEntity::GetTransformPosition()
 {
 	TransformObject		mTransformObject;
@@ -57,4 +63,18 @@ TransformObject GameVisibleEntity::GetTransformPosition()
 	return mTransformObject;
 
 
+}
+
+MyRECT GameVisibleEntity::GetBoundingBox()
+{
+	mBoundingBox.left = mPosition.x - mWidth / 2;
+	mBoundingBox.right = mPosition.x + mWidth / 2;
+	
+	/*mBoundingBox.top = mPosition.y - mHeight / 2;
+	mBoundingBox.bottom = mPosition.y + mHeight / 2;*/
+
+	mBoundingBox.top = mPosition.y  ;
+	mBoundingBox.bottom = mPosition.y + mHeight;
+
+	return mBoundingBox;
 }

@@ -44,6 +44,8 @@ public:
 	void				SetScale(D3DXVECTOR2 scale);
 	void				SetScale(float x, float y);
 
+	MyRECT				GetSourceRect();
+
 	bool				IsFlipVertical();
 	void				FlipVertical(bool flip_vertical);
 	// Render current sprite at location (X,Y) at the target surface

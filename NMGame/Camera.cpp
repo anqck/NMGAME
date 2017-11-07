@@ -13,6 +13,8 @@ Camera * Camera::GetInstance()
 Camera::Camera()
 {
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
+
+
 }
 
 Camera::~Camera()
@@ -24,36 +26,133 @@ void Camera::Update(AladdinCharacter* object)
 	float aladdinX = object->GetPosition().x;
 	float aladdinY = object->GetPosition().y;
 
-	float halfWidth = GLOBAL::GetWindowsWidth() / 2;
-	float halfHeight = GLOBAL::GetWindowsHeight() / 2;
+	halfWidth = GLOBAL::GetWindowsWidth() / 2;
+	halfHeight = GLOBAL::GetWindowsHeight() / 2;
 
-	D3DXVECTOR3 cameraPosition = ViewPort::GetInstance()->getViewPortPosition(this->mPosition);
-
-	float cameraX = mPosition.x + halfWidth;
-	float cameraY = mPosition.y - halfHeight;
+	cameraX = mPosition.x + halfWidth;
+	cameraY = mPosition.y - halfHeight;
 
 	this->mVelocity.x = this->mVelocity.y = 0;
 
+	Direction AladdinDir = object->getDirection();
+
+	//switch (AladdinDir)
+	//{
+	//case Direction::Right:
+	//	if (AladdinDir != preDir)
+	//	{
+	//		preDir = AladdinDir;
+	//		this->mVelocity.x = 60;
+	//	}
+	//	else
+	//	{
+	//		halfWidth = GLOBAL::GetWindowsWidth() * 2 / 5;
+	//		halfHeight = GLOBAL::GetWindowsHeight() / 2;
+
+	//		cameraX = mPosition.x + halfWidth;
+	//		cameraY = mPosition.y - halfHeight;
+
+	//		//Left
+	//		if (aladdinX < cameraX - DELTA_CAMERA)
+	//		{
+	//			this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
+	//		}
+
+	//		//Right
+	//		if (aladdinX > cameraX + DELTA_CAMERA)
+	//		{
+	//			//this->mVelocity.x = aladdinX - cameraX - DELTA_CAMERA;
+	//			this->mVelocity.x = 14;
+	//		}
+
+	//		//Top
+	//		if (aladdinY < cameraY - DELTA_CAMERA)
+	//		{
+	//			this->mVelocity.y = aladdinY - (cameraY - DELTA_CAMERA);
+	//		}
+	//		//Bottom
+	//		if (aladdinY > cameraY + DELTA_CAMERA)
+	//		{
+	//			this->mVelocity.y = aladdinY - (cameraY + DELTA_CAMERA);
+	//		}
+	//	}
+	//	break;
+	//case Direction::Left:
+	//	if (AladdinDir != preDir)
+	//	{
+	//		preDir = AladdinDir;
+	//		this->mVelocity.x = -60;
+	//	}
+	//	else
+	//	{
+	//		halfWidth = GLOBAL::GetWindowsWidth() * 3.3 / 5;
+	//		halfHeight = GLOBAL::GetWindowsHeight() / 2;
+
+	//		cameraX = mPosition.x + halfWidth;
+	//		cameraY = mPosition.y - halfHeight;
+
+	//		//Left
+	//		if (aladdinX < cameraX - DELTA_CAMERA)
+	//		{
+	//			//this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
+	//			this->mVelocity.x = -14;
+	//		}
+
+	//		//Right
+	//		if (aladdinX > cameraX + DELTA_CAMERA)
+	//		{
+	//			this->mVelocity.x = aladdinX - cameraX - DELTA_CAMERA;
+	//			//this->mVelocity.x = -10;
+	//		}
+
+	//		//Top
+	//		if (aladdinY < cameraY - DELTA_CAMERA)
+	//		{
+	//			this->mVelocity.y = aladdinY - (cameraY - DELTA_CAMERA);
+	//		}
+	//		//Bottom
+	//		if (aladdinY > cameraY + DELTA_CAMERA)
+	//		{
+	//			this->mVelocity.y = aladdinY - (cameraY + DELTA_CAMERA);
+	//		}
+	//	}
+	//	break;
+	//}
+	
 	//Left
-	if (aladdinX < cameraX - DELTA_CAMERA)
+	if (object->getCurrentState() == AState::LookUp)
 	{
-		this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
+		if ( mPosition.y < aladdinY + 600)
+			this->mVelocity.y = 10;
+
 	}
-	//Right
-	if (aladdinX > cameraX + DELTA_CAMERA)
+	else
 	{
-		this->mVelocity.x = aladdinX - cameraX - DELTA_CAMERA;
+		if (aladdinX < cameraX - DELTA_CAMERA)
+		{
+			this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
+		}
+
+		//Right
+		if (aladdinX > cameraX + DELTA_CAMERA)
+		{
+			this->mVelocity.x = aladdinX - cameraX - DELTA_CAMERA;
+			//this->mVelocity.x = 10;
+		}
+
+		//Top
+		if (aladdinY < cameraY - DELTA_CAMERA)
+		{
+			this->mVelocity.y = aladdinY - (cameraY - DELTA_CAMERA);
+		}
+		//Bottom
+		if (aladdinY > cameraY + DELTA_CAMERA)
+		{
+			this->mVelocity.y = aladdinY - (cameraY + DELTA_CAMERA);
+		}
 	}
-	//Top
-	if (aladdinY < cameraY - DELTA_CAMERA)
-	{
-		this->mVelocity.y = aladdinY - (cameraY - DELTA_CAMERA);
-	}
-	//Bottom
-	if (aladdinY > cameraY + DELTA_CAMERA)
-	{
-		this->mVelocity.y = aladdinY - (cameraY + DELTA_CAMERA);
-	}
+	
+	
 	this->mPosition.x += mVelocity.x;
 	this->mPosition.y += mVelocity.y;
 
@@ -93,6 +192,7 @@ void Camera::NomalizeCamera()
 	D3DXVECTOR3 rt_position = D3DXVECTOR3(this->mPosition.x + GLOBAL::GetWindowsWidth(), this->mPosition.y, 0);
 	D3DXVECTOR3 rb_position = D3DXVECTOR3(this->mPosition.x + GLOBAL::GetWindowsWidth(), this->mPosition.y - GLOBAL::GetWindowsHeight(), 0);
 
+	
 	//Left top
 	if (lt_position.x < 0)
 		this->mPosition.x = 0;
@@ -100,8 +200,7 @@ void Camera::NomalizeCamera()
 		this->mPosition.y = WORLD_Y;
 
 	//Left bottom
-	if (lb_position.x < 0)
-		this->mPosition.x = 0;
+
 	if (lb_position.y < WORLD_Y - MAP_HEIGHT)
 		this->mPosition.y = WORLD_Y - MAP_HEIGHT + GLOBAL::GetWindowsHeight();
 
