@@ -14,7 +14,8 @@ Camera::Camera()
 {
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
 
-
+	this->mWidth = GLOBAL::GetWindowsWidth();
+	this->mHeight = GLOBAL::GetWindowsHeight();
 }
 
 Camera::~Camera()
@@ -26,8 +27,8 @@ void Camera::Update(AladdinCharacter* object)
 	float aladdinX = object->GetPosition().x;
 	float aladdinY = object->GetPosition().y;
 
-	halfWidth = GLOBAL::GetWindowsWidth() / 2;
-	halfHeight = GLOBAL::GetWindowsHeight() / 2;
+	halfWidth = this->mWidth / 2;
+	halfHeight = this->mHeight / 2;
 
 	cameraX = mPosition.x + halfWidth;
 	cameraY = mPosition.y - halfHeight;

@@ -25,10 +25,12 @@ private:
 	static Camera*			mInstance;
 
 	D3DXVECTOR3				mPosition;
+	int						mWidth, mHeight;
+
 	D3DXVECTOR2				mVelocity;
 
 	float					cameraX, cameraY; //Center of camera
-	float					 halfWidth, halfHeight;
+	float					halfWidth, halfHeight;
 
 
 	Direction				preDir; //Lưu lại hướng của Aladdin trước đó trong TH có đổi hướng

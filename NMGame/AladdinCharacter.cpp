@@ -129,16 +129,18 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	temp.clear();
 
 
-	//RunAndJunp
-	temp.push_back( MyRECT(680, 7, 52, 748));
-	temp.push_back( MyRECT(680, 62, 115, 766));
-	temp.push_back( MyRECT(680, 120, 180, 766));
-	temp.push_back( MyRECT(680, 180, 258, 766));
-	temp.push_back( MyRECT(680, 260, 335, 766));
-	temp.push_back(MyRECT(680, 260, 335, 766));
-	temp.push_back( MyRECT(680, 348, 410, 766));
-	temp.push_back( MyRECT(680, 410, 473, 766));
-	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdin.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	//RunAndJump
+	temp.push_back(MyRECT(77, 159, 196, 127));
+	temp.push_back(MyRECT(59, 117, 158, 101));
+	temp.push_back(MyRECT(0, 175, 220, 76));
+	temp.push_back(MyRECT(54, 59, 116, 111));
+	temp.push_back(MyRECT(49, 0, 58, 91));
+	temp.push_back(MyRECT(49, 0, 58, 91));
+	temp.push_back(MyRECT(0, 0, 61, 48));
+	temp.push_back(MyRECT(0, 62, 120, 53));
+	temp.push_back(MyRECT(0, 121, 174, 58));
+
+	this->mAladdinState.push_back(new ObjectState(temp, 11, L"AladdinAction\\AladdinRunJump.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
@@ -168,11 +170,11 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 
 	//RunAttack
 	temp.push_back(MyRECT(61, 112, 147, 113));
-	temp.push_back(MyRECT(0, 74, 125, 60, D3DXVECTOR3(3, 8, 0)));
-	temp.push_back(MyRECT(61, 61, 111, 114, D3DXVECTOR3(3, 8, 0)));
+	temp.push_back(MyRECT(0, 74, 125, 60, D3DXVECTOR3(4, 8, 0)));
+	temp.push_back(MyRECT(61, 61, 111, 114, D3DXVECTOR3(5, 8, 0)));
 	temp.push_back(MyRECT(0, 126, 174, 60, D3DXVECTOR3(3, 6, 0)));
-	temp.push_back(MyRECT(0, 0, 73, 60, D3DXVECTOR3(10, 4, 0)));
-	temp.push_back(MyRECT(61, 0, 60, 111,D3DXVECTOR3(10,2,0)));
+	temp.push_back(MyRECT(0, 0, 73, 60, D3DXVECTOR3(12, 4, 0)));
+	temp.push_back(MyRECT(61, 0, 60, 111,D3DXVECTOR3(12,2,0)));
 	this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinAction\\RunAttack.png", D3DXVECTOR2(0.5f, 0.0f), CenterArchor::CenterBottom));
 	temp.clear();
 
@@ -299,16 +301,16 @@ void AladdinCharacter::Update(float DeltaTime)
 
 		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
 			|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
-			0.5   : 0;//0.785 ~ PI/4
+			0.38   : 0;//0.785 ~ PI/4
 		 
 		//float vy = -2 * 0.5 *0.7;//Sin(PI/4) ~ 0.7
 		/*float vy = -10;
 		printLog(to_string(this->mAladdinState.at(mCurrentState)->GetPosition().y).c_str());*/
 		
-		mTime += DeltaTime/22;
+		mTime += DeltaTime/18;
 
-		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.5);
-		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, -0.045);
+		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 1.08);
+		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, -0.07);
 
 		
 
@@ -320,13 +322,13 @@ void AladdinCharacter::Update(float DeltaTime)
 	case AState::ThrowApple:
 		if (this->mAladdinState.at(mCurrentState)->GetCurrentIdx() == 3 && this->mAladdinState.at(mCurrentState)->isNextFrame == true)
 		{
-			mListThrowingApple.push_back(new ThrowingApple(D3DXVECTOR3(this->mAladdinState.at(mCurrentState)->GetPosition().x + 40, this->mAladdinState.at(mCurrentState)->GetPosition().y + 120, 0),this->mDir));
+			mListThrowingApple.push_back(new ThrowingApple(D3DXVECTOR3(this->mAladdinState.at(mCurrentState)->GetPosition().x + ((this->mDir == Direction::Right)? 1: -1) * 40, this->mAladdinState.at(mCurrentState)->GetPosition().y +  125, 0),this->mDir));
 		}			
 		break;
 	case AState::SitThrow:
 		if (this->mAladdinState.at(mCurrentState)->GetCurrentIdx() == 3 && this->mAladdinState.at(mCurrentState)->isNextFrame == true)
 		{
-			mListThrowingApple.push_back(new ThrowingApple(D3DXVECTOR3(this->mAladdinState.at(mCurrentState)->GetPosition().x + 40, this->mAladdinState.at(mCurrentState)->GetPosition().y + 70 , 0), this->mDir));
+			mListThrowingApple.push_back(new ThrowingApple(D3DXVECTOR3(this->mAladdinState.at(mCurrentState)->GetPosition().x + ((this->mDir == Direction::Right) ? 1 : -1)* 32, this->mAladdinState.at(mCurrentState)->GetPosition().y +  95 , 0), this->mDir));
 		}
 		break;
 	}
@@ -453,6 +455,7 @@ void AladdinCharacter::ProcessInput()
 			}
 
 			break;
+		case AState::RunAndJump:
 		case AState::RopeClimb:
 			break;
 		default:

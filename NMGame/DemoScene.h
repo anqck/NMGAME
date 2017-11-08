@@ -23,12 +23,12 @@ public:
 	DemoScene(AladdinGame *game);
 	~DemoScene();
 
-	 void Update(float DeltaTime);
-	 void Render(float DeltaTime);
-	 void LoadResource();
-	void OnKeyDown(int keyCode);
-	void OnKeyUp(int keyCode);
-	void ProcessInput();
+	void					Update(float DeltaTime);
+	void					Render(float DeltaTime);
+	void					LoadResource();
+	void					OnKeyDown(int keyCode);
+	void					OnKeyUp(int keyCode);
+	void					ProcessInput();
 
 
 protected:

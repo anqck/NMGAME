@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include<Windows.h>
 #include<dinput.h>
@@ -6,7 +6,7 @@
 #include<d3dx9.h>
 
 #define WORLD_X 9542
-#define WORLD_Y 9542
+#define WORLD_Y 9542  //Thế giới hình vuông cho việc chia QuadTree
 //#define WORLD_Y 688*2.5
 
 #define MAP_WIDTH 9542

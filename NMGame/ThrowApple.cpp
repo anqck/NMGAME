@@ -45,7 +45,7 @@ void ThrowingApple::Update(float DeltaTime)
 	{
 	case ThrowingAppleState::Normal:
 		this->mState.at(mCurrentState)->Update(mTime);
-		mTime += DeltaTime / 15;
+		mTime += DeltaTime / 13;
 
 
 		this->mState.at(mCurrentState)->SetVelocity(((mDir == Direction::Left) ? (1.0f) : (-1.0f)) * 1.2, 0.5);

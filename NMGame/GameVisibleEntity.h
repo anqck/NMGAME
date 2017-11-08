@@ -18,8 +18,6 @@ protected:
 
 	MyRECT					mBoundingBox;
 
-
-
 	float					mTime;
 	int						ANIMATE_RATE;
 

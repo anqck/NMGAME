@@ -99,6 +99,15 @@
     <ClCompile Include="ThrowApple.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CTreeObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ultils.h">
@@ -178,6 +187,15 @@
     </ClInclude>
     <ClInclude Include="ThrowApple.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CTreeObject.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

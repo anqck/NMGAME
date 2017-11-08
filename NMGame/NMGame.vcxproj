@@ -154,6 +154,7 @@
     <ClCompile Include="Camel.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="CTreeObject.cpp" />
     <ClCompile Include="DemoMap.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -167,6 +168,8 @@
     <ClCompile Include="MyRECT.cpp" />
     <ClCompile Include="ObjectState.cpp" />
     <ClCompile Include="ObjectStateWithLoop.cpp" />
+    <ClCompile Include="QNode.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="ThrowApple.cpp" />
@@ -180,6 +183,7 @@
     <ClInclude Include="Camel.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="CTreeObject.h" />
     <ClInclude Include="DemoMap.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Game.h" />
@@ -194,6 +198,8 @@
     <ClInclude Include="MyRECT.h" />
     <ClInclude Include="ObjectState.h" />
     <ClInclude Include="ObjectStateWithLoop.h" />
+    <ClInclude Include="QNode.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
