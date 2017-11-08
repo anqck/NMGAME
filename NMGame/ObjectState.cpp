@@ -113,6 +113,12 @@ void ObjectState::resetFrame()
 	this->ResetFlag = true;
 }
 
+void ObjectState::GoToFrame(int idx)
+{
+	ResetFlag = false;
+	this->mCurrentIdx = idx;
+}
+
 void ObjectState::GoToLastFrameIdx()
 {
 	this->mCurrentIdx = this->mEndIdx - 1;

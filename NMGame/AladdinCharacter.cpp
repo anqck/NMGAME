@@ -24,9 +24,6 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	this->mAladdinState.push_back(new ObjectState(temp, 10, L"Aladdin.png", D3DXVECTOR2(0, 0),CenterArchor::CenterBottom));
 	temp.clear();
 
-	//
-
-
 	//Walk
 	temp.push_back(MyRECT(117, 42, 82, 165));
 	temp.push_back(MyRECT(56, 103, 146, 107));
@@ -99,11 +96,11 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	//SitAttack
 	temp.push_back(MyRECT(630, 4, 58, 674));
 	temp.push_back(MyRECT(630, 62, 112, 674));
-	temp.push_back(MyRECT(630, 113, 189, 674));
-	temp.push_back(MyRECT(630, 190, 287, 674));
-	temp.push_back(MyRECT(630, 297, 383, 674));
-	temp.push_back(MyRECT(630, 390, 465, 674));
-	temp.push_back(MyRECT(630, 473, 522, 674));
+	temp.push_back(MyRECT(630, 113, 189, 674, D3DXVECTOR3(12, 0, 0)));
+	temp.push_back(MyRECT(630, 190, 287, 674, D3DXVECTOR3(19, 0, 0)));
+	temp.push_back(MyRECT(630, 297, 383, 674, D3DXVECTOR3(20, 0, 0)));
+	temp.push_back(MyRECT(630, 390, 465, 674, D3DXVECTOR3(12, 0, 0)));
+	temp.push_back(MyRECT(630, 473, 522, 674, D3DXVECTOR3(0, 0, 0)));
 	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdin.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
@@ -112,10 +109,10 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	temp.push_back(MyRECT(313, 6, 54, 390));
 	temp.push_back(MyRECT(313, 54, 110, 390));
 	temp.push_back(MyRECT(313, 110, 169, 390));
-	temp.push_back(MyRECT(313, 168, 256, 390));
-	temp.push_back(MyRECT(313, 258, 318, 390));
+	temp.push_back(MyRECT(313, 168, 256, 390, D3DXVECTOR3(20, 0, 0)));
+	temp.push_back(MyRECT(313, 258, 318, 390, D3DXVECTOR3(7, 0, 0)));
 	
-	this->mAladdinState.push_back(new ObjectState(temp, 20, L"Aladdin.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdin.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
@@ -169,15 +166,15 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	temp.clear();
 
 
-	//this->mAladdinState.push_back(new AladdinDoNothing(SpriteHandle));
-	//this->mAladdinState.push_back(new AladdinWalk(SpriteHandle));
-	//this->mAladdinState.push_back(new AladdinStopWalk(SpriteHandle));
-	//this->mAladdinState.push_back(new AladdinLookUp(SpriteHandle));
-	//this->mAladdinState.push_back(new AladdinStand(SpriteHandle));
-	//this->mAladdinState.push_back(new AladdinSit(SpriteHandle));
-	//this->mAladdinState.push_back(new AladdinRest(SpriteHandle));
-	//this->mAladdinState.push_back(new AladdinSitAttack(SpriteHandle));
-	//this->mAladdinState.push_back(new AladdinAttack1(SpriteHandle));
+	//RunAttack
+	temp.push_back(MyRECT(61, 112, 147, 113));
+	temp.push_back(MyRECT(0, 74, 125, 60, D3DXVECTOR3(3, 8, 0)));
+	temp.push_back(MyRECT(61, 61, 111, 114, D3DXVECTOR3(3, 8, 0)));
+	temp.push_back(MyRECT(0, 126, 174, 60, D3DXVECTOR3(3, 6, 0)));
+	temp.push_back(MyRECT(0, 0, 73, 60, D3DXVECTOR3(10, 4, 0)));
+	temp.push_back(MyRECT(61, 0, 60, 111,D3DXVECTOR3(10,2,0)));
+	this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinAction\\RunAttack.png", D3DXVECTOR2(0.5f, 0.0f), CenterArchor::CenterBottom));
+	temp.clear();
 
 
 	this->mCurrentState = AState::DoNothing;
@@ -313,11 +310,7 @@ void AladdinCharacter::Update(float DeltaTime)
 		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.5);
 		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, -0.045);
 
-		if (this->mAladdinState.at(mCurrentState)->GetPosition().y <  WORLD_Y - MAP_HEIGHT + 90)
-		{
-			this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, WORLD_Y - MAP_HEIGHT + 90);
-			this->allowStateChange = true;
-		}
+		
 
 		break;
 	}
@@ -342,6 +335,10 @@ void AladdinCharacter::Update(float DeltaTime)
 	for (int i = 0; i < mListThrowingApple.size(); i++)
 	{
 		mListThrowingApple.at(i)->Update(DeltaTime);
+		if (mListThrowingApple.at(i)->isDone() == true)
+		{
+			mListThrowingApple.erase(mListThrowingApple.begin() + i);
+		}
 	}
 
 	this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
@@ -408,6 +405,15 @@ void AladdinCharacter::ProcessInput()
 		case AState::Sit:
 		case AState::LookUp:
 		case AState::RopeClimb:
+		case AState::RunAttack: //Chuyển từ chạy đánh sang chạy
+			flagKeyPressed = true;
+			if (this->mAladdinState.at(mCurrentState)->isDone())
+			{				
+				this->setAllowStateChange(true);
+				this->setCurrentState(AState::Walk);
+			
+			}
+			break;
 		case AState::RunAndJump:
 			break;
 		default:
@@ -448,7 +454,6 @@ void AladdinCharacter::ProcessInput()
 
 			break;
 		case AState::RopeClimb:
-		case AState::RunAndJump:
 			break;
 		default:
 			flagKeyPressed = true;
@@ -461,7 +466,7 @@ void AladdinCharacter::ProcessInput()
 	{
 		switch (this->mCurrentState)
 		{
-		case AState::Attack1:
+		//case AState::Attack1:
 		
 		case AState::RunAndJump:
 		case AState::RopeClimb:
@@ -496,12 +501,22 @@ void AladdinCharacter::ProcessInput()
 	{
 		switch (this->mCurrentState)
 		{
+		case AState::RunAttack:
 		case AState::Attack1:
 		case AState::SitAttack:
 		case AState::RunAndJump:
 		case AState::RopeClimb:
 			break;
 		case AState::SitThrow:
+		case AState::Walk:
+			if (allowAttack)
+			{
+				allowAttack = false;
+				flagKeyPressed = true;
+				this->setAllowStateChange(true);
+				this->setCurrentState(AState::RunAttack);
+				break;
+			}
 		case AState::Sit:
 			if (allowAttack)
 			{
@@ -549,6 +564,7 @@ void AladdinCharacter::ProcessInput()
 	{
 		switch (this->mCurrentState)
 		{
+		
 		case AState::Attack1:
 		case AState::StopWalk:
 		case AState::SitAttack:
@@ -560,9 +576,21 @@ void AladdinCharacter::ProcessInput()
 				this->setCurrentState(AState::DoNothing);
 			}
 			break;
+		case AState::Stand:
 		case AState::RopeClimb:
 			break;
+		
+		case AState::RunAndJump:
+			if (this->mAladdinState.at(mCurrentState)->GetPosition().y <  WORLD_Y - MAP_HEIGHT + 90)
+			{
+				this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, WORLD_Y - MAP_HEIGHT + 90);
+				this->allowStateChange = true;
+				this->setCurrentState(AState::DoNothing);
+			}
+			break;
+		case AState::RunAttack:
 		default:
+			this->setAllowStateChange(true);
 			this->setCurrentState(AState::DoNothing);
 			break;
 		}
@@ -610,6 +638,14 @@ void AladdinCharacter::_BeforeStateChange(AState &changeTo)
 	if ((this->mCurrentState == AState::SitAttack || this->mCurrentState == AState::SitThrow) && (changeTo == AState::Sit) )
 	{
 		this->mAladdinState.at(AState::Sit)->GoToLastFrameIdx();
+		this->allowStateChange = true;
+	}
+
+	//Khi chuyển từ RunAttack qua Run thì set frame cuối cùng
+	if ((this->mCurrentState == AState::RunAttack) && (changeTo == AState::Walk))
+	{
+		this->mAladdinState.at(AState::RunAttack)->GoToFrame(12);
+
 		this->allowStateChange = true;
 	}
 

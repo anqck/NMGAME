@@ -115,11 +115,30 @@ MyRECT Sprite::GetCurrentFrameBoundingBox()
 	int Height = (this->GetSourceRect().bottom - this->GetSourceRect().top) * 2.5;
 	int Width = (this->GetSourceRect().right - this->GetSourceRect().left) * 2;
 
-	mBoundingBox.left = mPosition.x - Width / 2;
-	mBoundingBox.right = mPosition.x + Width / 2;
+	switch (this->mCenterArchor)
+	{
+	case CenterArchor::CenterBottom:
+		mBoundingBox.left = (mPosition.x + ((isFlipVertical) ? -1 : 1) * this->GetSourceRect().getCenterTranslation().x * 2 ) - Width / 2;
+		mBoundingBox.right = (mPosition.x + ((isFlipVertical) ? -1 : 1) * this->GetSourceRect().getCenterTranslation().x * 2 ) + Width / 2 ;
+		mBoundingBox.top = mPosition.y + this->GetSourceRect().getCenterTranslation().y * 2.5;
+		mBoundingBox.bottom = mPosition.y + this->GetSourceRect().getCenterTranslation().y * 2.5 + Height;
+		break;
+	case CenterArchor::TopLeft:
+		mBoundingBox.left = mPosition.x;
+		mBoundingBox.right = mPosition.x + Width ;
+		mBoundingBox.top = mPosition.y;
+		mBoundingBox.bottom = mPosition.y - Height;
+		break;
+	case CenterArchor::Center:
+		mBoundingBox.left = mPosition.x - Width / 2;
+		mBoundingBox.right = mPosition.x + Width/2;
+		mBoundingBox.top = mPosition.y + Height / 2;
+		mBoundingBox.bottom = mPosition.y - Height / 2;
+		break;
+	}
 
-	mBoundingBox.top = mPosition.y;
-	mBoundingBox.bottom = mPosition.y + Height;
+
+	
 
 	return mBoundingBox;
 }
@@ -134,5 +153,5 @@ void Sprite::Render()
 	GraphicsHelper::GetInstance()->DrawTexture(mTexture, this->mSourceRect, center,this->GetTransformPosition().mPosition, tempScale);
 	
 	//Draw Boundingbox for debug
-	GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetCurrentFrameBoundingBox());
+	//GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetCurrentFrameBoundingBox());
 }

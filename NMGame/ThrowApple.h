@@ -5,6 +5,11 @@
 #include "KeyboardHelper.h"
 #include "Global.h"
 
+enum ThrowingAppleState
+{
+	Normal,
+	Explosion
+};
 class ThrowingApple : public GameVisibleEntity
 {
 public:
@@ -12,18 +17,21 @@ public:
 	ThrowingApple(D3DXVECTOR3	pos, Direction dir);
 	~ThrowingApple();
 
-	void			Update(float DeltaTime);
-	void			Render(float DeltaTime);
+	void				Update(float DeltaTime);
+	void				Render(float DeltaTime);
 
-	bool			isDone();
+
+	bool				isDone();
 
 
 
 protected:
-	ObjectState*	mState;
-	Direction		mDir;
+	vector<ObjectState*>		mState;
+	Direction			mDir;
 
-	bool			mDone;
+	ThrowingAppleState	mCurrentState;
+
+	bool				mDone;
 
 	 
 };

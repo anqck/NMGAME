@@ -26,7 +26,8 @@ enum AState
 	RopeClimb,
 	RunAndJump,
 	ThrowApple,
-	SitThrow
+	SitThrow,
+	RunAttack
 };
 
 

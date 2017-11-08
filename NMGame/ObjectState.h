@@ -7,8 +7,8 @@
 class ObjectState
 {
 public:
-	ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, CenterArchor center = CenterArchor::TopLeft);
-	ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, D3DXVECTOR2 acceleration, CenterArchor center = CenterArchor::TopLeft);
+	ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, CenterArchor center = CenterArchor::Center);
+	ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, D3DXVECTOR2 acceleration, CenterArchor center = CenterArchor::Center);
 	/*ObjectState(D3DXVECTOR3 Position);
 	ObjectState(int X, int Y);*/
 	~ObjectState();
@@ -20,8 +20,8 @@ public:
 	virtual void		nextFrame();	
 	virtual bool		isDone();
 
-	//void			nextFrameWithoutLoop();
 	void				resetFrame();
+	void				GoToFrame(int idx);
 	void				GoToLastFrameIdx();
 
 	D3DXVECTOR3			GetPosition() { return this->mPosition; };
