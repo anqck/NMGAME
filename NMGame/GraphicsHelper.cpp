@@ -112,6 +112,7 @@ void GraphicsHelper::DrawTexture(LPDIRECT3DTEXTURE9 Texture, MyRECT sourceRect, 
 
 	mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
+	
 	mSpriteHandler->Draw(Texture, &sourceRect, &center, &position, D3DCOLOR_XRGB(255, 255, 255));
 
 	mSpriteHandler->End();
@@ -138,7 +139,7 @@ void GraphicsHelper::DrawLine(D3DXVECTOR2 lines[], int count)
 	LPD3DXLINE LineDraw	;
 
 	D3DXCreateLine(GraphicsHelper::GetDirectDevice(), &LineDraw);
-
+	LineDraw->SetWidth(3);
 	LineDraw->Begin();
 	LineDraw->Draw(lines, count, D3DCOLOR_XRGB(255, 0, 0));
 	LineDraw->End();

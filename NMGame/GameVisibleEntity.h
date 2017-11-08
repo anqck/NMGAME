@@ -18,10 +18,10 @@ protected:
 
 	MyRECT					mBoundingBox;
 
-	//TransformObject		mTransformObject;
+
 
 	float					mTime;
-	int ANIMATE_RATE;
+	int						ANIMATE_RATE;
 
 public:
 	GameVisibleEntity();

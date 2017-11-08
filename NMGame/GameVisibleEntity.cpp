@@ -76,5 +76,6 @@ MyRECT GameVisibleEntity::GetBoundingBox()
 	mBoundingBox.top = mPosition.y  ;
 	mBoundingBox.bottom = mPosition.y + mHeight;
 
+
 	return mBoundingBox;
 }

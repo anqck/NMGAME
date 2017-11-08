@@ -10,6 +10,8 @@
 #include <vector>
 #include <map>
 
+#include "ThrowApple.h"
+
 enum AState
 {
 	DoNothing,
@@ -27,13 +29,7 @@ enum AState
 	SitThrow
 };
 
-enum Direction
-{
-	Left,
-	Right,
-	Up,
-	Down
-};
+
 
 class AladdinCharacter : public GameVisibleEntity
 {
@@ -62,6 +58,7 @@ protected:
 	vector<ObjectState*>	mAladdinState;
 
 	AState					mCurrentState;
+
 	Direction				mDir;
 
 	bool					allowStateChange;
@@ -79,8 +76,7 @@ protected:
 
 	bool					flagKeyPressed ;
 
-
-	
+	vector<ThrowingApple*>	mListThrowingApple;	//Các táo ném ra
 };
 
 #endif _ALADDIN_H__

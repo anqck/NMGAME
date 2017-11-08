@@ -5,8 +5,8 @@
 class ObjectStateWithLoop : public ObjectState
 {
 public:
-	ObjectStateWithLoop(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity) : ObjectState(rect, Animate_rate, filePath, velocity) { mStartLoopIdx = 0; };
-	ObjectStateWithLoop(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, int startLoop) : ObjectState(rect, Animate_rate, filePath, velocity) { mStartLoopIdx = startLoop; };
+	ObjectStateWithLoop(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, CenterArchor center = CenterArchor::TopLeft) : ObjectState(rect, Animate_rate, filePath, velocity, center) { mStartLoopIdx = 0; };
+	ObjectStateWithLoop(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, int startLoop, CenterArchor center = CenterArchor::TopLeft) : ObjectState(rect, Animate_rate, filePath, velocity, center) { mStartLoopIdx = startLoop; };
 
 	void	nextFrame() override;
 protected:

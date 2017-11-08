@@ -9,6 +9,8 @@
 #include "DemoMap.h"
 #include "Camera.h"
 
+#include "ThrowApple.h"
+
 
 using namespace std;
 

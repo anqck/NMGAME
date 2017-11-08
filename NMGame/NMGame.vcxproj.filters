@@ -96,6 +96,9 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ThrowApple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ultils.h">
@@ -171,6 +174,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowApple.h">
       <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>

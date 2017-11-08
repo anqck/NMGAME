@@ -1,10 +1,15 @@
 ﻿#include "Sprite.h"
+#include "Camera.h"
 
-Sprite::Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect)
+Sprite::Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect, CenterArchor center)
 {
 
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
+
+	this->mCenterArchor = center;
+
 	this->mListRect = listSourceRect;
+
 	mSourceRect = listSourceRect.at(0);
 
 	this->isFlipVertical = false;
@@ -85,17 +90,49 @@ void Sprite::FlipVertical(bool flip_vertical)
 	this->isFlipVertical = flip_vertical;
 }
 
+TransformObject Sprite::GetTransformPosition()
+{
+	TransformObject		mTransformObject;
+
+	//Get aladdin pos in ViewPort
+	mTransformObject.mPosition = ViewPort::GetInstance()->getViewPortPosition(this->mPosition);
+
+	//Get camera pos in ViewPort
+	D3DXVECTOR3 cameraPositionInView = ViewPort::GetInstance()->getViewPortPosition(Camera::GetInstance()->GetPosition());
+
+	//Translation vector
+	mTransformObject.mTranslation = D3DXVECTOR3(-cameraPositionInView.x, -cameraPositionInView.y, 0);
+
+	mTransformObject.mPosition += mTransformObject.mTranslation;
+
+	return mTransformObject;
+}
+
+MyRECT Sprite::GetCurrentFrameBoundingBox()
+{
+	MyRECT mBoundingBox;
+
+	int Height = (this->GetSourceRect().bottom - this->GetSourceRect().top) * 2.5;
+	int Width = (this->GetSourceRect().right - this->GetSourceRect().left) * 2;
+
+	mBoundingBox.left = mPosition.x - Width / 2;
+	mBoundingBox.right = mPosition.x + Width / 2;
+
+	mBoundingBox.top = mPosition.y;
+	mBoundingBox.bottom = mPosition.y + Height;
+
+	return mBoundingBox;
+}
+
 void Sprite::Render()
 {
-
-
-
 	//Temp code
 	D3DXVECTOR2 tempScale = D3DXVECTOR2(((isFlipVertical)?-1:1) * 2, 2.5);
 
-	D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top), 0);
+	D3DXVECTOR3 center = this->mSourceRect.GetCenterArchorPosision(this->mCenterArchor);
 
-	GraphicsHelper::GetInstance()->DrawTexture(mTexture, this->mSourceRect, center,this->mPosition, tempScale);
-
-
+	GraphicsHelper::GetInstance()->DrawTexture(mTexture, this->mSourceRect, center,this->GetTransformPosition().mPosition, tempScale);
+	
+	//Draw Boundingbox for debug
+	GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetCurrentFrameBoundingBox());
 }

@@ -19,6 +19,14 @@ struct TransformObject
 	D3DXVECTOR3					mTranslation;
 };
 
+enum Direction
+{
+	Left,
+	Right,
+	Up,
+	Down
+};
+
 class GLOBAL
 {
 	//typedef int(*FPTR)(int a);

@@ -23,6 +23,8 @@ void DemoScene::Update(float DeltaTime)
 	this->mAladdinHelper->Update(DeltaTime);
 	Camera::GetInstance()->Update(this->mAladdinHelper);
 
+
+
 }
 
 void DemoScene::Render(float DeltaTime)
@@ -64,10 +66,11 @@ void DemoScene::LoadResource()
 
 	imagepos.x = 100.0f; //coord x of our sprite
 	imagepos.y = WORLD_Y - MAP_HEIGHT + 90; //coord y of out sprite
-	//imagepos.y = 200;
 	imagepos.z = 0.0f; //coord z of out sprite
 
 	this->mAladdinHelper = new AladdinCharacter(imagepos);
+
+
 
 	Camera::GetInstance()->SetPosition(0, WORLD_Y - MAP_HEIGHT - GLOBAL::GetWindowsHeight());
 

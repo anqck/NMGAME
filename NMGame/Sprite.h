@@ -15,9 +15,6 @@ using namespace std;
 
 class Sprite {
 protected:
-	
-	
-
 	int _Index;								// Current sprite index
 	int _Count;
 
@@ -27,11 +24,12 @@ protected:
 	vector<MyRECT>			mListRect;			// Hình chữ nhật chứa các sprite
 	MyRECT					mSourceRect;		// Hình chữ nhật chứ sprite cần vẽ
 	D3DXVECTOR2				mScale;				// Phóng to, thu nhỏ sprite
+	CenterArchor			mCenterArchor;
 
 	bool					isFlipVertical;		// Lât hình theo trục dọc
 
 public:
-	Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect);
+	Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect, CenterArchor center = CenterArchor::TopLeft);
 	~Sprite();
 
 	void SetFrame(int frameIdx);
@@ -48,7 +46,12 @@ public:
 
 	bool				IsFlipVertical();
 	void				FlipVertical(bool flip_vertical);
+
+	TransformObject		GetTransformPosition();
+
+	MyRECT				GetCurrentFrameBoundingBox();
+		
 	// Render current sprite at location (X,Y) at the target surface
-	void				 Render();
+	void				Render();
 	
 };

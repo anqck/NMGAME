@@ -7,22 +7,22 @@
 class ObjectState
 {
 public:
-	ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity);
-	ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, D3DXVECTOR2 acceleration);
+	ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, CenterArchor center = CenterArchor::TopLeft);
+	ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, D3DXVECTOR2 acceleration, CenterArchor center = CenterArchor::TopLeft);
 	/*ObjectState(D3DXVECTOR3 Position);
 	ObjectState(int X, int Y);*/
 	~ObjectState();
 
-	virtual void	Render();
-	virtual void	Update(float DeltaTime);
-	virtual void	Animate(float DeltaTime);
-	void			Move(float delta_time);
-	virtual void	nextFrame();	
-	virtual bool	isDone();
+	virtual void		Render();
+	virtual void		Update(float DeltaTime);
+	virtual void		Animate(float DeltaTime);
+	void				Move(float delta_time);
+	virtual void		nextFrame();	
+	virtual bool		isDone();
 
 	//void			nextFrameWithoutLoop();
-	void			resetFrame();
-	void			GoToLastFrameIdx();
+	void				resetFrame();
+	void				GoToLastFrameIdx();
 
 	D3DXVECTOR3			GetPosition() { return this->mPosition; };
 	void				SetPosition(D3DXVECTOR3 Position) { this->mPosition = Position;};
@@ -36,28 +36,33 @@ public:
 	void				SetAcceleration(D3DXVECTOR2 Acceleration) { this->mVelocity = Acceleration; };
 	void				SetAcceleration(float X, float Y) { this->mAcceleration.x = X; this->mAcceleration.y = Y; };
 
-
-
 	bool				GetFlipVertical() { return this->mIsFlipVertical; };
 	void				SetFlipVertical(bool flipV) {this->mIsFlipVertical = flipV; if (this->mIsFlipVertical != this->mSprite->IsFlipVertical()) this->mSprite->FlipVertical(this->mIsFlipVertical);
 	};
 
 	int					GetCurrentIdx() { return this->mCurrentIdx; };
 	int					GetEndIdx() { return this->mEndIdx; };
+
+	bool				GetIsNextFrame(); //Kiểm tra xem có cấp nhật frame idx tiếp theo trong lệnh Animate hay không
 	
 
 	Sprite*				mSprite;
 	LPD3DXSPRITE		mSpriteHandle;
 	int					mEndIdx;		//
 	int					mCurrentIdx;	//Index hiện tại
-	D3DXVECTOR3			mPosition;		//Vị trí của Aladdin
-	D3DXVECTOR2			mVelocity;		//Vận tốc hiện tại của Aladdin
-	D3DXVECTOR2			mAcceleration;		//Vận tốc hiện tại của Aladdin
-	//D3DXVECTOR2			mDefaultSpeed;	//Vận tốc mặc định khi di chuyển
+	D3DXVECTOR3			mPosition;		//Vị trí của 
+	D3DXVECTOR2			mVelocity;		//Vận tốc hiện tại của 
+	D3DXVECTOR2			mAcceleration;		//Gia tốc hiện tại của
+
+	
+
 	bool				mIsFlipVertical; //Lat hinh doc
 	DWORD				last_time;	 // this is to control the animate rate of kitty
-	int					ANIMATE_RATE;
 
+	int					ANIMATE_RATE;
+	bool				isNextFrame;
+
+	
 
 
 	bool				ResetFlag;
