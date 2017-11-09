@@ -137,6 +137,7 @@ namespace NMGame_MapEditor
             // 
             // listView1
             // 
+            this.listView1.CheckBoxes = true;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmKey,
             this.clmPos,

@@ -266,6 +266,10 @@ namespace NMGame_MapEditor
 
         private void StateUpdate(State currentState)
         {
+            this.mWorldSpace.ClearRectangle();
+            this.mWorldSpace.ClearObjectImage();
+            this.mWorldSpace.Invalidate();
+
             switch (currentState)
             {
                 case State.NewObject:
@@ -295,6 +299,7 @@ namespace NMGame_MapEditor
                     break;
                 case State.DoNothing:
                     btnEdit.Enabled = false;
+                    btnDelete.Enabled = false;
                     btnNew.Enabled = true;
                     btnSave.Enabled = false;
                     grpObjectInfo.Enabled = false;
