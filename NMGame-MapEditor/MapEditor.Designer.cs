@@ -54,8 +54,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtLeft = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtObjectIdx = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.mWorldSpace = new NMGame_MapEditor.ImageView();
             this.statusStrip1.SuspendLayout();
@@ -143,7 +141,7 @@
             // 
             // clmKey
             // 
-            this.clmKey.Text = "Key";
+            this.clmKey.Text = "Idx";
             this.clmKey.Width = 65;
             // 
             // clmRECT
@@ -205,8 +203,6 @@
             this.grpObjectInfo.Controls.Add(this.label6);
             this.grpObjectInfo.Controls.Add(this.cbObjType);
             this.grpObjectInfo.Controls.Add(this.groupBox2);
-            this.grpObjectInfo.Controls.Add(this.label1);
-            this.grpObjectInfo.Controls.Add(this.txtObjectIdx);
             this.grpObjectInfo.Location = new System.Drawing.Point(10, 12);
             this.grpObjectInfo.Name = "grpObjectInfo";
             this.grpObjectInfo.Size = new System.Drawing.Size(374, 258);
@@ -316,23 +312,6 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Left:";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 40);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Index:";
-            // 
-            // txtObjectIdx
-            // 
-            this.txtObjectIdx.Enabled = false;
-            this.txtObjectIdx.Location = new System.Drawing.Point(88, 37);
-            this.txtObjectIdx.Name = "txtObjectIdx";
-            this.txtObjectIdx.Size = new System.Drawing.Size(231, 22);
-            this.txtObjectIdx.TabIndex = 0;
-            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.mWorldSpace);
@@ -392,8 +371,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox grpObjectInfo;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtObjectIdx;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;

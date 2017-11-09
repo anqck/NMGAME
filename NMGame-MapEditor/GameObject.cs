@@ -15,26 +15,18 @@ namespace NMGame_MapEditor
             STAIR
         }
 
-        private int mKey;
-        private EObjectID mObjID;        
 
-        private int mLeft;
-        private int mTop;
-        private int mRight;
-        private int mBottom;
+        private int          mKey;
+        private EObjectID    mObjID;        
 
-        public int MKey
-        {
-            get
-            {
-                return mKey;
-            }
+        private int          mLeft;
+        private int          mTop;
+        private int          mRight;
+        private int          mBottom;
 
-            set
-            {
-                mKey = value;
-            }
-        }
+
+
+
 
      
         public int MLeft
@@ -102,18 +94,40 @@ namespace NMGame_MapEditor
             }
         }
 
+        public int MKey
+        {
+            get
+            {
+                return mKey;
+            }
+
+            set
+            {
+                mKey = value;
+            }
+        }
+
         public GameObject()
         {
 
         }
-        public GameObject(int left, int top, int right, int bottom, EObjectID objID, int key = 0)
+        public GameObject(int left, int top, int right, int bottom, EObjectID objID)
         {
             mLeft = left;
             mTop = top;
             mRight = right;
             mBottom = bottom;
             mObjID = objID;
-            mKey = key;
+
         }
+
+        public MyRECT getBoundingBoxInWorldAxis()
+        {
+            return new MyRECT(this.MLeft, 9542 - this.MTop, 9542 - this.MBottom, this.MRight);
+        }
+
+
+
+  
     }
 }

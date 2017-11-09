@@ -27,11 +27,11 @@ public:
 
 protected:
 	vector<ObjectState*>		mState;
-	Direction			mDir;
+	Direction					mDir;
 
-	ThrowingAppleState	mCurrentState;
+	ThrowingAppleState			mCurrentState;
 
-	bool				mDone;
+	bool						mDone;
 
 	 
 };

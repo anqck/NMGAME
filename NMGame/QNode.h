@@ -13,8 +13,8 @@ public:
 protected:
 	QNode**							mChilds;
 
-	MyRECT							mBound;
+	MyRECT							mBoundingBox;
 
 	int								mNodeID;
-	std::vector<CTreeObject*>		mObject;
+	std::vector<CTreeObject*>		mListObject;
 };

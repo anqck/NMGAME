@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,10 +14,17 @@ namespace NMGame_MapEditor
 {
     public partial class MapEditor : Form
     {
+        private int WORLD_X;
+        private int WORLD_Y;
+
+
         private Point mMousePosition;
         private bool flagEdit = false;
 
         private List<GameObject> mListObject;
+
+        private QNode mQuadTreeRoot;
+
         public MapEditor()
         {
             InitializeComponent();
@@ -69,7 +77,7 @@ namespace NMGame_MapEditor
         {
             if (flagEdit == false)
             {
-                mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex, int.Parse(txtObjectIdx.Text)));
+                mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex));
             }
             else
             {
@@ -89,7 +97,6 @@ namespace NMGame_MapEditor
 
 
             //Khởi gán lại textBox
-            txtObjectIdx.Text = "";
             grpObjectInfo.Enabled = false;
 
             //Xóa hcn
@@ -112,7 +119,7 @@ namespace NMGame_MapEditor
            foreach (GameObject obj in mListObject)
             {        
                 //
-                listView1.Items.Add(obj.MKey.ToString());
+                listView1.Items.Add(listView1.Items.Count.ToString());
                 listView1.Items[listView1.Items.Count - 1].SubItems.Add("["+ obj.MLeft.ToString() + "," + obj.MTop.ToString() + "," + obj.MRight.ToString() + "," + obj.MBottom.ToString() + "]");
                 listView1.Items[listView1.Items.Count - 1].SubItems.Add(obj.MObjID.ToString());
             }
@@ -121,7 +128,6 @@ namespace NMGame_MapEditor
         private void btnNew_Click(object sender, EventArgs e)
         {
           
-            txtObjectIdx.Text = mListObject.Count().ToString();
 
             grpObjectInfo.Enabled = true;
             btnDelete.Enabled = true;
@@ -159,6 +165,56 @@ namespace NMGame_MapEditor
 
         private void btnBuildQuadTree_Click(object sender, EventArgs e)
         {
+
+            WORLD_X = WORLD_Y = Math.Max(this.mWorldSpace.MImage.Size.Width, this.mWorldSpace.MImage.Size.Height);
+
+            mQuadTreeRoot = new QNode(1, 1, WORLD_Y, 0, WORLD_X, 0);
+            mQuadTreeRoot.Init();
+
+
+
+            //Gasn Key và đưa các Object vào node gốc
+            for (int i = 0; i < this.mListObject.Count; i++)
+            {
+                this.mListObject[i].MKey = i;
+                this.mQuadTreeRoot.MListObject.Add(this.mListObject[i]);
+            }
+                         
+
+            //Build tree
+            this.mQuadTreeRoot.BuildTree();
+
+            //Save QuadTree
+            this.SaveQuadTree();
+
+        }
+
+        private void SaveQuadTree()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text|*.txt";
+            saveFileDialog.Title = "Save Quadtree";
+
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            string path = saveFileDialog.FileName;
+
+            using (StreamWriter outputFile = new StreamWriter(path))
+            {
+                outputFile.WriteLine(this.mListObject.Count + " " + WORLD_X + " " + WORLD_Y);
+
+                //Save các Object
+                for(int i = 0; i < this.mListObject.Count; i ++)
+                {
+                    outputFile.WriteLine(i + " " + (int) mListObject[i].MObjID + " " + mListObject[i].getBoundingBoxInWorldAxis().MTop.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MLeft.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MRight.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MBottom.ToString());
+                }
+
+                //Save các Node của QuadTree
+                mQuadTreeRoot.SaveQuadTree(outputFile);
+
+
+            }
 
         }
 

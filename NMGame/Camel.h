@@ -5,31 +5,27 @@
 
 #pragma once
 #include "GameVisibleEntity.h"
+#include "ObjectStateWithLoop.h"
+
+enum CamelState
+{
+	DoNothing,
+	JumpOn
+};
 
 class Camel : public GameVisibleEntity
 {
 public:
-	Camel() { this->Initialize(); };
-	Camel(D3DXVECTOR3 Position) : GameVisibleEntity( Position) { this->Initialize(); };
-	Camel( int X, int Y) : GameVisibleEntity( X, Y) { this->Initialize(); };
+	Camel();
+	Camel(D3DXVECTOR3 pos);
 	~Camel();
-
 	
-
-	void				Render(float DeltaTime);
-	void				Update(float DeltaTime);
-	//void	nextFrame();
+	void						Render(float DeltaTime);
+	void						Update(float DeltaTime);
 
 protected:
-//	vector<ObjectState*>	mAladdinState;
+	vector<ObjectState*>		mState;	
+	CamelState					mCurrentState;
 
-	void				Initialize();
-	void				LoadResource();
-
-	int					mStartIdx;		//Index bắt đầu của các Rect chứa các Sprite
-	int					mEndIdx;		//
-	int					mCurrentIdx;	//Index hiện tại
-	DWORD last_time;
-	//void			Update(float DeltaTime);
-	//void			nextFrame();
+		
 };

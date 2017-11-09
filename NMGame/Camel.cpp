@@ -1,37 +1,18 @@
 #include "Camel.h"
 
-void Camel::Render(float DeltaTime)
+Camel::Camel()
 {
-	this->mSprite->Render();
 }
 
-void Camel::Update(float DeltaTime)
+Camel::Camel(D3DXVECTOR3 pos)
 {
+	this->mPosition = pos;
 
-	DWORD now = GetTickCount();
-	if (now - last_time > 1000 / ANIMATE_RATE)
-	{
-		mCurrentIdx = (mCurrentIdx + mEndIdx - 1) % mEndIdx;
-		this->mSprite->SetFrame(mCurrentIdx);
-		last_time = now;
-	}
-}
-
-void Camel::Initialize()
-{
-	LPD3DXSPRITE temp;
-
-	this->ANIMATE_RATE = 12;
-	this->mCurrentIdx = 0;
-
-	this->LoadResource();
-}
-
-void Camel::LoadResource()
-{
-
+	this->mCurrentState = CamelState::JumpOn;
 
 	std::vector<MyRECT> temp;
+
+	temp.push_back(MyRECT(0, 0, 170, 60));
 
 	temp.push_back(MyRECT(0, 0, 170, 60));
 	temp.push_back(MyRECT(61, 0, 170, 121));
@@ -40,11 +21,25 @@ void Camel::LoadResource()
 	temp.push_back(MyRECT(61, 171, 341, 121));
 	temp.push_back(MyRECT(122, 171, 341, 182));
 
+	this->mState.push_back(new ObjectStateWithLoop(temp, 18, L"Object\\ThrowingApple.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 
 
-	this->mEndIdx = temp.size();
-
-	
-	this->mSprite = new Sprite( L"Camel.png", D3DCOLOR_XRGB(255, 0, 255), temp);
-	this->mSprite->SetPosition(this->mPosition);
+	this->mState.at(0)->SetPosition(pos);
+	this->mState.at(1)->SetPosition(pos);
+	temp.clear();
 }
+
+Camel::~Camel()
+{
+}
+
+void Camel::Render(float DeltaTime)
+{
+	this->mSprite->Render();
+}
+
+void Camel::Update(float DeltaTime)
+{
+}
+
+

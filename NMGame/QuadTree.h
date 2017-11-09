@@ -13,6 +13,7 @@ public:
 	QuadTree();
 	~QuadTree();
 
+	void							BuildQuadTree();
 
 
 private:
