@@ -19,11 +19,10 @@ void Map::Render(float DeltaTime, MapLevel mMapLevel)
 {
 	D3DXVECTOR3 cameraPositionInView = ViewPort::GetInstance()->getViewPortPosition(Camera::GetInstance()->GetPosition());
 
-	D3DXVECTOR3 _translation = D3DXVECTOR3(-cameraPositionInView.x, -cameraPositionInView.y, 0);
-
+	D3DXVECTOR2 translation = D3DXVECTOR2(-cameraPositionInView.x, -cameraPositionInView.y);
 	D3DXVECTOR3 inPosition = ViewPort::GetInstance()->getViewPortPosition(this->mPosition);
 
-	D3DXVECTOR2 translation = D3DXVECTOR2(_translation.x, _translation.y);
+	
 	
 
 

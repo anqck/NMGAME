@@ -14,8 +14,11 @@ Camera::Camera()
 {
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
 
-	this->mWidth = GLOBAL::GetWindowsWidth();
-	this->mHeight = GLOBAL::GetWindowsHeight();
+	/*this->mWidth = GLOBAL::GetWindowsWidth();
+	this->mHeight = GLOBAL::GetWindowsHeight();*/
+
+	this->mWidth = 1000;
+	this->mHeight = 1000;
 }
 
 Camera::~Camera()

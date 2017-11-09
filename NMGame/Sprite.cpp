@@ -153,5 +153,5 @@ void Sprite::Render()
 	GraphicsHelper::GetInstance()->DrawTexture(mTexture, this->mSourceRect, center,this->GetTransformPosition().mPosition, tempScale);
 	
 	//Draw Boundingbox for debug
-	//GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetCurrentFrameBoundingBox());
+	GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetCurrentFrameBoundingBox());
 }

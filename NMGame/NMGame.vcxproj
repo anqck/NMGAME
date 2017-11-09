@@ -200,7 +200,6 @@
     <ClInclude Include="ObjectStateWithLoop.h" />
     <ClInclude Include="QNode.h" />
     <ClInclude Include="QuadTree.h" />
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="ThrowApple.h" />
