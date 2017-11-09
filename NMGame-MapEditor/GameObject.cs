@@ -189,6 +189,12 @@ namespace NMGame_MapEditor
             return isObjectNeedPosition(obj.mObjID);
         }
 
+        internal Rectangle getBoundingRect()
+        {
+            return new Rectangle(this.MLeft, this.MTop, this.MRight - this.MLeft, this.MBottom - this.MTop);
+
+        }
+
         internal static Bitmap GetObjectImg(EObjectID id)
         {
             return new Bitmap(NMGame_MapEditor.Properties.Resources.Camel);

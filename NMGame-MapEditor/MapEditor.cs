@@ -42,6 +42,8 @@ namespace NMGame_MapEditor
         private CursorState cursorState;
         private State currentState;
 
+        List<GameObject> needToVisualize;
+
         public MapEditor()
         {
             InitializeComponent();
@@ -65,6 +67,8 @@ namespace NMGame_MapEditor
             btnDelete.Enabled = false;
             btnEdit.Enabled = false;
             btnSave.Enabled = false;
+
+            needToVisualize = new List<GameObject>();
         }
 
 
@@ -120,15 +124,15 @@ namespace NMGame_MapEditor
                     Bitmap img = GameObject.GetObjectImg((EObjectID)this.cbObjType.SelectedIndex);
                     this.mWorldSpace.SetImageObject(img, mouseDownPosition.X - img.Size.Width / 2, mouseDownPosition.Y - img.Size.Height );
 
-                    txtPosX.Text =  (mouseDownPosition.X - img.Size.Width / 2).ToString();
-                    txtPosY.Text = (mouseDownPosition.Y - img.Size.Height).ToString();
+                    txtPosX.Text =  (mouseDownPosition.X ).ToString();
+                    txtPosY.Text = (mouseDownPosition.Y ).ToString();
 
                     if (!GameObject.isObjectNeedDrawBoundingRect((EObjectID)this.cbObjType.SelectedIndex))
                     {
                         txtLeft.Text = (mouseDownPosition.X - img.Size.Width/2).ToString();
                         txtRight.Text = (mouseDownPosition.X + img.Size.Width / 2).ToString();
-                        txtTop.Text = (mouseDownPosition.Y - img.Size.Height ).ToString();
-                        txtBottom.Text = (mouseDownPosition.X ).ToString();
+                        txtTop.Text = (mouseDownPosition.Y  ).ToString();
+                        txtBottom.Text = (mouseDownPosition.Y - img.Size.Height).ToString();
                     }
                         break;
                 default:
@@ -252,8 +256,6 @@ namespace NMGame_MapEditor
                  
         }
 
-        
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             currentState = State.EditObject;
@@ -304,7 +306,7 @@ namespace NMGame_MapEditor
                     btnSave.Enabled = false;
                     grpObjectInfo.Enabled = false;
                     cursorState = CursorState.DoNothing;
-                    break;
+                    break;                   
             }
         }
 
@@ -362,8 +364,9 @@ namespace NMGame_MapEditor
         private void ListViewUpdate()
         {
             //Xóa list cũ
+            
             listView1.Items.Clear();
-
+            
             foreach (GameObject obj in mListObject)
             {
                 //
@@ -375,6 +378,8 @@ namespace NMGame_MapEditor
                     listView1.Items[listView1.Items.Count - 1].SubItems.Add("[_,_]");
                 listView1.Items[listView1.Items.Count - 1].SubItems.Add("[" + obj.MLeft.ToString() + "," + obj.MTop.ToString() + "," + obj.MRight.ToString() + "," + obj.MBottom.ToString() + "]");
                 listView1.Items[listView1.Items.Count - 1].SubItems.Add(obj.MObjID.ToString());
+
+                listView1.Items[listView1.Items.Count - 1].Checked = true;
             }
         }
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -397,10 +402,10 @@ namespace NMGame_MapEditor
                 txtRight.Text = mListObject[listView1.SelectedIndices[0]].MRight.ToString();
                 txtBottom.Text = mListObject[listView1.SelectedIndices[0]].MBottom.ToString();
 
-                //flagBiding = true;
+                flagBiding = false;
                 //Biding();
 
-
+      
                 mWorldSpace.VisualizeObject(mListObject[listView1.SelectedIndices[0]]);
 
                 btnEdit.Enabled = true;
@@ -496,6 +501,19 @@ namespace NMGame_MapEditor
         private void btnDrawRectangle_Click(object sender, EventArgs e)
         {
             cursorState = CursorState.DrawRectangle;
+        }
+
+        private void listView1_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+           
+            foreach(int idx in listView1.CheckedIndices)
+            {
+                needToVisualize.Add(mListObject[idx]);
+            };
+
+            mWorldSpace.VisualizeListObject(needToVisualize);
+            needToVisualize.Clear();
+
         }
         #endregion
 

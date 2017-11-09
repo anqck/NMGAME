@@ -23,8 +23,9 @@ namespace NMGame_MapEditor
         private Image mObject;
         private int mObjectX, mObjectY;
 
-      
-
+        private List<GameObject> drawObject;
+        private List<Rectangle> mListRect;
+        private List<Image> mListImg;
 
 
         public ImageView()
@@ -127,6 +128,7 @@ namespace NMGame_MapEditor
         {
             Graphics graphics = e.Graphics;
 
+
             graphics.TranslateTransform(this.AutoScrollPosition.X, this.AutoScrollPosition.Y);
 
             if (mImage != null)
@@ -139,9 +141,30 @@ namespace NMGame_MapEditor
                 graphics.DrawImage(mObject, mObjectX, mObjectY);
             }
 
-            Pen blackPen = new Pen(Color.Red, 3);
+            if(drawObject != null)
+            {
+                if(drawObject.Count != 0)
+                {
+                    foreach (GameObject obj in drawObject)
+                    {
+                        e.Graphics.DrawRectangle(new Pen(Color.White, 3), obj.getBoundingRect());
 
-            e.Graphics.DrawRectangle(blackPen, Rect);
+                        if (GameObject.isObjectNeedPosition(obj) == true)
+                        {
+                            Bitmap img = GameObject.GetObjectImg(obj.MObjID);
+                            graphics.DrawImage(img, obj.MPositionX - img.Size.Width / 2, obj.MPositionY -  img.Size.Height);
+                        }
+                    }
+                }
+
+
+            }
+
+
+
+            
+
+            e.Graphics.DrawRectangle(new Pen(Color.Red, 3), Rect);
         }
 
         internal void VisualizeObject(GameObject obj)
@@ -150,13 +173,21 @@ namespace NMGame_MapEditor
 
             if(GameObject.isObjectNeedPosition(obj) == true)
             {
-                mObject = GameObject.GetObjectImg(obj.MObjID);
+                Bitmap img = GameObject.GetObjectImg(obj.MObjID);
+                SetImageObject(img, obj.MPositionX - img.Size.Width / 2, obj.MPositionY - img.Size.Height);
+                    
             }
             else
             {
                 mObject = null;
             }
 
+            this.Invalidate();
+        }
+
+        internal void VisualizeListObject(List<GameObject> obj)
+        {
+            drawObject = new List<GameObject>(obj); 
             this.Invalidate();
         }
     }
