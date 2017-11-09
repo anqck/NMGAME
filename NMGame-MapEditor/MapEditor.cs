@@ -14,6 +14,7 @@ namespace NMGame_MapEditor
     public partial class MapEditor : Form
     {
         private Point mMousePosition;
+        private bool flagEdit = false;
 
         private List<GameObject> mListObject;
         public MapEditor()
@@ -51,6 +52,7 @@ namespace NMGame_MapEditor
                 this.txtTop.Text = this.mWorldSpace.Rect.Top.ToString();
                 this.txtRight.Text = (this.mWorldSpace.Rect.Left + this.mWorldSpace.Rect.Width).ToString();
                 this.txtBottom.Text = (this.mWorldSpace.Rect.Top + this.mWorldSpace.Rect.Height).ToString();
+               
             }
         }
 
@@ -59,13 +61,31 @@ namespace NMGame_MapEditor
         private void mWorldSpace_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDownPosition = new Point(e.X - this.mWorldSpace.AutoScrollPosition.X, e.Y - this.mWorldSpace.AutoScrollPosition.Y);
-
+            flagBiding = false;
             
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text),int.Parse(txtBottom.Text), (EObjectID) cbObjType.SelectedIndex, int.Parse(txtObjectIdx.Text)));
+            if (flagEdit == false)
+            {
+                mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex, int.Parse(txtObjectIdx.Text)));
+            }
+            else
+            {
+                btnEdit.Enabled = false;
+                btnNew.Enabled = true;
+                flagEdit = false;
+
+                if (listView1.SelectedIndices.Count != 0)
+                {
+
+                    mListObject[listView1.SelectedIndices[0]].MBottom = int.Parse(txtBottom.Text);
+                    mListObject[listView1.SelectedIndices[0]].MLeft = int.Parse(txtLeft.Text);
+                    mListObject[listView1.SelectedIndices[0]].MRight = int.Parse(txtRight.Text);
+                    mListObject[listView1.SelectedIndices[0]].MTop = int.Parse(txtTop.Text);
+                }
+            }
 
 
             //Khởi gán lại textBox
@@ -100,20 +120,115 @@ namespace NMGame_MapEditor
 
         private void btnNew_Click(object sender, EventArgs e)
         {
+          
             txtObjectIdx.Text = mListObject.Count().ToString();
 
             grpObjectInfo.Enabled = true;
             btnDelete.Enabled = true;
             btnSave.Enabled = true;
+            btnDelete.Enabled = false;
+
+            flagEdit = false;
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (flagEdit == true)
+            {
+                flagEdit = false;
+                btnEdit.Enabled = false;
+                btnNew.Enabled = true;
+                btnSave.Enabled = false;
+                grpObjectInfo.Enabled = false;
+            }
 
+            if (listView1.SelectedIndices.Count != 0)
+            {
+                txtLeft.Text = mListObject[listView1.SelectedIndices[0]].MLeft.ToString();
+                txtTop.Text = mListObject[listView1.SelectedIndices[0]].MTop.ToString();
+                txtRight.Text = mListObject[listView1.SelectedIndices[0]].MRight.ToString();
+                txtBottom.Text = mListObject[listView1.SelectedIndices[0]].MBottom.ToString();
+               // grpObjectInfo.Enabled = false;
+                flagBiding = true;
+                Biding();
+                //  flagBiding = true;
+                btnEdit.Enabled = true;
+                btnDelete.Enabled = true;
+            }
         }
 
         private void btnBuildQuadTree_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void Biding()
+        {
+            if (!flagBiding) return;
+            if (this.txtLeft.Text != "" && this.txtTop.Text != "" && this.txtRight.Text != "" && this.txtBottom.Text != "")
+            {
+                int L = int.Parse(this.txtLeft.Text);
+                int T = int.Parse(this.txtTop.Text);
+                int R = int.Parse(this.txtRight.Text);
+                int B = int.Parse(this.txtBottom.Text);
+                this.mWorldSpace.DrawRectangle(L, T, R, B);
+                this.mWorldSpace.Invalidate();
+            }
+        }
+        
+        private void txtLeft_TextChanged(object sender, EventArgs e)
+        {
+           Biding();
+        }
+
+      
+        private void txtTop_TextChanged(object sender, EventArgs e)
+        {
+            Biding();
+        }
+
+        private void txtRight_TextChanged(object sender, EventArgs e)
+        {
+            Biding();
+        }
+
+        private void txtBottom_TextChanged(object sender, EventArgs e)
+        {
+            Biding();
+        }
+        bool flagBiding = false;
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            grpObjectInfo.Enabled = true;
+            btnEdit.Enabled = false;
+            btnSave.Enabled = true;
+            btnDelete.Enabled = false;
+            btnNew.Enabled = false;
+
+
+            flagEdit = true;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int stt=-1;
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                if (listView1.Items[i].Selected)
+                {
+                    listView1.Items[i].Remove();
+                    stt = i;
+                    i--;
+                }
+            }
+            mListObject.RemoveAt(stt);
+            //Xóa hcn
+            this.mWorldSpace.ClearRectangle();
+            this.mWorldSpace.Invalidate();
+
+            btnDelete.Enabled = false;
+            btnEdit.Enabled = false;
 
         }
 
@@ -127,10 +242,13 @@ namespace NMGame_MapEditor
                 this.mWorldSpace.Invalidate();
                 this.txtLeft.Text = this.mWorldSpace.Rect.Left.ToString();
                 this.txtTop.Text = this.mWorldSpace.Rect.Top.ToString();
-                this.txtRight.Text = (this.mWorldSpace.Rect.Left+ this.mWorldSpace.Rect.Width).ToString();
-                this.txtBottom.Text = (this.mWorldSpace.Rect.Top+ this.mWorldSpace.Rect.Height).ToString();
+                this.txtRight.Text = (this.mWorldSpace.Rect.Left + this.mWorldSpace.Rect.Width).ToString();
+                this.txtBottom.Text = (this.mWorldSpace.Rect.Top + this.mWorldSpace.Rect.Height).ToString();
+
             }
-           
+            flagBiding = true;
+
+
         }
     }
 }

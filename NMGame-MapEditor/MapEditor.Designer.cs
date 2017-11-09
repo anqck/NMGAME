@@ -56,8 +56,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtObjectIdx = new System.Windows.Forms.TextBox();
-            this.mWorldSpace = new NMGame_MapEditor.ImageView();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.mWorldSpace = new NMGame_MapEditor.ImageView();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -188,6 +188,7 @@
             this.btnEdit.TabIndex = 3;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -197,6 +198,7 @@
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // grpObjectInfo
             // 
@@ -252,6 +254,7 @@
             this.txtBottom.Name = "txtBottom";
             this.txtBottom.Size = new System.Drawing.Size(112, 22);
             this.txtBottom.TabIndex = 9;
+            this.txtBottom.TextChanged += new System.EventHandler(this.txtBottom_TextChanged);
             // 
             // label4
             // 
@@ -268,6 +271,7 @@
             this.txtRight.Name = "txtRight";
             this.txtRight.Size = new System.Drawing.Size(112, 22);
             this.txtRight.TabIndex = 6;
+            this.txtRight.TextChanged += new System.EventHandler(this.txtRight_TextChanged);
             // 
             // label5
             // 
@@ -284,6 +288,7 @@
             this.txtTop.Name = "txtTop";
             this.txtTop.Size = new System.Drawing.Size(112, 22);
             this.txtTop.TabIndex = 5;
+            this.txtTop.TextChanged += new System.EventHandler(this.txtTop_TextChanged);
             // 
             // label3
             // 
@@ -300,6 +305,7 @@
             this.txtLeft.Name = "txtLeft";
             this.txtLeft.Size = new System.Drawing.Size(112, 22);
             this.txtLeft.TabIndex = 2;
+            this.txtLeft.TextChanged += new System.EventHandler(this.txtLeft_TextChanged);
             // 
             // label2
             // 
@@ -327,6 +333,15 @@
             this.txtObjectIdx.Size = new System.Drawing.Size(231, 22);
             this.txtObjectIdx.TabIndex = 0;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.mWorldSpace);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1159, 843);
+            this.panel4.TabIndex = 4;
+            // 
             // mWorldSpace
             // 
             this.mWorldSpace.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -339,15 +354,6 @@
             this.mWorldSpace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseDown);
             this.mWorldSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseMove);
             this.mWorldSpace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseUp);
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.mWorldSpace);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1159, 843);
-            this.panel4.TabIndex = 4;
             // 
             // MapEditor
             // 
