@@ -47,6 +47,7 @@ void ObjectState::Render()
 
 void ObjectState::Update(float DeltaTime)
 {
+	this->mSprite->SetPosition(mPosition);
 	this->Animate(DeltaTime);
 
 

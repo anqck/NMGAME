@@ -1,4 +1,6 @@
-﻿namespace NMGame_MapEditor
+﻿using System;
+
+namespace NMGame_MapEditor
 {
     partial class MapEditor
     {
@@ -43,9 +45,16 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.grpObjectInfo = new System.Windows.Forms.GroupBox();
+            this.btnDrawRectangle = new System.Windows.Forms.Button();
+            this.btnPlaceObject = new System.Windows.Forms.Button();
+            this.grpPosition = new System.Windows.Forms.GroupBox();
+            this.txtPosY = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtPosX = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cbObjType = new System.Windows.Forms.ComboBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpBounded = new System.Windows.Forms.GroupBox();
             this.txtBottom = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtRight = new System.Windows.Forms.TextBox();
@@ -55,19 +64,21 @@
             this.txtLeft = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.clmPos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mWorldSpace = new NMGame_MapEditor.ImageView();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.grpObjectInfo.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpPosition.SuspendLayout();
+            this.grpBounded.SuspendLayout();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(10, 285);
+            this.btnNew.Location = new System.Drawing.Point(10, 309);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(80, 34);
             this.btnNew.TabIndex = 1;
@@ -128,6 +139,7 @@
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmKey,
+            this.clmPos,
             this.clmRECT,
             this.clmType});
             this.listView1.FullRowSelect = true;
@@ -142,17 +154,17 @@
             // clmKey
             // 
             this.clmKey.Text = "Idx";
-            this.clmKey.Width = 65;
+            this.clmKey.Width = 40;
             // 
             // clmRECT
             // 
             this.clmRECT.Text = "RECT [L , T , R , B]";
-            this.clmRECT.Width = 170;
+            this.clmRECT.Width = 147;
             // 
             // clmType
             // 
             this.clmType.Text = "Type";
-            this.clmType.Width = 119;
+            this.clmType.Width = 87;
             // 
             // panel2
             // 
@@ -170,7 +182,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(298, 285);
+            this.btnSave.Location = new System.Drawing.Point(298, 309);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(80, 34);
             this.btnSave.TabIndex = 4;
@@ -180,7 +192,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(106, 285);
+            this.btnEdit.Location = new System.Drawing.Point(106, 309);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(80, 34);
             this.btnEdit.TabIndex = 3;
@@ -190,7 +202,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(203, 285);
+            this.btnDelete.Location = new System.Drawing.Point(203, 309);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(80, 34);
             this.btnDelete.TabIndex = 2;
@@ -200,20 +212,88 @@
             // 
             // grpObjectInfo
             // 
+            this.grpObjectInfo.Controls.Add(this.btnDrawRectangle);
+            this.grpObjectInfo.Controls.Add(this.btnPlaceObject);
+            this.grpObjectInfo.Controls.Add(this.grpPosition);
             this.grpObjectInfo.Controls.Add(this.label6);
             this.grpObjectInfo.Controls.Add(this.cbObjType);
-            this.grpObjectInfo.Controls.Add(this.groupBox2);
+            this.grpObjectInfo.Controls.Add(this.grpBounded);
             this.grpObjectInfo.Location = new System.Drawing.Point(10, 12);
             this.grpObjectInfo.Name = "grpObjectInfo";
-            this.grpObjectInfo.Size = new System.Drawing.Size(374, 258);
+            this.grpObjectInfo.Size = new System.Drawing.Size(374, 278);
             this.grpObjectInfo.TabIndex = 0;
             this.grpObjectInfo.TabStop = false;
             this.grpObjectInfo.Text = "Object Information:";
             // 
+            // btnDrawRectangle
+            // 
+            this.btnDrawRectangle.Location = new System.Drawing.Point(178, 244);
+            this.btnDrawRectangle.Name = "btnDrawRectangle";
+            this.btnDrawRectangle.Size = new System.Drawing.Size(121, 28);
+            this.btnDrawRectangle.TabIndex = 11;
+            this.btnDrawRectangle.Text = "Draw Rectangle";
+            this.btnDrawRectangle.UseVisualStyleBackColor = true;
+            this.btnDrawRectangle.Click += new System.EventHandler(this.btnDrawRectangle_Click);
+            // 
+            // btnPlaceObject
+            // 
+            this.btnPlaceObject.Location = new System.Drawing.Point(54, 244);
+            this.btnPlaceObject.Name = "btnPlaceObject";
+            this.btnPlaceObject.Size = new System.Drawing.Size(112, 28);
+            this.btnPlaceObject.TabIndex = 5;
+            this.btnPlaceObject.Text = "Place Object";
+            this.btnPlaceObject.UseVisualStyleBackColor = true;
+            this.btnPlaceObject.Click += new System.EventHandler(this.btnPlaceObject_Click);
+            // 
+            // grpPosition
+            // 
+            this.grpPosition.Controls.Add(this.txtPosY);
+            this.grpPosition.Controls.Add(this.label8);
+            this.grpPosition.Controls.Add(this.txtPosX);
+            this.grpPosition.Controls.Add(this.label9);
+            this.grpPosition.Location = new System.Drawing.Point(6, 67);
+            this.grpPosition.Name = "grpPosition";
+            this.grpPosition.Size = new System.Drawing.Size(362, 61);
+            this.grpPosition.TabIndex = 10;
+            this.grpPosition.TabStop = false;
+            this.grpPosition.Text = "Object Position:";
+            // 
+            // txtPosY
+            // 
+            this.txtPosY.Location = new System.Drawing.Point(231, 26);
+            this.txtPosY.Name = "txtPosY";
+            this.txtPosY.Size = new System.Drawing.Size(112, 22);
+            this.txtPosY.TabIndex = 5;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(204, 29);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(21, 17);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Y:";
+            // 
+            // txtPosX
+            // 
+            this.txtPosX.Location = new System.Drawing.Point(48, 26);
+            this.txtPosX.Name = "txtPosX";
+            this.txtPosX.Size = new System.Drawing.Size(112, 22);
+            this.txtPosX.TabIndex = 2;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(16, 26);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(21, 17);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "X:";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 200);
+            this.label6.Location = new System.Drawing.Point(22, 40);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 17);
             this.label6.TabIndex = 6;
@@ -222,40 +302,41 @@
             // cbObjType
             // 
             this.cbObjType.FormattingEnabled = true;
-            this.cbObjType.Location = new System.Drawing.Point(117, 197);
+            this.cbObjType.Location = new System.Drawing.Point(117, 37);
             this.cbObjType.Name = "cbObjType";
             this.cbObjType.Size = new System.Drawing.Size(231, 24);
             this.cbObjType.TabIndex = 5;
+            this.cbObjType.SelectedIndexChanged += new System.EventHandler(this.cbObjType_SelectedIndexChange);
             // 
-            // groupBox2
+            // grpBounded
             // 
-            this.groupBox2.Controls.Add(this.txtBottom);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.txtRight);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.txtTop);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.txtLeft);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(16, 67);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(352, 106);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Bounded Rectangle:";
+            this.grpBounded.Controls.Add(this.txtBottom);
+            this.grpBounded.Controls.Add(this.label4);
+            this.grpBounded.Controls.Add(this.txtRight);
+            this.grpBounded.Controls.Add(this.label5);
+            this.grpBounded.Controls.Add(this.txtTop);
+            this.grpBounded.Controls.Add(this.label3);
+            this.grpBounded.Controls.Add(this.txtLeft);
+            this.grpBounded.Controls.Add(this.label2);
+            this.grpBounded.Location = new System.Drawing.Point(6, 134);
+            this.grpBounded.Name = "grpBounded";
+            this.grpBounded.Size = new System.Drawing.Size(362, 106);
+            this.grpBounded.TabIndex = 4;
+            this.grpBounded.TabStop = false;
+            this.grpBounded.Text = "Bounded Rectangle:";
             // 
             // txtBottom
             // 
-            this.txtBottom.Location = new System.Drawing.Point(228, 56);
+            this.txtBottom.Location = new System.Drawing.Point(231, 56);
             this.txtBottom.Name = "txtBottom";
             this.txtBottom.Size = new System.Drawing.Size(112, 22);
             this.txtBottom.TabIndex = 9;
-            this.txtBottom.TextChanged += new System.EventHandler(this.txtBottom_TextChanged);
+            this.txtBottom.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(166, 59);
+            this.label4.Location = new System.Drawing.Point(169, 59);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 17);
             this.label4.TabIndex = 8;
@@ -267,7 +348,7 @@
             this.txtRight.Name = "txtRight";
             this.txtRight.Size = new System.Drawing.Size(112, 22);
             this.txtRight.TabIndex = 6;
-            this.txtRight.TextChanged += new System.EventHandler(this.txtRight_TextChanged);
+            this.txtRight.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // label5
             // 
@@ -280,16 +361,16 @@
             // 
             // txtTop
             // 
-            this.txtTop.Location = new System.Drawing.Point(228, 26);
+            this.txtTop.Location = new System.Drawing.Point(231, 26);
             this.txtTop.Name = "txtTop";
             this.txtTop.Size = new System.Drawing.Size(112, 22);
             this.txtTop.TabIndex = 5;
-            this.txtTop.TextChanged += new System.EventHandler(this.txtTop_TextChanged);
+            this.txtTop.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(166, 26);
+            this.label3.Location = new System.Drawing.Point(169, 26);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 17);
             this.label3.TabIndex = 4;
@@ -301,7 +382,7 @@
             this.txtLeft.Name = "txtLeft";
             this.txtLeft.Size = new System.Drawing.Size(112, 22);
             this.txtLeft.TabIndex = 2;
-            this.txtLeft.TextChanged += new System.EventHandler(this.txtLeft_TextChanged);
+            this.txtLeft.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // label2
             // 
@@ -321,8 +402,14 @@
             this.panel4.Size = new System.Drawing.Size(1159, 843);
             this.panel4.TabIndex = 4;
             // 
+            // clmPos
+            // 
+            this.clmPos.Text = "Position";
+            this.clmPos.Width = 92;
+            // 
             // mWorldSpace
             // 
+            this.mWorldSpace.Cursor = System.Windows.Forms.Cursors.Cross;
             this.mWorldSpace.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mWorldSpace.Location = new System.Drawing.Point(0, 0);
             this.mWorldSpace.MImage = null;
@@ -354,13 +441,17 @@
             this.panel2.ResumeLayout(false);
             this.grpObjectInfo.ResumeLayout(false);
             this.grpObjectInfo.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpPosition.ResumeLayout(false);
+            this.grpPosition.PerformLayout();
+            this.grpBounded.ResumeLayout(false);
+            this.grpBounded.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+        
 
         #endregion
 
@@ -376,7 +467,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbObjType;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpBounded;
         private System.Windows.Forms.TextBox txtBottom;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtRight;
@@ -392,6 +483,14 @@
         private System.Windows.Forms.ColumnHeader clmType;
         private System.Windows.Forms.Button btnBuildQuadTree;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.GroupBox grpPosition;
+        private System.Windows.Forms.TextBox txtPosY;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtPosX;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnDrawRectangle;
+        private System.Windows.Forms.Button btnPlaceObject;
+        private System.Windows.Forms.ColumnHeader clmPos;
     }
 }
 

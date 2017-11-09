@@ -9,7 +9,7 @@
 
 enum CamelState
 {
-	DoNothing,
+	DoNothing1,
 	JumpOn
 };
 

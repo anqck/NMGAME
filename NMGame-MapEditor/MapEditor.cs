@@ -12,6 +12,20 @@ using static NMGame_MapEditor.GameObject;
 
 namespace NMGame_MapEditor
 {
+    enum CursorState
+    {
+        DoNothing,
+        DrawRectangle,
+        PlaceObject
+    }
+
+    enum State
+    {
+        DoNothing,
+        NewObject,
+        EditObject
+    }
+
     public partial class MapEditor : Form
     {
         private int WORLD_X;
@@ -19,11 +33,14 @@ namespace NMGame_MapEditor
 
 
         private Point mMousePosition;
-        private bool flagEdit = false;
+      
 
         private List<GameObject> mListObject;
 
         private QNode mQuadTreeRoot;
+
+        private CursorState cursorState;
+        private State currentState;
 
         public MapEditor()
         {
@@ -33,7 +50,11 @@ namespace NMGame_MapEditor
             foreach (EObjectID foo in EObjectID.GetValues(typeof(EObjectID)))
                 cbObjType.Items.Add(foo.ToString());
 
-            cbObjType.SelectedIndex = 0;
+            cursorState = CursorState.DoNothing;
+            cursorState = CursorState.DoNothing;
+            //cbObjType.SelectedIndex = 0;
+            btnDrawRectangle.Visible = false;
+            btnPlaceObject.Visible = false;
         }
 
         private void MapEditor_Load(object sender, EventArgs e)
@@ -46,22 +67,39 @@ namespace NMGame_MapEditor
             btnSave.Enabled = false;
         }
 
+
+        #region WorldSpace
+
         private void mWorldSpace_MouseMove(object sender, MouseEventArgs e)
         {
             this.mMousePosition = new Point(e.X - this.mWorldSpace.AutoScrollPosition.X, e.Y - this.mWorldSpace.AutoScrollPosition.Y);
+            this.toolStripStatusLabel1.Text = "Mouse Position: [" + this.mMousePosition.X + ", " + this.mMousePosition.Y + "] , World Position : [" + this.mMousePosition.X + ", " + (9542 - this.mMousePosition.Y) + "] ";
 
-            this.toolStripStatusLabel1.Text = "Mouse Position: [" + this.mMousePosition.X + ", " + this.mMousePosition.Y + "] , World Position : [" + this.mMousePosition.X + ", " + (9542  - this.mMousePosition.Y) + "] ";
+            if (e.Button != MouseButtons.Left)
+                return;
 
-            if(e.Button == MouseButtons.Left && grpObjectInfo.Enabled == true)
+                switch (cursorState)
             {
-                this.mWorldSpace.DrawRectangle(mouseDownPosition.X, mouseDownPosition.Y, mMousePosition.X, mMousePosition.Y);
-                this.mWorldSpace.Invalidate();
-                this.txtLeft.Text = this.mWorldSpace.Rect.Left.ToString();
-                this.txtTop.Text = this.mWorldSpace.Rect.Top.ToString();
-                this.txtRight.Text = (this.mWorldSpace.Rect.Left + this.mWorldSpace.Rect.Width).ToString();
-                this.txtBottom.Text = (this.mWorldSpace.Rect.Top + this.mWorldSpace.Rect.Height).ToString();
-               
+                case CursorState.DrawRectangle:
+                    this.mWorldSpace.DrawRectangle(mouseDownPosition.X, mouseDownPosition.Y, mMousePosition.X, mMousePosition.Y);
+                    this.mWorldSpace.Invalidate();
+                    this.txtLeft.Text = this.mWorldSpace.Rect.Left.ToString();
+                    this.txtTop.Text = this.mWorldSpace.Rect.Top.ToString();
+                    this.txtRight.Text = (this.mWorldSpace.Rect.Left + this.mWorldSpace.Rect.Width).ToString();
+                    this.txtBottom.Text = (this.mWorldSpace.Rect.Top + this.mWorldSpace.Rect.Height).ToString();
+
+                    break;
+                case CursorState.PlaceObject:              
+
+                    
+                    break;
+                default:
+                    break;
             }
+
+               
+
+                
         }
 
 
@@ -69,38 +107,112 @@ namespace NMGame_MapEditor
         private void mWorldSpace_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDownPosition = new Point(e.X - this.mWorldSpace.AutoScrollPosition.X, e.Y - this.mWorldSpace.AutoScrollPosition.Y);
+
             flagBiding = false;
-            
+
+            switch (cursorState)
+            {
+                case CursorState.DrawRectangle:
+                    
+
+                    break;
+                case CursorState.PlaceObject:
+                    Bitmap img = GameObject.GetObjectImg((EObjectID)this.cbObjType.SelectedIndex);
+                    this.mWorldSpace.SetImageObject(img, mouseDownPosition.X - img.Size.Width / 2, mouseDownPosition.Y - img.Size.Height );
+
+                    txtPosX.Text =  (mouseDownPosition.X - img.Size.Width / 2).ToString();
+                    txtPosY.Text = (mouseDownPosition.Y - img.Size.Height).ToString();
+
+                    if (!GameObject.isObjectNeedDrawBoundingRect((EObjectID)this.cbObjType.SelectedIndex))
+                    {
+                        txtLeft.Text = (mouseDownPosition.X - img.Size.Width/2).ToString();
+                        txtRight.Text = (mouseDownPosition.X + img.Size.Width / 2).ToString();
+                        txtTop.Text = (mouseDownPosition.Y - img.Size.Height ).ToString();
+                        txtBottom.Text = (mouseDownPosition.X ).ToString();
+                    }
+                        break;
+                default:
+                    break;
+            }            
         }
 
+        private void mWorldSpace_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseUpPosition = new Point(e.X - this.mWorldSpace.AutoScrollPosition.X, e.Y - this.mWorldSpace.AutoScrollPosition.Y);
+
+            switch (cursorState)
+            {
+                case CursorState.DrawRectangle:
+                    if (grpObjectInfo.Enabled == true)
+                    {
+                        this.mWorldSpace.DrawRectangle(mouseDownPosition.X, mouseDownPosition.Y, mouseUpPosition.X, mouseUpPosition.Y);
+                        this.mWorldSpace.Invalidate();
+                        this.txtLeft.Text = this.mWorldSpace.Rect.Left.ToString();
+                        this.txtTop.Text = this.mWorldSpace.Rect.Top.ToString();
+                        this.txtRight.Text = (this.mWorldSpace.Rect.Left + this.mWorldSpace.Rect.Width).ToString();
+                        this.txtBottom.Text = (this.mWorldSpace.Rect.Top + this.mWorldSpace.Rect.Height).ToString();
+
+                    }
+                    flagBiding = true;
+
+                    break;
+
+                case CursorState.PlaceObject:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        #endregion
+
+
+        #region Button
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (flagEdit == false)
+            if(CheckCondition())
             {
-                mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex));
-            }
-            else
-            {
-                btnEdit.Enabled = false;
-                btnNew.Enabled = true;
-                flagEdit = false;
-
-                if (listView1.SelectedIndices.Count != 0)
-                {
-
-                    mListObject[listView1.SelectedIndices[0]].MBottom = int.Parse(txtBottom.Text);
-                    mListObject[listView1.SelectedIndices[0]].MLeft = int.Parse(txtLeft.Text);
-                    mListObject[listView1.SelectedIndices[0]].MRight = int.Parse(txtRight.Text);
-                    mListObject[listView1.SelectedIndices[0]].MTop = int.Parse(txtTop.Text);
-                }
+                return;
             }
 
+            switch (currentState)
+            {
+                case State.NewObject:
+                    if (GameObject.isObjectNeedPosition((EObjectID)this.cbObjType.SelectedIndex))
+                    {
+                        mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex,int.Parse(txtPosX.Text), int.Parse(txtPosY.Text)));
+                    }
+                    else
+                    {
+                        mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex));
+                    }
+                        
+                    break;
+                case State.EditObject:
+                    btnEdit.Enabled = false;
+                    btnNew.Enabled = true;
+
+                    if (listView1.SelectedIndices.Count != 0)
+                    {
+                        mListObject[listView1.SelectedIndices[0]].MBottom = int.Parse(txtBottom.Text);
+                        mListObject[listView1.SelectedIndices[0]].MLeft = int.Parse(txtLeft.Text);
+                        mListObject[listView1.SelectedIndices[0]].MRight = int.Parse(txtRight.Text);
+                        mListObject[listView1.SelectedIndices[0]].MTop = int.Parse(txtTop.Text);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            cursorState = CursorState.DoNothing;
+            currentState = State.DoNothing;
 
             //Khởi gán lại textBox
             grpObjectInfo.Enabled = false;
 
             //Xóa hcn
             this.mWorldSpace.ClearRectangle();
+            this.mWorldSpace.ClearObjectImage();
             this.mWorldSpace.Invalidate();
 
             //Cập nhật danh sách Item
@@ -111,57 +223,107 @@ namespace NMGame_MapEditor
             btnDelete.Enabled = false;
         }
 
-        private void ListViewUpdate()
+        private bool CheckCondition()
         {
-            //Xóa list cũ
-            listView1.Items.Clear();
-
-           foreach (GameObject obj in mListObject)
-            {        
-                //
-                listView1.Items.Add(listView1.Items.Count.ToString());
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add("["+ obj.MLeft.ToString() + "," + obj.MTop.ToString() + "," + obj.MRight.ToString() + "," + obj.MBottom.ToString() + "]");
-                listView1.Items[listView1.Items.Count - 1].SubItems.Add(obj.MObjID.ToString());
+            if(GameObject.isObjectNeedPosition((EObjectID)this.cbObjType.SelectedIndex))
+            {
+                if (txtPosX.Text == "" || txtPosY.Text == "")
+                {
+                    MessageBox.Show("Chưa nhập vào vị trí", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                    return true;
+                }
+                    
             }
+
+            if (txtLeft.Text == "" || txtRight.Text == "" || txtBottom.Text == "" || txtTop.Text == "")
+            {
+                MessageBox.Show("Chưa nhập vào bounding box", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                return true;
+            }
+
+            return false;
         }
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-          
-
-            grpObjectInfo.Enabled = true;
-            btnDelete.Enabled = true;
-            btnSave.Enabled = true;
-            btnDelete.Enabled = false;
-
-            flagEdit = false;
+            currentState = State.NewObject;
+            
+            StateUpdate(currentState);
+                 
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        
+
+        private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (flagEdit == true)
-            {
-                flagEdit = false;
-                btnEdit.Enabled = false;
-                btnNew.Enabled = true;
-                btnSave.Enabled = false;
-                grpObjectInfo.Enabled = false;
-            }
+            currentState = State.EditObject;
+            
+            StateUpdate(currentState);
 
-            if (listView1.SelectedIndices.Count != 0)
+
+            
+        }
+
+        private void StateUpdate(State currentState)
+        {
+            switch (currentState)
             {
-                txtLeft.Text = mListObject[listView1.SelectedIndices[0]].MLeft.ToString();
-                txtTop.Text = mListObject[listView1.SelectedIndices[0]].MTop.ToString();
-                txtRight.Text = mListObject[listView1.SelectedIndices[0]].MRight.ToString();
-                txtBottom.Text = mListObject[listView1.SelectedIndices[0]].MBottom.ToString();
-               // grpObjectInfo.Enabled = false;
-                flagBiding = true;
-                Biding();
-                //  flagBiding = true;
-                btnEdit.Enabled = true;
-                btnDelete.Enabled = true;
+                case State.NewObject:
+                    currentState = State.NewObject;
+                    cursorState = CursorState.DrawRectangle;
+
+                    cbObjType.SelectedIndex = 0;
+
+                    txtBottom.Text = "";
+                    txtLeft.Text = "";
+                    txtRight.Text = "";
+                    txtTop.Text = "";
+
+                    grpObjectInfo.Enabled = true;
+                    btnSave.Enabled = true;
+                    btnDelete.Enabled = false;
+
+                    break;
+                case State.EditObject:
+                    grpObjectInfo.Enabled = true;
+                    cursorState = CursorState.DrawRectangle;
+                    btnEdit.Enabled = false;
+                    btnSave.Enabled = true;
+                    btnDelete.Enabled = false;
+                    btnNew.Enabled = false;
+
+                    break;
+                case State.DoNothing:
+                    btnEdit.Enabled = false;
+                    btnNew.Enabled = true;
+                    btnSave.Enabled = false;
+                    grpObjectInfo.Enabled = false;
+                    cursorState = CursorState.DoNothing;
+                    break;
             }
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int stt = -1;
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                if (listView1.Items[i].Selected)
+                {
+                    listView1.Items[i].Remove();
+                    stt = i;
+                    i--;
+                }
+            }
+            mListObject.RemoveAt(stt);
+            //Xóa hcn
+            this.mWorldSpace.ClearRectangle();
+
+
+            btnDelete.Enabled = false;
+            btnEdit.Enabled = false;
+
+        }     
 
         private void btnBuildQuadTree_Click(object sender, EventArgs e)
         {
@@ -189,6 +351,150 @@ namespace NMGame_MapEditor
 
         }
 
+        #endregion
+
+        #region ListView
+        private void ListViewUpdate()
+        {
+            //Xóa list cũ
+            listView1.Items.Clear();
+
+            foreach (GameObject obj in mListObject)
+            {
+                //
+                listView1.Items.Add(listView1.Items.Count.ToString());
+
+                if (GameObject.isObjectNeedPosition(obj.MObjID))
+                    listView1.Items[listView1.Items.Count - 1].SubItems.Add("[" + obj.MPositionX + "," + obj.MPositionY + "]");
+                else
+                    listView1.Items[listView1.Items.Count - 1].SubItems.Add("[_,_]");
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add("[" + obj.MLeft.ToString() + "," + obj.MTop.ToString() + "," + obj.MRight.ToString() + "," + obj.MBottom.ToString() + "]");
+                listView1.Items[listView1.Items.Count - 1].SubItems.Add(obj.MObjID.ToString());
+            }
+        }
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentState = State.DoNothing;
+
+            StateUpdate(currentState);
+
+            ViewSelectedListViewItem();
+
+            
+        }
+
+        private void ViewSelectedListViewItem()
+        {
+            if (listView1.SelectedIndices.Count != 0)
+            {
+                txtLeft.Text = mListObject[listView1.SelectedIndices[0]].MLeft.ToString();
+                txtTop.Text = mListObject[listView1.SelectedIndices[0]].MTop.ToString();
+                txtRight.Text = mListObject[listView1.SelectedIndices[0]].MRight.ToString();
+                txtBottom.Text = mListObject[listView1.SelectedIndices[0]].MBottom.ToString();
+
+                //flagBiding = true;
+                //Biding();
+
+
+                mWorldSpace.VisualizeObject(mListObject[listView1.SelectedIndices[0]]);
+
+                btnEdit.Enabled = true;
+                btnDelete.Enabled = true;
+            }
+        }
+        #endregion
+
+        #region GroupInformation
+        bool flagBiding = false;
+        private void Biding()
+        {
+            if (!flagBiding) return;
+
+            if (this.txtLeft.Text != "" && this.txtTop.Text != "" && this.txtRight.Text != "" && this.txtBottom.Text != "")
+            {
+                int L = int.Parse(this.txtLeft.Text);
+                int T = int.Parse(this.txtTop.Text);
+                int R = int.Parse(this.txtRight.Text);
+                int B = int.Parse(this.txtBottom.Text);
+                this.mWorldSpace.DrawRectangle(L, T, R, B);
+                this.mWorldSpace.Invalidate();
+            }
+        }
+        
+        private void txt_TextChanged(object sender, EventArgs e)
+        {
+           Biding();
+        }
+
+        private void cbObjType_SelectedIndexChange(object sender, EventArgs e)
+        {
+            this.mWorldSpace.ClearObjectImage();
+            this.mWorldSpace.ClearRectangle();
+
+            txtLeft.Text = "";
+            txtRight.Text = "";
+            txtTop.Text = "";
+            txtBottom.Text = "";
+            txtPosX.Text = "";
+            txtPosY.Text = "";
+
+
+
+            btnDrawRectangle.Visible = false;
+            btnPlaceObject.Visible = false;
+
+            switch(currentState)
+            {
+                case State.NewObject:
+                case State.EditObject:
+                    if (GameObject.isObjectNeedPosition((EObjectID)this.cbObjType.SelectedIndex))
+                    {
+                        if (GameObject.isObjectNeedDrawBoundingRect((EObjectID)this.cbObjType.SelectedIndex))
+                        {
+                            grpPosition.Enabled = true;
+                            grpBounded.Enabled = true;
+
+                            btnDrawRectangle.Visible = true;
+                            btnPlaceObject.Visible = true;
+
+                            cursorState = CursorState.DrawRectangle;
+                        }
+                        else
+                        {
+                            cursorState = CursorState.PlaceObject;
+
+                            grpPosition.Enabled = true;
+                            grpBounded.Enabled = false;
+                        }
+                        
+                    }
+                    else
+                    {
+                        cursorState = CursorState.DrawRectangle;
+                        grpPosition.Enabled = false;
+                        grpBounded.Enabled = true;
+
+                    }
+                    
+                    break;
+                case State.DoNothing:
+                    break;
+            }
+           
+        }
+
+        private void btnPlaceObject_Click(object sender, EventArgs e)
+        {
+            cursorState = CursorState.PlaceObject;
+        }
+
+        private void btnDrawRectangle_Click(object sender, EventArgs e)
+        {
+            cursorState = CursorState.DrawRectangle;
+        }
+        #endregion
+
+        #region QuadTree
         private void SaveQuadTree()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -205,9 +511,9 @@ namespace NMGame_MapEditor
                 outputFile.WriteLine(this.mListObject.Count + " " + WORLD_X + " " + WORLD_Y);
 
                 //Save các Object
-                for(int i = 0; i < this.mListObject.Count; i ++)
+                for (int i = 0; i < this.mListObject.Count; i++)
                 {
-                    outputFile.WriteLine(i + " " + (int) mListObject[i].MObjID + " " + mListObject[i].getBoundingBoxInWorldAxis().MTop.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MLeft.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MRight.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MBottom.ToString());
+                    outputFile.WriteLine(i + " " + (int)mListObject[i].MObjID + " " + mListObject[i].getBoundingBoxInWorldAxis().MTop.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MLeft.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MRight.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MBottom.ToString());
                 }
 
                 //Save các Node của QuadTree
@@ -217,94 +523,9 @@ namespace NMGame_MapEditor
             }
 
         }
+        #endregion
 
-        private void Biding()
-        {
-            if (!flagBiding) return;
-            if (this.txtLeft.Text != "" && this.txtTop.Text != "" && this.txtRight.Text != "" && this.txtBottom.Text != "")
-            {
-                int L = int.Parse(this.txtLeft.Text);
-                int T = int.Parse(this.txtTop.Text);
-                int R = int.Parse(this.txtRight.Text);
-                int B = int.Parse(this.txtBottom.Text);
-                this.mWorldSpace.DrawRectangle(L, T, R, B);
-                this.mWorldSpace.Invalidate();
-            }
-        }
-        
-        private void txtLeft_TextChanged(object sender, EventArgs e)
-        {
-           Biding();
-        }
 
       
-        private void txtTop_TextChanged(object sender, EventArgs e)
-        {
-            Biding();
-        }
-
-        private void txtRight_TextChanged(object sender, EventArgs e)
-        {
-            Biding();
-        }
-
-        private void txtBottom_TextChanged(object sender, EventArgs e)
-        {
-            Biding();
-        }
-        bool flagBiding = false;
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            grpObjectInfo.Enabled = true;
-            btnEdit.Enabled = false;
-            btnSave.Enabled = true;
-            btnDelete.Enabled = false;
-            btnNew.Enabled = false;
-
-
-            flagEdit = true;
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            int stt=-1;
-            for (int i = 0; i < listView1.Items.Count; i++)
-            {
-                if (listView1.Items[i].Selected)
-                {
-                    listView1.Items[i].Remove();
-                    stt = i;
-                    i--;
-                }
-            }
-            mListObject.RemoveAt(stt);
-            //Xóa hcn
-            this.mWorldSpace.ClearRectangle();
-            this.mWorldSpace.Invalidate();
-
-            btnDelete.Enabled = false;
-            btnEdit.Enabled = false;
-
-        }
-
-        private void mWorldSpace_MouseUp(object sender, MouseEventArgs e)
-        {
-            mouseUpPosition = new Point(e.X - this.mWorldSpace.AutoScrollPosition.X, e.Y - this.mWorldSpace.AutoScrollPosition.Y);
-
-            if (grpObjectInfo.Enabled == true)
-            {
-                this.mWorldSpace.DrawRectangle(mouseDownPosition.X, mouseDownPosition.Y, mouseUpPosition.X, mouseUpPosition.Y);
-                this.mWorldSpace.Invalidate();
-                this.txtLeft.Text = this.mWorldSpace.Rect.Left.ToString();
-                this.txtTop.Text = this.mWorldSpace.Rect.Top.ToString();
-                this.txtRight.Text = (this.mWorldSpace.Rect.Left + this.mWorldSpace.Rect.Width).ToString();
-                this.txtBottom.Text = (this.mWorldSpace.Rect.Top + this.mWorldSpace.Rect.Height).ToString();
-
-            }
-            flagBiding = true;
-
-
-        }
     }
 }

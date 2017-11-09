@@ -126,7 +126,7 @@ void Camera::Update(AladdinCharacter* object)
 	//Left
 	if (object->getCurrentState() == AState::LookUp)
 	{
-		if ( mPosition.y < aladdinY + 600)
+		if ( mPosition.y < aladdinY + 550)
 			this->mVelocity.y = 10;
 
 	}

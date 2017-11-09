@@ -23,6 +23,7 @@ void DemoScene::Update(float DeltaTime)
 	this->mAladdinHelper->Update(DeltaTime);
 	Camera::GetInstance()->Update(this->mAladdinHelper);
 
+	mCamel->Update(DeltaTime);
 
 
 
@@ -53,6 +54,7 @@ void DemoScene::Render(float DeltaTime)
 	
 	this->mAladdinHelper->Render(DeltaTime);
 
+	mCamel->Render(DeltaTime);
 
 	
 	this->mMap->Render(DeltaTime, MapLevel::MapLevel2);
@@ -72,7 +74,7 @@ void DemoScene::LoadResource()
 
 	this->mAladdinHelper = new AladdinCharacter(imagepos);
 
-
+	mCamel = new Camel(D3DXVECTOR3(500, WORLD_Y - MAP_HEIGHT + 90,0));
 
 	Camera::GetInstance()->SetPosition(0, WORLD_Y - MAP_HEIGHT - GLOBAL::GetWindowsHeight());
 

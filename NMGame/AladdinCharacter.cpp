@@ -347,8 +347,8 @@ void AladdinCharacter::Update(float DeltaTime)
 	this->mAladdinState.at(this->mCurrentState)->mSprite->SetPosition(mPosition);
 
 	//Bounding box update
-	this->mHeight = (this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().bottom - this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().top) * 2.5;
-	this->mWidth = (this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().right - this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().left) * 2;
+	//this->mHeight = (this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().bottom - this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().top) * 2.5;
+	//this->mWidth = (this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().right - this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().left) * 2;
 }
 
 void AladdinCharacter::Render(float DeltaTime)

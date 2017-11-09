@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace NMGame_MapEditor
 {
+   
+
     public partial class ImageView : UserControl
     {
         private Image mImage;
@@ -17,6 +19,13 @@ namespace NMGame_MapEditor
         public Action callBack;
 
         private Rectangle rect = new Rectangle(0, 0, 0, 0);
+
+        private Image mObject;
+        private int mObjectX, mObjectY;
+
+      
+
+
 
         public ImageView()
         {
@@ -64,9 +73,31 @@ namespace NMGame_MapEditor
             }
         }
 
+
+
+        public void SetImageObject(Bitmap img, int X, int y)
+        {
+            if (img == null)
+                return;
+
+            this.mObject = img;
+            this.mObjectX = X;
+            this.mObjectY = y;
+
+            this.Invalidate();
+        }
+
+        public void ClearObjectImage()
+        {
+            this.mObject = null;
+
+            this.Invalidate();
+        }
+
         public void ClearRectangle()
         {
             Rect = new Rectangle(0,0,0,0);
+            this.Invalidate();
         }
         public void DrawRectangle(int x1, int y1, int x2, int y2)
         {
@@ -99,9 +130,13 @@ namespace NMGame_MapEditor
             graphics.TranslateTransform(this.AutoScrollPosition.X, this.AutoScrollPosition.Y);
 
             if (mImage != null)
-            {
-               
+            {               
                 graphics.DrawImage(mImage, 0, 0);
+            }
+
+            if (mObject != null)
+            {
+                graphics.DrawImage(mObject, mObjectX, mObjectY);
             }
 
             Pen blackPen = new Pen(Color.Red, 3);
@@ -109,6 +144,20 @@ namespace NMGame_MapEditor
             e.Graphics.DrawRectangle(blackPen, Rect);
         }
 
+        internal void VisualizeObject(GameObject obj)
+        {
+            DrawRectangle(obj.MLeft, obj.MTop, obj.MRight, obj.MBottom);
 
+            if(GameObject.isObjectNeedPosition(obj) == true)
+            {
+                mObject = GameObject.GetObjectImg(obj.MObjID);
+            }
+            else
+            {
+                mObject = null;
+            }
+
+            this.Invalidate();
+        }
     }
 }

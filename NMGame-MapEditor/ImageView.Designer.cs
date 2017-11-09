@@ -34,6 +34,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.DoubleBuffered = true;
             this.Name = "ImageView";
             this.Load += new System.EventHandler(this.ImageView_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ImageView_Paint);
