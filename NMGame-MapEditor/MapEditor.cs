@@ -136,6 +136,7 @@ namespace NMGame_MapEditor
                         txtTop.Text = (mouseDownPosition.Y - img.Size.Height).ToString();
                         txtBottom.Text = (mouseDownPosition.Y ).ToString();
                     }
+                    flagPic = true;
                         break;
                 default:
                     break;
@@ -200,6 +201,8 @@ namespace NMGame_MapEditor
 
                     if (listView1.SelectedIndices.Count != 0)
                     {
+                        mListObject[listView1.SelectedIndices[0]].MPositionY = int.Parse(txtPosY.Text);
+                        mListObject[listView1.SelectedIndices[0]].MPositionX = int.Parse(txtPosX.Text);
                         mListObject[listView1.SelectedIndices[0]].MBottom = int.Parse(txtBottom.Text);
                         mListObject[listView1.SelectedIndices[0]].MLeft = int.Parse(txtLeft.Text);
                         mListObject[listView1.SelectedIndices[0]].MRight = int.Parse(txtRight.Text);
@@ -332,7 +335,15 @@ namespace NMGame_MapEditor
             btnDelete.Enabled = false;
             btnEdit.Enabled = false;
 
-        
+            foreach (int idx in listView1.CheckedIndices)
+            {
+                needToVisualize.Add(mListObject[idx]);
+            };
+
+            mWorldSpace.VisualizeListObject(needToVisualize);
+            needToVisualize.Clear();
+
+
         }     
 
         private void btnBuildQuadTree_Click(object sender, EventArgs e)
@@ -576,6 +587,29 @@ namespace NMGame_MapEditor
             }
 
 
+        }
+        bool flagPic = false;
+        private void txtPosX_TextChanged(object sender, EventArgs e)
+        {
+            if (!flagPic) return;
+                        
+            if (txtPosX.Text!="" && txtPosY.Text!="")
+            {
+                Bitmap img = GameObject.GetObjectImg((EObjectID)this.cbObjType.SelectedIndex);
+                this.mWorldSpace.SetImageObject(img, int.Parse(txtPosX.Text) - img.Size.Width / 2, int.Parse(txtPosY.Text) - img.Size.Height);
+            }
+            //flagPic = false;
+        }
+
+        private void txtPosY_TextChanged(object sender, EventArgs e)
+        {
+            if (!flagPic) return;
+
+            if (txtPosX.Text != "" && txtPosY.Text != "")
+            {
+                Bitmap img = GameObject.GetObjectImg((EObjectID)this.cbObjType.SelectedIndex);
+                this.mWorldSpace.SetImageObject(img, int.Parse(txtPosX.Text) - img.Size.Width / 2, int.Parse(txtPosY.Text) - img.Size.Height);
+            }
         }
         #endregion
 

@@ -35,6 +35,8 @@ namespace NMGame_MapEditor
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
             this.btnBuildQuadTree = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.clmKey = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -66,8 +68,6 @@ namespace NMGame_MapEditor
             this.label2 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.mWorldSpace = new NMGame_MapEditor.ImageView();
-            this.btnImport = new System.Windows.Forms.Button();
-            this.btnExport = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -128,6 +128,26 @@ namespace NMGame_MapEditor
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(396, 488);
             this.panel3.TabIndex = 3;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(203, 382);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 23);
+            this.btnExport.TabIndex = 7;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Location = new System.Drawing.Point(111, 382);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(75, 23);
+            this.btnImport.TabIndex = 6;
+            this.btnImport.Text = "Import";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // btnBuildQuadTree
             // 
@@ -275,6 +295,7 @@ namespace NMGame_MapEditor
             this.txtPosY.Name = "txtPosY";
             this.txtPosY.Size = new System.Drawing.Size(112, 22);
             this.txtPosY.TabIndex = 5;
+            this.txtPosY.TextChanged += new System.EventHandler(this.txtPosY_TextChanged);
             // 
             // label8
             // 
@@ -291,6 +312,7 @@ namespace NMGame_MapEditor
             this.txtPosX.Name = "txtPosX";
             this.txtPosX.Size = new System.Drawing.Size(112, 22);
             this.txtPosX.TabIndex = 2;
+            this.txtPosX.TextChanged += new System.EventHandler(this.txtPosX_TextChanged);
             // 
             // label9
             // 
@@ -427,26 +449,6 @@ namespace NMGame_MapEditor
             this.mWorldSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseMove);
             this.mWorldSpace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseUp);
             // 
-            // btnImport
-            // 
-            this.btnImport.Location = new System.Drawing.Point(111, 382);
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(75, 23);
-            this.btnImport.TabIndex = 6;
-            this.btnImport.Text = "Import";
-            this.btnImport.UseVisualStyleBackColor = true;
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
-            // 
-            // btnExport
-            // 
-            this.btnExport.Location = new System.Drawing.Point(203, 382);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(75, 23);
-            this.btnExport.TabIndex = 7;
-            this.btnExport.Text = "Export";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
             // MapEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -504,7 +506,6 @@ namespace NMGame_MapEditor
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader clmKey;
         private System.Windows.Forms.ColumnHeader clmRECT;
         private System.Windows.Forms.ColumnHeader clmType;
         private System.Windows.Forms.Button btnBuildQuadTree;
@@ -519,6 +520,7 @@ namespace NMGame_MapEditor
         private System.Windows.Forms.ColumnHeader clmPos;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.ColumnHeader clmKey;
     }
 }
 
