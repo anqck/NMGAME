@@ -16,6 +16,14 @@ public:
 	void							AddCTreeObject(CTreeObject *object);
 	void							AddChilds(QNode* lt, QNode* rt, QNode* lb, QNode* rb);
 
+	QNode*							GetLT();
+	QNode*							GetRT();
+	QNode*							GetLB();
+	QNode*							GetRB();
+
+	MyRECT							GetBoundingBox();
+
+	vector<CTreeObject*>			GetListCTreeObject();
 protected:
 	vector<QNode*>					mChilds;
 

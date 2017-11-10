@@ -68,4 +68,57 @@ void QuadTree::LoadQuadTree(std::string filePath)
 			mMapQuadTree.find(it->second->GetNodeID())->second->AddChilds(mMapQuadTree.find(it->second->GetNodeID() * 10)->second, mMapQuadTree.find(it->second->GetNodeID() * 10 + 1)->second, mMapQuadTree.find(it->second->GetNodeID() * 10 + 2)->second, mMapQuadTree.find(it->second->GetNodeID() * 10 + 3)->second);
 		}
 	}
+
+	mRoot = mMapQuadTree.find(1)->second;
+}
+
+void QuadTree::ListObjectInViewport(MyRECT viewport, QNode * node)
+{
+	if (node == mRoot) //Nếu đối số truyền vào là node gốc thì clear list
+	{
+		_mListObjectInViewport.clear();
+	}
+	//nếu đối số truyền vào là node lá thì đưa ra list
+	if (!node->GetLT())
+	{
+		if (node->GetBoundingBox().Intersects(viewport))
+		{
+			if (node->GetListCTreeObject().size() > 0)
+			{
+				//Giải quyết trùng lập các Object và đưa vào list
+				for (int i = 0; i < node->GetListCTreeObject().size(); i++)
+				{
+					if (_mListObjectInViewport.count(node->GetListCTreeObject().at(i)->GetKey()) == 0) //Kiểm tra xem obj key có trong list chưa
+					{
+						_mListObjectInViewport[node->GetListCTreeObject().at(i)->GetKey()] = node->GetListCTreeObject().at(i);
+					}
+				}
+				
+			}
+		}
+	}
+	else //Nếu chưa phải là node lá thì tiếp tục gọi đệ quy
+	{
+		if (node->GetLT()->GetBoundingBox().Intersects(viewport))
+			ListObjectInViewport(viewport, node->GetLT());
+		if (node->GetRT()->GetBoundingBox().Intersects(viewport))
+			ListObjectInViewport(viewport, node->GetRT());
+		if (node->GetLB()->GetBoundingBox().Intersects(viewport))
+			ListObjectInViewport(viewport, node->GetLB());
+		if (node->GetRB()->GetBoundingBox().Intersects(viewport))
+			ListObjectInViewport(viewport, node->GetRB());
+	}
+}
+
+vector<GameVisibleEntity*> QuadTree::GetListObjectInViewport(MyRECT viewport)
+{
+	mListObjectInViewport.clear();
+
+	this->ListObjectInViewport(viewport, mRoot);
+
+	for (map<int, CTreeObject*>	::iterator it = _mListObjectInViewport.begin(); it != _mListObjectInViewport.end(); ++it) {
+		mListObjectInViewport.push_back(it->second->GetGameObject());
+	}
+
+	return mListObjectInViewport;
 }

@@ -21,6 +21,9 @@ public:
 	~CTreeObject();
 
 	GameVisibleEntity*	NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb);
+	GameVisibleEntity*	GetGameObject();
+
+	int					GetKey();
 
 
 private:

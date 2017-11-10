@@ -22,6 +22,8 @@ public:
 
 	void		setCenterTranslation(int x = 0, int y = 0);
 	D3DXVECTOR3	getCenterTranslation();
+
+	bool		Intersects(MyRECT rect);
 private:
 	D3DXVECTOR3	centerTranslation;
 	

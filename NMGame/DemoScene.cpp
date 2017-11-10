@@ -16,18 +16,19 @@ DemoScene::~DemoScene()
 
 void DemoScene::Update(float DeltaTime)
 {
-	//this->mAladdinHelper->Update(DeltaTime);	
-	//this->mCamel->Update(DeltaTime);
 
-	
 	this->mAladdinHelper->Update(DeltaTime);
 	Camera::GetInstance()->Update(this->mAladdinHelper);
 
-	mCamel->Update(DeltaTime);
+	//mCamel->Update(DeltaTime);
+	
 
+	mListObjectInViewPort = mQuadTree->GetListObjectInViewport(Camera::GetInstance()->GetBoundingBoxInWorldAxis());
 
-
-
+	for (int i = 0; i < mListObjectInViewPort.size(); i++)
+	{
+		mListObjectInViewPort.at(i)->Update(DeltaTime);
+	}
 }
 
 void DemoScene::Render(float DeltaTime)
@@ -52,9 +53,16 @@ void DemoScene::Render(float DeltaTime)
 	//this->mCamel->Render(DeltaTime);
 
 	
+	for (int i = 0; i < mListObjectInViewPort.size(); i++)
+	{
+		mListObjectInViewPort.at(i)->Render(DeltaTime);
+	}
+
 	this->mAladdinHelper->Render(DeltaTime);
 
-	mCamel->Render(DeltaTime);
+
+
+	//mCamel->Render(DeltaTime);
 
 	
 	this->mMap->Render(DeltaTime, MapLevel::MapLevel2);
@@ -74,9 +82,9 @@ void DemoScene::LoadResource()
 
 	this->mAladdinHelper = new AladdinCharacter(imagepos);
 
-	mCamel = new Camel(D3DXVECTOR3(500, WORLD_Y - MAP_HEIGHT + 90,0));
+	//mCamel = new Camel(D3DXVECTOR3(500, WORLD_Y - MAP_HEIGHT + 90,0));
 
-	Camera::GetInstance()->SetPosition(0, WORLD_Y - MAP_HEIGHT - GLOBAL::GetWindowsHeight());
+	Camera::GetInstance()->SetPosition(100.0f, WORLD_Y - MAP_HEIGHT + 90 );
 
 	mQuadTree = new QuadTree();
 

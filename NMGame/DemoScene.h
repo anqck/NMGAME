@@ -41,11 +41,12 @@ protected:
 
 	QuadTree				*mQuadTree;
 
+
 	int						mNumberOfSprite;
 	int						mMainIdx;
 	vector<AladdinCharacter*>	mAladdinHelperArr;
 
-
+	vector<GameVisibleEntity*>	mListObjectInViewPort;
 };
 
 #endif

@@ -160,7 +160,7 @@ void Camera::Update(AladdinCharacter* object)
 	this->mPosition.x += mVelocity.x;
 	this->mPosition.y += mVelocity.y;
 
-	NomalizeCamera();
+	//NomalizeCamera();
 
 	/*this->_position.x = aladdinX - halfWidth;
 	this->_position.y = aladdinY + halfHeight;*/
@@ -187,6 +187,11 @@ void Camera::SetPosition(int X, int Y)
 {
 	this->mPosition.x = X;
 	this->mPosition.y = Y;
+}
+
+MyRECT Camera::GetBoundingBoxInWorldAxis()
+{
+	return MyRECT(mPosition.y,mPosition.x, mPosition.x + mWidth, mPosition.y - mHeight);
 }
 
 void Camera::NomalizeCamera()

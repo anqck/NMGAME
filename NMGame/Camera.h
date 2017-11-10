@@ -21,6 +21,8 @@ public:
 	void					SetPosition(D3DXVECTOR3 Position);
 	void					SetPosition(int X, int Y);
 
+	MyRECT					GetBoundingBoxInWorldAxis();
+
 private:
 	static Camera*			mInstance;
 

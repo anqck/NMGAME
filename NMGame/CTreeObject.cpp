@@ -28,3 +28,13 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 		return new Camel(pos);
 	}
 }
+
+GameVisibleEntity * CTreeObject::GetGameObject()
+{
+	return this->mGameObject;
+}
+
+int CTreeObject::GetKey()
+{
+	return mKey;
+}
