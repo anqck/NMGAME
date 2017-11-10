@@ -208,7 +208,7 @@ void AladdinCharacter::Update(float DeltaTime)
 		this->setCurrentState(AState::RopeClimb);
 	}*/
 	//printLog(to_string(this->mAladdinState.at(this->mCurrentState)->GetPosition().x).c_str());
-	switch (this->mCurrentState)
+	/*switch (this->mCurrentState)
 	{
 	case AState::DoNothing:
 		printLog("DoNothing");
@@ -244,7 +244,7 @@ void AladdinCharacter::Update(float DeltaTime)
 	default:
 		printLog("Else");
 		break;
-	}
+	}*/
 	//printLog(to_string(mCurrentState).c_str());
 
 	this->mAladdinState.at(mCurrentState)->SetFlipVertical((mDir == Direction::Left) ? (true) : (false));

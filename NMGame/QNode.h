@@ -8,10 +8,16 @@ class QNode
 {
 public:
 	QNode();
+	QNode(int id, MyRECT  bb);
 	~QNode();
 
+	int								GetNodeID();
+
+	void							AddCTreeObject(CTreeObject *object);
+	void							AddChilds(QNode* lt, QNode* rt, QNode* lb, QNode* rb);
+
 protected:
-	QNode**							mChilds;
+	vector<QNode*>					mChilds;
 
 	MyRECT							mBoundingBox;
 

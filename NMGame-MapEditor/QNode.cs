@@ -262,7 +262,7 @@ namespace NMGame_MapEditor
            
             if (mChilds[0] != null) //Không phải là lá thì lưu các thông tin và gọi đệ quy đến các node con
             {
-                outputFile.WriteLine(this.mID + " " + this.mTop + " " + this.mLeft + " " + this.mRight + " " + this.mBottom);
+                outputFile.WriteLine(this.mID + " " + this.mTop + " " + this.mLeft + " " + this.mRight + " " + this.mBottom + " " + this.mListObject.Count);
                 this.mChilds[0].SaveQuadTree(outputFile);
                 this.mChilds[1].SaveQuadTree(outputFile);
                 this.mChilds[2].SaveQuadTree(outputFile);

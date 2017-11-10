@@ -2,6 +2,7 @@
 
 #include "Global.h"
 #include "MyRECT.h"
+#include "GameVisibleEntity.h"
 
 enum EObjectID
 {
@@ -19,9 +20,12 @@ public:
 	CTreeObject(int key, int id, D3DXVECTOR3 pos, MyRECT bb);
 	~CTreeObject();
 
+	GameVisibleEntity*	NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb);
 
 
 private:
+	GameVisibleEntity	*mGameObject;
+
 	int					mKey;
 	int					mID;
 	D3DXVECTOR3			mPosition;

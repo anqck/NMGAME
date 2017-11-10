@@ -17,7 +17,7 @@ public:
 
 
 private:
-	std::map<int, QNode*>			mRoot;
+	std::map<int, QNode*>			mMapQuadTree;
 	std::map<int, CTreeObject*>		mListObject;
 
 
