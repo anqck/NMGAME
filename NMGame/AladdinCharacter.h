@@ -67,6 +67,11 @@ protected:
 	float					mStopWalkThresHold;
 	bool					mIsStopAnimation;
 
+	int						mJumpHeight;
+	bool					mIsGrounded;
+	bool					mIsReachJumpHeight;
+	bool					mIsFalling;
+
 	bool					allowAttack;
 	bool					allowJump;
 	bool					allowAction;

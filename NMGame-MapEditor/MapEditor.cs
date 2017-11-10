@@ -172,7 +172,6 @@ namespace NMGame_MapEditor
 
         #endregion
 
-
         #region Button
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -328,6 +327,14 @@ namespace NMGame_MapEditor
             //Xóa hcn
             this.mWorldSpace.ClearRectangle();
 
+            foreach (int idx in listView1.CheckedIndices)
+            {
+                needToVisualize.Add(mListObject[idx]);
+            };
+
+            mWorldSpace.VisualizeListObject(needToVisualize);
+            needToVisualize.Clear();
+            ListViewUpdate();
 
             btnDelete.Enabled = false;
             btnEdit.Enabled = false;
@@ -414,6 +421,19 @@ namespace NMGame_MapEditor
                 btnEdit.Enabled = true;
                 btnDelete.Enabled = true;
             }
+        }
+
+        private void listView1_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+
+            foreach (int idx in listView1.CheckedIndices)
+            {
+                needToVisualize.Add(mListObject[idx]);
+            };
+
+            mWorldSpace.VisualizeListObject(needToVisualize);
+            needToVisualize.Clear();
+
         }
         #endregion
 
@@ -506,18 +526,7 @@ namespace NMGame_MapEditor
             cursorState = CursorState.DrawRectangle;
         }
 
-        private void listView1_ItemChecked(object sender, ItemCheckedEventArgs e)
-        {
-           
-            foreach(int idx in listView1.CheckedIndices)
-            {
-                needToVisualize.Add(mListObject[idx]);
-            };
-
-            mWorldSpace.VisualizeListObject(needToVisualize);
-            needToVisualize.Clear();
-
-        }
+       
 
         private void btnImport_Click(object sender, EventArgs e)
         {

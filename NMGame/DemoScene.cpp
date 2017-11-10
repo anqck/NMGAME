@@ -77,7 +77,7 @@ void DemoScene::LoadResource()
 	D3DXVECTOR3 imagepos; //vector for the position of the sprite
 
 	imagepos.x = 100.0f; //coord x of our sprite
-	imagepos.y = WORLD_Y - MAP_HEIGHT + 90; //coord y of out sprite
+	imagepos.y = WORLD_Y - MAP_HEIGHT + 160; //coord y of out sprite
 	imagepos.z = 0.0f; //coord z of out sprite
 
 	this->mAladdinHelper = new AladdinCharacter(imagepos);

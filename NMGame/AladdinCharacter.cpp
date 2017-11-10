@@ -191,6 +191,7 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	this->allowStateChange = true;
 	this->allowAttack = true;
 	this->allowJump = true;
+	this->mIsGrounded = true;
 	isClimbing = false;
 
 
@@ -208,7 +209,7 @@ void AladdinCharacter::Update(float DeltaTime)
 		this->setCurrentState(AState::RopeClimb);
 	}*/
 	//printLog(to_string(this->mAladdinState.at(this->mCurrentState)->GetPosition().x).c_str());
-	/*switch (this->mCurrentState)
+	switch (this->mCurrentState)
 	{
 	case AState::DoNothing:
 		printLog("DoNothing");
@@ -244,7 +245,7 @@ void AladdinCharacter::Update(float DeltaTime)
 	default:
 		printLog("Else");
 		break;
-	}*/
+	}
 	//printLog(to_string(mCurrentState).c_str());
 
 	this->mAladdinState.at(mCurrentState)->SetFlipVertical((mDir == Direction::Left) ? (true) : (false));
@@ -298,19 +299,55 @@ void AladdinCharacter::Update(float DeltaTime)
 	
 	case AState::RunAndJump:
 	{
-
 		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
 			|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
-			0.38   : 0;//0.785 ~ PI/4
+			0.36 : 0;
+		/*if (mIsGrounded == true)
+		{
+			mJumpHeight = this->mAladdinState.at(mCurrentState)->GetPosition().y + 170;
+			this->mAladdinState.at(mCurrentState)->SetVelocity(0, 0);
+			mIsGrounded = false;
+			mIsFalling = false;
+			mIsReachJumpHeight = false;
+		}
+		else
+		{
+			
+			if ( mIsReachJumpHeight == false)
+			{				
+				this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.5);
+				if (this->mAladdinState.at(mCurrentState)->GetPosition().y >= mJumpHeight)
+				{
+					mIsReachJumpHeight = true;
+				}					
+			}
+			else
+			{
+
+				if (mIsFalling == false)
+				{
+					this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.06);
+					if (this->mAladdinState.at(mCurrentState)->GetPosition().y >= mJumpHeight + 18)
+					{
+						mIsFalling = true;						
+					}						
+				}
+				else				
+				{					
+					this->mAladdinState.at(mCurrentState)->SetVelocity(vx , -0.5);
+				}
+				
+			}
+		}*/
 		 
 		//float vy = -2 * 0.5 *0.7;//Sin(PI/4) ~ 0.7
 		/*float vy = -10;
 		printLog(to_string(this->mAladdinState.at(mCurrentState)->GetPosition().y).c_str());*/
 		
-		mTime += DeltaTime/18;
+		mTime += DeltaTime/16;
 
-		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 1.08);
-		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, -0.07);
+		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.85);
+		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, -0.05);
 
 		
 
@@ -543,7 +580,7 @@ void AladdinCharacter::ProcessInput()
 		{
 		case AState::RopeClimb:
 		case AState::Walk:
-			if (allowJump)
+			if (mIsGrounded && allowJump)
 			{
 				allowJump = false;
 				flagKeyPressed = true;
@@ -579,9 +616,11 @@ void AladdinCharacter::ProcessInput()
 			break;
 		
 		case AState::RunAndJump:
-			if (this->mAladdinState.at(mCurrentState)->GetPosition().y <  WORLD_Y - MAP_HEIGHT + 90)
+			if (this->mAladdinState.at(mCurrentState)->GetPosition().y <  WORLD_Y - MAP_HEIGHT + 160)
 			{
-				this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, WORLD_Y - MAP_HEIGHT + 90);
+				mIsGrounded = true;
+				this->mAladdinState.at(mCurrentState)->SetVelocity(0, 0);
+				this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, WORLD_Y - MAP_HEIGHT + 160);
 				this->allowStateChange = true;
 				this->setCurrentState(AState::DoNothing);
 			}
