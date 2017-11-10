@@ -8,7 +8,7 @@ Camel::Camel(D3DXVECTOR3 pos)
 {
 	this->mPosition = pos;
 
-	this->mCurrentState = CamelState::JumpOn;
+	this->mCurrentState = CamelState::DoNothing1;
 
 	std::vector<MyRECT> temp;
 

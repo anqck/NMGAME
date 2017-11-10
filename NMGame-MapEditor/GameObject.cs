@@ -86,10 +86,10 @@ namespace NMGame_MapEditor
         {
             switch (selectedIndex)
             {
-                case EObjectID.GROUND:
-                case EObjectID.CAMEL:
+                case EObjectID.GROUND:                
                     return false;
                 case EObjectID.ENEMY:
+                case EObjectID.CAMEL:
                 default:
                     return true;
             }
