@@ -30,6 +30,8 @@ namespace NMGame_MapEditor
     {
         private int WORLD_X;
         private int WORLD_Y;
+        private OpenFileDialog open;
+        private SaveFileDialog save;
 
 
         private Point mMousePosition;
@@ -330,6 +332,7 @@ namespace NMGame_MapEditor
             btnDelete.Enabled = false;
             btnEdit.Enabled = false;
 
+        
         }     
 
         private void btnBuildQuadTree_Click(object sender, EventArgs e)
@@ -513,6 +516,65 @@ namespace NMGame_MapEditor
 
             mWorldSpace.VisualizeListObject(needToVisualize);
             needToVisualize.Clear();
+
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            //dosomething
+            open = new OpenFileDialog();
+            open.Filter = "|*.txt";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                StreamReader read = new StreamReader(open.FileName);
+                String data = read.ReadToEnd();
+                string[] nodes = data.Split('|');
+
+                for (int i = 0; i < nodes.Length; i++)
+                {
+                    string[] temp = nodes[i].Split('/');
+                    mListObject.Add(new GameObject(int.Parse(temp[0]), int.Parse(temp[1]), int.Parse(temp[2]), int.Parse(temp[3]), (EObjectID)Enum.ToObject(typeof(EObjectID), int.Parse(temp[4])),int.Parse(temp[5]),int.Parse(temp[6])));
+                    // mListObject.Add(new GameObject(900, 500, 700, 1110, (EObjectID.GROUND)));
+
+
+                }
+
+                read.Close();
+
+            }
+            ListViewUpdate();
+
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            //do domething
+            save = new SaveFileDialog();
+            save.Filter = "|*.txt";
+            save.RestoreDirectory = true; //cho phep ghi de
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter write = new StreamWriter(save.FileName);
+                //doing something
+
+                GameObject last = mListObject.Last();
+                foreach (GameObject temp in mListObject)
+                {
+                    if (temp.Equals(last))
+                    {
+                        write.Write(temp.MLeft + "/" + temp.MTop + "/" + temp.MRight + "/" + temp.MBottom + "/" + (int)temp.MObjID + "/" + temp.MPositionX + "/"+ temp.MPositionY );
+                    }
+                    else
+                    {
+                        write.Write(temp.MLeft + "/" + temp.MTop + "/" + temp.MRight + "/" + temp.MBottom + "/" + (int)temp.MObjID + "/" + temp.MPositionX + "/" + temp.MPositionY + "|");
+                    }
+                    // write.Write(temp.MTop + "/"+temp.MLeft + "/" + temp.MRight + "/" + temp.MBottom +"/"+ (int)temp.MObjID + "|" );
+
+                }
+
+                write.Close();
+            }
+
 
         }
         #endregion

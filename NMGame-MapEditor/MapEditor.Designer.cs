@@ -38,6 +38,7 @@ namespace NMGame_MapEditor
             this.btnBuildQuadTree = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.clmKey = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clmPos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmRECT = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2 = new System.Windows.Forms.Panel();
@@ -64,8 +65,9 @@ namespace NMGame_MapEditor
             this.txtLeft = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.clmPos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mWorldSpace = new NMGame_MapEditor.ImageView();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -117,6 +119,8 @@ namespace NMGame_MapEditor
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.btnExport);
+            this.panel3.Controls.Add(this.btnImport);
             this.panel3.Controls.Add(this.btnBuildQuadTree);
             this.panel3.Controls.Add(this.listView1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -157,6 +161,11 @@ namespace NMGame_MapEditor
             // 
             this.clmKey.Text = "Idx";
             this.clmKey.Width = 40;
+            // 
+            // clmPos
+            // 
+            this.clmPos.Text = "Position";
+            this.clmPos.Width = 92;
             // 
             // clmRECT
             // 
@@ -404,11 +413,6 @@ namespace NMGame_MapEditor
             this.panel4.Size = new System.Drawing.Size(1159, 843);
             this.panel4.TabIndex = 4;
             // 
-            // clmPos
-            // 
-            this.clmPos.Text = "Position";
-            this.clmPos.Width = 92;
-            // 
             // mWorldSpace
             // 
             this.mWorldSpace.Cursor = System.Windows.Forms.Cursors.Cross;
@@ -422,6 +426,26 @@ namespace NMGame_MapEditor
             this.mWorldSpace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseDown);
             this.mWorldSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseMove);
             this.mWorldSpace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseUp);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Location = new System.Drawing.Point(111, 382);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(75, 23);
+            this.btnImport.TabIndex = 6;
+            this.btnImport.Text = "Import";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(203, 382);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 23);
+            this.btnExport.TabIndex = 7;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // MapEditor
             // 
@@ -493,6 +517,8 @@ namespace NMGame_MapEditor
         private System.Windows.Forms.Button btnDrawRectangle;
         private System.Windows.Forms.Button btnPlaceObject;
         private System.Windows.Forms.ColumnHeader clmPos;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnImport;
     }
 }
 
