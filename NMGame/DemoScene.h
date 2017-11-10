@@ -8,6 +8,7 @@
 #include "AladdinCharacter.h"
 #include "DemoMap.h"
 #include "Camera.h"
+#include "QuadTree.h"
 
 #include "ThrowApple.h"
 
@@ -37,6 +38,8 @@ protected:
 	AladdinGame				*mGame;
 	Camel					*mCamel;
 	bool					allowAttack;
+
+	QuadTree				*mQuadTree;
 
 	int						mNumberOfSprite;
 	int						mMainIdx;

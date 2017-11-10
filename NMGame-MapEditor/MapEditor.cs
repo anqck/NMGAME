@@ -131,8 +131,8 @@ namespace NMGame_MapEditor
                     {
                         txtLeft.Text = (mouseDownPosition.X - img.Size.Width/2).ToString();
                         txtRight.Text = (mouseDownPosition.X + img.Size.Width / 2).ToString();
-                        txtTop.Text = (mouseDownPosition.Y  ).ToString();
-                        txtBottom.Text = (mouseDownPosition.Y - img.Size.Height).ToString();
+                        txtTop.Text = (mouseDownPosition.Y - img.Size.Height).ToString();
+                        txtBottom.Text = (mouseDownPosition.Y ).ToString();
                     }
                         break;
                 default:
@@ -536,7 +536,7 @@ namespace NMGame_MapEditor
                 //Save các Object
                 for (int i = 0; i < this.mListObject.Count; i++)
                 {
-                    outputFile.WriteLine(i + " " + (int)mListObject[i].MObjID + " " + mListObject[i].getBoundingBoxInWorldAxis().MTop.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MLeft.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MRight.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MBottom.ToString());
+                    outputFile.WriteLine(i + " " + (int)mListObject[i].MObjID +  " " + mListObject[i].MPositionX + " " +  (9542 - mListObject[i].MPositionY).ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MTop.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MLeft.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MRight.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MBottom.ToString());
                 }
 
                 //Save các Node của QuadTree

@@ -270,7 +270,7 @@ namespace NMGame_MapEditor
             }
             else //Nếu là lá thì lưu các thông tin về node VÀ các Object trong node đó
             {
-                outputFile.Write(this.mID + " " + this.mTop + " " + this.mLeft + " " + this.mRight + " " + this.mBottom);
+                outputFile.Write(this.mID + " " + this.mTop + " " + this.mLeft + " " + this.mRight + " " + this.mBottom + " " + this.mListObject.Count);
                 foreach (GameObject obj in this.mListObject)
                 {
                     outputFile.Write(" " + obj.MKey);

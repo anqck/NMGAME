@@ -78,6 +78,9 @@ void DemoScene::LoadResource()
 
 	Camera::GetInstance()->SetPosition(0, WORLD_Y - MAP_HEIGHT - GLOBAL::GetWindowsHeight());
 
+	mQuadTree = new QuadTree();
+
+	mQuadTree->LoadQuadTree("Map//1.txt");
 
 	//this->mCamel = new Camel(imagepos);
 	

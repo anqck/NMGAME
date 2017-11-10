@@ -13,11 +13,12 @@ public:
 	QuadTree();
 	~QuadTree();
 
-	void							BuildQuadTree();
+	void							LoadQuadTree(std::string filePath);
 
 
 private:
 	std::map<int, QNode*>			mRoot;
 	std::map<int, CTreeObject*>		mListObject;
+
 
 };

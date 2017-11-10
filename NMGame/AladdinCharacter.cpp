@@ -354,11 +354,6 @@ void AladdinCharacter::Update(float DeltaTime)
 void AladdinCharacter::Render(float DeltaTime)
 {
 	//this->Transform();
-	
-
-	//Bounding box draw
-	//GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetBoundingBox());
-
 	this->mAladdinState.at(this->mCurrentState)->Render();
 
 	for (int i = 0; i < mListThrowingApple.size(); i++)

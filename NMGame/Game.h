@@ -30,7 +30,6 @@ protected:
 
 	virtual void		RenderFrame(float DeltaTime);	
 	virtual void		Update(float DeltaTime);
-	void				 _ProcessKeyBoard();
 	virtual void		LoadResource();
 	virtual void		ProcessInput(int Delta);
 	void				AddScene(IScene *sence);
