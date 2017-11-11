@@ -37,6 +37,8 @@ Camel::~Camel()
 
 void Camel::Render(float DeltaTime)
 {
+	GameVisibleEntity::Render(DeltaTime);
+
 	this->mState.at(mCurrentState)->Render();
 	
 }

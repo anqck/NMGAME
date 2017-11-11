@@ -6,6 +6,7 @@
 #include "GameLog.h"
 #include "GameVisibleEntity.h"
 #include "ObjectStateWithLoop.h"
+#include "Collision.h"
 #include "MyRECT.h"
 #include <vector>
 #include <map>
@@ -27,7 +28,8 @@ enum AState
 	RunAndJump,
 	ThrowApple,
 	SitThrow,
-	RunAttack
+	RunAttack,
+	StandJump
 };
 
 
@@ -45,15 +47,25 @@ public:
 	void			OnKeyUp(int keyCode);
 	void			ProcessInput();
 
+	void			LoadResource();
 	AState			getCurrentState();
 	void			setCurrentState(AState state);
+
+	ObjectState*	getCurrentObjectState();
 
 	Direction		getDirection();
 	void			setDirection(Direction dir);
 
 	void			setAllowStateChange(bool allow);
+	
+	bool			isGrounded();
+	void			SetGrounded(bool allow);
 
+	void			processCollision(float DeltaTime, GameVisibleEntity *obj, CollisionResult collision);
 
+	MyRECT			GetBoundingBox();
+
+	void			PrintLogState();
 
 protected:
 	vector<ObjectState*>	mAladdinState;
@@ -71,6 +83,8 @@ protected:
 	bool					mIsGrounded;
 	bool					mIsReachJumpHeight;
 	bool					mIsFalling;
+	float					_yCollision;
+	bool					_flagGroundCollision;
 
 	bool					allowAttack;
 	bool					allowJump;

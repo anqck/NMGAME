@@ -58,5 +58,8 @@ D3DXVECTOR3 MyRECT::getCenterTranslation()
 
 bool MyRECT::Intersects(MyRECT rect)
 {
-	return ((left <= rect.left) || (right >= rect.right) || (top >= rect.top) || (rect.bottom >= bottom));
+	return  !(right < rect.left
+		|| left > rect.right
+		|| bottom > rect.top
+		|| rect.bottom > top);;
 }

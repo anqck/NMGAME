@@ -3,17 +3,43 @@
 #include"KeyboardHelper.h"
 
 #include <dinput.h>
-
 #include <string> 
 
+
+#pragma region Init
 AladdinCharacter::AladdinCharacter()
 {
 }
 
 AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 {
+	LoadResource();
 
 
+	this->mCurrentState = AState::DoNothing;
+	this->mPosition = pos;
+	this->mAladdinState.at(mCurrentState)->SetPosition(pos);	
+	this->mDir = Direction::Right;
+	
+	this->mWidth = 30;
+	this->mHeight = 120;
+
+	this->mTime = 0;
+
+	this->allowStateChange = true;
+	this->allowAttack = true;
+	this->allowJump = true;
+
+	this->mIsGrounded = false;
+	isClimbing = false;
+
+	_flagGroundCollision = false;
+
+	
+}
+
+void AladdinCharacter::LoadResource()
+{
 	vector<MyRECT> temp;
 
 	/*this->mWidth = 63 * 2;
@@ -21,7 +47,7 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 
 	//DoNothing
 	temp.push_back(MyRECT(1212, 9, 57, 1275));
-	this->mAladdinState.push_back(new ObjectState(temp, 10, L"Aladdin.png", D3DXVECTOR2(0, 0),CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectState(temp, 10, L"Aladdin.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 	//Walk
@@ -39,7 +65,7 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	temp.push_back(MyRECT(117, 0, 41, 169));
 	temp.push_back(MyRECT(116, 121, 155, 170));
 	temp.push_back(MyRECT(59, 53, 102, 116));
-	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 14, L"AladdinWalk.png", D3DXVECTOR2(0.5f, 0.0f),4, CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 14, L"AladdinWalk.png", D3DXVECTOR2(0.7f, 0.0f), 4, CenterArchor::CenterBottom));
 	temp.clear();
 
 
@@ -111,7 +137,7 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	temp.push_back(MyRECT(313, 110, 169, 390));
 	temp.push_back(MyRECT(313, 168, 256, 390, D3DXVECTOR3(20, 0, 0)));
 	temp.push_back(MyRECT(313, 258, 318, 390, D3DXVECTOR3(7, 0, 0)));
-	
+
 	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdin.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
@@ -174,89 +200,43 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	temp.push_back(MyRECT(61, 61, 111, 114, D3DXVECTOR3(5, 8, 0)));
 	temp.push_back(MyRECT(0, 126, 174, 60, D3DXVECTOR3(3, 6, 0)));
 	temp.push_back(MyRECT(0, 0, 73, 60, D3DXVECTOR3(12, 4, 0)));
-	temp.push_back(MyRECT(61, 0, 60, 111,D3DXVECTOR3(12,2,0)));
+	temp.push_back(MyRECT(61, 0, 60, 111, D3DXVECTOR3(12, 2, 0)));
 	this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinAction\\RunAttack.png", D3DXVECTOR2(0.5f, 0.0f), CenterArchor::CenterBottom));
 	temp.clear();
 
+	//StandJump
+	temp.push_back(MyRECT(77, 159, 196, 127));
+	temp.push_back(MyRECT(59, 117, 158, 101));
+	temp.push_back(MyRECT(0, 175, 220, 76));
+	temp.push_back(MyRECT(54, 59, 116, 111));
+	temp.push_back(MyRECT(49, 0, 58, 91));
+	temp.push_back(MyRECT(49, 0, 58, 91));
+	temp.push_back(MyRECT(0, 0, 61, 48));
+	temp.push_back(MyRECT(0, 62, 120, 53));
+	temp.push_back(MyRECT(0, 121, 174, 58));
 
-	this->mCurrentState = AState::DoNothing;
-
-	this->mPosition = pos;
-	this->mAladdinState.at(mCurrentState)->SetPosition(pos);
-	
-	this->mDir = Direction::Right;
-	
-
-	this->mTime = 0;
-	this->allowStateChange = true;
-	this->allowAttack = true;
-	this->allowJump = true;
-	this->mIsGrounded = true;
-	isClimbing = false;
-
-
+	this->mAladdinState.push_back(new ObjectState(temp, 11, L"AladdinAction\\AladdinRunJump.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	temp.clear();
 }
 
+#pragma endregion
+
+#pragma region Update&Render
 void AladdinCharacter::Update(float DeltaTime)
 {
-	
-
-	/*if (this->mAladdinState.at(this->mCurrentState)->GetPosition().x >= 747 && this->mAladdinState.at(this->mCurrentState)->GetPosition().x <= 753 && this->mAladdinState.at(this->mCurrentState)->GetPosition().y < 470 && isClimbing == false)
-	{
-		isClimbing = true;
-		this->mAladdinState.at(this->mCurrentState)->SetPosition(750, this->mAladdinState.at(this->mCurrentState)->GetPosition().y);
-		setAllowStateChange(true);
-		this->setCurrentState(AState::RopeClimb);
-	}*/
-	//printLog(to_string(this->mAladdinState.at(this->mCurrentState)->GetPosition().x).c_str());
-	switch (this->mCurrentState)
-	{
-	case AState::DoNothing:
-		printLog("DoNothing");
-		break;
-	case AState::Walk:
-		printLog("Walk");
-		break;
-	case AState::StopWalk:
-		printLog("StopWalk");
-		break;
-	case AState::LookUp:
-		printLog("LookUp");
-		break;
-	case AState::Attack1:
-		printLog("Attack1");
-		break;
-	case AState::Stand:
-		printLog("Stand");
-		break;
-	case AState::Sit:
-		printLog("Sit");
-		break;
-	case AState::SitAttack:
-		printLog("SitAttack");
-		break;
-	case AState::RunAndJump:
-		printLog("RunAndJump");
-		break;
-	case AState::ThrowApple:
-		printLog("ThrowApple");
-	case AState::SitThrow:
-		printLog("SitThrow");
-	default:
-		printLog("Else");
-		break;
-	}
-	//printLog(to_string(mCurrentState).c_str());
+	this->PrintLogState();	
 
 	this->mAladdinState.at(mCurrentState)->SetFlipVertical((mDir == Direction::Left) ? (true) : (false));
+
+	//this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, -0.5);
+
 	
 	if (this->mCurrentState != AState::RopeClimb)
 	{
 		if (this->mCurrentState != AState::RunAndJump)
 			this->mAladdinState.at(mCurrentState)->Update(DeltaTime);
 		else
-			this->mAladdinState.at(mCurrentState)->Update(mTime);
-
+			this->mAladdinState.at(mCurrentState)->Update(DeltaTime);
 	}
 	else
 	{
@@ -273,9 +253,8 @@ void AladdinCharacter::Update(float DeltaTime)
 	{
 		if (this->mTime >= 50 * DeltaTime)
 		{
-			//this->mAladdinState.at(AState::Stand)->SetPosition(this->mPosition);
-			this->allowStateChange = true;
-			this->setCurrentState(AState::Stand);
+			//this->allowStateChange = true;
+			//this->setCurrentState(AState::Stand);
 			this->mTime = 0;
 		}
 		else
@@ -299,60 +278,75 @@ void AladdinCharacter::Update(float DeltaTime)
 	
 	case AState::RunAndJump:
 	{
-		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
-			|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
-			0.36 : 0;
-		/*if (mIsGrounded == true)
+		//if (!mIsGrounded)
 		{
+			float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
+				|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
+				0.36 : 0;
+			/*if (mIsGrounded == true)
+			{
 			mJumpHeight = this->mAladdinState.at(mCurrentState)->GetPosition().y + 170;
 			this->mAladdinState.at(mCurrentState)->SetVelocity(0, 0);
 			mIsGrounded = false;
 			mIsFalling = false;
 			mIsReachJumpHeight = false;
-		}
-		else
-		{
-			
-			if ( mIsReachJumpHeight == false)
-			{				
-				this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.5);
-				if (this->mAladdinState.at(mCurrentState)->GetPosition().y >= mJumpHeight)
-				{
-					mIsReachJumpHeight = true;
-				}					
 			}
 			else
 			{
 
-				if (mIsFalling == false)
-				{
-					this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.06);
-					if (this->mAladdinState.at(mCurrentState)->GetPosition().y >= mJumpHeight + 18)
-					{
-						mIsFalling = true;						
-					}						
-				}
-				else				
-				{					
-					this->mAladdinState.at(mCurrentState)->SetVelocity(vx , -0.5);
-				}
-				
+			if ( mIsReachJumpHeight == false)
+			{
+			this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.5);
+			if (this->mAladdinState.at(mCurrentState)->GetPosition().y >= mJumpHeight)
+			{
+			mIsReachJumpHeight = true;
 			}
-		}*/
-		 
-		//float vy = -2 * 0.5 *0.7;//Sin(PI/4) ~ 0.7
-		/*float vy = -10;
-		printLog(to_string(this->mAladdinState.at(mCurrentState)->GetPosition().y).c_str());*/
-		
-		mTime += DeltaTime/16;
+			}
+			else
+			{
 
-		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.85);
-		this->mAladdinState.at(mCurrentState)->SetAcceleration(0, -0.05);
+			if (mIsFalling == false)
+			{
+			this->mAladdinState.at(mCurrentState)->SetVelocity(vx, 0.06);
+			if (this->mAladdinState.at(mCurrentState)->GetPosition().y >= mJumpHeight + 18)
+			{
+			mIsFalling = true;
+			}
+			}
+			else
+			{
+			this->mAladdinState.at(mCurrentState)->SetVelocity(vx , -0.5);
+			}
 
-		
+			}
+			}*/
 
-		break;
+			//float vy = -2 * 0.5 *0.7;//Sin(PI/4) ~ 0.7
+			/*float vy = -10;
+			printLog(to_string(this->mAladdinState.at(mCurrentState)->GetPosition().y).c_str());*/
+
+			//mTime += DeltaTime/16;
+
+			this->mAladdinState.at(mCurrentState)->SetVelocity(vx, this->mAladdinState.at(mCurrentState)->GetVelocity().y - 0.05);
+			//this->mAladdinState.at(mCurrentState)->SetAcceleration(0, -0.05);
+		}
+		//else
+		{
+			//this->mAladdinState.at(mCurrentState)->SetVelocity(0,0);
+		}
+
 	}
+	break;
+	case AState::StandJump:
+	{
+		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
+			|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
+			0.15 : 0;
+
+		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, this->mAladdinState.at(mCurrentState)->GetVelocity().y - 0.05);
+		
+	}
+	break;
 	case AState::Stand:
 		
 		break;
@@ -371,25 +365,24 @@ void AladdinCharacter::Update(float DeltaTime)
 	}
 
 	//Kiểm tra danh sách các táo đã ném ra nếu xong thì bỏ khỏi list;
-	for (int i = 0; i < mListThrowingApple.size(); i++)
-	{
-		mListThrowingApple.at(i)->Update(DeltaTime);
-		if (mListThrowingApple.at(i)->isDone() == true)
-		{
-			mListThrowingApple.erase(mListThrowingApple.begin() + i);
-		}
-	}
+	//for (int i = 0; i < mListThrowingApple.size(); i++)
+	//{
+	//	mListThrowingApple.at(i)->Update(DeltaTime);
+	//	if (mListThrowingApple.at(i)->isDone() == true)
+	//	{
+	//		mListThrowingApple.erase(mListThrowingApple.begin() + i);
+	//	}
+	//}
+
 
 	this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
-	this->mAladdinState.at(this->mCurrentState)->mSprite->SetPosition(mPosition);
 
-	//Bounding box update
-	//this->mHeight = (this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().bottom - this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().top) * 2.5;
-	//this->mWidth = (this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().right - this->mAladdinState.at(mCurrentState)->mSprite->GetSourceRect().left) * 2;
+
 }
 
 void AladdinCharacter::Render(float DeltaTime)
 {
+	GameVisibleEntity::Render(DeltaTime);
 	//this->Transform();
 	this->mAladdinState.at(this->mCurrentState)->Render();
 
@@ -400,6 +393,9 @@ void AladdinCharacter::Render(float DeltaTime)
 	}
 }
 
+#pragma endregion
+
+#pragma region Keyboard
 void AladdinCharacter::OnKeyDown(int keyCode)
 {
 
@@ -542,7 +538,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::RunAndJump:
 		case AState::RopeClimb:
 			break;
-		case AState::SitThrow:
+		
 		case AState::Walk:
 			if (allowAttack)
 			{
@@ -552,6 +548,7 @@ void AladdinCharacter::ProcessInput()
 				this->setCurrentState(AState::RunAttack);
 				break;
 			}
+		case AState::SitThrow:
 		case AState::Sit:
 			if (allowAttack)
 			{
@@ -578,14 +575,30 @@ void AladdinCharacter::ProcessInput()
 	{
 		switch (this->mCurrentState)
 		{
-		case AState::RopeClimb:
-		case AState::Walk:
-			if (mIsGrounded && allowJump)
+		case AState::Stand:
+		case AState::DoNothing:
+			if (allowJump)
 			{
+				mIsGrounded = false;
 				allowJump = false;
 				flagKeyPressed = true;
 				this->setAllowStateChange(true);
 				this->setCurrentState(AState::RunAndJump);
+				this->mAladdinState.at(mCurrentState)->SetVelocity(0, 0.75);
+				break;
+			}
+			break;
+		case AState::RopeClimb:
+		case AState::Walk:
+			//if (mIsGrounded && allowJump)
+			if(allowJump)
+			{
+				mIsGrounded = false;
+				allowJump = false;
+				flagKeyPressed = true;
+				this->setAllowStateChange(true);
+				this->setCurrentState(AState::RunAndJump);
+				this->mAladdinState.at(mCurrentState)->SetVelocity(0, 0.75);
 				break;
 			}
 		case AState::SitAttack:
@@ -616,11 +629,11 @@ void AladdinCharacter::ProcessInput()
 			break;
 		
 		case AState::RunAndJump:
-			if (this->mAladdinState.at(mCurrentState)->GetPosition().y <  WORLD_Y - MAP_HEIGHT + 160)
+			if (isGrounded() == true)
 			{
-				mIsGrounded = true;
-				this->mAladdinState.at(mCurrentState)->SetVelocity(0, 0);
-				this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, WORLD_Y - MAP_HEIGHT + 160);
+				//mIsGrounded = true;
+				//this->mAladdinState.at(mCurrentState)->SetVelocity(0, 0);
+				//this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, WORLD_Y - MAP_HEIGHT + 160);
 				this->allowStateChange = true;
 				this->setCurrentState(AState::DoNothing);
 			}
@@ -636,6 +649,9 @@ void AladdinCharacter::ProcessInput()
 	
 }
 
+#pragma endregion
+
+#pragma region StateChange
 void AladdinCharacter::setCurrentState(AState state)
 {
 	//Kiểm tra xem state thay đổi có khác state hiện tại
@@ -658,6 +674,11 @@ void AladdinCharacter::setCurrentState(AState state)
 
 	this->_AfterStateChange();
 
+}
+
+ObjectState * AladdinCharacter::getCurrentObjectState()
+{
+	return this->mAladdinState.at(mCurrentState);
 }
 
 void AladdinCharacter::_BeforeStateChange(AState &changeTo)
@@ -698,8 +719,10 @@ void AladdinCharacter::_BeforeStateChange(AState &changeTo)
 	
 	
 }
+
 void AladdinCharacter::_AfterStateChange()
 {
+	//this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, -10);
 	switch (this->mCurrentState)
 	{
 	case AState::DoNothing:
@@ -713,23 +736,158 @@ void AladdinCharacter::_AfterStateChange()
 		break;
 	}
 }
+
+#pragma endregion
+
+#pragma region GetSet
+
 Direction AladdinCharacter::getDirection()
 {
 	return this->mDir;
 }
+
 void AladdinCharacter::setDirection(Direction dir)
 {
 	mDir = dir;
 }
+
 void AladdinCharacter::setAllowStateChange(bool allow)
 {
 	this->allowStateChange = allow;
+}
+
+bool AladdinCharacter::isGrounded()
+{
+	return this->mIsGrounded;
+}
+
+void AladdinCharacter::SetGrounded(bool allow)
+{
+	this->mIsGrounded = allow;
+}
+
+
+
+MyRECT AladdinCharacter::GetBoundingBox()
+{
+	mBoundingBox.left = mPosition.x - mWidth / 2;
+	mBoundingBox.right = mPosition.x + mWidth / 2;
+
+	/*mBoundingBox.top = mPosition.y - mHeight / 2;
+	mBoundingBox.bottom = mPosition.y + mHeight / 2;*/
+
+	mBoundingBox.top = mPosition.y + mHeight;
+	mBoundingBox.bottom = mPosition.y;
+
+
+	return mBoundingBox;;
 }
 
 AState AladdinCharacter::getCurrentState()
 {
 	return this->mCurrentState;
 }
+
+#pragma endregion
+
+#pragma region Collision
+
+void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj, CollisionResult collision)
+{
+	switch ((EObjectID)obj->GetID())
+	{
+	case EObjectID::GROUND:
+
+		
+
+		/*this->allowStateChange = true;
+		this->setCurrentState(AState::DoNothing);*/
+		
+	
+			mIsGrounded = true;
+			_flagGroundCollision = true;
+
+			_yCollision = this->mAladdinState.at(mCurrentState)->GetVelocity().y*collision.EntryTime;
+
+
+
+			printLog("AAAAAAA");
+
+
+			/*this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, this->mAladdinState.at(mCurrentState)->GetPosition().y + _yCollision * DeltaTime );
+			this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, 0);*/
+
+			this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, _yCollision);
+			//this->mAladdinState.at(mCurrentState)->Update(DeltaTime);
+			this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
+			//this->mAladdinState.at(mCurrentState)->SetVelocity(0, y);
+		
+		
+
+		
+
+		//float x = this->mAladdinState.at(mCurrentState)->GetPosition().x;// + this->mAladdinState.at(mCurrentState)->GetVelocity().x;
+		//this->mAladdinState.at(mCurrentState)->GetPosition().y + this->mAladdinState.at(mCurrentState)->GetVelocity().y*collision.EntryTime;
+
+		//SetPosition(x, y);
+		//getCurrentObjectState()->SetPosition(x, y);
+		//getCurrentObjectState()->mSprite->SetPosition(x, y);
+		
+
+		break;
+	}
+
+	
+}
+
+#pragma endregion
+
+#pragma region Debug
+
+void AladdinCharacter::PrintLogState()
+{
+	switch (this->mCurrentState)
+	{
+	case AState::DoNothing:
+		printLog("DoNothing");
+		break;
+	case AState::Walk:
+		printLog("Walk");
+		break;
+	case AState::StopWalk:
+		printLog("StopWalk");
+		break;
+	case AState::LookUp:
+		printLog("LookUp");
+		break;
+	case AState::Attack1:
+		printLog("Attack1");
+		break;
+	case AState::Stand:
+		printLog("Stand");
+		break;
+	case AState::Sit:
+		printLog("Sit");
+		break;
+	case AState::SitAttack:
+		printLog("SitAttack");
+		break;
+	case AState::RunAndJump:
+		printLog("RunAndJump");
+		break;
+	case AState::ThrowApple:
+		printLog("ThrowApple");
+	case AState::SitThrow:
+		printLog("SitThrow");
+	default:
+		printLog("Else");
+		break;
+	}
+}
+
+#pragma endregion
+
+
 
 
 

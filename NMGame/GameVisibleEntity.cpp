@@ -18,10 +18,31 @@ GameVisibleEntity::GameVisibleEntity( int X, int Y)
 	this->mPosition.y = Y;
 }
 
+void GameVisibleEntity::Render(float DeltaTime)
+{
+	GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetBoundingBox());
+}
+
+void GameVisibleEntity::Update(float DeltaTime)
+{
+}
+
 D3DXVECTOR3 GameVisibleEntity::getViewPortPosition()
 {
 	return ViewPort::GetInstance()->getViewPortPosition(this->mPosition);
 }
+
+EObjectID GameVisibleEntity::GetID()
+{
+	return mID;
+}
+
+void GameVisibleEntity::SetID(EObjectID id)
+{
+	this->mID = id;
+}
+
+
 
 D3DXVECTOR3 GameVisibleEntity::GetPosition()
 {
@@ -67,15 +88,20 @@ TransformObject GameVisibleEntity::GetTransformPosition()
 
 MyRECT GameVisibleEntity::GetBoundingBox()
 {
-	mBoundingBox.left = mPosition.x - mWidth / 2;
-	mBoundingBox.right = mPosition.x + mWidth / 2;
-	
-	/*mBoundingBox.top = mPosition.y - mHeight / 2;
-	mBoundingBox.bottom = mPosition.y + mHeight / 2;*/
+	//mBoundingBox.left = mPosition.x - mWidth / 2;
+	//mBoundingBox.right = mPosition.x + mWidth / 2;
+	//
+	///*mBoundingBox.top = mPosition.y - mHeight / 2;
+	//mBoundingBox.bottom = mPosition.y + mHeight / 2;*/
 
-	mBoundingBox.top = mPosition.y  ;
-	mBoundingBox.bottom = mPosition.y + mHeight;
+	//mBoundingBox.top = mPosition.y  ;
+	//mBoundingBox.bottom = mPosition.y + mHeight;
 
 
 	return mBoundingBox;
+}
+
+void GameVisibleEntity::SetBoundingBox(MyRECT rect)
+{
+	this->mBoundingBox = rect;
 }

@@ -87,7 +87,7 @@ namespace NMGame_MapEditor
         //Kiểm tra xem hcn rect có giao với hcn this không
         public bool Intersects(MyRECT rect)
         {
-            return ((mLeft <= rect.mLeft) || (mRight >= rect.MRight) || (mTop >= rect.mTop) || (rect.mBottom >= mBottom));
+            return !(this.mLeft > rect.mRight || this.mRight < rect.mLeft || this.mTop < rect.mBottom || this.mBottom > rect.mTop);
         }
 
     }

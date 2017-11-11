@@ -162,6 +162,7 @@
     <ClCompile Include="GameVisibleEntity.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="GraphicsHelper.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="KeyboardHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />

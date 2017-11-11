@@ -30,11 +30,12 @@ public:
 	void					OnKeyDown(int keyCode);
 	void					OnKeyUp(int keyCode);
 	void					ProcessInput();
+	void					CheckCollision(float DeltaTime);
 
 
 protected:
 	DemoMap					*mMap;
-	AladdinCharacter		*mAladdinHelper;
+	AladdinCharacter		*mAladdin;
 	AladdinGame				*mGame;
 	Camel					*mCamel;
 	bool					allowAttack;

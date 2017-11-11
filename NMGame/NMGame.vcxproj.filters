@@ -117,6 +117,9 @@
     <ClCompile Include="CTreeObject.cpp">
       <Filter>Framework\QuadTree</Filter>
     </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IScene.h">

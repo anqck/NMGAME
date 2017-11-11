@@ -1,16 +1,24 @@
 #pragma once
 
+
 #include "MyRECT.h"
+
+struct CollisionResult
+{
+	Direction dir;
+	float EntryTime;
+	float ExitTime;
+};
 
 class Collision
 {
 public:
-	static Collision*		GetInstance();
 
 	bool					AABB(MyRECT rect1, MyRECT rect2);
-
+	static CollisionResult	SweptAABB(float DeltaTime, MyRECT rect1, D3DXVECTOR2 v1, MyRECT rect2, D3DXVECTOR2 v2);
 private:
-	static Collision*		mInstance;
+
+
 
 
 };

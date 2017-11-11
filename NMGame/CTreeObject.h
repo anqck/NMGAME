@@ -4,14 +4,7 @@
 #include "MyRECT.h"
 #include "GameVisibleEntity.h"
 
-enum EObjectID
-{
-	GROUND,
-	ROPE,
-	STAIR,
-	CAMEL,
-	ENEMY
-};
+
 
 class CTreeObject
 {

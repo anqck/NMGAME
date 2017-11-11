@@ -24,8 +24,10 @@ enum Direction
 	Left,
 	Right,
 	Up,
-	Down
+	Down,
+	None
 };
+
 
 class GLOBAL
 {

@@ -7,6 +7,8 @@ class Ground :public GameVisibleEntity
 {
 public:
 	Ground();
+	Ground(MyRECT bb);
+
 	
 };
 

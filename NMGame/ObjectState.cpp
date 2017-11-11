@@ -47,15 +47,24 @@ void ObjectState::Render()
 
 void ObjectState::Update(float DeltaTime)
 {
-	this->mSprite->SetPosition(mPosition);
+	
 	this->Animate(DeltaTime);
 
 
 	if (this->GetVelocity() == D3DXVECTOR2(0, 0))
+	{
+		this->mSprite->SetPosition(mPosition);
 		return;
+	}
+	else
+	{
+		this->Move(DeltaTime);
+		this->mSprite->SetPosition(mPosition);
+	}
+		
 
 	
-	this->Move(DeltaTime);
+	
 }
 
 void ObjectState::Animate(float DeltaTime)
