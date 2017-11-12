@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace NMGame_MapEditor
 {
@@ -35,6 +36,7 @@ namespace NMGame_MapEditor
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lblzoom = new System.Windows.Forms.Label();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
             this.btnBuildQuadTree = new System.Windows.Forms.Button();
@@ -119,6 +121,7 @@ namespace NMGame_MapEditor
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.lblzoom);
             this.panel3.Controls.Add(this.btnExport);
             this.panel3.Controls.Add(this.btnImport);
             this.panel3.Controls.Add(this.btnBuildQuadTree);
@@ -128,6 +131,15 @@ namespace NMGame_MapEditor
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(396, 488);
             this.panel3.TabIndex = 3;
+            // 
+            // lblzoom
+            // 
+            this.lblzoom.AutoSize = true;
+            this.lblzoom.Location = new System.Drawing.Point(22, 388);
+            this.lblzoom.Name = "lblzoom";
+            this.lblzoom.Size = new System.Drawing.Size(46, 17);
+            this.lblzoom.TabIndex = 8;
+            this.lblzoom.Text = "label1";
             // 
             // btnExport
             // 
@@ -445,9 +457,11 @@ namespace NMGame_MapEditor
             this.mWorldSpace.Rect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.mWorldSpace.Size = new System.Drawing.Size(1159, 843);
             this.mWorldSpace.TabIndex = 0;
+            this.mWorldSpace.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mWorldSpace_KeyDown);
             this.mWorldSpace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseDown);
             this.mWorldSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseMove);
             this.mWorldSpace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseUp);
+        
             // 
             // MapEditor
             // 
@@ -462,10 +476,13 @@ namespace NMGame_MapEditor
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MapEditor_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MapEditor_KeyDown);
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MapEditor_MouseWheel);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.grpObjectInfo.ResumeLayout(false);
             this.grpObjectInfo.PerformLayout();
@@ -479,7 +496,12 @@ namespace NMGame_MapEditor
 
         }
 
-        
+      
+
+
+
+
+
 
         #endregion
 
@@ -521,6 +543,7 @@ namespace NMGame_MapEditor
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.ColumnHeader clmKey;
+        private System.Windows.Forms.Label lblzoom;
     }
 }
 

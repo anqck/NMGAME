@@ -32,6 +32,9 @@ namespace NMGame_MapEditor
         private int WORLD_Y;
         private OpenFileDialog open;
         private SaveFileDialog save;
+        //zoom
+        int zoom = 0;
+        Image imageOriginal;
 
 
         private Point mMousePosition;
@@ -64,6 +67,7 @@ namespace NMGame_MapEditor
         private void MapEditor_Load(object sender, EventArgs e)
         {
             this.mWorldSpace.MImage = new Bitmap(NMGame_MapEditor.Properties.Resources.MapLevel1);
+            imageOriginal = mWorldSpace.MImage;
 
             grpObjectInfo.Enabled = false;
             btnDelete.Enabled = false;
@@ -71,6 +75,7 @@ namespace NMGame_MapEditor
             btnSave.Enabled = false;
 
             needToVisualize = new List<GameObject>();
+            lblzoom.Text = zoom + " %";
         }
 
 
@@ -108,6 +113,7 @@ namespace NMGame_MapEditor
                 
         }
 
+       
 
         Point mouseDownPosition, mouseUpPosition;
         private void mWorldSpace_MouseDown(object sender, MouseEventArgs e)
@@ -200,12 +206,14 @@ namespace NMGame_MapEditor
 
                     if (listView1.SelectedIndices.Count != 0)
                     {
-                        mListObject[listView1.SelectedIndices[0]].MPositionY = int.Parse(txtPosY.Text);
-                        mListObject[listView1.SelectedIndices[0]].MPositionX = int.Parse(txtPosX.Text);
-                        mListObject[listView1.SelectedIndices[0]].MBottom = int.Parse(txtBottom.Text);
-                        mListObject[listView1.SelectedIndices[0]].MLeft = int.Parse(txtLeft.Text);
-                        mListObject[listView1.SelectedIndices[0]].MRight = int.Parse(txtRight.Text);
-                        mListObject[listView1.SelectedIndices[0]].MTop = int.Parse(txtTop.Text);
+                       
+                            mListObject[listView1.SelectedIndices[0]].MPositionY = int.Parse(txtPosY.Text);
+                            mListObject[listView1.SelectedIndices[0]].MPositionX = int.Parse(txtPosX.Text);
+                            mListObject[listView1.SelectedIndices[0]].MBottom = int.Parse(txtBottom.Text);
+                            mListObject[listView1.SelectedIndices[0]].MLeft = int.Parse(txtLeft.Text);
+                            mListObject[listView1.SelectedIndices[0]].MRight = int.Parse(txtRight.Text);
+                            mListObject[listView1.SelectedIndices[0]].MTop = int.Parse(txtTop.Text);
+                      
                     }
                     break;
                 default:
@@ -301,6 +309,9 @@ namespace NMGame_MapEditor
                     btnSave.Enabled = true;
                     btnDelete.Enabled = false;
                     btnNew.Enabled = false;
+                    flagBiding = true;
+                    if (mListObject[listView1.SelectedIndices[0]].MObjID == EObjectID.GROUND)
+                    { grpPosition.Enabled = false; }
 
                     break;
                 case State.DoNothing:
@@ -411,20 +422,27 @@ namespace NMGame_MapEditor
 
             ViewSelectedListViewItem();
 
-            
+                 
+
+
         }
 
         private void ViewSelectedListViewItem()
         {
             if (listView1.SelectedIndices.Count != 0)
             {
+                // MessageBox.Show(listView1.SelectedIndices[0].ToString());
+                cbObjType.Text = mListObject[listView1.SelectedIndices[0]].MObjID.ToString();
                 txtLeft.Text = mListObject[listView1.SelectedIndices[0]].MLeft.ToString();
                 txtTop.Text = mListObject[listView1.SelectedIndices[0]].MTop.ToString();
                 txtRight.Text = mListObject[listView1.SelectedIndices[0]].MRight.ToString();
                 txtBottom.Text = mListObject[listView1.SelectedIndices[0]].MBottom.ToString();
+                txtPosX.Text= mListObject[listView1.SelectedIndices[0]].MPositionX.ToString();
+                txtPosY.Text = mListObject[listView1.SelectedIndices[0]].MPositionY.ToString();
+               
 
                 flagBiding = false;
-                //Biding();
+                Biding();
 
       
                 mWorldSpace.VisualizeObject(mListObject[listView1.SelectedIndices[0]]);
@@ -543,7 +561,9 @@ namespace NMGame_MapEditor
         {
             //dosomething
             open = new OpenFileDialog();
-            open.Filter = "|*.txt";
+           // open.Filter = "|*.txt";
+           open.Filter = "txt files (*.txt)|*.txt";
+           // open.FilterIndex = 2;
             if (open.ShowDialog() == DialogResult.OK)
             {
                 StreamReader read = new StreamReader(open.FileName);
@@ -570,7 +590,7 @@ namespace NMGame_MapEditor
         {
             //do domething
             save = new SaveFileDialog();
-            save.Filter = "|*.txt";
+            save.Filter = "(*.txt)|*.txt";
             save.RestoreDirectory = true; //cho phep ghi de
             if (save.ShowDialog() == DialogResult.OK)
             {
@@ -601,13 +621,13 @@ namespace NMGame_MapEditor
         private void txtPosX_TextChanged(object sender, EventArgs e)
         {
             if (!flagPic) return;
-                        
-            if (txtPosX.Text!="" && txtPosY.Text!="")
+
+            if (txtPosX.Text != "" && txtPosY.Text != "")
             {
                 Bitmap img = GameObject.GetObjectImg((EObjectID)this.cbObjType.SelectedIndex);
                 this.mWorldSpace.SetImageObject(img, int.Parse(txtPosX.Text) - img.Size.Width / 2, int.Parse(txtPosY.Text) - img.Size.Height);
             }
-            //flagPic = false;
+           // flagPic = false;
         }
 
         private void txtPosY_TextChanged(object sender, EventArgs e)
@@ -620,6 +640,62 @@ namespace NMGame_MapEditor
                 this.mWorldSpace.SetImageObject(img, int.Parse(txtPosX.Text) - img.Size.Width / 2, int.Parse(txtPosY.Text) - img.Size.Height);
             }
         }
+
+        private void mWorldSpace_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode== Keys.Z)
+            {
+                zoom++;
+                lblzoom.Text = zoom + " &";
+                
+
+            }
+            if (e.KeyCode == Keys.X)
+            {
+                zoom--;
+                lblzoom.Text = zoom + " &";
+
+
+            }
+
+        }
+      
+        private void MapEditor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Z)
+            {
+                zoom++;
+                lblzoom.Text = zoom + " &";
+
+
+            }
+            if (e.KeyCode == Keys.X)
+            {
+                zoom--;
+                lblzoom.Text = zoom + " &";
+
+
+            }
+
+        }
+        private void MapEditor_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0) zoom++;
+            else zoom--;
+            lblzoom.Text = zoom + " %";
+           // mWorldSpace.MImage = Zoomimg(imageOriginal, new Size(zoom, zoom));
+           //MessageBox.Show("");
+        }
+        private Image Zoomimg(Image img, Size size)
+        {
+            // Bitmap bmp = new Bitmap(img, img.Width + (img.Width * size.Width / 100), img.Height + (img.Height * size.Height / 100));
+            Bitmap bmp = new Bitmap(img, img.Width +size.Width*100 , img.Height+size.Height*100);
+            Graphics g = Graphics.FromImage(bmp);
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            return bmp;
+        }
+
+
         #endregion
 
         #region QuadTree
