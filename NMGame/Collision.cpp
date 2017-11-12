@@ -13,6 +13,7 @@ CollisionResult Collision::SweptAABB(float DeltaTime,MyRECT rect1, D3DXVECTOR2 v
 	v1.y = (v1.y - v2.y) *DeltaTime;
 
 
+
 	//Khoảng cách ngắn nhất để 2 vật va chạm và kết thúc va chạm
 	float xEntry, yEntry;
 	float xExit, yExit;
@@ -41,8 +42,6 @@ CollisionResult Collision::SweptAABB(float DeltaTime,MyRECT rect1, D3DXVECTOR2 v
 		yExit = rect2.bottom - rect1.top;
 	}
 
-	if (yEntry == 0)
-		int c = 0;
 
 
 	//Tính thời gian va chạm và kết thúc va chạm
@@ -83,13 +82,16 @@ CollisionResult Collision::SweptAABB(float DeltaTime,MyRECT rect1, D3DXVECTOR2 v
 
 	if (v1.y == 0)
 	{
-		if (rect1.top > rect2.bottom || rect1.bottom < rect2.top)
+		//if (rect1.top > rect2.bottom || rect1.bottom < rect2.top)
+		if (rect1.bottom > rect2.top || rect1.top < rect2.bottom)
 		{
 			result.dir = Direction::None;
 			result.EntryTime = 1.0f;
 			return result;
 		}
 	}
+
+	
 
 	//Tính thời gian nhỏ nhất và lớn nhất khi va chạm
 	float entryTime = max(txEntry, tyEntry);
@@ -98,8 +100,7 @@ CollisionResult Collision::SweptAABB(float DeltaTime,MyRECT rect1, D3DXVECTOR2 v
 	//Nêu không có va chạm
 	if (entryTime > exitTime
 		|| (txEntry<0.0f && tyEntry<0.0f)
-		|| txEntry>1.0f
-		|| tyEntry>1.0f)
+		||( txEntry>1.0f || tyEntry>1.0f ))
 	{
 		result.dir = Direction::None;
 		result.EntryTime = 1.0f;
@@ -120,7 +121,7 @@ CollisionResult Collision::SweptAABB(float DeltaTime,MyRECT rect1, D3DXVECTOR2 v
 	}
 	else
 	{
-		if (yEntry < 0.0f) // Bên trên
+		if (yEntry <= 0.0f) // Bên trên
 		{
 			result.dir = Direction::Up;
 		}

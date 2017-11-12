@@ -61,7 +61,9 @@ public:
 	bool			isGrounded();
 	void			SetGrounded(bool allow);
 
+	void			CheckCollision(float DeltaTime, vector<GameVisibleEntity*> mListObjectInViewPort);
 	void			processCollision(float DeltaTime, GameVisibleEntity *obj, CollisionResult collision);
+	void			CheckCollisionWithGround(float DeltaTime, vector<GameVisibleEntity*> mListGround);
 
 	MyRECT			GetBoundingBox();
 
@@ -85,6 +87,7 @@ protected:
 	bool					mIsFalling;
 	float					_yCollision;
 	bool					_flagGroundCollision;
+	GameVisibleEntity*		_StandingGround;
 
 	bool					allowAttack;
 	bool					allowJump;
@@ -97,6 +100,7 @@ protected:
 	bool					flagKeyPressed ;
 
 	vector<ThrowingApple*>	mListThrowingApple;	//Các táo ném ra
+	vector<GameVisibleEntity*> mListGround;
 };
 
 #endif _ALADDIN_H__

@@ -28,17 +28,19 @@ public:
 	void				SetPosition(D3DXVECTOR3 Position) { this->mPosition = Position;};
 	void				SetPosition(int X, int Y) { this->mPosition.x = X; this->mPosition.y = Y; 	};
 
-	D3DXVECTOR2			GetVelocity() { return this->mVelocity; };
+	D3DXVECTOR2			GetVelocity();
 	void				SetVelocity(D3DXVECTOR2 Velocity) {	this->mVelocity = Velocity;	};
-	void				SetVelocity(float X, float Y) { this->mVelocity.x = X; this->mVelocity.y = Y;};
+	void				SetVelocity(float X, float Y) ;
+
+	void				ResetDefaultVelocity();
 
 	D3DXVECTOR2			GetAcceleration() { return this->mAcceleration; };
 	void				SetAcceleration(D3DXVECTOR2 Acceleration) { this->mVelocity = Acceleration; };
 	void				SetAcceleration(float X, float Y) { this->mAcceleration.x = X; this->mAcceleration.y = Y; };
 
 	bool				GetFlipVertical() { return this->mIsFlipVertical; };
-	void				SetFlipVertical(bool flipV) {this->mIsFlipVertical = flipV; if (this->mIsFlipVertical != this->mSprite->IsFlipVertical()) this->mSprite->FlipVertical(this->mIsFlipVertical);
-	};
+	void				SetFlipVertical(bool flipV);
+
 
 	int					GetCurrentIdx() { return this->mCurrentIdx; };
 	int					GetEndIdx() { return this->mEndIdx; };
@@ -53,6 +55,7 @@ public:
 	D3DXVECTOR3			mPosition;		//Vị trí của 
 	D3DXVECTOR2			mVelocity;		//Vận tốc hiện tại của 
 	D3DXVECTOR2			mAcceleration;		//Gia tốc hiện tại của
+	D3DXVECTOR2			mDefaultVelocity;
 
 	
 

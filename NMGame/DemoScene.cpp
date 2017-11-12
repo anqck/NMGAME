@@ -116,32 +116,8 @@ void DemoScene::ProcessInput()
 
 void DemoScene::CheckCollision(float DeltaTime)
 {
-	bool flagGrounded = false;
+	
 
-	for (int i = 0; i < mListObjectInViewPort.size(); i++)
-	{
-		switch (mListObjectInViewPort.at(i)->GetID())
-		{
-		case EObjectID::GROUND: //Kiểm tra va chạm với đất
-			CollisionResult res = Collision::SweptAABB(DeltaTime, mAladdin->GetBoundingBox(), mAladdin->getCurrentObjectState()->GetVelocity(), mListObjectInViewPort.at(i)->GetBoundingBox(), D3DXVECTOR2(0, 0));
-			if (res.EntryTime < 1 && res.EntryTime >= 0 )
-			{
-				mAladdin->processCollision(DeltaTime, mListObjectInViewPort.at(i), res);
-				flagGrounded = true;
-			}
-		/*	if(mAladdin->GetBoundingBox().bottom == mListObjectInViewPort.at(i)->GetBoundingBox().top && (mAladdin->GetBoundingBox().left >= mListObjectInViewPort.at(i)->GetBoundingBox().left && mAladdin->GetBoundingBox().right <= mListObjectInViewPort.at(i)->GetBoundingBox().right))
-				flagGrounded = true;*/
-			/*if ()
-			{
-				flagGrounded = true;
-			}*/
-
-
-		}
-	}
-
-	if (flagGrounded)
-		printLog("AAAAAACCCCCCCCAAAAA");
-
-	mAladdin->SetGrounded(flagGrounded);
+	mAladdin->CheckCollision(DeltaTime, mListObjectInViewPort);
+	
 }
