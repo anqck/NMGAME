@@ -21,7 +21,7 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	this->mAladdinState.at(mCurrentState)->SetPosition(pos);	
 	this->mDir = Direction::Right;
 	
-	this->mWidth = 30;
+	this->mWidth = 35;
 	this->mHeight = 120;
 
 	this->mTime = 0;
@@ -33,6 +33,7 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	this->mIsGrounded = false;
 	isClimbing = false;
 
+	_StandingGround = NULL;
 	_flagGroundCollision = false;
 
 	
@@ -166,7 +167,7 @@ void AladdinCharacter::LoadResource()
 	temp.push_back(MyRECT(0, 62, 120, 53));
 	temp.push_back(MyRECT(0, 121, 174, 58));
 
-	this->mAladdinState.push_back(new ObjectState(temp, 11, L"AladdinAction\\AladdinRunJump.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectState(temp, 11, L"AladdinAction\\AladdinRunJump.png", D3DXVECTOR2(0, 0.8), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
@@ -229,23 +230,21 @@ void AladdinCharacter::Update(float DeltaTime)
 	this->mAladdinState.at(mCurrentState)->SetFlipVertical((mDir == Direction::Left) ? (true) : (false));
 
 	//this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, -0.5);
-
-	
-	if (this->mCurrentState != AState::RopeClimb)
+	if (this->mCurrentState != AState::RunAndJump && this->mCurrentState != AState::StandJump)
 	{
-		if (this->mCurrentState != AState::RunAndJump)
-			this->mAladdinState.at(mCurrentState)->Update(DeltaTime);
-		else
-			this->mAladdinState.at(mCurrentState)->Update(DeltaTime);
-	}
-	else
-	{
-		if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_UP))
+		/*if (mIsGrounded)
 		{
-			this->mAladdinState.at(this->mCurrentState)->Animate(DeltaTime);
-			this->mAladdinState.at(mCurrentState)->Move(DeltaTime);				
+			this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, 0);
+		}
+		else*/
+		{
+			this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, -0.5);
 		}
 	}
+	
+	
+	
+	
 
 	switch (this->mCurrentState)
 	{
@@ -253,8 +252,8 @@ void AladdinCharacter::Update(float DeltaTime)
 	{
 		if (this->mTime >= 50 * DeltaTime)
 		{
-			//this->allowStateChange = true;
-			//this->setCurrentState(AState::Stand);
+			this->allowStateChange = true;
+			this->setCurrentState(AState::Stand);
 			this->mTime = 0;
 		}
 		else
@@ -374,7 +373,25 @@ void AladdinCharacter::Update(float DeltaTime)
 	//	}
 	//}
 
+	this->CheckCollisionWithGround(DeltaTime, mListGround);
 
+		if (this->mCurrentState != AState::RopeClimb)
+		{
+
+				this->mAladdinState.at(mCurrentState)->Update(DeltaTime);
+		
+		}
+		else
+		{
+			if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_UP))
+			{
+				this->mAladdinState.at(this->mCurrentState)->Animate(DeltaTime);
+				this->mAladdinState.at(mCurrentState)->Move(DeltaTime);
+			}
+		}
+	
+
+	
 	this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
 
 
@@ -401,8 +418,12 @@ void AladdinCharacter::OnKeyDown(int keyCode)
 
 	switch (keyCode)
 	{
+	case VK_SPACE:
+		this->mPosition = D3DXVECTOR3(100, WORLD_Y - MAP_HEIGHT + 220, 0);
+		this->mAladdinState.at(this->mCurrentState)->SetPosition(this->mPosition);
+		break;
 	case VK_RIGHT:
-		this->setDirection(Direction::Right);
+		this->setDirection(Direction::Right);		
 		break;
 	case VK_LEFT:
 		this->setDirection(Direction::Left);
@@ -430,6 +451,7 @@ void AladdinCharacter::ProcessInput()
 	flagKeyPressed = false;
 	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT) || KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT))
 	{
+		this->mAladdinState.at(mCurrentState)->SetFlipVertical((mDir == Direction::Left) ? (true) : (false));
 		switch (this->mCurrentState)
 		{
 		case AState::Sit:
@@ -441,6 +463,7 @@ void AladdinCharacter::ProcessInput()
 			{				
 				this->setAllowStateChange(true);
 				this->setCurrentState(AState::Walk);
+				
 			
 			}
 			break;
@@ -450,6 +473,7 @@ void AladdinCharacter::ProcessInput()
 			flagKeyPressed = true;
 			this->setAllowStateChange(true);
 			this->setCurrentState(AState::Walk);
+
 		}			
 	}
 
@@ -584,13 +608,11 @@ void AladdinCharacter::ProcessInput()
 				flagKeyPressed = true;
 				this->setAllowStateChange(true);
 				this->setCurrentState(AState::RunAndJump);
-				this->mAladdinState.at(mCurrentState)->SetVelocity(0, 0.75);
 				break;
 			}
 			break;
 		case AState::RopeClimb:
 		case AState::Walk:
-			//if (mIsGrounded && allowJump)
 			if(allowJump)
 			{
 				mIsGrounded = false;
@@ -598,7 +620,6 @@ void AladdinCharacter::ProcessInput()
 				flagKeyPressed = true;
 				this->setAllowStateChange(true);
 				this->setCurrentState(AState::RunAndJump);
-				this->mAladdinState.at(mCurrentState)->SetVelocity(0, 0.75);
 				break;
 			}
 		case AState::SitAttack:
@@ -627,13 +648,10 @@ void AladdinCharacter::ProcessInput()
 		case AState::Stand:
 		case AState::RopeClimb:
 			break;
-		
+		case AState::StandJump:
 		case AState::RunAndJump:
 			if (isGrounded() == true)
 			{
-				//mIsGrounded = true;
-				//this->mAladdinState.at(mCurrentState)->SetVelocity(0, 0);
-				//this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, WORLD_Y - MAP_HEIGHT + 160);
 				this->allowStateChange = true;
 				this->setCurrentState(AState::DoNothing);
 			}
@@ -717,11 +735,12 @@ void AladdinCharacter::_BeforeStateChange(AState &changeTo)
 	if (mCurrentState != AState::RopeClimb)
 		isClimbing = false;
 	
-	
+	this->mAladdinState.at(mCurrentState)->ResetDefaultVelocity();
 }
 
 void AladdinCharacter::_AfterStateChange()
 {
+	
 	//this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, -10);
 	switch (this->mCurrentState)
 	{
@@ -792,51 +811,97 @@ AState AladdinCharacter::getCurrentState()
 
 #pragma region Collision
 
+void AladdinCharacter::CheckCollision(float DeltaTime, vector<GameVisibleEntity*> mListObjectInViewPort)
+{
+	//vector<GameVisibleEntity*> mListGround;
+
+	mListGround.clear();
+
+	for (int i = 0; i < mListObjectInViewPort.size(); i++)
+	{
+		switch (mListObjectInViewPort.at(i)->GetID())
+		{
+		case EObjectID::GROUND: //Kiểm tra va chạm với đất
+			mListGround.push_back(mListObjectInViewPort.at(i));
+			break;
+		case EObjectID::CAMEL:
+			CollisionResult res = Collision::SweptAABB(DeltaTime, this->GetBoundingBox(), this->mAladdinState.at(mCurrentState)->GetVelocity(), mListObjectInViewPort.at(i)->GetBoundingBox(), D3DXVECTOR2(0, 0));
+			if (res.EntryTime < 1 && res.EntryTime >= 0)
+			{
+				int c = 0;
+			}
+			break;
+		}
+	}
+
+	//this->CheckCollisionWithGround(DeltaTime,mListGround);
+	
+}
+
 void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj, CollisionResult collision)
 {
 	switch ((EObjectID)obj->GetID())
 	{
 	case EObjectID::GROUND:
 
-		
-
-		/*this->allowStateChange = true;
-		this->setCurrentState(AState::DoNothing);*/
-		
-	
-			mIsGrounded = true;
-			_flagGroundCollision = true;
-
+		if (collision.dir == Direction::Up)
+		{
 			_yCollision = this->mAladdinState.at(mCurrentState)->GetVelocity().y*collision.EntryTime;
 
-
-
-			printLog("AAAAAAA");
-
-
-			/*this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, this->mAladdinState.at(mCurrentState)->GetPosition().y + _yCollision * DeltaTime );
-			this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, 0);*/
+			//printLog("AAAAAAA");
+			/*if (this->mCurrentState == (AState::RunAndJump))
+			{
+				this->allowStateChange = true;
+				this->setCurrentState(AState::DoNothing);
+			}*/
+			
 
 			this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, _yCollision);
-			//this->mAladdinState.at(mCurrentState)->Update(DeltaTime);
+			mIsGrounded = true;
+			//this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, this->mAladdinState.at(mCurrentState)->GetPosition().y + _yCollision * DeltaTime);
+			//this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
+
+		}
+		else  if (collision.dir == Direction::Left) 
+		{
+			//printLog("Left");
+			
+		
+			
+			this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x*collision.EntryTime, this->mAladdinState.at(mCurrentState)->GetVelocity().y);
+			//this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x + this->mAladdinState.at(mCurrentState)->GetVelocity().x*collision.EntryTime , this->mAladdinState.at(mCurrentState)->GetPosition().y);
+			
 			this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
-			//this->mAladdinState.at(mCurrentState)->SetVelocity(0, y);
-		
-		
+		}
 
-		
-
-		//float x = this->mAladdinState.at(mCurrentState)->GetPosition().x;// + this->mAladdinState.at(mCurrentState)->GetVelocity().x;
-		//this->mAladdinState.at(mCurrentState)->GetPosition().y + this->mAladdinState.at(mCurrentState)->GetVelocity().y*collision.EntryTime;
-
-		//SetPosition(x, y);
-		//getCurrentObjectState()->SetPosition(x, y);
-		//getCurrentObjectState()->mSprite->SetPosition(x, y);
+			
 		
 
 		break;
 	}
 
+	
+}
+
+void AladdinCharacter::CheckCollisionWithGround(float DeltaTime, vector<GameVisibleEntity*> mListGround)
+{
+	mIsGrounded = false;
+
+	for (int i = 0; i < mListGround.size(); i++)
+	{
+		CollisionResult res = Collision::SweptAABB(DeltaTime, this->GetBoundingBox(), this->getCurrentObjectState()->GetVelocity(), mListGround.at(i)->GetBoundingBox(), D3DXVECTOR2(0, 0));
+		if (res.EntryTime < 1 && res.EntryTime >= 0)
+		{
+			this->processCollision(DeltaTime, mListGround.at(i), res);
+			//_StandingGround = mListGround.at(i);
+			
+		}
+	/*	else if (this->mBoundingBox.bottom == mListGround.at(i)->GetBoundingBox().top && this->mBoundingBox.left >= mListGround.at(i)->GetBoundingBox().left && this->mBoundingBox.right <= mListGround.at(i)->GetBoundingBox().right && this->mCurrentState != AState::RunAndJump)
+		{
+			mIsGrounded = true;
+		}*/
+
+	}
 	
 }
 

@@ -2,9 +2,9 @@
 
 ObjectState::ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, CenterArchor center)
 {
-	this->mVelocity = velocity;
+	this->mVelocity = this->mDefaultVelocity = velocity;
 	this->ResetFlag = true;
-
+	this->mIsFlipVertical = false;
 	this->ANIMATE_RATE = Animate_rate;
 
 	this->mCurrentIdx = 0;
@@ -20,9 +20,9 @@ ObjectState::ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR file
 
 ObjectState::ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, D3DXVECTOR2 acceleration, CenterArchor center)
 {
-	this->mVelocity = velocity;
+	this->mVelocity = this->mDefaultVelocity = velocity;
 	this->ResetFlag = true;
-
+	this->mIsFlipVertical = false;
 	this->ANIMATE_RATE = Animate_rate;
 
 	this->mCurrentIdx = 0;
@@ -84,7 +84,7 @@ void ObjectState::Animate(float DeltaTime)
 void ObjectState::Move(float delta_time)
 {
 
-	SetPosition(this->GetPosition().x + ((GetFlipVertical() == false) ? (1.0f) : (-1.0f))* ( this->GetVelocity().x * delta_time + 0.5 *  this->mAcceleration.x * pow(delta_time,2)), this->GetPosition().y + this->GetVelocity().y * delta_time + 0.5 *  this->mAcceleration.y * pow(delta_time, 2));
+	SetPosition(this->GetPosition().x + (mVelocity.x * delta_time  ) , this->GetPosition().y + GetVelocity().y * delta_time + 0.5 *  this->mAcceleration.y * pow(delta_time, 2));
 
 }
 
@@ -133,6 +133,51 @@ void ObjectState::GoToLastFrameIdx()
 {
 	this->mCurrentIdx = this->mEndIdx - 1;
 	this->mSprite->SetFrame(this->mEndIdx - 1);
+}
+
+D3DXVECTOR2 ObjectState::GetVelocity()
+{
+	/*if(this->mIsFlipVertical == false)
+		 return D3DXVECTOR2(this->mVelocity.x  , this->mVelocity.y); 
+	else
+		return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);*/
+
+	if (mIsFlipVertical == true && this->mVelocity.x > 0)
+		return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
+	else if (mIsFlipVertical == false && this->mVelocity.x < 0)
+		return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
+
+	return this->mVelocity;
+}
+
+void ObjectState::SetVelocity(float X, float Y)
+{
+	 this->mVelocity.x = X; this->mVelocity.y = Y; 
+
+	 if (mIsFlipVertical == true && this->mVelocity.x > 0)
+		 this->mVelocity = D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
+	 else if (mIsFlipVertical == false && this->mVelocity.x < 0)
+		 this->mVelocity =  D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
+}
+
+
+
+void ObjectState::ResetDefaultVelocity()
+{
+	this->mVelocity = mDefaultVelocity;
+	return ;
+}
+
+void ObjectState::SetFlipVertical(bool flipV)
+{
+	this->mIsFlipVertical = flipV;
+	if (this->mIsFlipVertical != this->mSprite->IsFlipVertical())
+		this->mSprite->FlipVertical(this->mIsFlipVertical);
+
+	if (flipV == true && this->mVelocity.x > 0)
+		this->mVelocity.x = -this->mVelocity.x;
+	else if (flipV == false && this->mVelocity.x < 0)
+		this->mVelocity.x = -this->mVelocity.x;
 }
 
 bool ObjectState::GetIsNextFrame()
