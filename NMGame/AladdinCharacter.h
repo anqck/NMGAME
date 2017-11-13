@@ -29,7 +29,8 @@ enum AState
 	ThrowApple,
 	SitThrow,
 	RunAttack,
-	StandJump
+	StandJump,
+	JumpAttack
 };
 
 
