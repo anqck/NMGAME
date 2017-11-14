@@ -31,7 +31,10 @@ enum AState
 	RunAttack,
 	StandJump,
 	JumpAttack,
-	Push
+	Push,
+	LookUpAttack,
+	JumpThrow,
+	RunThrow
 };
 
 
