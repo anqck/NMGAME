@@ -173,6 +173,7 @@
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="StoppingDust.cpp" />
     <ClCompile Include="ThrowApple.cpp" />
     <ClCompile Include="Ultils.cpp" />
     <ClCompile Include="ViewPort.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="StoppingDust.h" />
     <ClInclude Include="ThrowApple.h" />
     <ClInclude Include="Ultils.h" />
     <ClInclude Include="ViewPort.h" />

@@ -12,6 +12,7 @@
 #include <map>
 
 #include "ThrowApple.h"
+#include "StoppingDust.h"
 
 enum AState
 {
@@ -105,7 +106,10 @@ protected:
 
 	bool					flagKeyPressed ;
 
+	StoppingDust*			mStoppingDust;
+
 	vector<ThrowingApple*>	mListThrowingApple;	//Các táo ném ra
+						
 	vector<GameVisibleEntity*> mListGround;
 };
 

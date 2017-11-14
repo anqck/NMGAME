@@ -120,6 +120,9 @@
     <ClCompile Include="Ground.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StoppingDust.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IScene.h">
@@ -205,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="CTreeObject.h">
       <Filter>Framework\QuadTree</Filter>
+    </ClInclude>
+    <ClInclude Include="StoppingDust.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

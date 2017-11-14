@@ -35,14 +35,17 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	isClimbing = false;
 	mWallCollision = false;
 
-
+	this->mStoppingDust = NULL;
 
 	
 }
 
 void AladdinCharacter::LoadResource()
 {
+	
+
 	vector<MyRECT> temp;
+
 
 	/*this->mWidth = 63 * 2;
 	this->mHeight = 48 * 2.5 ;*/
@@ -508,6 +511,18 @@ void AladdinCharacter::Update(float DeltaTime)
 		break;
 	}
 
+
+	//Cập nhật bụi khi dừng (nếu có)
+	if (this->mStoppingDust != NULL)
+	{
+		if (mStoppingDust->isDone() == true)
+		{
+			mStoppingDust = NULL;
+		}
+		else
+			this->mStoppingDust->Update(DeltaTime);
+	}
+
 	//Kiểm tra danh sách các táo đã ném ra nếu xong thì bỏ khỏi list;
 	//for (int i = 0; i < mListThrowingApple.size(); i++)
 	//{
@@ -548,10 +563,19 @@ void AladdinCharacter::Render(float DeltaTime)
 	//this->Transform();
 	this->mAladdinState.at(this->mCurrentState)->Render();
 
-	for (int i = 0; i < mListThrowingApple.size(); i++)
+	//for (int i = 0; i < mListThrowingApple.size(); i++)
+	//{
+	//	mListThrowingApple.at(i)->Render(DeltaTime);
+	//	
+	//}
+
+	if (this->mStoppingDust != NULL)
 	{
-		mListThrowingApple.at(i)->Render(DeltaTime);
-		
+		/*if (mStoppingDust->isDone() == true)
+		{
+		delete mStoppingDust;
+		}*/
+		this->mStoppingDust->Render(DeltaTime);
 	}
 }
 
@@ -943,6 +967,9 @@ void AladdinCharacter::_BeforeStateChange(AState &changeTo)
 	{
 		changeTo = AState::StopWalk;
 		this->mIsStopAnimation = false;
+
+		//Hiệu ứng bụi khi dừng chạy
+		mStoppingDust = new StoppingDust(D3DXVECTOR3(this->mAladdinState.at(this->mCurrentState)->GetPosition().x + ((mDir == Direction::Right) ? (1) : (-1)) * 78, this->mAladdinState.at(this->mCurrentState)->GetPosition().y,0), this->mDir);
 	}
 	
 	//Khi chuyển từ SitAttack qua Sit thì set frame cuối cùng
