@@ -4,6 +4,7 @@
 
 #include <dinput.h>
 #include <string> 
+#include <stdlib.h>
 
 
 #pragma region Init
@@ -301,13 +302,63 @@ void AladdinCharacter::LoadResource()
 
 	//Run Throw
 	temp.push_back(MyRECT(0, 108, 145, 54));
-	temp.push_back(MyRECT(63, 50, 99, 115, D3DXVECTOR3(0,3,0)));
-	temp.push_back(MyRECT(63, 0, 49, 116, D3DXVECTOR3(0, 5, 0)));
-	temp.push_back(MyRECT(0, 0, 57, 62, D3DXVECTOR3(3,0, 0)));
-	temp.push_back(MyRECT(0, 58, 107, 62, D3DXVECTOR3(2, 0, 0)));
+	temp.push_back(MyRECT(63, 50, 99, 115, D3DXVECTOR3(0,5,0)));
+	temp.push_back(MyRECT(63, 0, 49, 116, D3DXVECTOR3(0, 7, 0)));
+	temp.push_back(MyRECT(0, 0, 57, 62, D3DXVECTOR3(3,3, 0)));
+	temp.push_back(MyRECT(0, 58, 107, 62, D3DXVECTOR3(2, 2, 0)));
 	temp.push_back(MyRECT(0, 146, 181, 56, D3DXVECTOR3(8, 1, 0)));
 	this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinCharacter\\RunThrow.png", D3DXVECTOR2(0.5f, 0.0f), CenterArchor::CenterBottom));
 	temp.clear();
+
+	//Wait1
+	temp.push_back(MyRECT(55, 0, 44, 110, D3DXVECTOR3(3 - 8,0,0)));
+	temp.push_back(MyRECT(0, 63, 124, 53, D3DXVECTOR3(3.1 - 8, 1, 0)));
+	temp.push_back(MyRECT(0, 0, 62, 54, D3DXVECTOR3(5 - 8, 1, 0)));
+	temp.push_back(MyRECT(78, 107, 148, 131, D3DXVECTOR3(9 - 8, 1, 0)));
+	temp.push_back(MyRECT(72, 190, 229, 125, D3DXVECTOR3(8 - 8, 1, 0)));
+	temp.push_back(MyRECT(132, 165, 201, 185, D3DXVECTOR3(7 - 8, 1, 0)));
+	temp.push_back(MyRECT(186, 83, 122, 239, D3DXVECTOR3(8 - 8, 1, 0)));
+	temp.push_back(MyRECT(78, 149, 189, 131, D3DXVECTOR3(9 - 8, 1, 0)));
+	temp.push_back(MyRECT(174, 0, 41, 229, D3DXVECTOR3(9 - 8, 1, 0)));
+	temp.push_back(MyRECT(0, 211, 253, 67, D3DXVECTOR3(10 - 8, 1, 0)));
+	temp.push_back(MyRECT(54, 63, 106, 127, D3DXVECTOR3(10 - 8, 1, 0)));
+	temp.push_back(MyRECT(0, 125, 167, 77, D3DXVECTOR3(10 - 8, 1, 0)));
+	temp.push_back(MyRECT(0, 168, 210, 71, D3DXVECTOR3(10 - 8, 1, 0)));
+	temp.push_back(MyRECT(111, 0, 42, 173, D3DXVECTOR3(10 - 8, 1, 0)));
+	temp.push_back(MyRECT(128, 43, 84, 182, D3DXVECTOR3(9 - 8, 1, 0)));
+	temp.push_back(MyRECT(183, 42, 82, 237, D3DXVECTOR3(9 - 8, 1, 0)));
+	temp.push_back(MyRECT(132, 85, 124, 185, D3DXVECTOR3(8 - 8, 1, 0)));
+	temp.push_back(MyRECT(132, 125, 164, 185, D3DXVECTOR3(8 - 8, 1, 0)));
+	//this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 2, L"AladdinCharacter\\Wait1.png", D3DXVECTOR2(0.0f, 0.0f), 0, CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 13, L"AladdinCharacter\\Wait1.png", D3DXVECTOR2(0.0f, 0.0f),4, CenterArchor::CenterBottom));
+	temp.clear();
+
+	//Wait2
+
+	temp.push_back(MyRECT(54, 128, 167, 107, D3DXVECTOR3(0,1,0)));
+	temp.push_back(MyRECT(185, 79, 115, 238, D3DXVECTOR3(-1, 1, 0)));
+	temp.push_back(MyRECT(0, 128, 168, 53, D3DXVECTOR3(1, 1, 0)));
+	temp.push_back(MyRECT(63, 0, 41, 118, D3DXVECTOR3(1, 1, 0)));
+	temp.push_back(MyRECT(164, 40, 78, 227, D3DXVECTOR3(0, 1, 0)));
+	temp.push_back(MyRECT(0, 86, 127, 67, D3DXVECTOR3(1.2, 1, 0)));
+	temp.push_back(MyRECT(0, 43, 85, 58, D3DXVECTOR3(2, 1, 0)));
+	temp.push_back(MyRECT(80, 168, 206, 129, D3DXVECTOR3(1.2, 1, 0)));
+	temp.push_back(MyRECT(119, 0, 39, 168, D3DXVECTOR3(1, 1, 0)));
+	temp.push_back(MyRECT(114, 42, 81, 163, D3DXVECTOR3(1, 1, 0)));
+	temp.push_back(MyRECT(108, 126, 164, 162, D3DXVECTOR3(3, 1, 0)));
+	temp.push_back(MyRECT(123, 82, 120, 184, D3DXVECTOR3(3, 1, 0)));
+	temp.push_back(MyRECT(169, 0, 38, 236, D3DXVECTOR3(3, 1, 0)));
+	temp.push_back(MyRECT(163, 121, 157, 237, D3DXVECTOR3(2, 1, 0)));
+	temp.push_back(MyRECT(0, 169, 208, 79, D3DXVECTOR3(1, 1, 0)));
+	temp.push_back(MyRECT(0, 0, 42, 62, D3DXVECTOR3(1.5, 1, 0)));
+	temp.push_back(MyRECT(59, 43, 84, 113, D3DXVECTOR3(0.5, 1, 0)));
+	temp.push_back(MyRECT(68, 85, 125, 122, D3DXVECTOR3(0.5, 1, 0)));
+	temp.push_back(MyRECT(0, 209, 248, 53, D3DXVECTOR3(-0.5, 1, 0)));
+	temp.push_back(MyRECT(54, 209, 248, 107, D3DXVECTOR3(-0.5, 1, 0)));
+	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 13, L"AladdinCharacter\\Wait2.png", D3DXVECTOR2(0.0f, 0.0f), 4, CenterArchor::CenterBottom));
+	
+	temp.clear();
+
 }
 
 #pragma endregion
@@ -349,6 +400,44 @@ void AladdinCharacter::Update(float DeltaTime)
 		}
 		break;
 	}
+	case AState::Stand:
+		if (this->mTime >= 200 * DeltaTime)
+		{
+			this->allowStateChange = true;
+			this->setCurrentState(AState::Wait1);
+			this->mTime = 0;
+		}
+		else
+		{
+			this->mTime += DeltaTime;
+		}
+		break;
+	case AState::Wait1:
+		if (this->mAladdinState.at(mCurrentState)->isDone()) //Nếu đến frame cuối thì rand chuyển qua hành động wait2
+		{
+			int randNumber = rand() % 3 ; //33%
+			if (randNumber == 0)
+			{
+				this->allowStateChange = true;
+				this->setCurrentState(AState::Wait2);
+			}
+
+		}
+
+		break;
+	case AState::Wait2:
+		if (this->mAladdinState.at(mCurrentState)->isDone()) //Nếu đến frame cuối thì rand chuyển qua hành động wait2
+		{
+			int randNumber = rand() % 3; //66%
+			if (randNumber == 0 || randNumber == 1)
+			{
+				this->allowStateChange = true;
+				this->setCurrentState(AState::Wait1);
+			}
+
+		}
+
+		break;
 	case AState::Walk: //Trường hợp đang đi
 	{
 		if (this->mTime >= 30 * DeltaTime)
@@ -404,9 +493,7 @@ void AladdinCharacter::Update(float DeltaTime)
 	break;
 	
 
-	case AState::Stand:
-		
-		break;
+	
 	case AState::ThrowApple:
 		if (this->mAladdinState.at(mCurrentState)->GetCurrentIdx() == 3 && this->mAladdinState.at(mCurrentState)->isNextFrame == true)
 		{
@@ -793,6 +880,8 @@ void AladdinCharacter::ProcessInput()
 			}
 			break;
 		case AState::Stand:
+		case AState::Wait1:
+		case AState::Wait2:
 		case AState::RopeClimb:
 			break;
 		case AState::StandJump:
@@ -867,8 +956,6 @@ void AladdinCharacter::_BeforeStateChange(AState &changeTo)
 	if ((this->mCurrentState == AState::RunAttack || this->mCurrentState == AState::RunThrow) && (changeTo == AState::Walk))
 	{
 		this->mAladdinState.at(AState::Walk)->GoToFrame(12);
-
-		
 	}
 
 	//Thay vị trí hiện tại cho state khác
@@ -890,6 +977,12 @@ void AladdinCharacter::_BeforeStateChange(AState &changeTo)
 		this->mAladdinState.at(changeTo)->GoToFrame(4);
 	}
 
+	//Nếu từ Wait2 chuyển lại Wait1 thì đến frame bắt đầu loop
+	if (this->mCurrentState == AState::Wait2 && changeTo == AState::Wait1)
+	{
+		this->mAladdinState.at(changeTo)->GoToFrame(4);
+	}
+
 	this->mAladdinState.at(mCurrentState)->ResetDefaultVelocity();
 }
 
@@ -900,6 +993,7 @@ void AladdinCharacter::_AfterStateChange()
 	switch (this->mCurrentState)
 	{
 	case AState::DoNothing:
+	case AState::Stand:
 		this->mTime = 0;
 		break;
 	case AState::Walk:

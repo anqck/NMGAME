@@ -34,7 +34,9 @@ enum AState
 	Push,
 	LookUpAttack,
 	JumpThrow,
-	RunThrow
+	RunThrow,
+	Wait1,
+	Wait2
 };
 
 

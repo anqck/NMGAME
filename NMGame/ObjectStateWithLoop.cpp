@@ -33,3 +33,9 @@ void ObjectStateWithLoop::nextFrame()
 
 	this->mSprite->SetFrame(mCurrentIdx);
 }
+
+bool ObjectStateWithLoop::isDone()
+{
+	return (this->mCurrentIdx == this->mEndIdx - 1);
+}
+
