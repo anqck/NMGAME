@@ -32,9 +32,9 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 
 	this->mIsGrounded = false;
 	isClimbing = false;
+	mWallCollision = false;
 
-	_StandingGround = NULL;
-	_flagGroundCollision = false;
+
 
 	
 }
@@ -53,21 +53,22 @@ void AladdinCharacter::LoadResource()
 
 	//Walk
 	temp.push_back(MyRECT(117, 83, 120, 167));
-	temp.push_back(MyRECT(117, 42, 82, 165));
-	temp.push_back(MyRECT(56, 103, 146, 107));
-	temp.push_back(MyRECT(0, 0, 55, 58));
+	temp.push_back(MyRECT(117, 42, 82, 165, D3DXVECTOR3(6,0,0)));
+	temp.push_back(MyRECT(56, 103, 146, 107, D3DXVECTOR3(8, 0, 0)));
+	temp.push_back(MyRECT(0, 0, 55, 58, D3DXVECTOR3(2, 0, 0)));
 	temp.push_back(MyRECT(0, 56, 111, 55));
-	temp.push_back(MyRECT(0, 159, 203, 57));
+	temp.push_back(MyRECT(0, 159, 203, 57, D3DXVECTOR3(2, 0, 0)));
 	temp.push_back(MyRECT(59, 189, 230, 112));
-	temp.push_back(MyRECT(58, 147, 188, 115));
-	temp.push_back(MyRECT(59, 0, 52, 116));
+	temp.push_back(MyRECT(58, 147, 188, 115, D3DXVECTOR3(4, 0, 0)));
+	temp.push_back(MyRECT(59, 0, 52, 116, D3DXVECTOR3(3, 0, 0)));
 	temp.push_back(MyRECT(0, 112, 158, 54));
 	temp.push_back(MyRECT(0, 204, 246, 58));
 	temp.push_back(MyRECT(117, 0, 41, 169));
 	temp.push_back(MyRECT(116, 121, 155, 170));
 	temp.push_back(MyRECT(59, 53, 102, 116));
 
-	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 14, L"AladdinCharacter\\AladdinWalk.png", D3DXVECTOR2(0.7f, 0.0f), 3, CenterArchor::CenterBottom));
+	//this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 12, L"AladdinCharacter\\AladdinWalk.png", D3DXVECTOR2(0.7f, 0.0f), 3, CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 13, L"AladdinCharacter\\AladdinWalk.png", D3DXVECTOR2(0.7f, 0.0f), 3, CenterArchor::CenterBottom));
 	temp.clear();
 
 
@@ -88,34 +89,39 @@ void AladdinCharacter::LoadResource()
 	temp.clear();
 
 	//LookUp
-	temp.push_back(MyRECT(488, 7, 56, 551));
-	temp.push_back(MyRECT(488, 56, 111, 551));
-	temp.push_back(MyRECT(488, 109, 174, 551));
-	this->mAladdinState.push_back(new ObjectState(temp, 20, L"Aladdin.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	temp.push_back(MyRECT(60, 39, 76, 110, D3DXVECTOR3(0, 0, 0)));
+	temp.push_back(MyRECT(59, 0, 38, 112, D3DXVECTOR3(0.7, - 0.3, 0)));
+	temp.push_back(MyRECT(0, 50, 95, 59, D3DXVECTOR3(-1, -0.3, 0)));
+	temp.push_back(MyRECT(0, 0, 49, 58, D3DXVECTOR3(-1.5, -0.3, 0)));
+
+	this->mAladdinState.push_back(new ObjectState(temp, 20, L"AladdinCharacter//LookUp.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	//this->mAladdinState.push_back(new ObjectState(temp, 20, L"AladdinCharacter//LookUp.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
 	//Stand
 	temp.push_back(MyRECT(53, 128, 165, 103));
 	temp.push_back(MyRECT(0, 90, 131, 47));
-	temp.push_back(MyRECT(0, 132, 172, 52));
-	temp.push_back(MyRECT(0, 0, 44, 53));
-	temp.push_back(MyRECT(0, 173, 213, 52));
-	temp.push_back(MyRECT(54, 86, 127, 105));
-	temp.push_back(MyRECT(54, 0, 42, 105));
-	temp.push_back(MyRECT(0, 45, 89, 53));
-	temp.push_back(MyRECT(54, 43, 85, 105));
+	temp.push_back(MyRECT(0, 132, 172, 52, D3DXVECTOR3(1,0,0)));
+	temp.push_back(MyRECT(0, 0, 44, 53, D3DXVECTOR3(2.65, 0, 0)));
+	temp.push_back(MyRECT(0, 173, 213, 52, D3DXVECTOR3(1, 0, 0)));
+	temp.push_back(MyRECT(54, 86, 127, 105, D3DXVECTOR3(-0.5, 0, 0)));
+	temp.push_back(MyRECT(54, 0, 42, 105, D3DXVECTOR3(-1.5, 0, 0)));
+	temp.push_back(MyRECT(0, 45, 89, 53, D3DXVECTOR3(-2.25, 0, 0)));
+	temp.push_back(MyRECT(54, 43, 85, 105, D3DXVECTOR3(-0.5, 0, 0)));
 
 	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 8, L"AladdinCharacter\\AladdinStand.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
 	//Sit
-	temp.push_back(MyRECT(498, 204, 257, 550));
-	temp.push_back(MyRECT(498, 257, 314, 550));
-	temp.push_back(MyRECT(498, 314, 373, 550));
-	temp.push_back(MyRECT(498, 376, 434, 550));
-	this->mAladdinState.push_back(new ObjectState(temp, 20, L"Aladdin.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	temp.push_back(MyRECT(36, 49, 86, 86));
+	temp.push_back(MyRECT(72, 0, 41, 121, D3DXVECTOR3(-2, 0.4, 0)));
+	temp.push_back(MyRECT(31, 0, 48, 71, D3DXVECTOR3(-2, 0.4, 0)));
+	temp.push_back(MyRECT(0, 0, 54, 30, D3DXVECTOR3(0.5, -1.2, 0)));
+	temp.push_back(MyRECT(0, 55, 108, 35, D3DXVECTOR3(5, -1.2, 0)));
+
+	this->mAladdinState.push_back(new ObjectState(temp, 20, L"AladdinCharacter//AladdinSit.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 	//Rest
@@ -124,25 +130,27 @@ void AladdinCharacter::LoadResource()
 	temp.clear();
 
 	//SitAttack
-	temp.push_back(MyRECT(630, 4, 58, 674));
-	temp.push_back(MyRECT(630, 62, 112, 674));
-	temp.push_back(MyRECT(630, 113, 189, 674, D3DXVECTOR3(12, 0, 0)));
-	temp.push_back(MyRECT(630, 190, 287, 674, D3DXVECTOR3(19, 0, 0)));
-	temp.push_back(MyRECT(630, 297, 383, 674, D3DXVECTOR3(20, 0, 0)));
-	temp.push_back(MyRECT(630, 390, 465, 674, D3DXVECTOR3(12, 0, 0)));
-	temp.push_back(MyRECT(630, 473, 522, 674, D3DXVECTOR3(0, 0, 0)));
-	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdin.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	temp.push_back(MyRECT(35, 85, 132, 68, D3DXVECTOR3(4.5, -1.2, 0)));
+	temp.push_back(MyRECT(69, 72, 117, 100, D3DXVECTOR3(3.6, -1.2, 0)));
+	temp.push_back(MyRECT(69, 0, 71, 102, D3DXVECTOR3(17, -1.2, 0)));
+	temp.push_back(MyRECT(0, 0, 92, 34, D3DXVECTOR3(27, -1.2, 0)));
+	temp.push_back(MyRECT(35, 0, 84, 68, D3DXVECTOR3(24, -1.2, 0)));
+	temp.push_back(MyRECT(0, 93, 164, 33, D3DXVECTOR3(16.6, -1.2, 0)));
+	temp.push_back(MyRECT(0, 165, 210, 31, D3DXVECTOR3(4, -1.2, 0)));
+
+	this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinCharacter//SitAttack.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
 	//Attack1
-	temp.push_back(MyRECT(313, 6, 54, 390));
-	temp.push_back(MyRECT(313, 54, 110, 390));
-	temp.push_back(MyRECT(313, 110, 169, 390));
-	temp.push_back(MyRECT(313, 168, 256, 390, D3DXVECTOR3(20, 0, 0)));
-	temp.push_back(MyRECT(313, 258, 318, 390, D3DXVECTOR3(7, 0, 0)));
-
-	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdin.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	temp.push_back(MyRECT(54, 204, 241, 104, D3DXVECTOR3(0.2, 0, 0)));
+	temp.push_back(MyRECT(54, 106, 151, 105, D3DXVECTOR3(-3.5, 0, 0)));
+	temp.push_back(MyRECT(53, 54, 105, 115, D3DXVECTOR3(-3.5, 0, 0)));
+	temp.push_back(MyRECT(0, 158, 203, 74));
+	temp.push_back(MyRECT(0, 0, 82, 52, D3DXVECTOR3(23, 0, 0)));
+	temp.push_back(MyRECT(0, 106, 157, 53));
+	temp.push_back(MyRECT(117, 0, 37, 167));
+	this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinCharacter//AladdinAttack.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
@@ -174,27 +182,30 @@ void AladdinCharacter::LoadResource()
 	temp.clear();
 
 
-	//chibinh nem qua
-	temp.push_back(MyRECT(1465, 6, 46, 1530));
-	temp.push_back(MyRECT(1465, 53, 100, 1530));
-	temp.push_back(MyRECT(1465, 107, 151, 1530));
-	temp.push_back(MyRECT(1465, 157, 198, 1530));
-	temp.push_back(MyRECT(1465, 205, 260, 1530));
-	temp.push_back(MyRECT(1465, 266, 316, 1530));
-	temp.push_back(MyRECT(1465, 323, 363, 1530));
-	temp.push_back(MyRECT(1465, 370, 413, 1530));
-	this->mAladdinState.push_back(new ObjectState(temp, 20, L"Aladdinblue.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	//Throw apple
+	temp.push_back(MyRECT(0, 177, 214, 50));
+	temp.push_back(MyRECT(64, 0, 43, 120, D3DXVECTOR3(2.5,0,0)));
+	temp.push_back(MyRECT(64, 44, 85, 123, D3DXVECTOR3(1.2, 0, 0)));
+	temp.push_back(MyRECT(0, 100, 138, 58));
+	temp.push_back(MyRECT(0, 0, 52, 63, D3DXVECTOR3(6.5, 0, 0)));
+	temp.push_back(MyRECT(0, 53, 99, 60, D3DXVECTOR3(2.5, 0, 0)));
+	temp.push_back(MyRECT(0, 139, 176, 58, D3DXVECTOR3(-1, 0, 0)));
+	temp.push_back(MyRECT(61, 86, 125, 113, D3DXVECTOR3(-1, 0, 0)));
+
+	this->mAladdinState.push_back(new ObjectState(temp, 20, L"AladdinCharacter\\Throw.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
-	//chibinh ngoi nem
-	temp.push_back(MyRECT(1535, 6, 62, 1585));
-	temp.push_back(MyRECT(1535, 69, 130, 1585));
-	temp.push_back(MyRECT(1535, 137, 176, 1585));
-	temp.push_back(MyRECT(1535, 183, 224, 1585));
-	temp.push_back(MyRECT(1535, 230, 284, 1585));
-	temp.push_back(MyRECT(1535, 290, 374, 1585));
-	temp.push_back(MyRECT(1535, 384, 443, 1585));
-	this->mAladdinState.push_back(new ObjectState(temp, 13, L"Aladdinblue.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	//Sit Throw
+	temp.push_back(MyRECT(38, 58, 111, 73, D3DXVECTOR3(5, -1.2, 0)));
+	temp.push_back(MyRECT(38, 0, 57, 75, D3DXVECTOR3(3, -0.2, 0)));
+	temp.push_back(MyRECT(0, 150, 187, 44, D3DXVECTOR3(0, -0.2, 0)));
+	temp.push_back(MyRECT(0, 112, 149, 48, D3DXVECTOR3(0, -0.2, 0)));
+	temp.push_back(MyRECT(74, 58, 108, 122,  D3DXVECTOR3(7, -4.3, 0)));
+	temp.push_back(MyRECT(0, 0, 82, 37, D3DXVECTOR3(12, -0.5, 0)));
+	temp.push_back(MyRECT(76, 0, 57, 113, D3DXVECTOR3(3, -0.5, 0)));
+
+	this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinCharacter\\SitThrow.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	//this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinCharacter\\SitThrow.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
@@ -234,6 +245,20 @@ void AladdinCharacter::LoadResource()
 	this->mAladdinState.push_back(new ObjectState(temp, 14, L"AladdinCharacter\\JumpAttack.png", D3DXVECTOR2(0, 0.8f), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
+	//Push
+	temp.push_back(MyRECT(91, 124, 161, 141));
+	temp.push_back(MyRECT(90, 67, 123, 136));
+	temp.push_back(MyRECT(135, 0, 65, 179));
+	temp.push_back(MyRECT(45, 154, 224, 90));
+	temp.push_back(MyRECT(45, 0, 77, 89));
+	temp.push_back(MyRECT(0, 158, 230, 44));
+	temp.push_back(MyRECT(90, 0, 66, 134));
+	temp.push_back(MyRECT(0, 82, 157, 44));
+	temp.push_back(MyRECT(0, 0, 81, 44));
+	temp.push_back(MyRECT(45, 78, 153, 89));
+
+	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 11, L"AladdinCharacter\\Push.png", D3DXVECTOR2(0.2f, 0),2, CenterArchor::CenterBottom));
+	temp.clear();
 }
 
 #pragma endregion
@@ -256,6 +281,10 @@ void AladdinCharacter::Update(float DeltaTime)
 		{
 			this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, -0.5);
 		}
+	}
+	if (this->mCurrentState == AState::Push)
+	{
+		this->mAladdinState.at(mCurrentState)->ResetDefaultVelocity();
 	}
 	
 	
@@ -495,13 +524,23 @@ void AladdinCharacter::ProcessInput()
 			
 			}
 			break;
+		
 		case AState::RunAndJump:
 		case AState::JumpAttack:
 			break;
 		default:
-			flagKeyPressed = true;
-			this->setAllowStateChange(true);
-			this->setCurrentState(AState::Walk);
+			if (mWallCollision == false)
+			{
+				flagKeyPressed = true;
+				this->setAllowStateChange(true);
+				this->setCurrentState(AState::Walk);
+			}
+			else
+			{
+				flagKeyPressed = true;
+				this->setAllowStateChange(true);
+				this->setCurrentState(AState::Push);
+			}
 
 		}			
 	}
@@ -651,6 +690,7 @@ void AladdinCharacter::ProcessInput()
 			break;
 		case AState::RopeClimb:
 		case AState::Walk:
+		case AState::Push:
 			if(allowJump)
 			{
 				mIsGrounded = false;
@@ -925,9 +965,17 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 		else  if (collision.dir == Direction::Left) 
 		{
 			//printLog("Left");
-			
-		
-			
+			mWallCollision = true;
+			/*if (this->mCurrentState == (AState::Walk))
+			{
+			this->allowStateChange = true;
+			this->mAladdinState.at(AState::Push)->SetPosition(this->mAladdinState.at(AState::Walk)->GetPosition());
+			this->mCurrentState = AState::Push;
+			}*/
+			if (this->mCurrentState == (AState::Push))
+			{
+				int c = 0;
+			}
 			this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x*collision.EntryTime, this->mAladdinState.at(mCurrentState)->GetVelocity().y);
 			//this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x + this->mAladdinState.at(mCurrentState)->GetVelocity().x*collision.EntryTime , this->mAladdinState.at(mCurrentState)->GetPosition().y);
 			
@@ -946,6 +994,7 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 void AladdinCharacter::CheckCollisionWithGround(float DeltaTime, vector<GameVisibleEntity*> mListGround)
 {
 	mIsGrounded = false;
+	mWallCollision = false;
 
 	for (int i = 0; i < mListGround.size(); i++)
 	{
@@ -1002,10 +1051,16 @@ void AladdinCharacter::PrintLogState()
 		break;
 	case AState::ThrowApple:
 		printLog("ThrowApple");
+		break;
 	case AState::SitThrow:
 		printLog("SitThrow");
+		break;
+	case AState::Push:
+		printLog("Push");
+		break;
 	default:
 		printLog("Else");
+
 		break;
 	}
 }

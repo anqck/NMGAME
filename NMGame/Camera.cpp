@@ -123,14 +123,14 @@ void Camera::Update(AladdinCharacter* object)
 	//	break;
 	//}
 	
-	//Left
-	if (object->getCurrentState() == AState::LookUp)
-	{
-		if ( mPosition.y < aladdinY + 550)
-			this->mVelocity.y = 10;
+	////Left
+	//if (object->getCurrentState() == AState::LookUp)
+	//{
+	//	if ( mPosition.y < aladdinY + 550)
+	//		this->mVelocity.y = 10;
 
-	}
-	else
+	//}
+	//else
 	{
 		if (aladdinX < cameraX - DELTA_CAMERA)
 		{

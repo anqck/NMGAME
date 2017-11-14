@@ -11,7 +11,7 @@ void ObjectStateWithLoop::nextFrame()
 
 	if (flagLoop)
 	{
-		if (mCurrentIdx == mEndIdx - 1)
+		if (mCurrentIdx == mEndIdx - 1 )
 			mCurrentIdx = this->mStartLoopIdx;
 		else
 			mCurrentIdx += 1;
@@ -20,10 +20,14 @@ void ObjectStateWithLoop::nextFrame()
 	}
 	else
 	{
-		if (this->GetCurrentIdx() == this->mStartLoopIdx)
+		mCurrentIdx = mCurrentIdx + 1 ;
+
+		if (this->GetCurrentIdx()  == this->GetEndIdx() - 1)
+		{
 			flagLoop = true;
 
-		mCurrentIdx = (mCurrentIdx + mEndIdx - 1) % mEndIdx;
+		}
+		
 	}
 
 

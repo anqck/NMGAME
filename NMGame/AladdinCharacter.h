@@ -30,7 +30,8 @@ enum AState
 	SitThrow,
 	RunAttack,
 	StandJump,
-	JumpAttack
+	JumpAttack,
+	Push
 };
 
 
@@ -82,13 +83,12 @@ protected:
 	float					mStopWalkThresHold;
 	bool					mIsStopAnimation;
 
-	int						mJumpHeight;
+
 	bool					mIsGrounded;
-	bool					mIsReachJumpHeight;
-	bool					mIsFalling;
+	bool					mWallCollision;
+
 	float					_yCollision;
-	bool					_flagGroundCollision;
-	GameVisibleEntity*		_StandingGround;
+
 
 	bool					allowAttack;
 	bool					allowJump;
