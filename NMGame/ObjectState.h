@@ -16,7 +16,10 @@ public:
 	virtual void		Render();
 	virtual void		Update(float DeltaTime);
 	virtual void		Animate(float DeltaTime);
+
 	void				Move(float delta_time);
+	void				MoveVertical(float delta_time, Direction dirVer);
+
 	virtual void		nextFrame();	
 	virtual bool		isDone();
 
@@ -25,7 +28,7 @@ public:
 	void				GoToLastFrameIdx();
 
 	D3DXVECTOR3			GetPosition() { return this->mPosition; };
-	void				SetPosition(D3DXVECTOR3 Position) { this->mPosition = Position;};
+	void				SetPosition(D3DXVECTOR3 Position) { this->mPosition = Position; this->mSprite->SetPosition(Position);};
 	void				SetPosition(int X, int Y) { this->mPosition.x = X; this->mPosition.y = Y; 	};
 
 	D3DXVECTOR2			GetVelocity();

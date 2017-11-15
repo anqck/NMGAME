@@ -171,6 +171,7 @@
     <ClCompile Include="ObjectStateWithLoop.cpp" />
     <ClCompile Include="QNode.cpp" />
     <ClCompile Include="QuadTree.cpp" />
+    <ClCompile Include="Rope.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StoppingDust.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="ObjectStateWithLoop.h" />
     <ClInclude Include="QNode.h" />
     <ClInclude Include="QuadTree.h" />
+    <ClInclude Include="Rope.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StoppingDust.h" />

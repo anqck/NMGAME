@@ -23,7 +23,7 @@ StoppingDust::StoppingDust(D3DXVECTOR3 pos, Direction dir)
 	temp.push_back(MyRECT(35, 0, 39, 71));
 	temp.push_back(MyRECT(35, 40, 78, 71));
 	temp.push_back(MyRECT(52, 79, 101, 82));
-	mState = new ObjectState(temp, 13, L"AladdinCharacter\\StoppingDust.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom);
+	mState = new ObjectState(temp, 20, L"AladdinCharacter\\StoppingDust.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom);
 	temp.clear();
 	this->mState->SetPosition(pos);
 
@@ -31,6 +31,7 @@ StoppingDust::StoppingDust(D3DXVECTOR3 pos, Direction dir)
 
 StoppingDust::~StoppingDust()
 {
+	delete mState;
 }
 
 void StoppingDust::Update(float DeltaTime)

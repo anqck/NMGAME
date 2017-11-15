@@ -2,6 +2,7 @@
 
 #include "Camel.h"
 #include "Ground.h"
+#include "Rope.h"
 
 CTreeObject::CTreeObject()
 {
@@ -29,6 +30,8 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 	{
 	case  EObjectID::GROUND:
 		return new Ground();
+	case  EObjectID::ROPE:
+		return new Rope();
 	case EObjectID::CAMEL:
 		return new Camel(pos);
 	}

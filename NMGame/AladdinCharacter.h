@@ -37,7 +37,13 @@ enum AState
 	JumpThrow,
 	RunThrow,
 	Wait1,
-	Wait2
+	Wait2,
+	RopeJump,
+	SwingWait,
+	SwingAttack,
+	SwingThrow,
+	SwingMove,
+	Couple
 };
 
 
@@ -71,7 +77,9 @@ public:
 
 	void			CheckCollision(float DeltaTime, vector<GameVisibleEntity*> mListObjectInViewPort);
 	void			processCollision(float DeltaTime, GameVisibleEntity *obj, CollisionResult collision);
+
 	void			CheckCollisionWithGround(float DeltaTime, vector<GameVisibleEntity*> mListGround);
+	void			CheckCollisionWithRope(float DeltaTime, vector<GameVisibleEntity*> mListRope);
 
 	MyRECT			GetBoundingBox();
 
@@ -93,6 +101,11 @@ protected:
 	bool					mIsGrounded;
 	bool					mWallCollision;
 
+	bool					mRopeCollision;
+	bool					mRopeIntersects;
+	bool					mReachTopRope;
+
+
 	float					_yCollision;
 
 
@@ -111,6 +124,7 @@ protected:
 	vector<ThrowingApple*>	mListThrowingApple;	//Các táo ném ra
 						
 	vector<GameVisibleEntity*> mListGround;
+	vector<GameVisibleEntity*> mListRope;
 };
 
 #endif _ALADDIN_H__

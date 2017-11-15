@@ -44,7 +44,7 @@ void GraphicsHelper::Initialize()
 		return;
 	}
 
-	this->mDirectDevice->Clear(
+	this->mDirectDevice->Clear(	
 		0,
 		NULL,
 		D3DCLEAR_TARGET,

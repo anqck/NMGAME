@@ -59,7 +59,7 @@ void ObjectState::Update(float DeltaTime)
 	else
 	{
 		this->Move(DeltaTime);
-		this->mSprite->SetPosition(mPosition);
+		
 	}
 		
 
@@ -84,8 +84,14 @@ void ObjectState::Animate(float DeltaTime)
 void ObjectState::Move(float delta_time)
 {
 
-	SetPosition(this->GetPosition().x + (mVelocity.x * delta_time  ) , this->GetPosition().y + GetVelocity().y * delta_time + 0.5 *  this->mAcceleration.y * pow(delta_time, 2));
+	SetPosition(this->GetPosition().x + (mVelocity.x * delta_time  ) , this->GetPosition().y + GetVelocity().y * delta_time );
+	this->mSprite->SetPosition(mPosition);
+}
 
+void ObjectState::MoveVertical(float delta_time, Direction dirVer)
+{
+	SetPosition(this->GetPosition().x + (mVelocity.x * delta_time),  this->GetPosition().y + ((dirVer == Up) ? (1) : (-1)) * GetVelocity().y * delta_time );
+	this->mSprite->SetPosition(mPosition);
 }
 
 void ObjectState::nextFrame()

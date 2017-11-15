@@ -38,15 +38,10 @@ protected:
 	DemoMap					*mMap;
 	AladdinCharacter		*mAladdin;
 	AladdinGame				*mGame;
-	Camel					*mCamel;
+
 	bool					allowAttack;
 
 	QuadTree				*mQuadTree;
-
-
-	int						mNumberOfSprite;
-	int						mMainIdx;
-	vector<AladdinCharacter*>	mAladdinHelperArr;
 
 	vector<GameVisibleEntity*>	mListObjectInViewPort;
 };

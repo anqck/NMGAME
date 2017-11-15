@@ -86,7 +86,8 @@ namespace NMGame_MapEditor
         {
             switch (selectedIndex)
             {
-                case EObjectID.GROUND:                
+                case EObjectID.GROUND:
+                case EObjectID.ROPE:
                     return false;
                 case EObjectID.ENEMY:
                 case EObjectID.CAMEL:
@@ -100,7 +101,7 @@ namespace NMGame_MapEditor
             switch (selectedIndex)
             {
                 case EObjectID.GROUND:
-                
+                case EObjectID.ROPE:
                     return false;
                 case EObjectID.CAMEL:
                 case EObjectID.ENEMY:
