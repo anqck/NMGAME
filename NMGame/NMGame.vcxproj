@@ -173,6 +173,7 @@
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Rope.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StoppingDust.cpp" />
     <ClCompile Include="ThrowApple.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Global.h" />
     <ClInclude Include="GraphicsHelper.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="IntroScene.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="KeyboardHelper.h" />
     <ClInclude Include="Map.h" />

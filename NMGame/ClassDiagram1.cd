@@ -23,28 +23,28 @@
   <Class Name="Camel" Collapsed="true">
     <Position X="1.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgQBAAAAAAAAAQAAAAAAAAAIAAAAAAAIABAAAQEAAEA=</HashCode>
+      <HashCode>AAQAAAAACAAAAEAAAAAAAAAIAAAAAAAIABAAAAAAAAA=</HashCode>
       <FileName>Camel.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Camera" Collapsed="true">
     <Position X="10.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAQCAABAACAAAAAAQAAAAAAABAAAAgAAAAgAAAAAAgA=</HashCode>
+      <HashCode>EAQCAABAACAABAAAQAMAAAAABAAAAgAAgAgEAAAwAgI=</HashCode>
       <FileName>Camera.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GAME">
     <Position X="0.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgUBAgAAAABAAwAAAEAAAAAAAAAwAAAAAAAIQgAAAAI=</HashCode>
+      <HashCode>AgUBAgAAAABAAwAAAEAAAAAAAAAwAAAAAAAIQAAAAAI=</HashCode>
       <FileName>Game.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameVisibleEntity" Collapsed="true">
     <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAACAAAAAAQEAAAAIAgAAAAgCAABgAAAAAAgA=</HashCode>
+      <HashCode>AAQIEAAAACAABAAAQEAAgAYggAAAAgSAABgAAAAAAgI=</HashCode>
       <FileName>GameVisibleEntity.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -58,7 +58,7 @@
   <Class Name="GraphicsHelper" Collapsed="true">
     <Position X="13.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>FAQgAAAAAAAAAUAAgAAAAAAERAAACQAAACAIAAAAAAA=</HashCode>
+      <HashCode>FAQgAAAAAAAAAUAAgAAAAAAERAAACQAAAGAIAAAAAAA=</HashCode>
       <FileName>GraphicsHelper.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -79,14 +79,14 @@
   <Class Name="MyRECT" Collapsed="true">
     <Position X="12" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAQQAAAAAAAAAQAAAAAAAAAAAAACAAAAAAABAAAIE=</HashCode>
       <FileName>MyRECT.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Sprite" Collapsed="true">
+  <Class Name="Sprite">
     <Position X="10.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAESAAAABAAAAAQAAAAEAACgAYIBIAAgABEgI=</HashCode>
+      <HashCode>ABAgAAAAESAAAABAAAAAQAIEAEAACgAYIBIEAgABEgI=</HashCode>
       <FileName>Sprite.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -100,33 +100,33 @@
   <Class Name="AladdinCharacter" Collapsed="true">
     <Position X="4.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AARAKAAAAACAIMAQAAAAAAMAgAIgAMACIBAggQACAAQ=</HashCode>
+      <HashCode>AARBKIgABACFIeAQAEBwAAMggAIgUMKKIBCggQACAAQ=</HashCode>
       <FileName>AladdinCharacter.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ObjectState" Collapsed="true">
     <Position X="6.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IyQAAIAEALAAIABAUEAFAAQAEAAACkAAAFgAAQSAAkA=</HashCode>
+      <HashCode>IyQCAIAEALAAIABAUEAFAASAEAAACkAAAFgEAQSAAkA=</HashCode>
       <FileName>ObjectState.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ObjectStateWithLoop" Collapsed="true">
     <Position X="6.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAACAAAAAAAAAgCAAA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAEAAACAAAAAAAAAgCAAA=</HashCode>
       <FileName>ObjectStateWithLoop.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DemoScene">
     <Position X="2.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAQBAAAAAACRAAEBABAAAAACAAIgAAAAEBAAgCAAAAA=</HashCode>
+      <HashCode>gAQBEAAAAACBAAABAAAAAAAAAAIgQACAEBAAgAAAAAQ=</HashCode>
       <FileName>DemoScene.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IScene">
-    <Position X="0.75" Y="3.25" Width="1.5" />
+    <Position X="0.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQBAAAAAACAAAAAAAAAAAAAAAIgAAAAABAAAAAAAAA=</HashCode>
       <FileName>IScene.h</FileName>
@@ -156,15 +156,15 @@
   <Enum Name="AState" Collapsed="true">
     <Position X="10.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAABCAAAAAAAACAAEAAAAACACIAAgAAACIAAAAAA=</HashCode>
+      <HashCode>AAwQABBSAAQAAACACIAUAACAQCgiIAAgAAIDIAAACCA=</HashCode>
       <FileName>AladdinCharacter.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Direction" Collapsed="true">
     <Position X="12" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
-      <FileName>AladdinCharacter.h</FileName>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAEAAAI=</HashCode>
+      <FileName>Global.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
