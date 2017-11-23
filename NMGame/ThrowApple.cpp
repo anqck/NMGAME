@@ -6,12 +6,23 @@ ThrowingApple::ThrowingApple()
 
 ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 {
+	mCollisioned = false;
+
+	this->mID = EObjectID::THROWINGAPPLE;
+
 	this->mPosition = pos;
 	this->mTime = 0;
 	this->mDone = 0;
 	this->mCurrentState = ThrowingAppleState::Normal;
 
 	this->mDir = dir;
+
+	mWidth = 20;
+	mHeight = 20;
+	mBoundingBox.left = this->mPosition.x - mWidth / 2;
+	mBoundingBox.right = this->mPosition.x + mWidth / 2;
+	mBoundingBox.top = this->mPosition.y + mHeight;
+	mBoundingBox.bottom = this->mPosition.y;
 
 	vector<MyRECT> temp;
 
@@ -33,6 +44,8 @@ ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 	//this->mState->SetPosition(pos);
 	temp.clear();
 
+	this->mVelocity = D3DXVECTOR2(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 0.68, 0.1);
+	this->mState.at(mCurrentState)->SetVelocity(this->mVelocity);
 }
 
 ThrowingApple::~ThrowingApple()
@@ -41,31 +54,52 @@ ThrowingApple::~ThrowingApple()
 
 void ThrowingApple::Update(float DeltaTime)
 {
+	this->mState.at(mCurrentState)->Update(DeltaTime);
+	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
+
 	switch (mCurrentState)
 	{
 	case ThrowingAppleState::Normal:
-		this->mState.at(mCurrentState)->Update(mTime);
-		mTime += DeltaTime / 13;
-
-
-		this->mState.at(mCurrentState)->SetVelocity(((mDir == Direction::Left) ? (1.0f) : (-1.0f)) * 1.2, 0.5);
-		this->mState.at(mCurrentState)->SetAcceleration(((mDir == Direction::Left) ? (1.0f) : (-1.0f)) * 0, -0.07);
-
-		if (this->mState.at(mCurrentState)->GetPosition().y < WORLD_Y - MAP_HEIGHT + 90)
+		if (!mCollisioned)
 		{
-			this->mCurrentState = ThrowingAppleState::Explosion;
-			this->mState.at(mCurrentState)->SetPosition(this->mState.at(0)->GetPosition());
-
-			//mDone = true;
-			//this->mState->SetPosition(D3DXVECTOR3(100.0f, WORLD_Y - MAP_HEIGHT + 90, 0));
+			this->mState.at(mCurrentState)->SetVelocity(this->mVelocity.x, this->mState.at(mCurrentState)->GetVelocity().y - 0.04);
+			//this->mVelocity = this->mState.at(mCurrentState)->GetVelocity();
 		}
+		else
+		{
+			this->mState.at(mCurrentState)->SetVelocity(0, 0);
+			mCurrentState = ThrowingAppleState::Explosion;
+			this->mState.at(mCurrentState)->SetPosition(this->mPosition);
+		}
+			
+		//this->mState.at(mCurrentState)->Update(DeltaTime);
+		//mTime += DeltaTime / 13;
 
-		this->mPosition = this->mState.at(mCurrentState)->GetPosition();
-		this->mState.at(mCurrentState)->mSprite->SetPosition(mPosition);
+	
+	
+		
+
+		//this->mState.at(mCurrentState)->SetVelocity(((mDir == Direction::Left) ? (1.0f) : (-1.0f)) * 1.2, 0.5);
+		//this->mState.at(mCurrentState)->SetAcceleration(((mDir == Direction::Left) ? (1.0f) : (-1.0f)) * 0, -0.07);
+
+		//if (this->mState.at(mCurrentState)->GetPosition().y < WORLD_Y - MAP_HEIGHT + 90)
+		//{
+		//	this->mCurrentState = ThrowingAppleState::Explosion;
+		//	this->mState.at(mCurrentState)->SetPosition(this->mState.at(0)->GetPosition());
+
+		//	//mDone = true;
+		//	//this->mState->SetPosition(D3DXVECTOR3(100.0f, WORLD_Y - MAP_HEIGHT + 90, 0));
+		//}
+
+		//this->mPosition = this->mState.at(mCurrentState)->GetPosition();
+		//this->mState.at(mCurrentState)->mSprite->SetPosition(mPosition);
 		break;
+
+
 	case ThrowingAppleState::Explosion:
 	{
-		this->mState.at(mCurrentState)->Update(DeltaTime);
+		
+		this->mPosition = this->mState.at(mCurrentState)->GetPosition();
 
 		if (this->mState.at(mCurrentState)->isDone())
 		{
@@ -76,14 +110,43 @@ void ThrowingApple::Update(float DeltaTime)
 	}
 
 	}
+
+	mBoundingBox.left = this->mPosition.x - mWidth / 2;
+	mBoundingBox.right = this->mPosition.x + mWidth / 2;
+	mBoundingBox.top = this->mPosition.y + mHeight;
+	mBoundingBox.bottom = this->mPosition.y;
 }
 
 void ThrowingApple::Render(float DeltaTime) 
 {
+
+	GameVisibleEntity::Render(DeltaTime);
+
 	this->mState.at(mCurrentState)->Render();
+}
+
+ObjectState* ThrowingApple::GetCurrentState()
+{
+	return this->mState.at(mCurrentState);
 }
 
 bool ThrowingApple::isDone()
 {
 	return mDone;
+}
+
+void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision)
+{
+	switch ((EObjectID)obj->GetID())
+	{
+	case EObjectID::GROUND:
+	case EObjectID::CAMEL:
+		//this->mVelocity = D3DXVECTOR2(0, 0);
+		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
+		//this->mCurrentState = ThrowingAppleState::Explosion;
+
+		mCollisioned = true;
+		//this->mState.at(mCurrentState)->SetPosition(this->mState.at(0)->GetPosition().x + this->mState.at(0)->GetVelocity().x*collision.EntryTime, this->mState.at(0)->GetPosition().y + this->mState.at(0)->GetVelocity().y * collision.EntryTime);
+		break;
+	}
 }

@@ -20,15 +20,30 @@ void DemoScene::Update(float DeltaTime)
 
 	mListObjectInViewPort = mQuadTree->GetListObjectInViewport(Camera::GetInstance()->GetBoundingBoxInWorldAxis());	
 
+	CheckCollision(DeltaTime);
+
 	for (int i = 0; i < mListObjectInViewPort.size(); i++)
 	{
+		
 		//this->mAladdinHelper->processCollision(DeltaTime, mListObjectInViewPort.at(i));
 		mListObjectInViewPort.at(i)->Update(DeltaTime);
 	}
-	CheckCollision(DeltaTime);
-	
+
+	for (int i = 0; i < mListFlyingObject.size(); i++)
+	{
+		if (mListFlyingObject.at(i)->isDone() == true)
+		{
+			delete mListFlyingObject.at(i);
+			mListFlyingObject.erase(mListFlyingObject.begin() + i);
+			i--;
+		}
+		else
+			mListFlyingObject.at(i)->Update(DeltaTime);
+	}
 
 	this->mAladdin->Update(DeltaTime);
+
+	
 	
 	Camera::GetInstance()->Update(this->mAladdin);	
 
@@ -63,6 +78,12 @@ void DemoScene::Render(float DeltaTime)
 	{
 		mListObjectInViewPort.at(i)->Render(DeltaTime);
 	}
+
+	for (int i = 0; i < mListFlyingObject.size(); i++)
+	{
+		mListFlyingObject.at(i)->Render(DeltaTime);
+	}
+
 
 	this->mAladdin->Render(DeltaTime);
 
@@ -116,8 +137,33 @@ void DemoScene::ProcessInput()
 
 void DemoScene::CheckCollision(float DeltaTime)
 {
-	
-
 	mAladdin->CheckCollision(DeltaTime, mListObjectInViewPort);
+
+
+	//Kiểm tra flying object với các object khác
+		for (int i = 0; i < mListFlyingObject.size() ; i++)
+		{
+			for (int j = 0; j < mListObjectInViewPort.size(); j++)
+			{
+				CollisionResult res = Collision::SweptAABB(DeltaTime, mListFlyingObject.at(i)->GetBoundingBox(), this->mListFlyingObject.at(i)->GetCurrentState()->GetVelocity(), mListObjectInViewPort.at(j)->GetBoundingBox(), D3DXVECTOR2(0, 0));
+				if (res.EntryTime < 1 && res.EntryTime >= 0)
+				{
+					mListFlyingObject.at(i)->processCollision(DeltaTime, mListObjectInViewPort.at(j), res);
+					//mListObjectInViewPort.at(j)->processCollision(DeltaTime, mListFlyingObject.at(i), res);
+				}
+			}
+		}
 	
+	/*for (int i = 0; i < mListObjectInViewPort.size(); i++)
+	{
+		for (int j = j + 1 ; i < mListObjectInViewPort.size() - 1; i++)
+		{
+			
+		}
+	}*/
+}
+
+void DemoScene::AddFlyingObject(GameVisibleEntity *obj)
+{
+	mListFlyingObject.push_back(obj);
 }

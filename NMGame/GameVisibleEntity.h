@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef __OBJECT_H__
 #define __OBJECT_H__
 #include "Global.h"
@@ -6,14 +6,43 @@
 #include "MyRECT.h"
 #include "Sprite.h"
 #include "ViewPort.h"
+#include "Collision.h"
+#include "ObjectState.h"
 
 enum EObjectID
 {
 	GROUND,
 	ROPE,
 	STAIR,
+	WALL,
+	FIREGROUND,
+	COLLAPSEGROUND,
+	SLIDECOLUMN,
+	SWINGBAR,
+	JUMPBAR,
+	BLOCK,
+
+	APPLE, //Cộng táo
+	LAMP, //Đụng vào enemy trên màn hết máu
+	HEATH, //Cộng máu
+	GENIE, //Cộng điểm
+	MONKEY, //Cộng điẻm
+	GEM,//Cộng gem + điểm
+	CHECKPOINT,
+
 	CAMEL,
-	ENEMY
+
+	ENEMY1,
+	ENEMY2,
+	ENEMY3,
+	ENEMY4,
+	ENEMY5, //Núp trong bình, quăng táo 0 dame
+	THROWPOT,
+	TRADER, //bán hàng
+
+	THROWINGAPPLE, //Táo quăng ra
+	THROWINGCAMEL //Lạc đà bắn ra
+
 };
 
 class GameVisibleEntity {
@@ -32,6 +61,10 @@ protected:
 	float					mTime;
 	int						ANIMATE_RATE;
 
+	bool					mCanBeAttack;
+	bool					mCanAttack;
+
+	
 public:
 	GameVisibleEntity();
 	GameVisibleEntity( D3DXVECTOR3 pos);
@@ -55,7 +88,11 @@ public:
 
 	virtual MyRECT			GetBoundingBox();
 	void					SetBoundingBox(MyRECT rect);
+
+	virtual ObjectState*		GetCurrentState();
+	virtual bool				isDone() { return false; };
 	
+	virtual void processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
 };
 

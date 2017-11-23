@@ -4,18 +4,27 @@
 GameVisibleEntity::GameVisibleEntity()
 {
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
+
+	this->mCanAttack = false;
+	this->mCanBeAttack = false;
 }
 
 
 GameVisibleEntity::GameVisibleEntity( D3DXVECTOR3 pos)
 {
 	this->mPosition = pos;
+
+	this->mCanAttack = false;
+	this->mCanBeAttack = false;
 }
 
 GameVisibleEntity::GameVisibleEntity( int X, int Y)
 {
 	this->mPosition.x = X;
 	this->mPosition.y = Y;
+
+	this->mCanAttack = false;
+	this->mCanBeAttack = false;
 }
 
 void GameVisibleEntity::Render(float DeltaTime)
@@ -88,14 +97,16 @@ TransformObject GameVisibleEntity::GetTransformPosition()
 
 MyRECT GameVisibleEntity::GetBoundingBox()
 {
+
 	//mBoundingBox.left = mPosition.x - mWidth / 2;
 	//mBoundingBox.right = mPosition.x + mWidth / 2;
-	//
+
 	///*mBoundingBox.top = mPosition.y - mHeight / 2;
 	//mBoundingBox.bottom = mPosition.y + mHeight / 2;*/
 
-	//mBoundingBox.top = mPosition.y  ;
-	//mBoundingBox.bottom = mPosition.y + mHeight;
+	//mBoundingBox.top = mPosition.y + mHeight;
+	//mBoundingBox.bottom = mPosition.y;
+
 
 
 	return mBoundingBox;
@@ -105,3 +116,14 @@ void GameVisibleEntity::SetBoundingBox(MyRECT rect)
 {
 	this->mBoundingBox = rect;
 }
+
+ObjectState * GameVisibleEntity::GetCurrentState()
+{
+	return nullptr;
+}
+
+void GameVisibleEntity::processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision)
+{
+}
+
+

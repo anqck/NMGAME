@@ -2,7 +2,7 @@
 #ifndef IScene_H
 #define IScene_H
 
-
+#include "GameVisibleEntity.h"
 
 
 //Interface contact between "Game" class and "GameSence" class
@@ -17,7 +17,7 @@ public:
 	virtual void OnKeyUp(int keyCode) = 0;
 	virtual void LoadResource() = 0;
 
-	
+	virtual void AddFlyingObject(GameVisibleEntity* obj) = 0;
 	//virtual bool IsDead() = 0;
 };
 

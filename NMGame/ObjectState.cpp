@@ -62,9 +62,6 @@ void ObjectState::Update(float DeltaTime)
 		
 	}
 		
-
-	
-	
 }
 
 void ObjectState::Animate(float DeltaTime)
@@ -84,7 +81,7 @@ void ObjectState::Animate(float DeltaTime)
 void ObjectState::Move(float delta_time)
 {
 
-	SetPosition(this->GetPosition().x + (mVelocity.x * delta_time  ) , this->GetPosition().y + GetVelocity().y * delta_time );
+	SetPosition(this->GetPosition().x + (mVelocity.x * delta_time  ) , this->GetPosition().y + GetVelocity().y * delta_time  );
 	this->mSprite->SetPosition(mPosition);
 }
 
@@ -148,10 +145,10 @@ D3DXVECTOR2 ObjectState::GetVelocity()
 	else
 		return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);*/
 
-	if (mIsFlipVertical == true && this->mVelocity.x > 0)
-		return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
-	else if (mIsFlipVertical == false && this->mVelocity.x < 0)
-		return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
+	//if (mIsFlipVertical == true && this->mVelocity.x > 0)
+	//	return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
+	//else if (mIsFlipVertical == false && this->mVelocity.x < 0)
+	//	return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
 
 	return this->mVelocity;
 }
@@ -160,10 +157,10 @@ void ObjectState::SetVelocity(float X, float Y)
 {
 	 this->mVelocity.x = X; this->mVelocity.y = Y; 
 
-	 if (mIsFlipVertical == true && this->mVelocity.x > 0)
-		 this->mVelocity = D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
-	 else if (mIsFlipVertical == false && this->mVelocity.x < 0)
-		 this->mVelocity =  D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
+	 //if (mIsFlipVertical == true && this->mVelocity.x > 0)
+		// this->mVelocity = D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
+	 //else if (mIsFlipVertical == false && this->mVelocity.x < 0)
+		// this->mVelocity =  D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
 }
 
 
