@@ -1,8 +1,4 @@
 ﻿
-
-
-
-
 #pragma once
 #include "GameVisibleEntity.h"
 #include "ObjectStateWithLoop.h"

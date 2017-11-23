@@ -3,17 +3,20 @@
 Camel::Camel()
 {
 	this->mID = EObjectID::CAMEL;
+
+	this->mCanBeHitByFlyingObject = true;
+
+	mWidth = 150;
+	mHeight = 100;
+	
 }
 
-Camel::Camel(D3DXVECTOR3 pos)
+Camel::Camel(D3DXVECTOR3 pos) : Camel()
 {
-	this->mID = EObjectID::CAMEL;
-
 	this->mPosition = pos;
 
 	this->mCurrentState = CamelState::JumpOn;
-	this->mInteractBoundingBox = MyRECT(0, 0, 0, 0);
-
+	
 	std::vector<MyRECT> temp;
 
 	temp.push_back(MyRECT(0, 0, 170, 60));
@@ -34,14 +37,14 @@ Camel::Camel(D3DXVECTOR3 pos)
 	this->mState.at(1)->SetPosition(pos);
 	temp.clear();
 
-	this->mCanBeAttack = true;
+
 }
 
 Camel::~Camel()
 {
 }
 
-void Camel::Render(float DeltaTime)
+void Camel::Render(float DeltaTime) 
 {
 	GameVisibleEntity::Render(DeltaTime);
 
@@ -51,7 +54,6 @@ void Camel::Render(float DeltaTime)
 
 void Camel::Update(float DeltaTime)
 {
-
 	this->mState.at(mCurrentState)->Update(mTime);
 
 }

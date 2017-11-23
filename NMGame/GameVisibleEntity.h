@@ -37,12 +37,13 @@ enum EObjectID
 	ENEMY3,
 	ENEMY4,
 	ENEMY5, //Núp trong bình, quăng táo 0 dame
-	THROWPOT,
+	THROWPOTENEMY,
 	TRADER, //bán hàng
 
+	ALADDIN,
 	THROWINGAPPLE, //Táo quăng ra
-	THROWINGCAMEL //Lạc đà bắn ra
-
+	THROWINGCAMEL, //Lạc đà bắn ra
+	THROWINGPOT
 };
 
 class GameVisibleEntity {
@@ -62,8 +63,11 @@ protected:
 	float					mTime;
 	int						ANIMATE_RATE;
 
+	bool					mCanBeHitByFlyingObject;
+	bool					mInteractWithInteractBB;
 	bool					mCanBeAttack;
-	bool					mCanAttack;
+	
+	bool					mDone;
 
 	
 public:
@@ -89,14 +93,22 @@ public:
 
 	virtual MyRECT			GetBoundingBox();
 	void					SetBoundingBox(MyRECT rect);
+	void					UpdateBoundingBox();
 
 	virtual MyRECT			GetInteractBoundingBox();
 	void					SetInteractBoundingBox(MyRECT rect);
 
+	bool					GetCanBeHitByFlyingObject();
+	bool					GetInteractWithInteractBB();
+	bool					GetCanBeAttack();
+
 	virtual ObjectState*		GetCurrentState();
-	virtual bool				isDone() { return false; };
+	virtual bool				isDone() { return mDone; };
 	
 	virtual void processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
+
+	//Intersect rect process
+	virtual void processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
 
 };
 

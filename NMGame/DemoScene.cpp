@@ -24,8 +24,7 @@ void DemoScene::Update(float DeltaTime)
 
 	for (int i = 0; i < mListObjectInViewPort.size(); i++)
 	{
-		
-		//this->mAladdinHelper->processCollision(DeltaTime, mListObjectInViewPort.at(i));
+
 		mListObjectInViewPort.at(i)->Update(DeltaTime);
 	}
 
@@ -140,20 +139,70 @@ void DemoScene::CheckCollision(float DeltaTime)
 	mAladdin->CheckCollision(DeltaTime, mListObjectInViewPort);
 
 
-	//Kiểm tra flying object với các object khác
+	//Kiểm tra flying object với các object khác và chính nó
 		for (int i = 0; i < mListFlyingObject.size() ; i++)
 		{
 			for (int j = 0; j < mListObjectInViewPort.size(); j++)
 			{
-				CollisionResult res = Collision::SweptAABB(DeltaTime, mListFlyingObject.at(i)->GetBoundingBox(), this->mListFlyingObject.at(i)->GetCurrentState()->GetVelocity(), mListObjectInViewPort.at(j)->GetBoundingBox(), D3DXVECTOR2(0, 0));
-				if (res.EntryTime < 1 && res.EntryTime >= 0)
+				if (mListObjectInViewPort.at(j)->GetCanBeHitByFlyingObject()) //Kiểm tra Object có thể va chạm với flying obj không, giảm số lần kt SweptAABB
 				{
-					mListFlyingObject.at(i)->processCollision(DeltaTime, mListObjectInViewPort.at(j), res);
-					//mListObjectInViewPort.at(j)->processCollision(DeltaTime, mListFlyingObject.at(i), res);
+					CollisionResult res = Collision::SweptAABB(DeltaTime, mListFlyingObject.at(i)->GetBoundingBox(), this->mListFlyingObject.at(i)->GetCurrentState()->GetVelocity(), mListObjectInViewPort.at(j)->GetBoundingBox(), D3DXVECTOR2(0, 0));
+					if (res.EntryTime < 1 && res.EntryTime >= 0)
+					{
+						mListFlyingObject.at(i)->processCollision(DeltaTime, mListObjectInViewPort.at(j), res);
+						mListObjectInViewPort.at(j)->processCollision(DeltaTime, mListFlyingObject.at(i), res);
+					}
 				}
+			}
+
+
+			//Kiểm tra với các flying object khác(vd ThrowApple vs ThrowPot) 
+			for (int j = 0; j < mListFlyingObject.size(); j++)
+			{
+				if (i == j)
+					continue;
+
+				if (mListFlyingObject.at(j)->GetCanBeHitByFlyingObject()) //Kiểm tra Object có thể va chạm với flying obj không, giảm số lần kt SweptAABB
+				{
+					CollisionResult res = Collision::SweptAABB(DeltaTime, mListFlyingObject.at(i)->GetBoundingBox(), this->mListFlyingObject.at(i)->GetCurrentState()->GetVelocity(), this->mListFlyingObject.at(j)->GetBoundingBox(), this->mListFlyingObject.at(j)->GetCurrentState()->GetVelocity());
+					if (res.EntryTime < 1 && res.EntryTime >= 0)
+					{
+						mListFlyingObject.at(i)->processCollision(DeltaTime, this->mListFlyingObject.at(j), res);
+						mListFlyingObject.at(j)->processCollision(DeltaTime, mListFlyingObject.at(i), res);
+					}
+				}
+			}
+
+			//Kiểm tra vc với Aladdin
+			if (this->mListFlyingObject.at(i)->GetCanBeAttack())
+			{
+				if(mAladdin->getCurrentState() == AState::Attack1 || mAladdin->getCurrentState() == AState::SitAttack || mAladdin->getCurrentState() == AState::JumpAttack)
+					mListFlyingObject.at(i)->processCollisionAABB(this->mAladdin, this->mAladdin->GetAttackBoundingBox().Intersects(mListFlyingObject.at(i)->GetBoundingBox()),CollisionWith::SwordBoundingBox);
 			}
 		}
 	
+
+		
+		for (int i = 0; i < mListObjectInViewPort.size(); i++)
+		{
+			//Check collision with Object interact with InteractBB
+			if (mListObjectInViewPort.at(i)->GetInteractWithInteractBB())
+			{
+				mListObjectInViewPort.at(i)->processCollisionAABB(this->mAladdin, this->mAladdin->GetBoundingBox().Intersects(mListObjectInViewPort.at(i)->GetInteractBoundingBox()), CollisionWith::InteractBoundingBox);
+			}
+
+			//Check collision with Object can be attack and Aladdin
+			if (this->mListObjectInViewPort.at(i)->GetCanBeAttack())
+			{
+				if (mAladdin->getCurrentState() == AState::Attack1 || mAladdin->getCurrentState() == AState::SitAttack || mAladdin->getCurrentState() == AState::JumpAttack)
+					mListObjectInViewPort.at(i)->processCollisionAABB(this->mAladdin, this->mAladdin->GetAttackBoundingBox().Intersects(mListObjectInViewPort.at(i)->GetBoundingBox()), CollisionWith::SwordBoundingBox);
+			}
+
+		}
+
+		
+
+
 	/*for (int i = 0; i < mListObjectInViewPort.size(); i++)
 	{
 		for (int j = j + 1 ; i < mListObjectInViewPort.size() - 1; i++)

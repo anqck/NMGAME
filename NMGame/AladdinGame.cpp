@@ -14,7 +14,7 @@ void AladdinGame::LoadResource()
 
 	//Temp code
 	//DemoScene* scene = new DemoScene(this);
-	IntroScene * scene = new IntroScene();
+	DemoScene * scene = new DemoScene();
 	scene->LoadResource();
 	this->AddScene(scene);
 	SceneManager::GetInstance()->ReplaceScene(scene);

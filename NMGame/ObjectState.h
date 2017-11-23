@@ -49,6 +49,8 @@ public:
 	int					GetEndIdx() { return this->mEndIdx; };
 
 	bool				GetIsNextFrame(); //Kiểm tra xem có cấp nhật frame idx tiếp theo trong lệnh Animate hay không
+
+	MyRECT				GetCurrentFrameBoundingBox();
 	
 
 	Sprite*				mSprite;

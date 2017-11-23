@@ -1,8 +1,6 @@
 #include "ThrowApple.h"
+#include "ThrowPot.h"
 
-ThrowingApple::ThrowingApple()
-{
-}
 
 ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 {
@@ -14,16 +12,15 @@ ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 	this->mTime = 0;
 	this->mDone = 0;
 	this->mCurrentState = ThrowingAppleState::Normal;
+
 	this->mInteractBoundingBox = MyRECT(0, 0, 0, 0);
+	this->mBoundingBox = MyRECT(0, 0, 0, 0);
+	
 
 	this->mDir = dir;
 
 	mWidth = 20;
 	mHeight = 20;
-	mBoundingBox.left = this->mPosition.x - mWidth / 2;
-	mBoundingBox.right = this->mPosition.x + mWidth / 2;
-	mBoundingBox.top = this->mPosition.y + mHeight;
-	mBoundingBox.bottom = this->mPosition.y;
 
 	vector<MyRECT> temp;
 
@@ -112,10 +109,7 @@ void ThrowingApple::Update(float DeltaTime)
 
 	}
 
-	mBoundingBox.left = this->mPosition.x - mWidth / 2;
-	mBoundingBox.right = this->mPosition.x + mWidth / 2;
-	mBoundingBox.top = this->mPosition.y + mHeight;
-	mBoundingBox.bottom = this->mPosition.y;
+	//UpdateBoundingBox();
 }
 
 void ThrowingApple::Render(float DeltaTime) 
@@ -142,12 +136,20 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 	{
 	case EObjectID::GROUND:
 	case EObjectID::CAMEL:
-		//this->mVelocity = D3DXVECTOR2(0, 0);
+	case EObjectID::THROWPOTENEMY:
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
-		//this->mCurrentState = ThrowingAppleState::Explosion;
-
 		mCollisioned = true;
-		//this->mState.at(mCurrentState)->SetPosition(this->mState.at(0)->GetPosition().x + this->mState.at(0)->GetVelocity().x*collision.EntryTime, this->mState.at(0)->GetPosition().y + this->mState.at(0)->GetVelocity().y * collision.EntryTime);
+		break;
+	case EObjectID::THROWINGPOT:
+		//this->mVelocity = D3DXVECTOR2(0, 0);
+		if (((ThrowPot*)obj)->GetCurrentStateID() == ThrowPotState::ThrowPot_Normal)
+
+		{
+			this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
+			mCollisioned = true;
+
+		}
+		
 		break;
 	}
 }

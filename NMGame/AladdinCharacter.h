@@ -84,6 +84,7 @@ public:
 	void			CheckCollisionWithRope(float DeltaTime, vector<GameVisibleEntity*> mListRope);
 
 	MyRECT			GetBoundingBox();
+	MyRECT			GetAttackBoundingBox();
 
 	void			PrintLogState();
 

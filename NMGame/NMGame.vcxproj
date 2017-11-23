@@ -177,7 +177,8 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StoppingDust.cpp" />
     <ClCompile Include="ThrowApple.cpp" />
-    <ClCompile Include="THROWPOT.cpp" />
+    <ClCompile Include="ThrowPot.cpp" />
+    <ClCompile Include="ThrowPotEnemy.cpp" />
     <ClCompile Include="Ultils.cpp" />
     <ClCompile Include="ViewPort.cpp" />
   </ItemGroup>
@@ -211,6 +212,8 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StoppingDust.h" />
     <ClInclude Include="ThrowApple.h" />
+    <ClInclude Include="ThrowPot.h" />
+    <ClInclude Include="ThrowPotEnemy.h" />
     <ClInclude Include="Ultils.h" />
     <ClInclude Include="ViewPort.h" />
   </ItemGroup>

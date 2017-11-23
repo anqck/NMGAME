@@ -17,7 +17,7 @@ public:
 	virtual void OnKeyUp(int keyCode) = 0;
 	virtual void LoadResource() = 0;
 
-	virtual void AddFlyingObject(GameVisibleEntity* obj) = 0;
+	virtual void AddFlyingObject(GameVisibleEntity* obj) {};
 	//virtual bool IsDead() = 0;
 };
 

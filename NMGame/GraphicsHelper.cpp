@@ -134,18 +134,18 @@ void GraphicsHelper::DrawSurface(const RECT * sourceRect, const RECT * desRect)
 {
 }
 
-void GraphicsHelper::DrawLine(D3DXVECTOR2 lines[], int count)
+void GraphicsHelper::DrawLine(D3DXVECTOR2 lines[], int count, D3DXCOLOR color)
 {
 	LPD3DXLINE LineDraw	;
 
 	D3DXCreateLine(GraphicsHelper::GetDirectDevice(), &LineDraw);
 	LineDraw->SetWidth(3);
 	LineDraw->Begin();
-	LineDraw->Draw(lines, count, D3DCOLOR_XRGB(255, 0, 0));
+	LineDraw->Draw(lines, count, color);
 	LineDraw->End();
 }
 
-void GraphicsHelper::DrawBoundingBox(MyRECT rect)
+void GraphicsHelper::DrawBoundingBox(MyRECT rect,D3DXCOLOR color)
 {
 	D3DXVECTOR3 cameraPositionInView = ViewPort::GetInstance()->getViewPortPosition(Camera::GetInstance()->GetPosition());
 
@@ -163,7 +163,7 @@ void GraphicsHelper::DrawBoundingBox(MyRECT rect)
 		D3DXVECTOR2(lt.x + trans.x, rb.y + trans.y),
 		D3DXVECTOR2(lt.x + trans.x, lt.y + trans.y) };
 
-		DrawLine(lines, 5);
+		DrawLine(lines, 5, color);
 }
 
 GraphicsHelper::GraphicsHelper()

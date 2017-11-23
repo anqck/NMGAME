@@ -14,7 +14,7 @@ enum ThrowingAppleState
 class ThrowingApple : public GameVisibleEntity
 {
 public:
-	ThrowingApple();
+	ThrowingApple() : GameVisibleEntity() {};
 	ThrowingApple(D3DXVECTOR3	pos, Direction dir) ;
 	ThrowingApple(D3DXVECTOR3	pos, Direction dir, D3DXVECTOR2 defaultVelocity) :ThrowingApple(pos, dir) { this->mVelocity = defaultVelocity; };
 	~ThrowingApple();

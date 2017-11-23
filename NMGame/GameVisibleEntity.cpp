@@ -5,10 +5,14 @@ GameVisibleEntity::GameVisibleEntity()
 {
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
 
+	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = MyRECT(0, 0, 0, 0);
 
-	this->mCanAttack = false;
+	this->mCanBeHitByFlyingObject = false;
+	this->mInteractWithInteractBB = false;
 	this->mCanBeAttack = false;
+
+	mDone = false;
 }
 
 
@@ -16,10 +20,14 @@ GameVisibleEntity::GameVisibleEntity( D3DXVECTOR3 pos)
 {
 	this->mPosition = pos;
 
+	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = MyRECT(0,0,0,0);
 
-	this->mCanAttack = false;
+	this->mCanBeHitByFlyingObject = false;
+	this->mInteractWithInteractBB = false;
 	this->mCanBeAttack = false;
+
+	mDone = false;
 }
 
 GameVisibleEntity::GameVisibleEntity( int X, int Y)
@@ -27,20 +35,26 @@ GameVisibleEntity::GameVisibleEntity( int X, int Y)
 	this->mPosition.x = X;
 	this->mPosition.y = Y;
 
+	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = MyRECT(0, 0, 0, 0);
 
-	this->mCanAttack = false;
+	this->mCanBeHitByFlyingObject = false;
+	this->mInteractWithInteractBB = false;
 	this->mCanBeAttack = false;
+	
+	mDone = false;
 }
 
 void GameVisibleEntity::Render(float DeltaTime)
 {
-	GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetBoundingBox());
+	if(KeyboardHelper::GetInstance()->IsKeyDown(DIK_1))
+		GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetBoundingBox(), D3DCOLOR_XRGB(255, 0, 0));
 
-	if (this->mInteractBoundingBox.bottom != this->mInteractBoundingBox.top != this->mInteractBoundingBox.left != this->mInteractBoundingBox.right != 0)
-	{
-		GraphicsHelper::GetInstance()->DrawBoundingBox(this->mInteractBoundingBox);
-	}
+	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_2))
+		/*if (this->mInteractBoundingBox.bottom != this->mInteractBoundingBox.top != this->mInteractBoundingBox.left != this->mInteractBoundingBox.right != 0)
+		{*/
+			GraphicsHelper::GetInstance()->DrawBoundingBox(this->mInteractBoundingBox, D3DCOLOR_XRGB(0, 0, 255));
+		//}
 }
 
 void GameVisibleEntity::Update(float DeltaTime)
@@ -108,24 +122,22 @@ TransformObject GameVisibleEntity::GetTransformPosition()
 
 MyRECT GameVisibleEntity::GetBoundingBox()
 {
-	if (this->mInteractBoundingBox.bottom != this->mInteractBoundingBox.top != this->mInteractBoundingBox.left != this->mInteractBoundingBox.right != 0)
+	if (this->mBoundingBox.bottom == 0 && this->mBoundingBox.top == 0 && this->mBoundingBox.left == 0 && this->mBoundingBox.right == 0)
 	{
-		mBoundingBox.left = mPosition.x - mWidth / 2;
-		mBoundingBox.right = mPosition.x + mWidth / 2;
-
-		/*mBoundingBox.top = mPosition.y - mHeight / 2;
-		mBoundingBox.bottom = mPosition.y + mHeight / 2;*/
-
-		mBoundingBox.top = mPosition.y + mHeight;
-		mBoundingBox.bottom = mPosition.y;
+		return MyRECT(mPosition.y + mHeight, mPosition.x - mWidth / 2, mPosition.x + mWidth / 2, mPosition.y);
 	}
-	
-	return mBoundingBox;
+	else
+		return mBoundingBox;
 }
 
 void GameVisibleEntity::SetBoundingBox(MyRECT rect)
 {
 	this->mBoundingBox = rect;
+}
+
+void GameVisibleEntity::UpdateBoundingBox()
+{
+	this->mBoundingBox = MyRECT(mPosition.y + mHeight, mPosition.x - mWidth / 2, mPosition.x + mWidth / 2, mPosition.y);
 }
 
 MyRECT GameVisibleEntity::GetInteractBoundingBox()
@@ -138,6 +150,21 @@ void GameVisibleEntity::SetInteractBoundingBox(MyRECT rect)
 	this->mInteractBoundingBox = rect;
 }
 
+bool GameVisibleEntity::GetCanBeHitByFlyingObject()
+{
+	return this->mCanBeHitByFlyingObject;
+}
+
+bool GameVisibleEntity::GetInteractWithInteractBB()
+{
+	return this->mInteractWithInteractBB;
+}
+
+bool GameVisibleEntity::GetCanBeAttack()
+{
+	return this->mCanBeAttack;
+}
+
 ObjectState * GameVisibleEntity::GetCurrentState()
 {
 	return nullptr;
@@ -145,6 +172,14 @@ ObjectState * GameVisibleEntity::GetCurrentState()
 
 void GameVisibleEntity::processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision)
 {
+}
+
+void GameVisibleEntity::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith)
+{
+	
+	
+
+
 }
 
 

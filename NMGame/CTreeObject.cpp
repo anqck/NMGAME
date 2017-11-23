@@ -3,6 +3,7 @@
 #include "Camel.h"
 #include "Ground.h"
 #include "Rope.h"
+#include "ThrowPotEnemy.h"
 
 CTreeObject::CTreeObject()
 {
@@ -17,7 +18,7 @@ CTreeObject::CTreeObject(int key, int id, D3DXVECTOR3 pos, MyRECT bb)
 
 	this->mGameObject = NewGameObject(id, pos, bb);
 	//this->mGameObject->SetID((EObjectID) id);
-	this->mGameObject->SetBoundingBox(bb);
+	this->mGameObject->SetInteractBoundingBox(bb);
 }
 
 CTreeObject::~CTreeObject()
@@ -29,12 +30,13 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 	switch ((EObjectID)id)
 	{
 	case  EObjectID::GROUND:
-		return new Ground();
+		return new Ground(bb);
 	case  EObjectID::ROPE:
-		return new Rope();
+		return new Rope(bb);
 	case EObjectID::CAMEL:
-	case EObjectID::THROWPOT:
 		return new Camel(pos);
+	case EObjectID::THROWPOTENEMY:
+		return new ThrowPotEnemy(pos);
 	}
 }
 

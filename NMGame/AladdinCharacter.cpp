@@ -43,7 +43,7 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 
 void AladdinCharacter::LoadResource()
 {
-
+	this->mID = EObjectID::ALADDIN;
 	vector<MyRECT> temp;
 
 
@@ -139,7 +139,7 @@ void AladdinCharacter::LoadResource()
 	temp.push_back(MyRECT(0, 93, 164, 33, D3DXVECTOR3(16.6, -1.2, 0)));
 	temp.push_back(MyRECT(0, 165, 210, 31, D3DXVECTOR3(4, -1.2, 0)));
 
-	this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinCharacter//SitAttack.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectState(temp, 17, L"AladdinCharacter//SitAttack.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
@@ -151,7 +151,7 @@ void AladdinCharacter::LoadResource()
 	temp.push_back(MyRECT(0, 0, 82, 52, D3DXVECTOR3(23, 0, 0)));
 	temp.push_back(MyRECT(0, 106, 157, 53));
 	temp.push_back(MyRECT(117, 0, 37, 167));
-	this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinCharacter//AladdinAttack.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectState(temp, 17, L"AladdinCharacter//AladdinAttack.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
@@ -256,6 +256,7 @@ void AladdinCharacter::LoadResource()
 	temp.push_back(MyRECT(60, 60, 113, 118));
 	temp.push_back(MyRECT(60, 0, 59, 115));
 
+
 	this->mAladdinState.push_back(new ObjectState(temp, 14, L"AladdinCharacter\\JumpAttack.png", D3DXVECTOR2(0, 0.8f), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
@@ -271,7 +272,7 @@ void AladdinCharacter::LoadResource()
 	temp.push_back(MyRECT(0, 0, 81, 44, D3DXVECTOR3(-32, 0.5, 0)));
 	temp.push_back(MyRECT(45, 78, 153, 89, D3DXVECTOR3(-29, 0.5, 0)));
 
-	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 9, L"AladdinCharacter\\Push.png", D3DXVECTOR2(0.2f, -0.2f), CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 10, L"AladdinCharacter\\Push.png", D3DXVECTOR2(0.2f, -0.2f),3, CenterArchor::CenterBottom));
 	temp.clear();
 
 	//LookUp attack
@@ -677,6 +678,9 @@ void AladdinCharacter::Update(float DeltaTime)
 
 void AladdinCharacter::Render(float DeltaTime)
 {
+	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_3))
+		GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetAttackBoundingBox(), D3DCOLOR_XRGB(255, 255, 0));
+
 	GameVisibleEntity::Render(DeltaTime);
 	//this->Transform();
 	this->mAladdinState.at(this->mCurrentState)->Render();
@@ -1246,6 +1250,71 @@ MyRECT AladdinCharacter::GetBoundingBox()
 
 
 	return mBoundingBox;;
+}
+
+MyRECT AladdinCharacter::GetAttackBoundingBox()
+{
+	switch (mCurrentState)
+	{
+	case AState::Attack1:
+		
+		switch (mAladdinState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 0:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right)?(0):(30)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-30) : (0)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 70);
+		case 1:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (-10) : (45)) , this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-45) : (10)) , this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 75);
+		case 2:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top + 5, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (-15) : (65)) , this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-65) : (15)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 100);
+		case 3:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top + 5, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (-15) : (45)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-45) : (15)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 120);
+		case 4:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top + 20, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (65) : (6)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-6) : (-65)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 20);
+		case 5:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top-40, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (20) : (6)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-6) : (-20)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 20);
+		default:
+			return MyRECT(0, 0, 0, 0);
+		}
+		break;
+	case AState::SitAttack:
+		switch (mAladdinState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top -30, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (10) : (25)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-25) : (-10)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom );
+		case 2:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top - 20, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (70) : (-5)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (5) : (-70)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 20);
+		case 3:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top - 20, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (100) : (-5)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (5) : (-100)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 20);
+		case 4:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top - 20, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (105) : (0)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (0) : (-105)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 25);
+		default:
+			return MyRECT(0, 0, 0, 0);
+		}
+		break;
+	case AState::JumpAttack:
+		switch (mAladdinState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top +10 , this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (0) : (60)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-60) : (0)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 55);
+		case 2:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top + 5 , this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (0) : (40)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-40) : (0)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 105);
+		case 3:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top + 5, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (-5) : (45)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-45) : (5)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 105);
+		case 4:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top - 10 , this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (70) : (10)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-10) : (-70)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom );
+		case 5:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top - 20, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (70) : (-10)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (10) : (-70)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 30);
+		case 6:
+			return MyRECT(this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().top - 70, this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (-10) : (5)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (-5) : (10)), this->mAladdinState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom );
+
+		default:
+			return MyRECT(0, 0, 0, 0);
+		}
+		break;
+	default:
+		return MyRECT(0, 0, 0, 0);
+
+	}
 }
 
 AState AladdinCharacter::getCurrentState()

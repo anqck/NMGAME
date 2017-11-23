@@ -3,11 +3,12 @@
 Ground::Ground()
 {
 	this->mID = EObjectID::GROUND;
+	this->mCanBeHitByFlyingObject = true;
+
 }
 
-Ground::Ground(MyRECT bb)
+Ground::Ground(MyRECT bb) : Ground()
 {
-	this->mID = EObjectID::GROUND;
-	this->mBoundingBox = MyRECT(bb.top,bb.left,bb.right,bb.bottom);
-	this->mInteractBoundingBox = MyRECT(0, 0, 0, 0);
+	this->mBoundingBox = bb;
+	this->mInteractBoundingBox = bb;
 }

@@ -1,67 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Aladdin">
-      <UniqueIdentifier>{90eac6a5-4388-4481-88e6-d4715f1667ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{fa8bd96b-37c4-4bda-8c4a-83461c0e8af0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Aladdin\Header">
-      <UniqueIdentifier>{85b884cb-c4c4-4754-8cc1-ff2823563940}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{173c0919-adf2-4af8-91b7-8396c6dd906b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework">
-      <UniqueIdentifier>{5d2dd06a-3fc2-415e-a6c5-8a97aa728df3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Demo">
-      <UniqueIdentifier>{40b303a9-ce18-4aa0-93ac-2a674add06f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\QuadTree">
-      <UniqueIdentifier>{e2745cea-d701-49e7-9df7-08c6193f879d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Intro">
-      <UniqueIdentifier>{5cccc704-f7b7-48ec-a8aa-31fff13ef2e1}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="AladdinCharacter.cpp">
-      <Filter>Aladdin</Filter>
+      <Filter>AladdinCharacter</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Scene</Filter>
+    <ClCompile Include="AladdinGame.cpp">
+      <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="AladdinState.cpp">
-      <Filter>Aladdin</Filter>
+      <Filter>AladdinCharacter</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Ultils.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="ViewPort.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="MyRECT.cpp">
-      <Filter>Framework</Filter>
+    <ClCompile Include="Camel.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework</Filter>
@@ -69,29 +20,44 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="CTreeObject.cpp">
+      <Filter>Framework\QuadTree</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoMap.cpp">
+      <Filter>Scene\Map</Filter>
+    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Camel.cpp">
+    <ClCompile Include="GameLog.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="GameVisibleEntity.cpp">
       <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="DemoScene.cpp">
-      <Filter>Scene\Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="DemoMap.cpp">
-      <Filter>Scene\Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsHelper.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyboardHelper.cpp">
-      <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="Global.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="ThrowApple.cpp">
+    <ClCompile Include="GraphicsHelper.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardHelper.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Scene\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MyRECT.cpp">
+      <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="ObjectState.cpp">
       <Filter>Object</Filter>
@@ -99,16 +65,10 @@
     <ClCompile Include="ObjectStateWithLoop.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="GameVisibleEntity.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="GameLog.cpp">
+    <ClCompile Include="SceneManager.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="AladdinGame.cpp">
+    <ClCompile Include="Sprite.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="QNode.cpp">
@@ -117,52 +77,35 @@
     <ClCompile Include="QuadTree.cpp">
       <Filter>Framework\QuadTree</Filter>
     </ClCompile>
-    <ClCompile Include="CTreeObject.cpp">
-      <Filter>Framework\QuadTree</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StoppingDust.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Rope.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-     <ClCompile Include="IntroScene.cpp">
-      <Filter>Scene\Intro</Filter>
-       <ClCompile Include="THROWPOT.cpp">
+    <ClCompile Include="StoppingDust.cpp">
       <Filter>Object</Filter>
-
     </ClCompile>
+    <ClCompile Include="ThrowApple.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Ultils.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewPort.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowPotEnemy.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowPot.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IScene.h">
-      <Filter>Scene</Filter>
+    <ClInclude Include="AladdinCharacter.h">
+      <Filter>AladdinCharacter</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Scene</Filter>
+    <ClInclude Include="AladdinGame.h">
+      <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="AladdinState.h">
-      <Filter>Aladdin\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinCharacter.h">
-      <Filter>Aladdin\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ThrowApple.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="DemoScene.h">
-      <Filter>Scene\Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="DemoMap.h">
-      <Filter>Scene\Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="GameLog.h">
-      <Filter>Framework</Filter>
+      <Filter>AladdinCharacter</Filter>
     </ClInclude>
     <ClInclude Include="Camel.h">
       <Filter>Object</Filter>
@@ -173,8 +116,23 @@
     <ClInclude Include="Collision.h">
       <Filter>Framework</Filter>
     </ClInclude>
+    <ClInclude Include="CTreeObject.h">
+      <Filter>Framework\QuadTree</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMap.h">
+      <Filter>Scene\Map</Filter>
+    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLog.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="GameVisibleEntity.h">
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Global.h">
       <Filter>Framework</Filter>
@@ -182,20 +140,23 @@
     <ClInclude Include="GraphicsHelper.h">
       <Filter>Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
     <ClInclude Include="KeyboardHelper.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Scene\Map</Filter>
     </ClInclude>
     <ClInclude Include="MyRECT.h">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Ultils.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="ViewPort.h">
-      <Filter>Framework</Filter>
+    <ClInclude Include="IScene.h">
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="ObjectState.h">
       <Filter>Object</Filter>
@@ -203,13 +164,10 @@
     <ClInclude Include="ObjectStateWithLoop.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Scene</Filter>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="GameVisibleEntity.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinGame.h">
+    <ClInclude Include="Sprite.h">
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="QNode.h">
@@ -218,21 +176,53 @@
     <ClInclude Include="QuadTree.h">
       <Filter>Framework\QuadTree</Filter>
     </ClInclude>
-    <ClInclude Include="CTreeObject.h">
-      <Filter>Framework\QuadTree</Filter>
+    <ClInclude Include="Rope.h">
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="StoppingDust.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Rope.h">
+    <ClInclude Include="ThrowApple.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="IntroScene.h">
-      <Filter>Scene\Intro</Filter>
+    <ClInclude Include="Ultils.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewPort.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowPot.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowPotEnemy.h">
+      <Filter>Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{6577f5dd-9b82-4012-9531-fdfd0e82ac8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{cbaea0e4-68c1-4be6-89be-e99b167ccadf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AladdinCharacter">
+      <UniqueIdentifier>{c8fc0ad8-9170-475b-a9c9-ba4a06c5a17a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\QuadTree">
+      <UniqueIdentifier>{376a5b95-dc75-49f3-ac8b-6f1931032c2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{73276929-5ef4-464d-a252-2321a648d01f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Map">
+      <UniqueIdentifier>{1e4e403c-7651-4116-81c9-71de24c1ffd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy">
+      <UniqueIdentifier>{c08d2cc6-0af3-404c-a30a-7f393b8b756f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

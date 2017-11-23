@@ -117,7 +117,8 @@ vector<GameVisibleEntity*> QuadTree::GetListObjectInViewport(MyRECT viewport)
 	this->ListObjectInViewport(viewport, mRoot);
 
 	for (map<int, CTreeObject*>	::iterator it = _mListObjectInViewport.begin(); it != _mListObjectInViewport.end(); ++it) {
-		mListObjectInViewport.push_back(it->second->GetGameObject());
+		if(!it->second->GetGameObject()->isDone())
+			mListObjectInViewport.push_back(it->second->GetGameObject());
 	}
 
 	return mListObjectInViewport;

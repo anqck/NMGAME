@@ -187,3 +187,8 @@ bool ObjectState::GetIsNextFrame()
 {
 	return isNextFrame;
 }
+
+MyRECT ObjectState::GetCurrentFrameBoundingBox()
+{
+	return mSprite->GetCurrentFrameBoundingBox();
+}
