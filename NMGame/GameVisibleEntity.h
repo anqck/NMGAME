@@ -57,6 +57,7 @@ protected:
 	D3DXVECTOR2				mVelocity;
 
 	MyRECT					mBoundingBox;
+	MyRECT					mInteractBoundingBox;
 
 	float					mTime;
 	int						ANIMATE_RATE;
@@ -88,6 +89,9 @@ public:
 
 	virtual MyRECT			GetBoundingBox();
 	void					SetBoundingBox(MyRECT rect);
+
+	virtual MyRECT			GetInteractBoundingBox();
+	void					SetInteractBoundingBox(MyRECT rect);
 
 	virtual ObjectState*		GetCurrentState();
 	virtual bool				isDone() { return false; };

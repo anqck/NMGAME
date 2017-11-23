@@ -2,13 +2,17 @@
 
 Camel::Camel()
 {
+	this->mID = EObjectID::CAMEL;
 }
 
 Camel::Camel(D3DXVECTOR3 pos)
 {
+	this->mID = EObjectID::CAMEL;
+
 	this->mPosition = pos;
 
 	this->mCurrentState = CamelState::JumpOn;
+	this->mInteractBoundingBox = MyRECT(0, 0, 0, 0);
 
 	std::vector<MyRECT> temp;
 

@@ -14,6 +14,7 @@ ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 	this->mTime = 0;
 	this->mDone = 0;
 	this->mCurrentState = ThrowingAppleState::Normal;
+	this->mInteractBoundingBox = MyRECT(0, 0, 0, 0);
 
 	this->mDir = dir;
 

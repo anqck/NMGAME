@@ -16,7 +16,7 @@ CTreeObject::CTreeObject(int key, int id, D3DXVECTOR3 pos, MyRECT bb)
 	this->mBoundingBox = MyRECT(bb);
 
 	this->mGameObject = NewGameObject(id, pos, bb);
-	this->mGameObject->SetID((EObjectID) id);
+	//this->mGameObject->SetID((EObjectID) id);
 	this->mGameObject->SetBoundingBox(bb);
 }
 
@@ -33,6 +33,7 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 	case  EObjectID::ROPE:
 		return new Rope();
 	case EObjectID::CAMEL:
+	case EObjectID::THROWPOT:
 		return new Camel(pos);
 	}
 }

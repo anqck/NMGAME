@@ -126,6 +126,9 @@
     <ClCompile Include="Rope.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="THROWPOT.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IScene.h">

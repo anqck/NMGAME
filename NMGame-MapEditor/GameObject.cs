@@ -112,9 +112,9 @@ namespace NMGame_MapEditor
             {
                 case EObjectID.GROUND:
                 case EObjectID.ROPE:
-                    return false;
-                case EObjectID.ENEMY1:
                 case EObjectID.CAMEL:
+                    return false;
+                case EObjectID.ENEMY1:               
                 default:
                     return true;
             }
