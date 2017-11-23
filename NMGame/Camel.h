@@ -26,6 +26,6 @@ public:
 protected:
 	vector<ObjectState*>		mState;	
 	CamelState					mCurrentState;
-
-		
+	
+	
 };

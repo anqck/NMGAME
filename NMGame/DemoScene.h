@@ -33,17 +33,20 @@ public:
 	void					CheckCollision(float DeltaTime);
 	
 
+	void					AddFlyingObject(GameVisibleEntity* obj);
 
-protected:
-	DemoMap					*mMap;
-	AladdinCharacter		*mAladdin;
-	AladdinGame				*mGame;
+protected:	
+	DemoMap						*mMap;
+	AladdinCharacter			*mAladdin;
+	AladdinGame					*mGame;
 
-	bool					allowAttack;
+	bool						allowAttack;
 
-	QuadTree				*mQuadTree;
+	QuadTree					*mQuadTree;
 
 	vector<GameVisibleEntity*>	mListObjectInViewPort;
+
+	vector<GameVisibleEntity*>		mListFlyingObject;	//Các táo ném ra
 };
 
 #endif

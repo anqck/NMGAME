@@ -177,6 +177,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StoppingDust.cpp" />
     <ClCompile Include="ThrowApple.cpp" />
+    <ClCompile Include="THROWPOT.cpp" />
     <ClCompile Include="Ultils.cpp" />
     <ClCompile Include="ViewPort.cpp" />
   </ItemGroup>

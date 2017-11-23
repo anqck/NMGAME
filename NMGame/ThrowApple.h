@@ -5,6 +5,7 @@
 #include "KeyboardHelper.h"
 #include "Global.h"
 
+
 enum ThrowingAppleState
 {
 	Normal,
@@ -14,15 +15,18 @@ class ThrowingApple : public GameVisibleEntity
 {
 public:
 	ThrowingApple();
-	ThrowingApple(D3DXVECTOR3	pos, Direction dir);
+	ThrowingApple(D3DXVECTOR3	pos, Direction dir) ;
+	ThrowingApple(D3DXVECTOR3	pos, Direction dir, D3DXVECTOR2 defaultVelocity) :ThrowingApple(pos, dir) { this->mVelocity = defaultVelocity; };
 	~ThrowingApple();
 
-	void				Update(float DeltaTime);
-	void				Render(float DeltaTime);
+	void						Update(float DeltaTime);
+	void						Render(float DeltaTime);
 
+	virtual ObjectState*		GetCurrentState();
 
-	bool				isDone();
+	bool						isDone();
 
+	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
 
 protected:
@@ -32,6 +36,6 @@ protected:
 	ThrowingAppleState			mCurrentState;
 
 	bool						mDone;
-
+	bool						mCollisioned;
 	 
 };
