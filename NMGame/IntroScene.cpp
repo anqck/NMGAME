@@ -1,10 +1,22 @@
 #include "IntroScene.h"
 
+IntroScene::IntroScene()
+{
+	Option = 0;
+
+}
+IntroScene::~IntroScene()
+{
+}
+
 void IntroScene::Update(float DeltaTime)
 {
-	
-	menuselectPos.x += 2;
-	if (menuselectPos.x == 120) menuselectPos.x=100;
+	_menuselect->Update(DeltaTime);
+
+	Option = (Option > 5 ? 0 : Option);
+	Option = (Option < 0 ? 5 : Option);
+
+	_menuselect->SetPosition(_menuselect->GetPosition().x, 270 - Between.y*Option);
 	
 }
 
@@ -30,14 +42,17 @@ void IntroScene::Render(float DeltaTime)
 	
 	Inchuoi(D3DXVECTOR3(200, 300, 0), Between, D3DXVECTOR2(1.5,1.5));
 
-	GraphicsHelper::GetInstance()->DrawTexture(this->menuselect, MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height), D3DXVECTOR3(0, 0, 0), menuselectPos, D3DXVECTOR2(2,2));
-
+	//GraphicsHelper::GetInstance()->DrawTexture(this->menuselect, MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height), D3DXVECTOR3(0, 0, 0), menuselectPos, D3DXVECTOR2(2,2));
+	
+	_menuselect->Render();
 
 }
 
 void IntroScene::LoadResource()
 {
-	menuselectPos = D3DXVECTOR3(100, 300, 0);
+	Camera::GetInstance()->SetPosition(0, GLOBAL::GetWindowsHeight());
+
+	//menuselectPos = D3DXVECTOR3(100, 300, 0);
 	Between = D3DXVECTOR2(20, 50);
 	D3DXGetImageInfoFromFile(L"Map\\menu.PNG", &BackGroundInfo);
 	this->BackGround = CreateSurfaceFromFile(GraphicsHelper::GetInstance()->GetDirectDevice(), L"Map\\menu.PNG");
@@ -87,6 +102,26 @@ void IntroScene::LoadResource()
 		NULL,
 		&menuselect);
 
+	vector<MyRECT> temp;
+
+	temp.push_back(MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height, D3DXVECTOR3(0, 0, 0)));
+	temp.push_back(MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height, D3DXVECTOR3(2, 0, 0)));
+	//temp.push_back(MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height, D3DXVECTOR3(4, 0, 0)));
+	temp.push_back(MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height, D3DXVECTOR3(6, 0, 0)));
+	temp.push_back(MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height, D3DXVECTOR3(8, 0, 0)));
+	temp.push_back(MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height, D3DXVECTOR3(8, 0, 0)));
+	temp.push_back(MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height, D3DXVECTOR3(6, 0, 0)));
+	//temp.push_back(MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height, D3DXVECTOR3(4, 0, 0)));
+	temp.push_back(MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height, D3DXVECTOR3(2, 0, 0)));
+	temp.push_back(MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height, D3DXVECTOR3(0, 0, 0)));
+	temp.push_back(MyRECT(0, 0, menuselectInfo.Width, menuselectInfo.Height, D3DXVECTOR3(0, 0, 0)));
+
+
+		
+	this->_menuselect = new ObjectStateWithLoop(temp, 60, L"Map\\menuselect.PNG", D3DXVECTOR2(0.0f, 0.0f), 0, CenterArchor::CenterBottom);
+	temp.clear();
+	_menuselect->SetPosition(D3DXVECTOR3(100, 270, 0));
+
 	BANGCHUCAI.push_back(MyRECT(17, 15, 29, 31));
 	BANGCHUCAI.push_back(MyRECT(47, 113, 119, 61));
 	BANGCHUCAI.push_back(MyRECT(47, 73, 83, 61));
@@ -123,7 +158,7 @@ void IntroScene::LoadResource()
 	BANGCHUCAI.push_back(MyRECT(0, 90, 104, 14));
 	BANGCHUCAI.push_back(MyRECT(30, 60, 74, 44));
 	BANGCHUCAI.push_back(MyRECT(0, 105, 117, 14));
-	BANGCHUCAI.push_back(MyRECT(47, 120, 124, 51));
+	BANGCHUCAI.push_back(MyRECT(47, 120, 124, 51, D3DXVECTOR3(0, -10, 0)));
 	BANGCHUCAI.push_back(MyRECT(45, 95, 103, 61));
 	BANGCHUCAI.push_back(MyRECT(47, 104, 112, 63));
 	BANGCHUCAI.push_back(MyRECT(0, 0, 0, 0));
@@ -131,22 +166,31 @@ void IntroScene::LoadResource()
 
 
 	Themchuoi("NHAP MON PHAT TRIEN GAME");
-	Themchuoi("098 1389693 ");
+	Themchuoi("PMCL2015.1");
 	Themchuoi("(TEST......) ");
-	Themchuoi("NHAP MON PHAT TRIEN GAME");
+	Themchuoi("CHAO MUNG NGAY NHA GIAO VN");
 	Themchuoi("098 1389693 ");
-	Themchuoi("(TEST......) ");
+	Themchuoi(".....PLAY.....");
 
 }
 void IntroScene::OnKeyDown(int keyCode)
 {
+	
 	switch (keyCode)
 	{
 	case VK_UP:
-		menuselectPos.y -= Between.y;
+		
+		Option--;
 		break;
 	case VK_DOWN:
-		menuselectPos.y += Between.y;
+		Option++;
+		break;
+	case VK_RETURN:
+	
+		//if (Option == 5) {
+			//this->AddScene(scene);
+			
+		//}
 		break;
 	case VK_ESCAPE:
 		PostMessage(GLOBAL::GetHWND(), WM_CLOSE, 0, 0);
@@ -160,6 +204,17 @@ void IntroScene::OnKeyUp(int keyCode)
 
 void IntroScene::ProcessInput()
 {
+	
+
+	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RETURN))
+	{
+		if (Option == 5)
+		{
+			DemoScene * scene = new DemoScene();
+			scene->LoadResource();
+			SceneManager::GetInstance()->ReplaceScene(scene);
+		}
+	}
 }
 
 void IntroScene::CheckCollision(float DeltaTime)
@@ -167,6 +222,7 @@ void IntroScene::CheckCollision(float DeltaTime)
 }
 void IntroScene::Themchuoi(string str)
 {
+	
 	vector<KYTU>			mARR;
 	for each (char var in str)
 	{
@@ -311,7 +367,7 @@ void IntroScene::Inchuoi(D3DXVECTOR3 position, D3DXVECTOR2 between, D3DXVECTOR2 
 	{
 		for each (KYTU var in varl)
 		{
-			GraphicsHelper::GetInstance()->DrawTexture(this->ABC, BANGCHUCAI.at(var), D3DXVECTOR3(0, 0, 0), POS, scale);
+			GraphicsHelper::GetInstance()->DrawTexture(this->ABC, BANGCHUCAI.at(var), BANGCHUCAI.at(var).GetCenterArchorPosision(CenterArchor::CenterTop), POS, scale);
 			POS.x += between.x;
 		}
 		POS.x = position.x;

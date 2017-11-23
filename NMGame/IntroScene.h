@@ -6,7 +6,7 @@
 #include "DemoMap.h"
 #include "Camera.h"
 #include "QuadTree.h"
-
+#include "DemoScene.h"
 #include "ThrowApple.h"
 
 enum KYTU
@@ -57,6 +57,8 @@ class IntroScene : public IScene
 
 
 public:
+	IntroScene();
+	~IntroScene();
 	void					Update(float DeltaTime);
 	void					Render(float DeltaTime);
 	void					LoadResource();
@@ -81,8 +83,11 @@ protected:
 
 	LPDIRECT3DTEXTURE9		menuselect;
 	D3DXIMAGE_INFO			menuselectInfo;
-	D3DXVECTOR3				menuselectPos;
+	//D3DXVECTOR3				menuselectPos;
 	D3DXVECTOR2				Between; // x theo phuong ngang, y theo phuong thang dung
 
+	ObjectStateWithLoop*		_menuselect;
+	int						Option;
+	
 
 };
