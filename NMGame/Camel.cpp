@@ -2,13 +2,17 @@
 
 Camel::Camel()
 {
+	this->mID = EObjectID::CAMEL;
 }
 
 Camel::Camel(D3DXVECTOR3 pos)
 {
+	this->mID = EObjectID::CAMEL;
+
 	this->mPosition = pos;
 
-	this->mCurrentState = CamelState::DoNothing1;
+	this->mCurrentState = CamelState::JumpOn;
+	this->mInteractBoundingBox = MyRECT(0, 0, 0, 0);
 
 	std::vector<MyRECT> temp;
 
@@ -29,6 +33,8 @@ Camel::Camel(D3DXVECTOR3 pos)
 	this->mState.at(0)->SetPosition(pos);
 	this->mState.at(1)->SetPosition(pos);
 	temp.clear();
+
+	this->mCanBeAttack = true;
 }
 
 Camel::~Camel()
@@ -45,7 +51,9 @@ void Camel::Render(float DeltaTime)
 
 void Camel::Update(float DeltaTime)
 {
+
 	this->mState.at(mCurrentState)->Update(mTime);
+
 }
 
 

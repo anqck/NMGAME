@@ -6,6 +6,7 @@
 #include "GameLog.h"
 #include "GameVisibleEntity.h"
 #include "ObjectStateWithLoop.h"
+#include "SceneManager.h"
 #include "Collision.h"
 #include "MyRECT.h"
 #include <vector>
@@ -43,7 +44,8 @@ enum AState
 	SwingAttack,
 	SwingThrow,
 	SwingMove,
-	Couple
+	Couple,
+	Falling
 };
 
 
@@ -87,7 +89,6 @@ public:
 
 protected:
 	vector<ObjectState*>	mAladdinState;
-
 	AState					mCurrentState;
 
 	Direction				mDir;
@@ -120,8 +121,9 @@ protected:
 	bool					flagKeyPressed ;
 
 	StoppingDust*			mStoppingDust;
+	//vector<ThrowingApple*>		mListThrowingApple;	//Các táo ném ra
 
-	vector<ThrowingApple*>	mListThrowingApple;	//Các táo ném ra
+	
 						
 	vector<GameVisibleEntity*> mListGround;
 	vector<GameVisibleEntity*> mListRope;

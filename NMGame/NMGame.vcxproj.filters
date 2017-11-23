@@ -129,8 +129,11 @@
     <ClCompile Include="Rope.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="IntroScene.cpp">
+     <ClCompile Include="IntroScene.cpp">
       <Filter>Scene\Intro</Filter>
+       <ClCompile Include="THROWPOT.cpp">
+      <Filter>Object</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

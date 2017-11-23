@@ -14,8 +14,32 @@ namespace NMGame_MapEditor
             GROUND,
             ROPE,
             STAIR,
+            WALL,
+            FIREGROUND,
+            COLLAPSEGROUND,
+            SLIDECOLUMN,
+            SWINGBAR,
+            JUMPBAR,
+            BLOCK,
+
+            APPLE, //Cộng táo
+            LAMP, //Đụng vào enemy trên màn hết máu
+            HEATH, //Cộng máu
+            GENIE, //Cộng điểm
+            MONKEY, //Cộng điẻm
+            GEM,//Cộng gem + điểm
+            CHECKPOINT,
+
             CAMEL,
-            ENEMY
+
+            ENEMY1,
+            ENEMY2,
+            ENEMY3,
+            ENEMY4,
+            ENEMY5, //Núp trong bình, quăng táo 0 dame
+            THROWPOT,
+            TRADER, //bán hàng
+
         }
 
 
@@ -88,9 +112,9 @@ namespace NMGame_MapEditor
             {
                 case EObjectID.GROUND:
                 case EObjectID.ROPE:
-                    return false;
-                case EObjectID.ENEMY:
                 case EObjectID.CAMEL:
+                    return false;
+                case EObjectID.ENEMY1:               
                 default:
                     return true;
             }
@@ -104,7 +128,7 @@ namespace NMGame_MapEditor
                 case EObjectID.ROPE:
                     return false;
                 case EObjectID.CAMEL:
-                case EObjectID.ENEMY:
+                case EObjectID.ENEMY1:
                 default:
                     return true;
             }
