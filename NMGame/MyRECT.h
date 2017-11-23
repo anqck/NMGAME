@@ -6,7 +6,8 @@ enum CenterArchor
 {
 	TopLeft,
 	CenterBottom,
-	Center
+	Center,
+	CenterTop
 };
 
 class MyRECT :public RECT

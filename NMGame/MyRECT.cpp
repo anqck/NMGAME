@@ -39,6 +39,8 @@ D3DXVECTOR3 MyRECT::GetCenterArchorPosision(CenterArchor mCenterArchor)
 		return D3DXVECTOR3(0, 0, 0);
 	case CenterArchor::Center:
 		return D3DXVECTOR3((this->right - this->left) / 2 + centerTranslation.x, (this->bottom - this->top)/2, 0);
+	case CenterArchor::CenterTop:
+		return D3DXVECTOR3((this->right - this->left) / 2 - centerTranslation.x , centerTranslation.y, 0);
 	default:
 		return D3DXVECTOR3(0, 0, 0);
 	}
