@@ -34,6 +34,9 @@
     <Filter Include="Framework\QuadTree">
       <UniqueIdentifier>{e2745cea-d701-49e7-9df7-08c6193f879d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\Intro">
+      <UniqueIdentifier>{5cccc704-f7b7-48ec-a8aa-31fff13ef2e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -126,8 +129,11 @@
     <ClCompile Include="Rope.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="THROWPOT.cpp">
+     <ClCompile Include="IntroScene.cpp">
+      <Filter>Scene\Intro</Filter>
+       <ClCompile Include="THROWPOT.cpp">
       <Filter>Object</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="Rope.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Scene\Intro</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

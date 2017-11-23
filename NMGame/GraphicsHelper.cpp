@@ -115,7 +115,7 @@ void GraphicsHelper::DrawTexture(LPDIRECT3DTEXTURE9 Texture, MyRECT sourceRect, 
 	
 	mSpriteHandler->Draw(Texture, &sourceRect, &center, &position, D3DCOLOR_XRGB(255, 255, 255));
 
-	mSpriteHandler->End();
+	mSpriteHandler-> End();
 
 	this->mSpriteHandler->SetTransform(&oldMatrix);
 }

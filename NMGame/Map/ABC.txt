@@ -1,0 +1,79 @@
+0 = 15 17 14 14
+1 = 113 47 6 14
+10 = 0 34 14 14
+11 = 15 32 14 14
+12 = 30 17 14 14
+13 = 0 49 14 14
+14 = 45 17 14 14
+15 = 0 0 14 16
+16 = 30 32 14 14
+17 = 15 47 14 14
+18 = 121 30 6 16
+19 = 112 30 8 16
+2 = 73 47 10 14
+20 = 15 0 14 16
+21 = 30 47 14 14
+22 = 45 32 14 14
+23 = 45 47 14 14
+24 = 60 0 14 14
+25 = 60 15 14 14
+26 = 30 0 14 16
+27 = 45 0 14 16
+28 = 75 30 12 16
+29 = 60 45 12 14
+3 = 118 0 8 14
+30 = 0 17 14 16
+31 = 75 0 14 14
+32 = 75 15 14 14
+33 = 90 0 14 14
+34 = 60 30 14 14
+35 = 105 0 12 14
+36 = 120 47 4 4
+37 = 95 45 8 16
+38 = 104 47 8 16
+4 = 90 15 12 14
+5 = 84 47 10 14
+6 = 103 15 12 14
+7 = 101 30 10 14
+8 = 116 15 10 14
+9 = 88 30 12 14
+
+temp.push_back(MyRECT(	17	,	15	,	29	,	31	));
+temp.push_back(MyRECT(	47	,	113	,	119	,	61	));
+temp.push_back(MyRECT(	47	,	73	,	83	,	61	));
+temp.push_back(MyRECT(	0	,	118	,	126	,	14	));
+temp.push_back(MyRECT(	15	,	90	,	102	,	29	));
+temp.push_back(MyRECT(	47	,	84	,	94	,	61	));
+temp.push_back(MyRECT(	15	,	103	,	115	,	29	));
+temp.push_back(MyRECT(	30	,	101	,	111	,	44	));
+temp.push_back(MyRECT(	15	,	116	,	126	,	29	));
+temp.push_back(MyRECT(	30	,	88	,	100	,	44	));
+temp.push_back(MyRECT(	34	,	0	,	14	,	48	));
+temp.push_back(MyRECT(	32	,	15	,	29	,	46	));
+temp.push_back(MyRECT(	17	,	30	,	44	,	31	));
+temp.push_back(MyRECT(	49	,	0	,	14	,	63	));
+temp.push_back(MyRECT(	17	,	45	,	59	,	31	));
+temp.push_back(MyRECT(	0	,	0	,	14	,	16	));
+temp.push_back(MyRECT(	32	,	30	,	44	,	46	));
+temp.push_back(MyRECT(	47	,	15	,	29	,	61	));
+temp.push_back(MyRECT(	30	,	121	,	127	,	46	));
+temp.push_back(MyRECT(	30	,	112	,	120	,	46	));
+temp.push_back(MyRECT(	0	,	15	,	29	,	16	));
+temp.push_back(MyRECT(	47	,	30	,	44	,	61	));
+temp.push_back(MyRECT(	32	,	45	,	59	,	46	));
+temp.push_back(MyRECT(	47	,	45	,	59	,	61	));
+temp.push_back(MyRECT(	0	,	60	,	74	,	14	));
+temp.push_back(MyRECT(	15	,	60	,	74	,	29	));
+temp.push_back(MyRECT(	0	,	30	,	44	,	16	));
+temp.push_back(MyRECT(	0	,	45	,	59	,	16	));
+temp.push_back(MyRECT(	30	,	75	,	87	,	46	));
+temp.push_back(MyRECT(	45	,	60	,	72	,	59	));
+temp.push_back(MyRECT(	17	,	0	,	14	,	33	));
+temp.push_back(MyRECT(	0	,	75	,	89	,	14	));
+temp.push_back(MyRECT(	15	,	75	,	89	,	29	));
+temp.push_back(MyRECT(	0	,	90	,	104	,	14	));
+temp.push_back(MyRECT(	30	,	60	,	74	,	44	));
+temp.push_back(MyRECT(	0	,	105	,	117	,	14	));
+temp.push_back(MyRECT(	47	,	120	,	124	,	51	));
+temp.push_back(MyRECT(	45	,	95	,	103	,	61	));
+temp.push_back(MyRECT(	47	,	104	,	112	,	63	));
