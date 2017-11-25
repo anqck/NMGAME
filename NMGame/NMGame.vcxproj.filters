@@ -44,9 +44,6 @@
     <ClCompile Include="GraphicsHelper.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="IntroScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -77,9 +74,6 @@
     <ClCompile Include="QuadTree.cpp">
       <Filter>Framework\QuadTree</Filter>
     </ClCompile>
-    <ClCompile Include="Rope.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="StoppingDust.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -95,7 +89,32 @@
     <ClCompile Include="ThrowPotEnemy.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="ThrowPot.cpp" />
+    <ClCompile Include="ThrowPot.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Object\StaticObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Object\StaticObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Stair.cpp">
+      <Filter>Object\StaticObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Rope.cpp">
+      <Filter>Object\StaticObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Apple.cpp" />
+    <ClCompile Include="Enemy3.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy1.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -140,9 +159,6 @@
     <ClInclude Include="GraphicsHelper.h">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="IntroScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -176,9 +192,6 @@
     <ClInclude Include="QuadTree.h">
       <Filter>Framework\QuadTree</Filter>
     </ClInclude>
-    <ClInclude Include="Rope.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="StoppingDust.h">
       <Filter>Object</Filter>
     </ClInclude>
@@ -191,10 +204,37 @@
     <ClInclude Include="ViewPort.h">
       <Filter>Framework</Filter>
     </ClInclude>
+    <ClInclude Include="ThrowPotEnemy.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
     <ClInclude Include="ThrowPot.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Stair.h">
+      <Filter>Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Rope.h">
+      <Filter>Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Apple.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="ThrowPotEnemy.h">
+    <ClInclude Include="Enemy.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy3.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy1.h">
       <Filter>Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
@@ -223,6 +263,9 @@
     </Filter>
     <Filter Include="Object\Enemy">
       <UniqueIdentifier>{c08d2cc6-0af3-404c-a30a-7f393b8b756f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\StaticObject">
+      <UniqueIdentifier>{66cb1264-192a-4a9e-b603-5af4a2901c65}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -53,6 +53,8 @@ namespace NMGame_MapEditor
         private int          mRight;
         private int          mBottom;
 
+        private MyRECT       mMoveRect;
+
   
         public int MLeft
         {
@@ -113,6 +115,7 @@ namespace NMGame_MapEditor
                 case EObjectID.GROUND:
                 case EObjectID.ROPE:
                 case EObjectID.CAMEL:
+                case EObjectID.APPLE:
                     return false;
                 case EObjectID.ENEMY1:               
                 default:
@@ -126,11 +129,31 @@ namespace NMGame_MapEditor
             {
                 case EObjectID.GROUND:
                 case EObjectID.ROPE:
+                case EObjectID.STAIR:
+                case EObjectID.WALL:
+                case EObjectID.BLOCK:
                     return false;
+                case EObjectID.APPLE:
                 case EObjectID.CAMEL:
                 case EObjectID.ENEMY1:
+                case EObjectID.ENEMY2:
+                case EObjectID.ENEMY3:
+                case EObjectID.ENEMY4:
+                case EObjectID.ENEMY5:
                 default:
                     return true;
+            }
+        }
+
+        internal static bool isObjectNeedMoveRect(EObjectID selectedIndex)
+        {
+            switch (selectedIndex)
+            {
+                case EObjectID.ENEMY1:
+                case EObjectID.ENEMY2:
+                    return true;
+                default:
+                    return false;
             }
         }
 
@@ -190,6 +213,7 @@ namespace NMGame_MapEditor
         {
 
         }
+
         public GameObject(int left, int top, int right, int bottom, EObjectID objID, int posX = 0, int posY = 0)
         {
             mLeft = left;
@@ -200,13 +224,37 @@ namespace NMGame_MapEditor
             mPositionX = posX;
             mPositionY = posY;
 
+            this.mMoveRect = new MyRECT(0,0,0,0);
+
+        }
+        public GameObject(int left, int top, int right, int bottom, MyRECT moveRect, EObjectID objID, int posX = 0, int posY = 0)
+        {
+            mLeft = left;
+            mTop = top;
+            mRight = right;
+            mBottom = bottom;
+            mObjID = objID;
+            mPositionX = posX;
+            mPositionY = posY;
+
+            this.mMoveRect = moveRect;
+
         }
 
+        internal Rectangle getMoveRect()
+        {
+            return new Rectangle(mMoveRect.MLeft, mMoveRect.MTop, mMoveRect.MRight - mMoveRect.MLeft, mMoveRect.MBottom - mMoveRect.MTop);
 
+        }
 
         public MyRECT getBoundingBoxInWorldAxis()
         {
-            return new MyRECT(this.MLeft, 9542 - this.MTop, 9542 - this.MBottom, this.MRight);
+            return new MyRECT(this.MLeft, 10494 - this.MTop, 10494 - this.MBottom, this.MRight);
+        }
+
+        public MyRECT getMoveRectInWorldAxis()
+        {
+            return new MyRECT(mMoveRect.MLeft, 10494 - mMoveRect.MTop, 10494 - mMoveRect.MBottom, mMoveRect.MRight);
         }
 
         internal static bool isObjectNeedPosition(GameObject obj)
@@ -222,7 +270,14 @@ namespace NMGame_MapEditor
 
         internal static Bitmap GetObjectImg(EObjectID id)
         {
-            return new Bitmap(NMGame_MapEditor.Properties.Resources.Camel);
+            switch (id)
+            {
+                case EObjectID.APPLE:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.Apple);
+                default:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.Camel);
+            }
+            
         }
 
 

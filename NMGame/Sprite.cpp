@@ -143,14 +143,14 @@ MyRECT Sprite::GetCurrentFrameBoundingBox()
 	return mBoundingBox;
 }
 
-void Sprite::Render()
+void Sprite::Render(DWORD AlphaValue)
 {
 	//Temp code
 	D3DXVECTOR2 tempScale = D3DXVECTOR2(((isFlipVertical)?-1:1) * 2, 2.5);
 
 	D3DXVECTOR3 center = this->mSourceRect.GetCenterArchorPosision(this->mCenterArchor);
 
-	GraphicsHelper::GetInstance()->DrawTexture(mTexture, this->mSourceRect, center,this->GetTransformPosition().mPosition, tempScale);
+	GraphicsHelper::GetInstance()->DrawTexture(mTexture, this->mSourceRect, center,this->GetTransformPosition().mPosition, tempScale,D3DXVECTOR2(0,0),0.0f, D3DXVECTOR2(0, 0),AlphaValue);
 	
 	//Draw Boundingbox for debug
 	//if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_3))

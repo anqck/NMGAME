@@ -31,6 +31,8 @@ public:
 	void					OnKeyUp(int keyCode);
 	void					ProcessInput();
 	void					CheckCollision(float DeltaTime);
+
+	
 	
 
 	void					AddFlyingObject(GameVisibleEntity* obj);

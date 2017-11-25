@@ -55,6 +55,8 @@ void ThrowingApple::Update(float DeltaTime)
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
 
+	this->mState.at(mCurrentState)->SetFlipVertical(((mDir == Direction::Right) ? (false) : (true)));
+
 	switch (mCurrentState)
 	{
 	case ThrowingAppleState::Normal:
@@ -137,6 +139,7 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 	case EObjectID::GROUND:
 	case EObjectID::CAMEL:
 	case EObjectID::THROWPOTENEMY:
+	case EObjectID::ENEMY1:
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 		mCollisioned = true;
 		break;

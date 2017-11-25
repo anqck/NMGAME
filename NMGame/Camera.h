@@ -29,6 +29,8 @@ private:
 	D3DXVECTOR3				mPosition;
 	int						mWidth, mHeight;
 
+	bool					mCameraChangeDir;
+
 	D3DXVECTOR2				mVelocity;
 
 	float					cameraX, cameraY; //Center of camera

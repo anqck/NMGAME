@@ -151,12 +151,17 @@
     <ClCompile Include="AladdinCharacter.cpp" />
     <ClCompile Include="AladdinGame.cpp" />
     <ClCompile Include="AladdinState.cpp" />
+    <ClCompile Include="Apple.cpp" />
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="Camel.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CTreeObject.cpp" />
     <ClCompile Include="DemoMap.cpp" />
     <ClCompile Include="DemoScene.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Enemy1.cpp" />
+    <ClCompile Include="Enemy3.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameLog.cpp" />
     <ClCompile Include="GameVisibleEntity.cpp" />
@@ -175,23 +180,30 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Stair.cpp" />
     <ClCompile Include="StoppingDust.cpp" />
     <ClCompile Include="ThrowApple.cpp" />
     <ClCompile Include="ThrowPot.cpp" />
     <ClCompile Include="ThrowPotEnemy.cpp" />
     <ClCompile Include="Ultils.cpp" />
     <ClCompile Include="ViewPort.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h" />
     <ClInclude Include="AladdinGame.h" />
     <ClInclude Include="AladdinState.h" />
+    <ClInclude Include="Apple.h" />
+    <ClInclude Include="Block.h" />
     <ClInclude Include="Camel.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CTreeObject.h" />
     <ClInclude Include="DemoMap.h" />
     <ClInclude Include="DemoScene.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enemy1.h" />
+    <ClInclude Include="Enemy3.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLog.h" />
     <ClInclude Include="GameVisibleEntity.h" />
@@ -210,12 +222,14 @@
     <ClInclude Include="Rope.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Stair.h" />
     <ClInclude Include="StoppingDust.h" />
     <ClInclude Include="ThrowApple.h" />
     <ClInclude Include="ThrowPot.h" />
     <ClInclude Include="ThrowPotEnemy.h" />
     <ClInclude Include="Ultils.h" />
     <ClInclude Include="ViewPort.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

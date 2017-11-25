@@ -19,6 +19,8 @@ public:
 	void						Render(float DeltaTime);
 	void						Update(float DeltaTime);
 
+	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
+
 protected:
 	vector<ObjectState*>		mState;	
 	CamelState					mCurrentState;

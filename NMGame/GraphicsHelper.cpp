@@ -87,7 +87,7 @@ LPDIRECT3DSURFACE9 GraphicsHelper::GetBackBuffer()
 	return this->mBackBuffer;
 }
 
-void GraphicsHelper::DrawTexture(LPDIRECT3DTEXTURE9 Texture, MyRECT sourceRect, D3DXVECTOR3 center, D3DXVECTOR3 position, D3DXVECTOR2 scale, D3DXVECTOR2 translation, float rotation, D3DXVECTOR2 rotationCenter)
+void GraphicsHelper::DrawTexture(LPDIRECT3DTEXTURE9 Texture, MyRECT sourceRect, D3DXVECTOR3 center, D3DXVECTOR3 position, D3DXVECTOR2 scale, D3DXVECTOR2 translation, float rotation, D3DXVECTOR2 rotationCenter, DWORD AlphaValue )
 {
 	D3DXVECTOR2	scalingCenter = position;
 
@@ -107,12 +107,21 @@ void GraphicsHelper::DrawTexture(LPDIRECT3DTEXTURE9 Texture, MyRECT sourceRect, 
 	this->mSpriteHandler->GetTransform(&oldMatrix);
 	this->mSpriteHandler->SetTransform(&mMatrix);
 
-	//D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top) / 2, 0);//Tâm của sprite cần vẽ
 	
+
+	//D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top) / 2, 0);//Tâm của sprite cần vẽ
+
 
 	mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-	
+
+
+	this->GetDirectDevice()->SetTextureStageState(0, D3DTSS_CONSTANT, AlphaValue);
+	this->GetDirectDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_CONSTANT);
+
+
+
+
 	mSpriteHandler->Draw(Texture, &sourceRect, &center, &position, D3DCOLOR_XRGB(255, 255, 255));
 
 	mSpriteHandler-> End();
@@ -143,6 +152,7 @@ void GraphicsHelper::DrawLine(D3DXVECTOR2 lines[], int count, D3DXCOLOR color)
 	LineDraw->Begin();
 	LineDraw->Draw(lines, count, color);
 	LineDraw->End();
+
 }
 
 void GraphicsHelper::DrawBoundingBox(MyRECT rect,D3DXCOLOR color)

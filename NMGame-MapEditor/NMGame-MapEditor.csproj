@@ -99,10 +99,16 @@
     <None Include="Resources\Map.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MapLevel1.png" />
+    <None Include="Resources\camel_transpa.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Camel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Apple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MapLevel1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

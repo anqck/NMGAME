@@ -4,6 +4,7 @@
 GameVisibleEntity::GameVisibleEntity()
 {
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
+	this->mVelocity = D3DXVECTOR2(0, 0);
 
 	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = MyRECT(0, 0, 0, 0);
@@ -11,6 +12,7 @@ GameVisibleEntity::GameVisibleEntity()
 	this->mCanBeHitByFlyingObject = false;
 	this->mInteractWithInteractBB = false;
 	this->mCanBeAttack = false;
+	this->mCanAttack = false;
 
 	mDone = false;
 }
@@ -19,6 +21,7 @@ GameVisibleEntity::GameVisibleEntity()
 GameVisibleEntity::GameVisibleEntity( D3DXVECTOR3 pos)
 {
 	this->mPosition = pos;
+	this->mVelocity = D3DXVECTOR2(0, 0);
 
 	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = MyRECT(0,0,0,0);
@@ -26,6 +29,7 @@ GameVisibleEntity::GameVisibleEntity( D3DXVECTOR3 pos)
 	this->mCanBeHitByFlyingObject = false;
 	this->mInteractWithInteractBB = false;
 	this->mCanBeAttack = false;
+	this->mCanAttack = false;
 
 	mDone = false;
 }
@@ -35,12 +39,15 @@ GameVisibleEntity::GameVisibleEntity( int X, int Y)
 	this->mPosition.x = X;
 	this->mPosition.y = Y;
 
+	this->mVelocity = D3DXVECTOR2(0, 0);
+
 	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = MyRECT(0, 0, 0, 0);
 
 	this->mCanBeHitByFlyingObject = false;
 	this->mInteractWithInteractBB = false;
 	this->mCanBeAttack = false;
+	this->mCanAttack = false;
 	
 	mDone = false;
 }
@@ -59,6 +66,7 @@ void GameVisibleEntity::Render(float DeltaTime)
 
 void GameVisibleEntity::Update(float DeltaTime)
 {
+
 }
 
 D3DXVECTOR3 GameVisibleEntity::getViewPortPosition()
@@ -150,6 +158,11 @@ void GameVisibleEntity::SetInteractBoundingBox(MyRECT rect)
 	this->mInteractBoundingBox = rect;
 }
 
+MyRECT GameVisibleEntity::GetAttackBoundingBox()
+{
+	return MyRECT(0,0,0,0);
+}
+
 bool GameVisibleEntity::GetCanBeHitByFlyingObject()
 {
 	return this->mCanBeHitByFlyingObject;
@@ -163,6 +176,11 @@ bool GameVisibleEntity::GetInteractWithInteractBB()
 bool GameVisibleEntity::GetCanBeAttack()
 {
 	return this->mCanBeAttack;
+}
+
+bool GameVisibleEntity::GetCanAttack()
+{
+	return this->mCanAttack;
 }
 
 ObjectState * GameVisibleEntity::GetCurrentState()

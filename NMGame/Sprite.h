@@ -52,6 +52,6 @@ public:
 	MyRECT				GetCurrentFrameBoundingBox();
 		
 	// Render current sprite at location (X,Y) at the target surface
-	void				Render();
+	void				Render( DWORD AlphaValue = D3DCOLOR_ARGB(255, 255, 255, 255));
 	
 };
