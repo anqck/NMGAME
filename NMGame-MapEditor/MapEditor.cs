@@ -16,7 +16,8 @@ namespace NMGame_MapEditor
     {
         DoNothing,
         DrawRectangle,
-        PlaceObject
+        PlaceObject,
+        DrawMoveRect
     }
 
     enum State
@@ -62,6 +63,7 @@ namespace NMGame_MapEditor
             //cbObjType.SelectedIndex = 0;
             btnDrawRectangle.Visible = false;
             btnPlaceObject.Visible = false;
+            btnDrawMoveRect.Visible = false;
         }
 
         private void MapEditor_Load(object sender, EventArgs e)
@@ -74,6 +76,8 @@ namespace NMGame_MapEditor
             btnEdit.Enabled = false;
             btnSave.Enabled = false;
 
+            this.grpMove.Visible = false;
+
             needToVisualize = new List<GameObject>();
             lblzoom.Text = zoom + " %";
         }
@@ -84,7 +88,7 @@ namespace NMGame_MapEditor
         private void mWorldSpace_MouseMove(object sender, MouseEventArgs e)
         {
             this.mMousePosition = new Point(e.X - this.mWorldSpace.AutoScrollPosition.X, e.Y - this.mWorldSpace.AutoScrollPosition.Y);
-            this.toolStripStatusLabel1.Text = "Mouse Position: [" + this.mMousePosition.X + ", " + this.mMousePosition.Y + "] , World Position : [" + this.mMousePosition.X + ", " + (9542 - this.mMousePosition.Y) + "] ";
+            this.toolStripStatusLabel1.Text = "Mouse Position: [" + this.mMousePosition.X + ", " + this.mMousePosition.Y + "] , World Position : [" + this.mMousePosition.X + ", " + (10494 - this.mMousePosition.Y) + "] ";
 
             if (e.Button != MouseButtons.Left)
                 return;
@@ -98,6 +102,15 @@ namespace NMGame_MapEditor
                     this.txtTop.Text = this.mWorldSpace.Rect.Top.ToString();
                     this.txtRight.Text = (this.mWorldSpace.Rect.Left + this.mWorldSpace.Rect.Width).ToString();
                     this.txtBottom.Text = (this.mWorldSpace.Rect.Top + this.mWorldSpace.Rect.Height).ToString();
+
+                    break;
+                case CursorState.DrawMoveRect:
+                    this.mWorldSpace.DrawMoveRectangle(mouseDownPosition.X, mouseDownPosition.Y, mMousePosition.X, mMousePosition.Y);
+                    this.mWorldSpace.Invalidate();
+                    this.txtmoveLeft.Text = this.mWorldSpace.Moverect.Left.ToString();
+                    this.txtmoveTop.Text = this.mWorldSpace.Moverect.Top.ToString();
+                    this.txtmoveRight.Text = (this.mWorldSpace.Moverect.Left + this.mWorldSpace.Moverect.Width).ToString();
+                    this.txtmoveBottom.Text = (this.mWorldSpace.Moverect.Top + this.mWorldSpace.Moverect.Height).ToString();
 
                     break;
                 case CursorState.PlaceObject:              
@@ -192,7 +205,15 @@ namespace NMGame_MapEditor
                 case State.NewObject:
                     if (GameObject.isObjectNeedPosition((EObjectID)this.cbObjType.SelectedIndex))
                     {
-                        mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex,int.Parse(txtPosX.Text), int.Parse(txtPosY.Text)));
+                        //if (GameObject.isObjectNeedMoveRect((EObjectID)this.cbObjType.SelectedIndex))
+                        //{
+                        //    mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text),new MyRECT(int.Parse(txtmoveLeft.Text), int.Parse(txtmoveTop.Text), int.Parse(txtmoveBottom.Text), int.Parse(txtmoveRight.Text)), (EObjectID)cbObjType.SelectedIndex, int.Parse(txtPosX.Text), int.Parse(txtPosY.Text)));
+
+                        //}
+                        //else
+                        {
+                            mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex, int.Parse(txtPosX.Text), int.Parse(txtPosY.Text)));
+                        }
                     }
                     else
                     {
@@ -213,6 +234,8 @@ namespace NMGame_MapEditor
                             mListObject[listView1.SelectedIndices[0]].MLeft = int.Parse(txtLeft.Text);
                             mListObject[listView1.SelectedIndices[0]].MRight = int.Parse(txtRight.Text);
                             mListObject[listView1.SelectedIndices[0]].MTop = int.Parse(txtTop.Text);
+
+
                       
                     }
                     break;
@@ -263,7 +286,9 @@ namespace NMGame_MapEditor
         private void btnNew_Click(object sender, EventArgs e)
         {
             currentState = State.NewObject;
-            
+
+            cbObjType.SelectedIndex = 0;
+
             StateUpdate(currentState);
                  
         }
@@ -290,7 +315,7 @@ namespace NMGame_MapEditor
                     currentState = State.NewObject;
                     cursorState = CursorState.DrawRectangle;
 
-                    cbObjType.SelectedIndex = 0;
+                    //cbObjType.SelectedIndex = 0;
 
                     txtBottom.Text = "";
                     txtLeft.Text = "";
@@ -304,7 +329,10 @@ namespace NMGame_MapEditor
                     break;
                 case State.EditObject:
                     grpObjectInfo.Enabled = true;
-                    cursorState = CursorState.DrawRectangle;
+                    if(GameObject.isObjectNeedPosition((EObjectID) cbObjType.SelectedIndex))
+                        cursorState = CursorState.PlaceObject;
+                    else
+                         cursorState = CursorState.DrawRectangle;
                     btnEdit.Enabled = false;
                     btnSave.Enabled = true;
                     btnDelete.Enabled = false;
@@ -439,7 +467,10 @@ namespace NMGame_MapEditor
                 txtBottom.Text = mListObject[listView1.SelectedIndices[0]].MBottom.ToString();
                 txtPosX.Text= mListObject[listView1.SelectedIndices[0]].MPositionX.ToString();
                 txtPosY.Text = mListObject[listView1.SelectedIndices[0]].MPositionY.ToString();
-               
+                txtmoveLeft.Text = mListObject[listView1.SelectedIndices[0]].getMoveRect().Left.ToString();
+                txtmoveTop.Text = mListObject[listView1.SelectedIndices[0]].getMoveRect().Top.ToString();
+                txtmoveRight.Text = mListObject[listView1.SelectedIndices[0]].getMoveRect().Right.ToString();
+                txtmoveBottom.Text = mListObject[listView1.SelectedIndices[0]].getMoveRect().Bottom.ToString();
 
                 flagBiding = false;
                 Biding();
@@ -500,12 +531,18 @@ namespace NMGame_MapEditor
             txtPosX.Text = "";
             txtPosY.Text = "";
 
+            txtmoveLeft.Text = "";
+            txtmoveRight.Text = "";
+            txtmoveTop.Text = "";
+            txtmoveBottom.Text = "";
+
 
 
             btnDrawRectangle.Visible = false;
             btnPlaceObject.Visible = false;
+            btnDrawMoveRect.Visible = false;
 
-            switch(currentState)
+            switch (currentState)
             {
                 case State.NewObject:
                 case State.EditObject:
@@ -520,6 +557,14 @@ namespace NMGame_MapEditor
                             btnPlaceObject.Visible = true;
 
                             cursorState = CursorState.DrawRectangle;
+
+                            //if (GameObject.isObjectNeedMoveRect((EObjectID)this.cbObjType.SelectedIndex))
+                            //{
+
+                            //    grpMove.Enabled = true;
+                            //    btnDrawMoveRect.Visible = true;
+
+                            //}
                         }
                         else
                         {
@@ -527,6 +572,7 @@ namespace NMGame_MapEditor
 
                             grpPosition.Enabled = true;
                             grpBounded.Enabled = false;
+                            grpMove.Enabled = false;
                         }
                         
                     }
@@ -535,9 +581,11 @@ namespace NMGame_MapEditor
                         cursorState = CursorState.DrawRectangle;
                         grpPosition.Enabled = false;
                         grpBounded.Enabled = true;
+                        grpMove.Enabled = false;
 
                     }
                     
+
                     break;
                 case State.DoNothing:
                     break;
@@ -626,6 +674,14 @@ namespace NMGame_MapEditor
             {
                 Bitmap img = GameObject.GetObjectImg((EObjectID)this.cbObjType.SelectedIndex);
                 this.mWorldSpace.SetImageObject(img, int.Parse(txtPosX.Text) - img.Size.Width / 2, int.Parse(txtPosY.Text) - img.Size.Height);
+
+                if (!GameObject.isObjectNeedDrawBoundingRect((EObjectID)this.cbObjType.SelectedIndex))
+                {
+                    txtLeft.Text = (int.Parse(txtPosX.Text) - img.Size.Width / 2).ToString();
+                    txtRight.Text = (int.Parse(txtPosX.Text) + img.Size.Width / 2).ToString();
+                    txtTop.Text = (int.Parse(txtPosY.Text) - img.Size.Height).ToString();
+                    txtBottom.Text = (int.Parse(txtPosY.Text)).ToString();
+                }
             }
            // flagPic = false;
         }
@@ -638,6 +694,14 @@ namespace NMGame_MapEditor
             {
                 Bitmap img = GameObject.GetObjectImg((EObjectID)this.cbObjType.SelectedIndex);
                 this.mWorldSpace.SetImageObject(img, int.Parse(txtPosX.Text) - img.Size.Width / 2, int.Parse(txtPosY.Text) - img.Size.Height);
+
+                if (!GameObject.isObjectNeedDrawBoundingRect((EObjectID)this.cbObjType.SelectedIndex))
+                {
+                    txtLeft.Text = (int.Parse(txtPosX.Text) - img.Size.Width / 2).ToString();
+                    txtRight.Text = (int.Parse(txtPosX.Text) + img.Size.Width / 2).ToString();
+                    txtTop.Text = (int.Parse(txtPosY.Text) - img.Size.Height).ToString();
+                    txtBottom.Text = (int.Parse(txtPosY.Text)).ToString();
+                }
             }
         }
 
@@ -695,6 +759,16 @@ namespace NMGame_MapEditor
             return bmp;
         }
 
+        private void mWorldSpace_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            cursorState = CursorState.DrawMoveRect;
+        }
+
 
         #endregion
 
@@ -717,7 +791,7 @@ namespace NMGame_MapEditor
                 //Save các Object
                 for (int i = 0; i < this.mListObject.Count; i++)
                 {
-                    outputFile.WriteLine(i + " " + (int)mListObject[i].MObjID +  " " + mListObject[i].MPositionX + " " +  (9542 - mListObject[i].MPositionY).ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MTop.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MLeft.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MRight.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MBottom.ToString());
+                    outputFile.WriteLine(i + " " + (int)mListObject[i].MObjID +  " " + mListObject[i].MPositionX + " " +  (10494 - mListObject[i].MPositionY).ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MTop.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MLeft.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MRight.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MBottom.ToString());
                 }
 
                 //Save các Node của QuadTree

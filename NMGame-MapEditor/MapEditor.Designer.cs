@@ -37,8 +37,6 @@ namespace NMGame_MapEditor
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblzoom = new System.Windows.Forms.Label();
-            this.btnExport = new System.Windows.Forms.Button();
-            this.btnImport = new System.Windows.Forms.Button();
             this.btnBuildQuadTree = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.clmKey = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -70,6 +68,20 @@ namespace NMGame_MapEditor
             this.label2 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.mWorldSpace = new NMGame_MapEditor.ImageView();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grpMove = new System.Windows.Forms.GroupBox();
+            this.txtmoveBottom = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtmoveRight = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtmoveTop = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtmoveLeft = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnDrawMoveRect = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -78,11 +90,13 @@ namespace NMGame_MapEditor
             this.grpPosition.SuspendLayout();
             this.grpBounded.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.grpMove.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(10, 309);
+            this.btnNew.Location = new System.Drawing.Point(10, 394);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(80, 34);
             this.btnNew.TabIndex = 1;
@@ -113,59 +127,37 @@ namespace NMGame_MapEditor
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(1159, 0);
+            this.panel1.Location = new System.Drawing.Point(1159, 28);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(400, 843);
+            this.panel1.Size = new System.Drawing.Size(400, 815);
             this.panel1.TabIndex = 3;
             // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Controls.Add(this.lblzoom);
-            this.panel3.Controls.Add(this.btnExport);
-            this.panel3.Controls.Add(this.btnImport);
             this.panel3.Controls.Add(this.btnBuildQuadTree);
             this.panel3.Controls.Add(this.listView1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 351);
+            this.panel3.Location = new System.Drawing.Point(0, 436);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(396, 488);
+            this.panel3.Size = new System.Drawing.Size(396, 375);
             this.panel3.TabIndex = 3;
             // 
             // lblzoom
             // 
             this.lblzoom.AutoSize = true;
-            this.lblzoom.Location = new System.Drawing.Point(22, 388);
+            this.lblzoom.Location = new System.Drawing.Point(12, 354);
             this.lblzoom.Name = "lblzoom";
             this.lblzoom.Size = new System.Drawing.Size(46, 17);
             this.lblzoom.TabIndex = 8;
             this.lblzoom.Text = "label1";
             // 
-            // btnExport
-            // 
-            this.btnExport.Location = new System.Drawing.Point(203, 382);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(75, 23);
-            this.btnExport.TabIndex = 7;
-            this.btnExport.Text = "Export";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
-            // btnImport
-            // 
-            this.btnImport.Location = new System.Drawing.Point(111, 382);
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(75, 23);
-            this.btnImport.TabIndex = 6;
-            this.btnImport.Text = "Import";
-            this.btnImport.UseVisualStyleBackColor = true;
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
-            // 
             // btnBuildQuadTree
             // 
-            this.btnBuildQuadTree.Location = new System.Drawing.Point(127, 431);
+            this.btnBuildQuadTree.Location = new System.Drawing.Point(247, 340);
             this.btnBuildQuadTree.Name = "btnBuildQuadTree";
-            this.btnBuildQuadTree.Size = new System.Drawing.Size(131, 50);
+            this.btnBuildQuadTree.Size = new System.Drawing.Size(131, 27);
             this.btnBuildQuadTree.TabIndex = 5;
             this.btnBuildQuadTree.Text = "BuildQuadTree";
             this.btnBuildQuadTree.UseVisualStyleBackColor = true;
@@ -180,9 +172,9 @@ namespace NMGame_MapEditor
             this.clmRECT,
             this.clmType});
             this.listView1.FullRowSelect = true;
-            this.listView1.Location = new System.Drawing.Point(10, 19);
+            this.listView1.Location = new System.Drawing.Point(10, 10);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(374, 333);
+            this.listView1.Size = new System.Drawing.Size(374, 324);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -220,12 +212,12 @@ namespace NMGame_MapEditor
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(396, 351);
+            this.panel2.Size = new System.Drawing.Size(396, 436);
             this.panel2.TabIndex = 2;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(298, 309);
+            this.btnSave.Location = new System.Drawing.Point(298, 394);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(80, 34);
             this.btnSave.TabIndex = 4;
@@ -235,7 +227,7 @@ namespace NMGame_MapEditor
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(106, 309);
+            this.btnEdit.Location = new System.Drawing.Point(106, 394);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(80, 34);
             this.btnEdit.TabIndex = 3;
@@ -245,7 +237,7 @@ namespace NMGame_MapEditor
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(203, 309);
+            this.btnDelete.Location = new System.Drawing.Point(203, 394);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(80, 34);
             this.btnDelete.TabIndex = 2;
@@ -255,6 +247,8 @@ namespace NMGame_MapEditor
             // 
             // grpObjectInfo
             // 
+            this.grpObjectInfo.Controls.Add(this.btnDrawMoveRect);
+            this.grpObjectInfo.Controls.Add(this.grpMove);
             this.grpObjectInfo.Controls.Add(this.btnDrawRectangle);
             this.grpObjectInfo.Controls.Add(this.btnPlaceObject);
             this.grpObjectInfo.Controls.Add(this.grpPosition);
@@ -263,16 +257,16 @@ namespace NMGame_MapEditor
             this.grpObjectInfo.Controls.Add(this.grpBounded);
             this.grpObjectInfo.Location = new System.Drawing.Point(10, 12);
             this.grpObjectInfo.Name = "grpObjectInfo";
-            this.grpObjectInfo.Size = new System.Drawing.Size(374, 278);
+            this.grpObjectInfo.Size = new System.Drawing.Size(374, 376);
             this.grpObjectInfo.TabIndex = 0;
             this.grpObjectInfo.TabStop = false;
             this.grpObjectInfo.Text = "Object Information:";
             // 
             // btnDrawRectangle
             // 
-            this.btnDrawRectangle.Location = new System.Drawing.Point(178, 244);
+            this.btnDrawRectangle.Location = new System.Drawing.Point(124, 342);
             this.btnDrawRectangle.Name = "btnDrawRectangle";
-            this.btnDrawRectangle.Size = new System.Drawing.Size(121, 28);
+            this.btnDrawRectangle.Size = new System.Drawing.Size(116, 28);
             this.btnDrawRectangle.TabIndex = 11;
             this.btnDrawRectangle.Text = "Draw Rectangle";
             this.btnDrawRectangle.UseVisualStyleBackColor = true;
@@ -280,7 +274,7 @@ namespace NMGame_MapEditor
             // 
             // btnPlaceObject
             // 
-            this.btnPlaceObject.Location = new System.Drawing.Point(54, 244);
+            this.btnPlaceObject.Location = new System.Drawing.Point(6, 342);
             this.btnPlaceObject.Name = "btnPlaceObject";
             this.btnPlaceObject.Size = new System.Drawing.Size(112, 28);
             this.btnPlaceObject.TabIndex = 5;
@@ -294,7 +288,7 @@ namespace NMGame_MapEditor
             this.grpPosition.Controls.Add(this.label8);
             this.grpPosition.Controls.Add(this.txtPosX);
             this.grpPosition.Controls.Add(this.label9);
-            this.grpPosition.Location = new System.Drawing.Point(6, 67);
+            this.grpPosition.Location = new System.Drawing.Point(6, 51);
             this.grpPosition.Name = "grpPosition";
             this.grpPosition.Size = new System.Drawing.Size(362, 61);
             this.grpPosition.TabIndex = 10;
@@ -338,7 +332,7 @@ namespace NMGame_MapEditor
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 40);
+            this.label6.Location = new System.Drawing.Point(22, 24);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 17);
             this.label6.TabIndex = 6;
@@ -347,7 +341,7 @@ namespace NMGame_MapEditor
             // cbObjType
             // 
             this.cbObjType.FormattingEnabled = true;
-            this.cbObjType.Location = new System.Drawing.Point(117, 37);
+            this.cbObjType.Location = new System.Drawing.Point(117, 21);
             this.cbObjType.Name = "cbObjType";
             this.cbObjType.Size = new System.Drawing.Size(231, 24);
             this.cbObjType.TabIndex = 5;
@@ -363,7 +357,7 @@ namespace NMGame_MapEditor
             this.grpBounded.Controls.Add(this.label3);
             this.grpBounded.Controls.Add(this.txtLeft);
             this.grpBounded.Controls.Add(this.label2);
-            this.grpBounded.Location = new System.Drawing.Point(6, 134);
+            this.grpBounded.Location = new System.Drawing.Point(6, 118);
             this.grpBounded.Name = "grpBounded";
             this.grpBounded.Size = new System.Drawing.Size(362, 106);
             this.grpBounded.TabIndex = 4;
@@ -442,9 +436,9 @@ namespace NMGame_MapEditor
             // 
             this.panel4.Controls.Add(this.mWorldSpace);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Location = new System.Drawing.Point(0, 28);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1159, 843);
+            this.panel4.Size = new System.Drawing.Size(1159, 815);
             this.panel4.TabIndex = 4;
             // 
             // mWorldSpace
@@ -455,13 +449,139 @@ namespace NMGame_MapEditor
             this.mWorldSpace.MImage = null;
             this.mWorldSpace.Name = "mWorldSpace";
             this.mWorldSpace.Rect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.mWorldSpace.Size = new System.Drawing.Size(1159, 843);
+            this.mWorldSpace.Size = new System.Drawing.Size(1159, 815);
             this.mWorldSpace.TabIndex = 0;
+            this.mWorldSpace.Load += new System.EventHandler(this.mWorldSpace_Load);
             this.mWorldSpace.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mWorldSpace_KeyDown);
             this.mWorldSpace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseDown);
             this.mWorldSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseMove);
             this.mWorldSpace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseUp);
-        
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1559, 28);
+            this.menuStrip1.TabIndex = 5;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // grpMove
+            // 
+            this.grpMove.Controls.Add(this.txtmoveBottom);
+            this.grpMove.Controls.Add(this.label1);
+            this.grpMove.Controls.Add(this.txtmoveRight);
+            this.grpMove.Controls.Add(this.label7);
+            this.grpMove.Controls.Add(this.txtmoveTop);
+            this.grpMove.Controls.Add(this.label10);
+            this.grpMove.Controls.Add(this.txtmoveLeft);
+            this.grpMove.Controls.Add(this.label11);
+            this.grpMove.Location = new System.Drawing.Point(5, 230);
+            this.grpMove.Name = "grpMove";
+            this.grpMove.Size = new System.Drawing.Size(362, 106);
+            this.grpMove.TabIndex = 10;
+            this.grpMove.TabStop = false;
+            this.grpMove.Text = "Move Rectangle:";
+            // 
+            // txtmoveBottom
+            // 
+            this.txtmoveBottom.Location = new System.Drawing.Point(231, 56);
+            this.txtmoveBottom.Name = "txtmoveBottom";
+            this.txtmoveBottom.Size = new System.Drawing.Size(112, 22);
+            this.txtmoveBottom.TabIndex = 9;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(169, 59);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 17);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Bottom:";
+            // 
+            // txtmoveRight
+            // 
+            this.txtmoveRight.Location = new System.Drawing.Point(48, 59);
+            this.txtmoveRight.Name = "txtmoveRight";
+            this.txtmoveRight.Size = new System.Drawing.Size(112, 22);
+            this.txtmoveRight.TabIndex = 6;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 59);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(45, 17);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Right:";
+            // 
+            // txtmoveTop
+            // 
+            this.txtmoveTop.Location = new System.Drawing.Point(231, 26);
+            this.txtmoveTop.Name = "txtmoveTop";
+            this.txtmoveTop.Size = new System.Drawing.Size(112, 22);
+            this.txtmoveTop.TabIndex = 5;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(169, 26);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(37, 17);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Top:";
+            // 
+            // txtmoveLeft
+            // 
+            this.txtmoveLeft.Location = new System.Drawing.Point(48, 26);
+            this.txtmoveLeft.Name = "txtmoveLeft";
+            this.txtmoveLeft.Size = new System.Drawing.Size(112, 22);
+            this.txtmoveLeft.TabIndex = 2;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 26);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(36, 17);
+            this.label11.TabIndex = 3;
+            this.label11.Text = "Left:";
+            // 
+            // btnDrawMoveRect
+            // 
+            this.btnDrawMoveRect.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDrawMoveRect.Location = new System.Drawing.Point(246, 342);
+            this.btnDrawMoveRect.Name = "btnDrawMoveRect";
+            this.btnDrawMoveRect.Size = new System.Drawing.Size(121, 28);
+            this.btnDrawMoveRect.TabIndex = 12;
+            this.btnDrawMoveRect.Text = "Draw M.Rectangle";
+            this.btnDrawMoveRect.UseVisualStyleBackColor = true;
+            this.btnDrawMoveRect.Click += new System.EventHandler(this.button1_Click);
             // 
             // MapEditor
             // 
@@ -471,6 +591,8 @@ namespace NMGame_MapEditor
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MapEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -491,6 +613,10 @@ namespace NMGame_MapEditor
             this.grpBounded.ResumeLayout(false);
             this.grpBounded.PerformLayout();
             this.panel4.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.grpMove.ResumeLayout(false);
+            this.grpMove.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -540,10 +666,22 @@ namespace NMGame_MapEditor
         private System.Windows.Forms.Button btnDrawRectangle;
         private System.Windows.Forms.Button btnPlaceObject;
         private System.Windows.Forms.ColumnHeader clmPos;
-        private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.ColumnHeader clmKey;
         private System.Windows.Forms.Label lblzoom;
+        private Button btnDrawMoveRect;
+        private GroupBox grpMove;
+        private TextBox txtmoveBottom;
+        private Label label1;
+        private TextBox txtmoveRight;
+        private Label label7;
+        private TextBox txtmoveTop;
+        private Label label10;
+        private TextBox txtmoveLeft;
+        private Label label11;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem openToolStripMenuItem;
+        private ToolStripMenuItem saveToolStripMenuItem;
     }
 }
 

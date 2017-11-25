@@ -5,11 +5,11 @@
 #include<d3d9.h>
 #include<d3dx9.h>
 
-#define WORLD_X 9542
-#define WORLD_Y 9542  //Thế giới hình vuông cho việc chia QuadTree
+#define WORLD_X 10494
+#define WORLD_Y 10494  //Thế giới hình vuông cho việc chia QuadTree
 //#define WORLD_Y 688*2.5
 
-#define MAP_WIDTH 9542
+#define MAP_WIDTH 10494
 #define MAP_HEIGHT 1720
 
 struct TransformObject

@@ -66,6 +66,7 @@ protected:
 	bool					mCanBeHitByFlyingObject;
 	bool					mInteractWithInteractBB;
 	bool					mCanBeAttack;
+	bool					mCanAttack;
 	
 	bool					mDone;
 
@@ -97,10 +98,12 @@ public:
 
 	virtual MyRECT			GetInteractBoundingBox();
 	void					SetInteractBoundingBox(MyRECT rect);
+	virtual MyRECT			GetAttackBoundingBox();
 
 	bool					GetCanBeHitByFlyingObject();
 	bool					GetInteractWithInteractBB();
 	bool					GetCanBeAttack();
+	bool					GetCanAttack();
 
 	virtual ObjectState*		GetCurrentState();
 	virtual bool				isDone() { return mDone; };

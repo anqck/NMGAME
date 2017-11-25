@@ -45,6 +45,11 @@ void ObjectState::Render()
 	this->mSprite->Render();
 }
 
+void ObjectState::OpacityRender(DWORD AlphaValue)
+{
+	this->mSprite->Render(AlphaValue);
+}
+
 void ObjectState::Update(float DeltaTime)
 {
 	
@@ -71,6 +76,39 @@ void ObjectState::Animate(float DeltaTime)
 	{	
 			this->nextFrame();
 			isNextFrame = true;
+
+		last_time = now;
+	}
+	else
+		isNextFrame = false;
+}
+
+void ObjectState::InverseAnimate(float DeltaTime)
+{
+	DWORD now = GetTickCount();
+	if (now - last_time > 1000 / ANIMATE_RATE)
+	{
+		if (this->ResetFlag)
+		{
+			this->mSprite->SetFrame(mCurrentIdx);
+			ResetFlag = false;
+			return;
+		}
+		else
+		{
+			if (mCurrentIdx >= 0)
+			{
+				mCurrentIdx -= 1;
+			}
+
+			if (mCurrentIdx == -1)
+				mCurrentIdx = mEndIdx - 1;
+		}
+		if (mCurrentIdx < mEndIdx)
+			this->mSprite->SetFrame(mCurrentIdx);
+	
+
+		isNextFrame = true;
 
 		last_time = now;
 	}
@@ -129,6 +167,7 @@ void ObjectState::resetFrame()
 void ObjectState::GoToFrame(int idx)
 {
 	ResetFlag = false;
+	this->mSprite->SetFrame(idx);
 	this->mCurrentIdx = idx;
 }
 
@@ -145,10 +184,10 @@ D3DXVECTOR2 ObjectState::GetVelocity()
 	else
 		return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);*/
 
-	//if (mIsFlipVertical == true && this->mVelocity.x > 0)
-	//	return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
-	//else if (mIsFlipVertical == false && this->mVelocity.x < 0)
-	//	return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
+	if (mIsFlipVertical == true && this->mVelocity.x > 0)
+		return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
+	else if (mIsFlipVertical == false && this->mVelocity.x < 0)
+		return D3DXVECTOR2(-this->mVelocity.x, this->mVelocity.y);
 
 	return this->mVelocity;
 }

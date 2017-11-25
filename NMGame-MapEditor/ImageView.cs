@@ -19,13 +19,13 @@ namespace NMGame_MapEditor
         public Action callBack;
 
         private Rectangle rect = new Rectangle(0, 0, 0, 0);
+        private Rectangle moverect = new Rectangle(0, 0, 0, 0);
 
         private Image mObject;
         private int mObjectX, mObjectY;
 
         private List<GameObject> drawObject;
-        private List<Rectangle> mListRect;
-        private List<Image> mListImg;
+
 
 
         public ImageView()
@@ -74,7 +74,18 @@ namespace NMGame_MapEditor
             }
         }
 
+        public Rectangle Moverect
+        {
+            get
+            {
+                return moverect;
+            }
 
+            set
+            {
+                moverect = value;
+            }
+        }
 
         public void SetImageObject(Bitmap img, int X, int y)
         {
@@ -98,6 +109,7 @@ namespace NMGame_MapEditor
         public void ClearRectangle()
         {
             Rect = new Rectangle(0,0,0,0);
+            moverect = new Rectangle(0, 0, 0, 0);
             this.Invalidate();
         }
         public void DrawRectangle(int x1, int y1, int x2, int y2)
@@ -116,6 +128,19 @@ namespace NMGame_MapEditor
 
             // Draw rectangle to screen.
 
+        }
+
+        public void DrawMoveRectangle(int x1, int y1, int x2, int y2)
+        {
+            // Create rectangle.
+            if ((x2 > x1) && (y2 > y1))
+                moverect = new Rectangle(x1, y1, (x2 - x1), (y2 - y1));
+            else if ((x2 < x1) && (y2 > y1))
+                moverect = new Rectangle(x2, y1, (x1 - x2), (y2 - y1));
+            else if ((x2 > x1) && (y2 < y1))
+                moverect = new Rectangle(x1, y2, (x2 - x1), (y1 - y2));
+            else if ((x1 > x2) && (y1 > y2))
+                moverect = new Rectangle(x2, y2, (x1 - x2), (y1 - y2));
         }
 
         private void ImageView_Load(object sender, EventArgs e)
@@ -148,6 +173,7 @@ namespace NMGame_MapEditor
                     foreach (GameObject obj in drawObject)
                     {
                         e.Graphics.DrawRectangle(new Pen(Color.White, 3), obj.getBoundingRect());
+                        e.Graphics.DrawRectangle(new Pen(Color.Blue, 3), obj.getMoveRect());
 
                         if (GameObject.isObjectNeedPosition(obj) == true)
                         {
@@ -160,11 +186,8 @@ namespace NMGame_MapEditor
 
             }
 
-
-
-            
-
             e.Graphics.DrawRectangle(new Pen(Color.Red, 3), Rect);
+            e.Graphics.DrawRectangle(new Pen(Color.Blue, 3), moverect);
         }
 
         internal void VisualizeObject(GameObject obj)

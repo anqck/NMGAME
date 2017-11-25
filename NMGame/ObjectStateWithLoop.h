@@ -9,7 +9,7 @@ public:
 	ObjectStateWithLoop(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, int startLoop, CenterArchor center = CenterArchor::TopLeft) : ObjectState(rect, Animate_rate, filePath, velocity, center) { mStartLoopIdx = startLoop; };
 
 	void				nextFrame() override;
-
+	void				GoToFrame(int idx);
 	bool				isDone();
 protected:
 

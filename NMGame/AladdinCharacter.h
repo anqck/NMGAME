@@ -14,6 +14,7 @@
 
 #include "ThrowApple.h"
 #include "StoppingDust.h"
+#include "Rope.h"
 
 enum AState
 {
@@ -45,7 +46,8 @@ enum AState
 	SwingThrow,
 	SwingMove,
 	Couple,
-	Falling
+	Falling,
+	Damaged
 };
 
 
@@ -66,6 +68,7 @@ public:
 	void			LoadResource();
 	AState			getCurrentState();
 	void			setCurrentState(AState state);
+	ObjectState *	GetCurrentState();
 
 	ObjectState*	getCurrentObjectState();
 
@@ -74,14 +77,17 @@ public:
 
 	void			setAllowStateChange(bool allow);
 	
+	void			ResetFlagCollision();
+
 	bool			isGrounded();
 	void			SetGrounded(bool allow);
 
-	void			CheckCollision(float DeltaTime, vector<GameVisibleEntity*> mListObjectInViewPort);
+	//void			CheckCollision(float DeltaTime, vector<GameVisibleEntity*> mListObjectInViewPort);
 	void			processCollision(float DeltaTime, GameVisibleEntity *obj, CollisionResult collision);
+	void			processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
 
-	void			CheckCollisionWithGround(float DeltaTime, vector<GameVisibleEntity*> mListGround);
-	void			CheckCollisionWithRope(float DeltaTime, vector<GameVisibleEntity*> mListRope);
+	//void			CheckCollisionWithGround(float DeltaTime, vector<GameVisibleEntity*> mListGround);
+	//void			CheckCollisionWithRope(float DeltaTime, vector<GameVisibleEntity*> mListRope);
 
 	MyRECT			GetBoundingBox();
 	MyRECT			GetAttackBoundingBox();
@@ -91,7 +97,7 @@ public:
 protected:
 	vector<ObjectState*>	mAladdinState;
 	AState					mCurrentState;
-
+	int						mHP;
 	Direction				mDir;
 
 	bool					allowStateChange;
@@ -106,10 +112,14 @@ protected:
 	bool					mRopeCollision;
 	bool					mRopeIntersects;
 	bool					mReachTopRope;
+	Rope*					mLastRope;
 
 
 	float					_yCollision;
 
+	bool					mOpacityRender;
+	bool					mIsOpacityRendered;
+	float					mOpacityTime;
 
 	bool					allowAttack;
 	bool					allowJump;

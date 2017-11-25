@@ -16,7 +16,8 @@ Camera::Camera()
 
 	this->mWidth = GLOBAL::GetWindowsWidth();
 	this->mHeight = GLOBAL::GetWindowsHeight();
-
+	preDir = Direction::Right;
+	mCameraChangeDir = false;
 	/*this->mWidth = 1000;
 	this->mHeight = 1000;*/
 }
@@ -40,89 +41,109 @@ void Camera::Update(AladdinCharacter* object)
 
 	Direction AladdinDir = object->getDirection();
 
-	//switch (AladdinDir)
-	//{
-	//case Direction::Right:
-	//	if (AladdinDir != preDir)
-	//	{
-	//		preDir = AladdinDir;
-	//		this->mVelocity.x = 60;
-	//	}
-	//	else
-	//	{
-	//		halfWidth = GLOBAL::GetWindowsWidth() * 2 / 5;
-	//		halfHeight = GLOBAL::GetWindowsHeight() / 2;
+	switch (AladdinDir)
+	{
+	case Direction::Right:
+		if (AladdinDir != preDir)
+		{
+			preDir = AladdinDir;
+			//this->mVelocity.x = 60;
+			//if(object->getCurrentState()!= AState::RopeClimb)
+				mCameraChangeDir = true;
+		}
+		else if (!mCameraChangeDir)
+		{
+			halfWidth = GLOBAL::GetWindowsWidth() * 2 / 5;
+			//halfHeight = GLOBAL::GetWindowsHeight() / 2;
 
-	//		cameraX = mPosition.x + halfWidth;
-	//		cameraY = mPosition.y - halfHeight;
+			cameraX = mPosition.x + halfWidth;
+			//cameraY = mPosition.y - halfHeight;
 
-	//		//Left
-	//		if (aladdinX < cameraX - DELTA_CAMERA)
-	//		{
-	//			this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
-	//		}
 
-	//		//Right
-	//		if (aladdinX > cameraX + DELTA_CAMERA)
-	//		{
-	//			//this->mVelocity.x = aladdinX - cameraX - DELTA_CAMERA;
-	//			this->mVelocity.x = 14;
-	//		}
 
-	//		//Top
-	//		if (aladdinY < cameraY - DELTA_CAMERA)
-	//		{
-	//			this->mVelocity.y = aladdinY - (cameraY - DELTA_CAMERA);
-	//		}
-	//		//Bottom
-	//		if (aladdinY > cameraY + DELTA_CAMERA)
-	//		{
-	//			this->mVelocity.y = aladdinY - (cameraY + DELTA_CAMERA);
-	//		}
-	//	}
-	//	break;
-	//case Direction::Left:
-	//	if (AladdinDir != preDir)
-	//	{
-	//		preDir = AladdinDir;
-	//		this->mVelocity.x = -60;
-	//	}
-	//	else
-	//	{
-	//		halfWidth = GLOBAL::GetWindowsWidth() * 3.3 / 5;
-	//		halfHeight = GLOBAL::GetWindowsHeight() / 2;
+			//Right
+			if (aladdinX > cameraX + DELTA_CAMERA)
 
-	//		cameraX = mPosition.x + halfWidth;
-	//		cameraY = mPosition.y - halfHeight;
+			{
+				this->mVelocity.x = aladdinX - cameraX - DELTA_CAMERA;
+			}
 
-	//		//Left
-	//		if (aladdinX < cameraX - DELTA_CAMERA)
-	//		{
-	//			//this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
-	//			this->mVelocity.x = -14;
-	//		}
 
-	//		//Right
-	//		if (aladdinX > cameraX + DELTA_CAMERA)
-	//		{
-	//			this->mVelocity.x = aladdinX - cameraX - DELTA_CAMERA;
-	//			//this->mVelocity.x = -10;
-	//		}
 
-	//		//Top
-	//		if (aladdinY < cameraY - DELTA_CAMERA)
-	//		{
-	//			this->mVelocity.y = aladdinY - (cameraY - DELTA_CAMERA);
-	//		}
-	//		//Bottom
-	//		if (aladdinY > cameraY + DELTA_CAMERA)
-	//		{
-	//			this->mVelocity.y = aladdinY - (cameraY + DELTA_CAMERA);
-	//		}
-	//	}
-	//	break;
-	//}
+		}
+		break;
+	case Direction::Left:
+		if (AladdinDir != preDir)
+		{
+			preDir = AladdinDir;
+			//if (object->getCurrentState() != AState::RopeClimb)
+				mCameraChangeDir = true;
+		}
+		else if (!mCameraChangeDir)
+		{
+			halfWidth = GLOBAL::GetWindowsWidth() * 3 / 5;
+			
+
+			cameraX = mPosition.x + halfWidth;
+
+			//Left
+			if (aladdinX < cameraX - DELTA_CAMERA )
+			{
+				this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
+			}
+
+			
+		}
+		break;
+	}
 	
+
+	if (mCameraChangeDir)
+	{
+		/*if (aladdinX >= cameraX - DELTA_CAMERA &&aladdinX <= cameraX + DELTA_CAMERA)
+		{
+			mCameraChangeDir = false;
+		}
+		else*/
+		{
+			if (object->getDirection() == Direction::Right)
+			{
+				//aladdinX > cameraX + DELTA_CAMERA
+				//if (mPosition.x + GLOBAL::GetWindowsWidth() >= aladdinX + GLOBAL::GetWindowsWidth() * 3 / 5  )
+				if(mPosition.x >= aladdinX - GLOBAL::GetWindowsWidth() * 2 /5 - 30)
+				{
+					mCameraChangeDir = false;
+				}
+				else
+					this->mVelocity.x = 20;
+			}
+			else
+			{
+				//aladdinX < cameraX - DELTA_CAMERA
+				if (mPosition.x <= aladdinX - GLOBAL::GetWindowsWidth() * 3 / 5 + 30)
+				{
+					mCameraChangeDir = false;
+				}
+				else
+					this->mVelocity.x = -20;
+			}
+				//this->mVelocity.x = -20;
+		}		
+	}
+
+	halfHeight = GLOBAL::GetWindowsHeight() / 2;
+	cameraY = mPosition.y - halfHeight;
+
+	//Top
+	if (aladdinY > cameraY + DELTA_CAMERA)
+	{
+		this->mVelocity.y = aladdinY - (cameraY + DELTA_CAMERA);
+	}
+	//Bottom
+	if (aladdinY < cameraY - DELTA_CAMERA)
+	{
+		this->mVelocity.y = aladdinY - (cameraY - DELTA_CAMERA);
+	}
 	////Left
 	//if (object->getCurrentState() == AState::LookUp)
 	//{
@@ -131,31 +152,31 @@ void Camera::Update(AladdinCharacter* object)
 
 	//}
 	//else
-	{
-		if (aladdinX < cameraX - DELTA_CAMERA)
-		{
-			this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
-		}
+	//{
+	//	if (aladdinX < cameraX - DELTA_CAMERA)
+	//	{
+	//		this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
+	//	}
 
-		//Right
-		if (aladdinX > cameraX + DELTA_CAMERA)
-		{
-			this->mVelocity.x = aladdinX - cameraX - DELTA_CAMERA;
-			//this->mVelocity.x = 10;
-		}
+	//	//Right
+	//	if (aladdinX > cameraX + DELTA_CAMERA)
+	//	{
+	//		this->mVelocity.x = aladdinX - cameraX - DELTA_CAMERA;
+	//		//this->mVelocity.x = 10;
+	//	}
 
-		//Top
-		if (aladdinY < cameraY - DELTA_CAMERA)
-		{
-			this->mVelocity.y = aladdinY - (cameraY - DELTA_CAMERA);
-		}
-		//Bottom
-		if (aladdinY > cameraY + DELTA_CAMERA)
-		{
-			this->mVelocity.y = aladdinY - (cameraY + DELTA_CAMERA);
-		}
-	}
-	
+	//	//Top
+	//	if (aladdinY < cameraY - DELTA_CAMERA)
+	//	{
+	//		this->mVelocity.y = aladdinY - (cameraY - DELTA_CAMERA);
+	//	}
+	//	//Bottom
+	//	if (aladdinY > cameraY + DELTA_CAMERA)
+	//	{
+	//		this->mVelocity.y = aladdinY - (cameraY + DELTA_CAMERA);
+	//	}
+	//}
+	//
 	
 	this->mPosition.x += mVelocity.x;
 	this->mPosition.y += mVelocity.y;

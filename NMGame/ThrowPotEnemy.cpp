@@ -8,8 +8,8 @@ ThrowPotEnemy::ThrowPotEnemy()
 	this->mInteractWithInteractBB = true;
 	this->mCanBeAttack = true;
 
-	mWidth = 100;
-	mHeight = 100;
+	mWidth = 50;
+	mHeight = 50;
 }
 
 ThrowPotEnemy::ThrowPotEnemy(D3DXVECTOR3 pos) : ThrowPotEnemy()
@@ -25,19 +25,19 @@ ThrowPotEnemy::ThrowPotEnemy(D3DXVECTOR3 pos) : ThrowPotEnemy()
 	this->mState.push_back(new ObjectState(temp, 13, L"Object\\ThrowPot\\ThrowHand.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
-	temp.push_back(MyRECT(37, 30, 41, 59));
-	temp.push_back(MyRECT(14, 77, 94, 39, D3DXVECTOR3(3, -2, 0)));
-	temp.push_back(MyRECT(63, 30, 53, 95, D3DXVECTOR3(6,-8,0)));
-	temp.push_back(MyRECT(37, 0, 29, 68, D3DXVECTOR3(9, -8, 0)));
+	temp.push_back(MyRECT(37, 30, 41, 59, D3DXVECTOR3(0.5, 0, 0)));
+	temp.push_back(MyRECT(14, 77, 94, 39, D3DXVECTOR3(3, -3, 0)));
+	temp.push_back(MyRECT(63, 30, 53, 95, D3DXVECTOR3(5.5,-10,0)));
+	temp.push_back(MyRECT(37, 0, 29, 68, D3DXVECTOR3(8.5, -8, 0)));
 	temp.push_back(MyRECT(0, 42, 76, 30, D3DXVECTOR3(13, -2, 0)));
-	temp.push_back(MyRECT(0, 0, 41, 36, D3DXVECTOR3(16, 4, 0)));
-	temp.push_back(MyRECT(31, 42, 75, 62, D3DXVECTOR3(12, 2.5, 0)));
-	temp.push_back(MyRECT(69, 0, 25, 91, D3DXVECTOR3(6, 4.5, 0)));
-	temp.push_back(MyRECT(0, 77, 95, 13, D3DXVECTOR3(3, 5, 0)));
-	temp.push_back(MyRECT(92, 0, 8, 98));
+	temp.push_back(MyRECT(0, 0, 41, 36, D3DXVECTOR3(15.5, 4, 0)));
+	temp.push_back(MyRECT(31, 42, 75, 62, D3DXVECTOR3(12, 2, 0)));
+	temp.push_back(MyRECT(69, 0, 25, 91, D3DXVECTOR3(7, 4.5, 0)));
+	temp.push_back(MyRECT(0, 77, 95, 13, D3DXVECTOR3(4, 5, 0)));
+	temp.push_back(MyRECT(92, 0, 8, 98, D3DXVECTOR3(0, 5, 0)));
 	
 
-	this->mState.push_back(new ObjectStateWithLoop(temp, 14, L"Object\\ThrowPot\\ThrowHand.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mState.push_back(new ObjectStateWithLoop(temp, 13, L"Object\\ThrowPot\\ThrowHand.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 	temp.push_back(MyRECT(0, 0, 88, 55));
@@ -78,9 +78,6 @@ void ThrowPotEnemy::Render(float DeltaTime)
 void ThrowPotEnemy::Update(float DeltaTime)
 {
 	
-
-	
-
 	this->mState.at(mCurrentState)->Update(mTime);
 
 	switch (mCurrentState)
@@ -107,7 +104,7 @@ void ThrowPotEnemy::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 	switch ((EObjectID)obj->GetID())
 	{
 	case EObjectID::THROWINGAPPLE:
-		if (this->mCurrentState == ThrowPotEnemyState::ThrowPotEnemy_DoNothing)
+		if (this->mCurrentState == ThrowPotEnemyState::ThrowPotEnemy_ThrowingPot)
 		{
 			this->mState.at(ThrowPotEnemyState::ThrowPotEnemy_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
 			mCurrentState = ThrowPotEnemyState::ThrowPotEnemy_Explosion;

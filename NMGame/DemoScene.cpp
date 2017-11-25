@@ -105,7 +105,7 @@ void DemoScene::LoadResource()
 
 	//mCamel = new Camel(D3DXVECTOR3(500, WORLD_Y - MAP_HEIGHT + 90,0));
 
-	Camera::GetInstance()->SetPosition(100.0f, WORLD_Y - MAP_HEIGHT + 90 );
+	//Camera::GetInstance()->SetPosition(100.0f, WORLD_Y - MAP_HEIGHT + 90 );
 
 	mQuadTree = new QuadTree();
 
@@ -136,7 +136,6 @@ void DemoScene::ProcessInput()
 
 void DemoScene::CheckCollision(float DeltaTime)
 {
-	mAladdin->CheckCollision(DeltaTime, mListObjectInViewPort);
 
 
 	//Kiểm tra flying object với các object khác và chính nó
@@ -183,6 +182,9 @@ void DemoScene::CheckCollision(float DeltaTime)
 	
 
 		
+		//Reset Aladdin Colission flag
+		mAladdin->ResetFlagCollision();
+
 		for (int i = 0; i < mListObjectInViewPort.size(); i++)
 		{
 			//Check collision with Object interact with InteractBB
@@ -191,13 +193,29 @@ void DemoScene::CheckCollision(float DeltaTime)
 				mListObjectInViewPort.at(i)->processCollisionAABB(this->mAladdin, this->mAladdin->GetBoundingBox().Intersects(mListObjectInViewPort.at(i)->GetInteractBoundingBox()), CollisionWith::InteractBoundingBox);
 			}
 
-			//Check collision with Object can be attack and Aladdin
+			//Check collision with Object can be attack and Aladdin when attack
 			if (this->mListObjectInViewPort.at(i)->GetCanBeAttack())
 			{
 				if (mAladdin->getCurrentState() == AState::Attack1 || mAladdin->getCurrentState() == AState::SitAttack || mAladdin->getCurrentState() == AState::JumpAttack)
 					mListObjectInViewPort.at(i)->processCollisionAABB(this->mAladdin, this->mAladdin->GetAttackBoundingBox().Intersects(mListObjectInViewPort.at(i)->GetBoundingBox()), CollisionWith::SwordBoundingBox);
 			}
 
+			//Check collision with Object can Attack Aladdin
+			if (this->mListObjectInViewPort.at(i)->GetCanAttack())
+			{
+					mAladdin->processCollisionAABB(this->mListObjectInViewPort.at(i), this->mListObjectInViewPort.at(i)->GetAttackBoundingBox().Intersects(mAladdin->GetBoundingBox()), CollisionWith::SwordBoundingBox);
+			}
+			
+			//Check collision with Aladdin
+
+			CollisionResult res = Collision::SweptAABB(DeltaTime, mAladdin->GetBoundingBox(), mAladdin->getCurrentObjectState()->GetVelocity(), this->mListObjectInViewPort.at(i)->GetBoundingBox(), D3DXVECTOR2(0,0));
+			if (res.EntryTime < 1 && res.EntryTime >= 0)
+			{
+				mListObjectInViewPort.at(i)->processCollision(DeltaTime, mAladdin, res);
+				mAladdin->processCollision(DeltaTime, mListObjectInViewPort.at(i), res);
+			}
+
+			mAladdin->processCollisionAABB(mListObjectInViewPort.at(i), this->mAladdin->GetBoundingBox().Intersects(mListObjectInViewPort.at(i)->GetBoundingBox()), CollisionWith::BoundingBox);
 		}
 
 		
@@ -211,6 +229,7 @@ void DemoScene::CheckCollision(float DeltaTime)
 		}
 	}*/
 }
+
 
 void DemoScene::AddFlyingObject(GameVisibleEntity *obj)
 {

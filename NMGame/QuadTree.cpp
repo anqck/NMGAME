@@ -34,7 +34,8 @@ void QuadTree::LoadQuadTree(std::string filePath)
 	//Load danh sách các Object trên map
 	for (int i = 0; i < numberOfObject; i++)
 	{
-		file >> ObjectKey >> EObjectID >> PosX >> PosY >> Top >> Left >> Right >> Bottom;
+		file >> ObjectKey >> EObjectID;
+		file >> PosX >> PosY >> Top >> Left >> Right >> Bottom;
 		mListObject[std::atoi(ObjectKey.c_str())] = new CTreeObject(std::atoi(ObjectKey.c_str()), std::atoi(EObjectID.c_str()), D3DXVECTOR3(std::atoi(PosX.c_str()), std::atoi(PosY.c_str()), 0), MyRECT(std::atoi(Top.c_str()), std::atoi(Left.c_str()), std::atoi(Right.c_str()), std::atoi(Bottom.c_str())));
 	}
 

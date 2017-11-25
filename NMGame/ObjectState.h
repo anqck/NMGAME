@@ -14,8 +14,11 @@ public:
 	~ObjectState();
 
 	virtual void		Render();
+	void				OpacityRender(DWORD AlphaValue);
+
 	virtual void		Update(float DeltaTime);
 	virtual void		Animate(float DeltaTime);
+	void				InverseAnimate(float DeltaTime); //Frame đi ngược lại
 
 	void				Move(float delta_time);
 	void				MoveVertical(float delta_time, Direction dirVer);
@@ -24,7 +27,7 @@ public:
 	virtual bool		isDone();
 
 	void				resetFrame();
-	void				GoToFrame(int idx);
+	virtual void		GoToFrame(int idx);
 	void				GoToLastFrameIdx();
 
 	D3DXVECTOR3			GetPosition() { return this->mPosition; };
