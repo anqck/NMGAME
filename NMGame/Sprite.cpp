@@ -156,3 +156,4 @@ void Sprite::Render(DWORD AlphaValue)
 	//if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_3))
 		//GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetCurrentFrameBoundingBox(), D3DCOLOR_XRGB(255, 255, 0));
 }
+

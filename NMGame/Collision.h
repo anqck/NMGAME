@@ -24,6 +24,8 @@ public:
 
 	//bool					AABB(MyRECT rect1, MyRECT rect2);
 	static CollisionResult	SweptAABB(float DeltaTime, MyRECT rect1, D3DXVECTOR2 v1, MyRECT rect2, D3DXVECTOR2 v2);
+
+	static MyRECT			GetSweptBoardphaseBox(MyRECT box, D3DXVECTOR2 velocity, float DeltaTime);
 private:
 
 

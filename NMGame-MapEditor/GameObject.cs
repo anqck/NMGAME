@@ -21,6 +21,8 @@ namespace NMGame_MapEditor
             SWINGBAR,
             JUMPBAR,
             BLOCK,
+            
+
 
             APPLE, //Cộng táo
             LAMP, //Đụng vào enemy trên màn hết máu
@@ -40,6 +42,7 @@ namespace NMGame_MapEditor
             THROWPOT,
             TRADER, //bán hàng
 
+            STAIRFLAGCHANGE,
         }
 
 
@@ -55,7 +58,12 @@ namespace NMGame_MapEditor
 
         private MyRECT       mMoveRect;
 
-  
+        private int         mStairLayer;
+        private int mStairLayerChangeFr;
+        private int mStairLayerChangeTo;
+
+
+
         public int MLeft
         {
             get
@@ -116,8 +124,10 @@ namespace NMGame_MapEditor
                 case EObjectID.ROPE:
                 case EObjectID.CAMEL:
                 case EObjectID.APPLE:
+                case EObjectID.COLLAPSEGROUND:
                     return false;
-                case EObjectID.ENEMY1:               
+                case EObjectID.ENEMY1:
+                case EObjectID.STAIRFLAGCHANGE:
                 default:
                     return true;
             }
@@ -131,6 +141,7 @@ namespace NMGame_MapEditor
                 case EObjectID.ROPE:
                 case EObjectID.STAIR:
                 case EObjectID.WALL:
+                case EObjectID.STAIRFLAGCHANGE:
                 case EObjectID.BLOCK:
                     return false;
                 case EObjectID.APPLE:
@@ -209,12 +220,51 @@ namespace NMGame_MapEditor
             }
         }
 
+        public int MStairLayer
+        {
+            get
+            {
+                return mStairLayer;
+            }
+
+            set
+            {
+                mStairLayer = value;
+            }
+        }
+
+        public int MStairLayerChangeFr
+        {
+            get
+            {
+                return this.mStairLayerChangeFr;
+            }
+
+            set
+            {
+                mStairLayerChangeFr = value;
+            }
+        }
+
+        public int MStairLayerChangeTo
+        {
+            get
+            {
+                return mStairLayerChangeTo;
+            }
+
+            set
+            {
+                mStairLayerChangeTo = value;
+            }
+        }
+
         public GameObject()
         {
 
         }
 
-        public GameObject(int left, int top, int right, int bottom, EObjectID objID, int posX = 0, int posY = 0)
+        public GameObject(int left, int top, int right, int bottom, EObjectID objID, int posX = 0, int posY = 0, int stairLayer = 0, int stairLayerCh1 = 0)
         {
             mLeft = left;
             mTop = top;
@@ -223,6 +273,11 @@ namespace NMGame_MapEditor
             mObjID = objID;
             mPositionX = posX;
             mPositionY = posY;
+
+            mStairLayer = stairLayer;
+
+            mStairLayerChangeFr = stairLayer;
+            MStairLayerChangeTo = stairLayerCh1;
 
             this.mMoveRect = new MyRECT(0,0,0,0);
 
@@ -236,6 +291,8 @@ namespace NMGame_MapEditor
             mObjID = objID;
             mPositionX = posX;
             mPositionY = posY;
+
+            MStairLayer = 0;
 
             this.mMoveRect = moveRect;
 

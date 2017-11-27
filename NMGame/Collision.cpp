@@ -3,6 +3,19 @@
 #include<iostream>
 using namespace std;
 
+MyRECT Collision::GetSweptBoardphaseBox(MyRECT box, D3DXVECTOR2 velocity, float DeltaTime)
+{
+	MyRECT broadphasebox;
+	broadphasebox.top = velocity.y > 0 ? box.top + velocity.y * DeltaTime : box.top;
+	broadphasebox.bottom = velocity.y > 0 ? box.bottom : box.bottom + velocity.y * DeltaTime;
+	broadphasebox.left = velocity.x > 0 ? box.left : box.left + velocity.x * DeltaTime;
+	broadphasebox.right = velocity.x > 0 ? box.right + velocity.x * DeltaTime : box.right;
+
+	//broadphasebox.x = velocity.x;
+	//broadphasebox.y = velocity.y;
+
+	return broadphasebox;
+}
 
 CollisionResult Collision::SweptAABB(float DeltaTime,MyRECT rect1, D3DXVECTOR2 v1, MyRECT rect2, D3DXVECTOR2 v2)
 {
@@ -121,7 +134,7 @@ CollisionResult Collision::SweptAABB(float DeltaTime,MyRECT rect1, D3DXVECTOR2 v
 	}
 	else
 	{
-		if (yEntry <= 0.0f) // Bên trên
+		if (yEntry < 0.0f || yEntry == 0 && rect1.bottom >= rect2.bottom) // Bên trên
 		{
 			result.dir = Direction::Up;
 		}

@@ -31,6 +31,7 @@ GameVisibleEntity::GameVisibleEntity( D3DXVECTOR3 pos)
 	this->mCanBeAttack = false;
 	this->mCanAttack = false;
 
+	this->mStairLayer = 0;
 	mDone = false;
 }
 
@@ -48,6 +49,8 @@ GameVisibleEntity::GameVisibleEntity( int X, int Y)
 	this->mInteractWithInteractBB = false;
 	this->mCanBeAttack = false;
 	this->mCanAttack = false;
+
+	this->mStairLayer = 0;
 	
 	mDone = false;
 }
@@ -181,6 +184,16 @@ bool GameVisibleEntity::GetCanBeAttack()
 bool GameVisibleEntity::GetCanAttack()
 {
 	return this->mCanAttack;
+}
+
+void GameVisibleEntity::SetStairLayer(int flag)
+{
+	this->mStairLayer = flag;
+}
+
+int GameVisibleEntity::GetStairLayer()
+{
+	return this->mStairLayer;
 }
 
 ObjectState * GameVisibleEntity::GetCurrentState()

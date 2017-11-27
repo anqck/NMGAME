@@ -29,14 +29,34 @@ void QuadTree::LoadQuadTree(std::string filePath)
 	std::string MapWitdh, MapHeight;
 	file >> MapWitdh >> MapHeight;
 
-	std::string ObjectKey, EObjectID, PosX, PosY, Top, Left, Right, Bottom;
+	std::string ObjectKey, _EObjectID, PosX, PosY, Top, Left, Right, Bottom;
 	
 	//Load danh sách các Object trên map
 	for (int i = 0; i < numberOfObject; i++)
 	{
-		file >> ObjectKey >> EObjectID;
+		file >> ObjectKey >> _EObjectID;
 		file >> PosX >> PosY >> Top >> Left >> Right >> Bottom;
-		mListObject[std::atoi(ObjectKey.c_str())] = new CTreeObject(std::atoi(ObjectKey.c_str()), std::atoi(EObjectID.c_str()), D3DXVECTOR3(std::atoi(PosX.c_str()), std::atoi(PosY.c_str()), 0), MyRECT(std::atoi(Top.c_str()), std::atoi(Left.c_str()), std::atoi(Right.c_str()), std::atoi(Bottom.c_str())));
+		if ((EObjectID)std::atoi(_EObjectID.c_str()) == EObjectID::STAIR)
+		{
+			std::string StairFlag;
+			file >> StairFlag;
+			
+			mListObject[std::atoi(ObjectKey.c_str())] = new CTreeObject(std::atoi(ObjectKey.c_str()), std::atoi(_EObjectID.c_str()), D3DXVECTOR3(std::atoi(PosX.c_str()), std::atoi(PosY.c_str()), 0), MyRECT(std::atoi(Top.c_str()), std::atoi(Left.c_str()), std::atoi(Right.c_str()), std::atoi(Bottom.c_str())), std::atoi(StairFlag.c_str()));
+		}
+		else if ((EObjectID)std::atoi(_EObjectID.c_str()) == EObjectID::STAIRFLAGCHANGE)
+		{
+			std::string StairFr, StairTo;
+			file >> StairFr >> StairTo;
+
+			mListObject[std::atoi(ObjectKey.c_str())] = new CTreeObject(std::atoi(ObjectKey.c_str()), std::atoi(_EObjectID.c_str()), D3DXVECTOR3(std::atoi(PosX.c_str()), std::atoi(PosY.c_str()), 0), MyRECT(std::atoi(Top.c_str()), std::atoi(Left.c_str()), std::atoi(Right.c_str()), std::atoi(Bottom.c_str())), std::atoi(StairFr.c_str()),  std::atoi(StairTo.c_str()));
+		}
+		else
+		{
+			mListObject[std::atoi(ObjectKey.c_str())] = new CTreeObject(std::atoi(ObjectKey.c_str()), std::atoi(_EObjectID.c_str()), D3DXVECTOR3(std::atoi(PosX.c_str()), std::atoi(PosY.c_str()), 0), MyRECT(std::atoi(Top.c_str()), std::atoi(Left.c_str()), std::atoi(Right.c_str()), std::atoi(Bottom.c_str())));
+		}
+		
+		
+		
 	}
 
 	

@@ -40,6 +40,8 @@ enum EObjectID
 	THROWPOTENEMY,
 	TRADER, //bán hàng
 
+	STAIRFLAGCHANGE,
+
 	ALADDIN,
 	THROWINGAPPLE, //Táo quăng ra
 	THROWINGCAMEL, //Lạc đà bắn ra
@@ -70,7 +72,11 @@ protected:
 	
 	bool					mDone;
 
-	
+
+	//StairOnly
+	bool					mStairFlag;
+	int						mStairLayer;
+
 public:
 	GameVisibleEntity();
 	GameVisibleEntity( D3DXVECTOR3 pos);
@@ -105,14 +111,20 @@ public:
 	bool					GetCanBeAttack();
 	bool					GetCanAttack();
 
+	void					SetStairLayer(int flag);
+	int						GetStairLayer();
+
+
 	virtual ObjectState*		GetCurrentState();
 	virtual bool				isDone() { return mDone; };
+
 	
 	virtual void processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
 	//Intersect rect process
 	virtual void processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
 
+	
 };
 
 #endif __OBJECT_H__

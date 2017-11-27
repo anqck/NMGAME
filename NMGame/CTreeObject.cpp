@@ -10,28 +10,34 @@
 #include "Enemy1.h"
 #include "Enemy3.h"
 #include "Apple.h"
+#include "StairFlagChange.h"
+#include "CollapseGround.h"
 
 CTreeObject::CTreeObject()
 {
 }
 
-CTreeObject::CTreeObject(int key, int id, D3DXVECTOR3 pos, MyRECT bb)
+CTreeObject::CTreeObject(int key, int id, D3DXVECTOR3 pos, MyRECT bb, int stairFlag , int changeto )
 {
 	this->mKey = key;
 	this->mID = id;
 	this->mPosition = pos;
 	this->mBoundingBox = MyRECT(bb);
 
-	this->mGameObject = NewGameObject(id, pos, bb);
+	this->mGameObject = NewGameObject(id, pos, bb, stairFlag, changeto);
 	//this->mGameObject->SetID((EObjectID) id);
 	this->mGameObject->SetInteractBoundingBox(bb);
+
+	if ((EObjectID)id == EObjectID::STAIR)
+		this->mGameObject->SetStairLayer(stairFlag);
+
 }
 
 CTreeObject::~CTreeObject()
 {
 }
 
-GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb)
+GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb, int changefr, int changeto)
 {
 	switch ((EObjectID)id)
 	{
@@ -45,6 +51,8 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 		return new Wall(bb);
 	case  EObjectID::BLOCK:
 		return new Block(bb);
+	case  EObjectID::COLLAPSEGROUND:
+		return new CollapseGround(pos);
 	case EObjectID::APPLE:
 		return new Apple(pos);
 	case EObjectID::CAMEL:
@@ -55,6 +63,8 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 		return new Enemy1(bb, pos);
 	case EObjectID::ENEMY3:
 		return new Enemy3(bb, pos);
+	case EObjectID::STAIRFLAGCHANGE:
+		return new StairFlagChange(bb,changefr, changeto);
 	}
 }
 

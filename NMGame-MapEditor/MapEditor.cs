@@ -77,6 +77,9 @@ namespace NMGame_MapEditor
             btnSave.Enabled = false;
 
             this.grpMove.Visible = false;
+            chkStair.Visible = false;
+            txtStairLayer.Visible = false;
+            txtStairLayerCh.Visible = false;
 
             needToVisualize = new List<GameObject>();
             lblzoom.Text = zoom + " %";
@@ -217,7 +220,16 @@ namespace NMGame_MapEditor
                     }
                     else
                     {
-                        mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex));
+                        if ((EObjectID)this.cbObjType.SelectedIndex == EObjectID.STAIR)
+                        {
+                            mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex,0,0,int.Parse(txtStairLayer.Text)));
+                        }
+                        else if ((EObjectID)this.cbObjType.SelectedIndex == EObjectID.STAIRFLAGCHANGE)
+                        {
+                            mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex, 0, 0, int.Parse(txtStairLayerCh.Text), int.Parse(txtStairLayer.Text)));
+                        }
+                        else
+                            mListObject.Add(new GameObject(int.Parse(txtLeft.Text), int.Parse(txtTop.Text), int.Parse(txtRight.Text), int.Parse(txtBottom.Text), (EObjectID)cbObjType.SelectedIndex));
                     }
                         
                     break;
@@ -235,8 +247,17 @@ namespace NMGame_MapEditor
                             mListObject[listView1.SelectedIndices[0]].MRight = int.Parse(txtRight.Text);
                             mListObject[listView1.SelectedIndices[0]].MTop = int.Parse(txtTop.Text);
 
+                        if ((EObjectID)this.cbObjType.SelectedIndex == EObjectID.STAIR)
+                        {
 
-                      
+                             mListObject[listView1.SelectedIndices[0]].MStairLayer = int.Parse(txtStairLayer.Text) ;
+                        }
+                        else if ((EObjectID)this.cbObjType.SelectedIndex == EObjectID.STAIRFLAGCHANGE)
+                        {
+
+                            mListObject[listView1.SelectedIndices[0]].MStairLayerChangeFr = int.Parse(txtStairLayerCh.Text);
+                            mListObject[listView1.SelectedIndices[0]].MStairLayerChangeTo = int.Parse(txtStairLayer.Text);
+                        }
                     }
                     break;
                 default:
@@ -308,6 +329,17 @@ namespace NMGame_MapEditor
             this.mWorldSpace.ClearRectangle();
             this.mWorldSpace.ClearObjectImage();
             this.mWorldSpace.Invalidate();
+
+            if ((EObjectID)this.cbObjType.SelectedIndex == EObjectID.STAIR)
+            {
+                txtStairLayer.Visible = true;
+                //chkStair.Visible = true;
+            }
+            else if ((EObjectID)this.cbObjType.SelectedIndex == EObjectID.STAIRFLAGCHANGE)
+            {
+                txtStairLayer.Visible = true;
+                txtStairLayerCh.Visible = true;
+            }
 
             switch (currentState)
             {
@@ -472,6 +504,24 @@ namespace NMGame_MapEditor
                 txtmoveRight.Text = mListObject[listView1.SelectedIndices[0]].getMoveRect().Right.ToString();
                 txtmoveBottom.Text = mListObject[listView1.SelectedIndices[0]].getMoveRect().Bottom.ToString();
 
+                if ((EObjectID)this.cbObjType.SelectedIndex == EObjectID.STAIR)
+                {
+                    //chkStair.Visible = true;
+                    txtStairLayer.Visible = true;
+                    //chkStair.Checked =  mListObject[listView1.SelectedIndices[0]].MStairFlag;
+                    txtStairLayer.Text = mListObject[listView1.SelectedIndices[0]].MStairLayer.ToString();
+                }
+                else if ((EObjectID)this.cbObjType.SelectedIndex == EObjectID.STAIRFLAGCHANGE)
+                {
+
+                    txtStairLayer.Visible = true;
+                    txtStairLayerCh.Visible = true;
+
+                    txtStairLayer.Text = mListObject[listView1.SelectedIndices[0]].MStairLayerChangeTo.ToString();
+                    txtStairLayerCh.Text = mListObject[listView1.SelectedIndices[0]].MStairLayerChangeFr.ToString();
+                }
+
+
                 flagBiding = false;
                 Biding();
 
@@ -503,15 +553,23 @@ namespace NMGame_MapEditor
         {
             if (!flagBiding) return;
 
-            if (this.txtLeft.Text != "" && this.txtTop.Text != "" && this.txtRight.Text != "" && this.txtBottom.Text != "")
+            try
             {
-                int L = int.Parse(this.txtLeft.Text);
-                int T = int.Parse(this.txtTop.Text);
-                int R = int.Parse(this.txtRight.Text);
-                int B = int.Parse(this.txtBottom.Text);
-                this.mWorldSpace.DrawRectangle(L, T, R, B);
-                this.mWorldSpace.Invalidate();
+                if (this.txtLeft.Text != "" && this.txtTop.Text != "" && this.txtRight.Text != "" && this.txtBottom.Text != "")
+                {
+                    int L = int.Parse(this.txtLeft.Text);
+                    int T = int.Parse(this.txtTop.Text);
+                    int R = int.Parse(this.txtRight.Text);
+                    int B = int.Parse(this.txtBottom.Text);
+                    this.mWorldSpace.DrawRectangle(L, T, R, B);
+                    this.mWorldSpace.Invalidate();
+                }
             }
+            catch
+            {
+
+            }
+            
         }
         
         private void txt_TextChanged(object sender, EventArgs e)
@@ -536,16 +594,31 @@ namespace NMGame_MapEditor
             txtmoveTop.Text = "";
             txtmoveBottom.Text = "";
 
+            txtStairLayer.Text = "0";
+            txtStairLayerCh.Text = "0";
 
 
             btnDrawRectangle.Visible = false;
             btnPlaceObject.Visible = false;
             btnDrawMoveRect.Visible = false;
-
+            chkStair.Visible = false;
+            txtStairLayer.Visible = false;
+            txtStairLayerCh.Visible = false;
             switch (currentState)
             {
                 case State.NewObject:
                 case State.EditObject:
+                    if((EObjectID)this.cbObjType.SelectedIndex == EObjectID.STAIR)
+                    {
+                        txtStairLayer.Visible = true;
+                    }
+                    else if ((EObjectID)this.cbObjType.SelectedIndex == EObjectID.STAIRFLAGCHANGE)
+                    {
+                        txtStairLayerCh.Visible = true;
+                        txtStairLayer.Visible = true;
+                    }
+
+
                     if (GameObject.isObjectNeedPosition((EObjectID)this.cbObjType.SelectedIndex))
                     {
                         if (GameObject.isObjectNeedDrawBoundingRect((EObjectID)this.cbObjType.SelectedIndex))
@@ -607,6 +680,8 @@ namespace NMGame_MapEditor
 
         private void btnImport_Click(object sender, EventArgs e)
         {
+            mListObject.Clear();
+
             //dosomething
             open = new OpenFileDialog();
            // open.Filter = "|*.txt";
@@ -621,7 +696,7 @@ namespace NMGame_MapEditor
                 for (int i = 0; i < nodes.Length; i++)
                 {
                     string[] temp = nodes[i].Split('/');
-                    mListObject.Add(new GameObject(int.Parse(temp[0]), int.Parse(temp[1]), int.Parse(temp[2]), int.Parse(temp[3]), (EObjectID)Enum.ToObject(typeof(EObjectID), int.Parse(temp[4])),int.Parse(temp[5]),int.Parse(temp[6])));
+                    mListObject.Add(new GameObject(int.Parse(temp[0]), int.Parse(temp[1]), int.Parse(temp[2]), int.Parse(temp[3]), (EObjectID)Enum.ToObject(typeof(EObjectID), int.Parse(temp[4])),int.Parse(temp[5]),int.Parse(temp[6]), int.Parse(temp[7]), int.Parse(temp[8])));
                     // mListObject.Add(new GameObject(900, 500, 700, 1110, (EObjectID.GROUND)));
 
 
@@ -650,11 +725,11 @@ namespace NMGame_MapEditor
                 {
                     if (temp.Equals(last))
                     {
-                        write.Write(temp.MLeft + "/" + temp.MTop + "/" + temp.MRight + "/" + temp.MBottom + "/" + (int)temp.MObjID + "/" + temp.MPositionX + "/"+ temp.MPositionY );
+                        write.Write(temp.MLeft + "/" + temp.MTop + "/" + temp.MRight + "/" + temp.MBottom + "/" + (int)temp.MObjID + "/" + temp.MPositionX + "/"+ temp.MPositionY + "/" + temp.MStairLayer +"/" + temp.MStairLayerChangeTo);
                     }
                     else
                     {
-                        write.Write(temp.MLeft + "/" + temp.MTop + "/" + temp.MRight + "/" + temp.MBottom + "/" + (int)temp.MObjID + "/" + temp.MPositionX + "/" + temp.MPositionY + "|");
+                        write.Write(temp.MLeft + "/" + temp.MTop + "/" + temp.MRight + "/" + temp.MBottom + "/" + (int)temp.MObjID + "/" + temp.MPositionX + "/" + temp.MPositionY + "/" + temp.MStairLayer +  "/" + temp.MStairLayerChangeTo + "|");
                     }
                     // write.Write(temp.MTop + "/"+temp.MLeft + "/" + temp.MRight + "/" + temp.MBottom +"/"+ (int)temp.MObjID + "|" );
 
@@ -791,7 +866,13 @@ namespace NMGame_MapEditor
                 //Save các Object
                 for (int i = 0; i < this.mListObject.Count; i++)
                 {
-                    outputFile.WriteLine(i + " " + (int)mListObject[i].MObjID +  " " + mListObject[i].MPositionX + " " +  (10494 - mListObject[i].MPositionY).ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MTop.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MLeft.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MRight.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MBottom.ToString());
+                    if (mListObject[i].MObjID== EObjectID.STAIR)
+                        outputFile.WriteLine(i + " " + (int)mListObject[i].MObjID + " " + mListObject[i].MPositionX + " " + (10494 - mListObject[i].MPositionY).ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MTop.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MLeft.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MRight.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MBottom.ToString() + " " + mListObject[i].MStairLayer.ToString());
+                    else if (mListObject[i].MObjID == EObjectID.STAIRFLAGCHANGE)
+                        outputFile.WriteLine(i + " " + (int)mListObject[i].MObjID + " " + mListObject[i].MPositionX + " " + (10494 - mListObject[i].MPositionY).ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MTop.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MLeft.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MRight.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MBottom.ToString() + " " + mListObject[i].MStairLayerChangeFr.ToString() + " " + mListObject[i].MStairLayerChangeTo.ToString());
+                    else
+                        outputFile.WriteLine(i + " " + (int)mListObject[i].MObjID + " " + mListObject[i].MPositionX + " " + (10494 - mListObject[i].MPositionY).ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MTop.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MLeft.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MRight.ToString() + " " + mListObject[i].getBoundingBoxInWorldAxis().MBottom.ToString());
+                    
                 }
 
                 //Save các Node của QuadTree

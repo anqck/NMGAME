@@ -1,4 +1,5 @@
 #include "Apple.h"
+#include "AladdinCharacter.h"
 
 Apple::Apple()
 {
@@ -84,6 +85,7 @@ void Apple::processCollision(float DeltaTime, GameVisibleEntity * obj, Collision
 	switch ((EObjectID)obj->GetID())
 	{
 	case EObjectID::ALADDIN:
+		((AladdinCharacter *)obj)->AddApple(1);
 		this->mCurrentState = AppleState::AppleState_Disappear;
 
 

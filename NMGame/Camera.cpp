@@ -60,6 +60,12 @@ void Camera::Update(AladdinCharacter* object)
 			//cameraY = mPosition.y - halfHeight;
 
 
+			//Left
+			if (aladdinX < cameraX - DELTA_CAMERA)
+			{
+				this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
+			}
+
 
 			//Right
 			if (aladdinX > cameraX + DELTA_CAMERA)
@@ -92,6 +98,12 @@ void Camera::Update(AladdinCharacter* object)
 				this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
 			}
 
+			//Right
+			if (aladdinX > cameraX + DELTA_CAMERA)
+
+			{
+				this->mVelocity.x = aladdinX - cameraX - DELTA_CAMERA;
+			}
 			
 		}
 		break;

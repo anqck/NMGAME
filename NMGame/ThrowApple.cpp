@@ -42,7 +42,7 @@ ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 	//this->mState->SetPosition(pos);
 	temp.clear();
 
-	this->mVelocity = D3DXVECTOR2(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 0.68, 0.1);
+	//this->mVelocity = D3DXVECTOR2(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 1, 0.1);
 	this->mState.at(mCurrentState)->SetVelocity(this->mVelocity);
 }
 
@@ -62,7 +62,7 @@ void ThrowingApple::Update(float DeltaTime)
 	case ThrowingAppleState::Normal:
 		if (!mCollisioned)
 		{
-			this->mState.at(mCurrentState)->SetVelocity(this->mVelocity.x, this->mState.at(mCurrentState)->GetVelocity().y - 0.04);
+			this->mState.at(mCurrentState)->SetVelocity(this->mVelocity.x, this->mState.at(mCurrentState)->GetVelocity().y - 0.032);
 			//this->mVelocity = this->mState.at(mCurrentState)->GetVelocity();
 		}
 		else
@@ -137,7 +137,7 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 	switch ((EObjectID)obj->GetID())
 	{
 	case EObjectID::GROUND:
-	case EObjectID::CAMEL:
+//	case EObjectID::CAMEL:
 	case EObjectID::THROWPOTENEMY:
 	case EObjectID::ENEMY1:
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);

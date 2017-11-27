@@ -73,6 +73,9 @@ void Camel::Update(float DeltaTime)
 
 void Camel::processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision)
 {
+	if (obj->GetID() != EObjectID::ALADDIN)
+		return;
+
 	if(collision.dir == Direction::Up)
 		this->mCurrentState = CamelState::JumpOn;
 }

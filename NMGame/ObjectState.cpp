@@ -45,6 +45,8 @@ void ObjectState::Render()
 	this->mSprite->Render();
 }
 
+
+
 void ObjectState::OpacityRender(DWORD AlphaValue)
 {
 	this->mSprite->Render(AlphaValue);

@@ -48,6 +48,17 @@ namespace NMGame_MapEditor
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.grpObjectInfo = new System.Windows.Forms.GroupBox();
+            this.chkStair = new System.Windows.Forms.CheckBox();
+            this.btnDrawMoveRect = new System.Windows.Forms.Button();
+            this.grpMove = new System.Windows.Forms.GroupBox();
+            this.txtmoveBottom = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtmoveRight = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtmoveTop = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtmoveLeft = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.btnDrawRectangle = new System.Windows.Forms.Button();
             this.btnPlaceObject = new System.Windows.Forms.Button();
             this.grpPosition = new System.Windows.Forms.GroupBox();
@@ -67,31 +78,23 @@ namespace NMGame_MapEditor
             this.txtLeft = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.mWorldSpace = new NMGame_MapEditor.ImageView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grpMove = new System.Windows.Forms.GroupBox();
-            this.txtmoveBottom = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtmoveRight = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtmoveTop = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtmoveLeft = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.btnDrawMoveRect = new System.Windows.Forms.Button();
+            this.txtStairLayer = new System.Windows.Forms.TextBox();
+            this.mWorldSpace = new NMGame_MapEditor.ImageView();
+            this.txtStairLayerCh = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.grpObjectInfo.SuspendLayout();
+            this.grpMove.SuspendLayout();
             this.grpPosition.SuspendLayout();
             this.grpBounded.SuspendLayout();
             this.panel4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.grpMove.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnNew
@@ -247,6 +250,9 @@ namespace NMGame_MapEditor
             // 
             // grpObjectInfo
             // 
+            this.grpObjectInfo.Controls.Add(this.txtStairLayerCh);
+            this.grpObjectInfo.Controls.Add(this.txtStairLayer);
+            this.grpObjectInfo.Controls.Add(this.chkStair);
             this.grpObjectInfo.Controls.Add(this.btnDrawMoveRect);
             this.grpObjectInfo.Controls.Add(this.grpMove);
             this.grpObjectInfo.Controls.Add(this.btnDrawRectangle);
@@ -261,6 +267,108 @@ namespace NMGame_MapEditor
             this.grpObjectInfo.TabIndex = 0;
             this.grpObjectInfo.TabStop = false;
             this.grpObjectInfo.Text = "Object Information:";
+            // 
+            // chkStair
+            // 
+            this.chkStair.AutoSize = true;
+            this.chkStair.Location = new System.Drawing.Point(251, 347);
+            this.chkStair.Name = "chkStair";
+            this.chkStair.Size = new System.Drawing.Size(86, 21);
+            this.chkStair.TabIndex = 13;
+            this.chkStair.Text = "StairFlag";
+            this.chkStair.UseVisualStyleBackColor = true;
+            // 
+            // btnDrawMoveRect
+            // 
+            this.btnDrawMoveRect.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDrawMoveRect.Location = new System.Drawing.Point(246, 342);
+            this.btnDrawMoveRect.Name = "btnDrawMoveRect";
+            this.btnDrawMoveRect.Size = new System.Drawing.Size(121, 28);
+            this.btnDrawMoveRect.TabIndex = 12;
+            this.btnDrawMoveRect.Text = "Draw M.Rectangle";
+            this.btnDrawMoveRect.UseVisualStyleBackColor = true;
+            this.btnDrawMoveRect.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // grpMove
+            // 
+            this.grpMove.Controls.Add(this.txtmoveBottom);
+            this.grpMove.Controls.Add(this.label1);
+            this.grpMove.Controls.Add(this.txtmoveRight);
+            this.grpMove.Controls.Add(this.label7);
+            this.grpMove.Controls.Add(this.txtmoveTop);
+            this.grpMove.Controls.Add(this.label10);
+            this.grpMove.Controls.Add(this.txtmoveLeft);
+            this.grpMove.Controls.Add(this.label11);
+            this.grpMove.Location = new System.Drawing.Point(5, 230);
+            this.grpMove.Name = "grpMove";
+            this.grpMove.Size = new System.Drawing.Size(362, 106);
+            this.grpMove.TabIndex = 10;
+            this.grpMove.TabStop = false;
+            this.grpMove.Text = "Move Rectangle:";
+            // 
+            // txtmoveBottom
+            // 
+            this.txtmoveBottom.Location = new System.Drawing.Point(231, 56);
+            this.txtmoveBottom.Name = "txtmoveBottom";
+            this.txtmoveBottom.Size = new System.Drawing.Size(112, 22);
+            this.txtmoveBottom.TabIndex = 9;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(169, 59);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 17);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Bottom:";
+            // 
+            // txtmoveRight
+            // 
+            this.txtmoveRight.Location = new System.Drawing.Point(48, 59);
+            this.txtmoveRight.Name = "txtmoveRight";
+            this.txtmoveRight.Size = new System.Drawing.Size(112, 22);
+            this.txtmoveRight.TabIndex = 6;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 59);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(45, 17);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Right:";
+            // 
+            // txtmoveTop
+            // 
+            this.txtmoveTop.Location = new System.Drawing.Point(231, 26);
+            this.txtmoveTop.Name = "txtmoveTop";
+            this.txtmoveTop.Size = new System.Drawing.Size(112, 22);
+            this.txtmoveTop.TabIndex = 5;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(169, 26);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(37, 17);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Top:";
+            // 
+            // txtmoveLeft
+            // 
+            this.txtmoveLeft.Location = new System.Drawing.Point(48, 26);
+            this.txtmoveLeft.Name = "txtmoveLeft";
+            this.txtmoveLeft.Size = new System.Drawing.Size(112, 22);
+            this.txtmoveLeft.TabIndex = 2;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 26);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(36, 17);
+            this.label11.TabIndex = 3;
+            this.label11.Text = "Left:";
             // 
             // btnDrawRectangle
             // 
@@ -340,6 +448,7 @@ namespace NMGame_MapEditor
             // 
             // cbObjType
             // 
+            this.cbObjType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbObjType.FormattingEnabled = true;
             this.cbObjType.Location = new System.Drawing.Point(117, 21);
             this.cbObjType.Name = "cbObjType";
@@ -441,22 +550,6 @@ namespace NMGame_MapEditor
             this.panel4.Size = new System.Drawing.Size(1159, 815);
             this.panel4.TabIndex = 4;
             // 
-            // mWorldSpace
-            // 
-            this.mWorldSpace.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.mWorldSpace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mWorldSpace.Location = new System.Drawing.Point(0, 0);
-            this.mWorldSpace.MImage = null;
-            this.mWorldSpace.Name = "mWorldSpace";
-            this.mWorldSpace.Rect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.mWorldSpace.Size = new System.Drawing.Size(1159, 815);
-            this.mWorldSpace.TabIndex = 0;
-            this.mWorldSpace.Load += new System.EventHandler(this.mWorldSpace_Load);
-            this.mWorldSpace.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mWorldSpace_KeyDown);
-            this.mWorldSpace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseDown);
-            this.mWorldSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseMove);
-            this.mWorldSpace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseUp);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -480,108 +573,47 @@ namespace NMGame_MapEditor
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.btnExport_Click);
             // 
-            // grpMove
+            // txtStairLayer
             // 
-            this.grpMove.Controls.Add(this.txtmoveBottom);
-            this.grpMove.Controls.Add(this.label1);
-            this.grpMove.Controls.Add(this.txtmoveRight);
-            this.grpMove.Controls.Add(this.label7);
-            this.grpMove.Controls.Add(this.txtmoveTop);
-            this.grpMove.Controls.Add(this.label10);
-            this.grpMove.Controls.Add(this.txtmoveLeft);
-            this.grpMove.Controls.Add(this.label11);
-            this.grpMove.Location = new System.Drawing.Point(5, 230);
-            this.grpMove.Name = "grpMove";
-            this.grpMove.Size = new System.Drawing.Size(362, 106);
-            this.grpMove.TabIndex = 10;
-            this.grpMove.TabStop = false;
-            this.grpMove.Text = "Move Rectangle:";
+            this.txtStairLayer.Location = new System.Drawing.Point(140, 346);
+            this.txtStairLayer.Name = "txtStairLayer";
+            this.txtStairLayer.Size = new System.Drawing.Size(100, 22);
+            this.txtStairLayer.TabIndex = 10;
             // 
-            // txtmoveBottom
+            // mWorldSpace
             // 
-            this.txtmoveBottom.Location = new System.Drawing.Point(231, 56);
-            this.txtmoveBottom.Name = "txtmoveBottom";
-            this.txtmoveBottom.Size = new System.Drawing.Size(112, 22);
-            this.txtmoveBottom.TabIndex = 9;
+            this.mWorldSpace.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.mWorldSpace.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mWorldSpace.Location = new System.Drawing.Point(0, 0);
+            this.mWorldSpace.MImage = null;
+            this.mWorldSpace.Moverect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.mWorldSpace.Name = "mWorldSpace";
+            this.mWorldSpace.Rect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.mWorldSpace.Size = new System.Drawing.Size(1159, 815);
+            this.mWorldSpace.TabIndex = 0;
+            this.mWorldSpace.Load += new System.EventHandler(this.mWorldSpace_Load);
+            this.mWorldSpace.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mWorldSpace_KeyDown);
+            this.mWorldSpace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseDown);
+            this.mWorldSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseMove);
+            this.mWorldSpace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mWorldSpace_MouseUp);
             // 
-            // label1
+            // txtStairLayerCh
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(169, 59);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 17);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Bottom:";
-            // 
-            // txtmoveRight
-            // 
-            this.txtmoveRight.Location = new System.Drawing.Point(48, 59);
-            this.txtmoveRight.Name = "txtmoveRight";
-            this.txtmoveRight.Size = new System.Drawing.Size(112, 22);
-            this.txtmoveRight.TabIndex = 6;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 59);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(45, 17);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "Right:";
-            // 
-            // txtmoveTop
-            // 
-            this.txtmoveTop.Location = new System.Drawing.Point(231, 26);
-            this.txtmoveTop.Name = "txtmoveTop";
-            this.txtmoveTop.Size = new System.Drawing.Size(112, 22);
-            this.txtmoveTop.TabIndex = 5;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(169, 26);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(37, 17);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Top:";
-            // 
-            // txtmoveLeft
-            // 
-            this.txtmoveLeft.Location = new System.Drawing.Point(48, 26);
-            this.txtmoveLeft.Name = "txtmoveLeft";
-            this.txtmoveLeft.Size = new System.Drawing.Size(112, 22);
-            this.txtmoveLeft.TabIndex = 2;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 26);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(36, 17);
-            this.label11.TabIndex = 3;
-            this.label11.Text = "Left:";
-            // 
-            // btnDrawMoveRect
-            // 
-            this.btnDrawMoveRect.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDrawMoveRect.Location = new System.Drawing.Point(246, 342);
-            this.btnDrawMoveRect.Name = "btnDrawMoveRect";
-            this.btnDrawMoveRect.Size = new System.Drawing.Size(121, 28);
-            this.btnDrawMoveRect.TabIndex = 12;
-            this.btnDrawMoveRect.Text = "Draw M.Rectangle";
-            this.btnDrawMoveRect.UseVisualStyleBackColor = true;
-            this.btnDrawMoveRect.Click += new System.EventHandler(this.button1_Click);
+            this.txtStairLayerCh.Location = new System.Drawing.Point(18, 345);
+            this.txtStairLayerCh.Name = "txtStairLayerCh";
+            this.txtStairLayerCh.Size = new System.Drawing.Size(100, 22);
+            this.txtStairLayerCh.TabIndex = 14;
             // 
             // MapEditor
             // 
@@ -608,6 +640,8 @@ namespace NMGame_MapEditor
             this.panel2.ResumeLayout(false);
             this.grpObjectInfo.ResumeLayout(false);
             this.grpObjectInfo.PerformLayout();
+            this.grpMove.ResumeLayout(false);
+            this.grpMove.PerformLayout();
             this.grpPosition.ResumeLayout(false);
             this.grpPosition.PerformLayout();
             this.grpBounded.ResumeLayout(false);
@@ -615,8 +649,6 @@ namespace NMGame_MapEditor
             this.panel4.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.grpMove.ResumeLayout(false);
-            this.grpMove.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -682,6 +714,9 @@ namespace NMGame_MapEditor
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem openToolStripMenuItem;
         private ToolStripMenuItem saveToolStripMenuItem;
+        private CheckBox chkStair;
+        private TextBox txtStairLayer;
+        private TextBox txtStairLayerCh;
     }
 }
 

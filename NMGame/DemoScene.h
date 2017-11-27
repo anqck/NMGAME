@@ -9,7 +9,7 @@
 #include "DemoMap.h"
 #include "Camera.h"
 #include "QuadTree.h"
-
+#include "SceneInformation.h"
 #include "ThrowApple.h"
 
 
@@ -41,6 +41,7 @@ protected:
 	DemoMap						*mMap;
 	AladdinCharacter			*mAladdin;
 	AladdinGame					*mGame;
+	SceneInformation			*mSceneInformation;
 
 	bool						allowAttack;
 

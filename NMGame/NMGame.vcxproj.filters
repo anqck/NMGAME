@@ -115,6 +115,10 @@
     <ClCompile Include="Enemy1.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="SceneInformation.cpp" />
+    <ClCompile Include="Alphabet.cpp" />
+    <ClCompile Include="StairFlagChange.cpp" />
+    <ClCompile Include="CollapseGround.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -236,6 +240,16 @@
     </ClInclude>
     <ClInclude Include="Enemy1.h">
       <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneInformation.h" />
+    <ClInclude Include="Alphabet.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="StairFlagChange.h">
+      <Filter>Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CollapseGround.h">
+      <Filter>Object\StaticObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -82,12 +82,14 @@ public:
 	bool			isGrounded();
 	void			SetGrounded(bool allow);
 
-	//void			CheckCollision(float DeltaTime, vector<GameVisibleEntity*> mListObjectInViewPort);
+
 	void			processCollision(float DeltaTime, GameVisibleEntity *obj, CollisionResult collision);
 	void			processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
 
-	//void			CheckCollisionWithGround(float DeltaTime, vector<GameVisibleEntity*> mListGround);
-	//void			CheckCollisionWithRope(float DeltaTime, vector<GameVisibleEntity*> mListRope);
+	int				GetHP();
+
+	void			AddApple(int number);
+	int				GetAppleCount();
 
 	MyRECT			GetBoundingBox();
 	MyRECT			GetAttackBoundingBox();
@@ -98,6 +100,7 @@ protected:
 	vector<ObjectState*>	mAladdinState;
 	AState					mCurrentState;
 	int						mHP;
+	int						mAppleCount;
 	Direction				mDir;
 
 	bool					allowStateChange;
@@ -114,8 +117,11 @@ protected:
 	bool					mReachTopRope;
 	Rope*					mLastRope;
 
+	float					mNotOnGroundTime;
+	bool					mFallingFlag;
 
-	float					_yCollision;
+
+	//float					_yCollision;
 
 	bool					mOpacityRender;
 	bool					mIsOpacityRendered;

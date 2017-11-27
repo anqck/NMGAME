@@ -14,6 +14,7 @@ public:
 	~ObjectState();
 
 	virtual void		Render();
+
 	void				OpacityRender(DWORD AlphaValue);
 
 	virtual void		Update(float DeltaTime);
@@ -32,7 +33,7 @@ public:
 
 	D3DXVECTOR3			GetPosition() { return this->mPosition; };
 	void				SetPosition(D3DXVECTOR3 Position) { this->mPosition = Position; this->mSprite->SetPosition(Position);};
-	void				SetPosition(int X, int Y) { this->mPosition.x = X; this->mPosition.y = Y; 	};
+	void				SetPosition(int X, int Y) { this->mPosition.x = X; this->mPosition.y = Y; this->mSprite->SetPosition(mPosition);	};
 
 	D3DXVECTOR2			GetVelocity();
 	void				SetVelocity(D3DXVECTOR2 Velocity) {	this->mVelocity = Velocity;	};

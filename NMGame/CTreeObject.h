@@ -10,10 +10,10 @@ class CTreeObject
 {
 public:
 	CTreeObject();
-	CTreeObject(int key, int id, D3DXVECTOR3 pos, MyRECT bb);
+	CTreeObject(int key, int id, D3DXVECTOR3 pos, MyRECT bb, int stairFlag = 0, int changeto = 0);
 	~CTreeObject();
 
-	GameVisibleEntity*	NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb);
+	GameVisibleEntity*	NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb, int changefr = 0, int changeto = 0);
 	GameVisibleEntity*	GetGameObject();
 
 	int					GetKey();
