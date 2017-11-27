@@ -119,6 +119,8 @@
     <ClCompile Include="Alphabet.cpp" />
     <ClCompile Include="StairFlagChange.cpp" />
     <ClCompile Include="CollapseGround.cpp" />
+    <ClCompile Include="SwingBar.cpp" />
+    <ClCompile Include="JumpBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -249,6 +251,12 @@
       <Filter>Object\StaticObject</Filter>
     </ClInclude>
     <ClInclude Include="CollapseGround.h">
+      <Filter>Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SwingBar.h">
+      <Filter>Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpBar.h">
       <Filter>Object\StaticObject</Filter>
     </ClInclude>
   </ItemGroup>

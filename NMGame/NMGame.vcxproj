@@ -170,6 +170,7 @@
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="GraphicsHelper.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="JumpBar.cpp" />
     <ClCompile Include="KeyboardHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Stair.cpp" />
     <ClCompile Include="StairFlagChange.cpp" />
     <ClCompile Include="StoppingDust.cpp" />
+    <ClCompile Include="SwingBar.cpp" />
     <ClCompile Include="ThrowApple.cpp" />
     <ClCompile Include="ThrowPot.cpp" />
     <ClCompile Include="ThrowPotEnemy.cpp" />
@@ -218,6 +220,7 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="IScene.h" />
+    <ClInclude Include="JumpBar.h" />
     <ClInclude Include="KeyboardHelper.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MyRECT.h" />
@@ -232,6 +235,7 @@
     <ClInclude Include="Stair.h" />
     <ClInclude Include="StairFlagChange.h" />
     <ClInclude Include="StoppingDust.h" />
+    <ClInclude Include="SwingBar.h" />
     <ClInclude Include="ThrowApple.h" />
     <ClInclude Include="ThrowPot.h" />
     <ClInclude Include="ThrowPotEnemy.h" />

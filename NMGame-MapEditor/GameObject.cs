@@ -125,6 +125,7 @@ namespace NMGame_MapEditor
                 case EObjectID.CAMEL:
                 case EObjectID.APPLE:
                 case EObjectID.COLLAPSEGROUND:
+                case EObjectID.JUMPBAR:
                     return false;
                 case EObjectID.ENEMY1:
                 case EObjectID.STAIRFLAGCHANGE:
@@ -143,6 +144,8 @@ namespace NMGame_MapEditor
                 case EObjectID.WALL:
                 case EObjectID.STAIRFLAGCHANGE:
                 case EObjectID.BLOCK:
+                case EObjectID.SWINGBAR:
+                
                     return false;
                 case EObjectID.APPLE:
                 case EObjectID.CAMEL:
@@ -151,6 +154,7 @@ namespace NMGame_MapEditor
                 case EObjectID.ENEMY3:
                 case EObjectID.ENEMY4:
                 case EObjectID.ENEMY5:
+                case EObjectID.JUMPBAR:
                 default:
                     return true;
             }
@@ -331,6 +335,10 @@ namespace NMGame_MapEditor
             {
                 case EObjectID.APPLE:
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.Apple);
+                case EObjectID.COLLAPSEGROUND:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.CollapseGround);
+                case EObjectID.JUMPBAR:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.JumpBar);
                 default:
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.Camel);
             }

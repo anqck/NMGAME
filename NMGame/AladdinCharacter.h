@@ -15,6 +15,7 @@
 #include "ThrowApple.h"
 #include "StoppingDust.h"
 #include "Rope.h"
+#include "SwingBar.h"
 
 enum AState
 {
@@ -47,7 +48,10 @@ enum AState
 	SwingMove,
 	Couple,
 	Falling,
-	Damaged
+	Damaged,
+	RopeAttack,
+	RopeThrow,
+	SwingDoNothing
 };
 
 
@@ -113,10 +117,12 @@ protected:
 	bool					mWallCollision;
 
 	bool					mRopeCollision;
-	bool					mRopeIntersects;
-	bool					mReachTopRope;
 	Rope*					mLastRope;
 
+	bool					mSwingBarCollision;
+	SwingBar*					mLastSwingBar;
+
+	//Falling
 	float					mNotOnGroundTime;
 	bool					mFallingFlag;
 
@@ -138,12 +144,10 @@ protected:
 	bool					flagKeyPressed ;
 
 	StoppingDust*			mStoppingDust;
-	//vector<ThrowingApple*>		mListThrowingApple;	//Các táo ném ra
+
 
 	
-						
-	vector<GameVisibleEntity*> mListGround;
-	vector<GameVisibleEntity*> mListRope;
+
 };
 
 #endif _ALADDIN_H__
