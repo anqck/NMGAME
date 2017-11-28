@@ -90,7 +90,12 @@ void DemoScene::Render(float DeltaTime)
 
 	this->mMap->Render(DeltaTime, MapLevel::MapLevel2);
 
+	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_4))
+		QuadTree::DrawQuadtree(this->mQuadTree->GetRoot());
+
 	mSceneInformation->Render();
+
+	
 
 }
 

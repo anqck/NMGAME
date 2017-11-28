@@ -155,17 +155,29 @@ void GraphicsHelper::DrawLine(D3DXVECTOR2 lines[], int count, D3DXCOLOR color)
 
 }
 
-void GraphicsHelper::DrawBoundingBox(MyRECT rect,D3DXCOLOR color)
+void GraphicsHelper::DrawBoundingBox(MyRECT rect,D3DXCOLOR color, bool	translationFlag)
 {
-	D3DXVECTOR3 cameraPositionInView = ViewPort::GetInstance()->getViewPortPosition(Camera::GetInstance()->GetPosition());
+	D3DXVECTOR2 trans;
+	D3DXVECTOR3 lt, rb;
 
-	D3DXVECTOR3 _translation = D3DXVECTOR3(-cameraPositionInView.x, -cameraPositionInView.y, 0);
+	if (!translationFlag)
+	{
+		D3DXVECTOR3 cameraPositionInView = ViewPort::GetInstance()->getViewPortPosition(Camera::GetInstance()->GetPosition());
+
+		D3DXVECTOR3 _translation = D3DXVECTOR3(-cameraPositionInView.x, -cameraPositionInView.y, 0);
 
 
-	D3DXVECTOR3 lt = ViewPort::GetInstance()->getViewPortPosition(D3DXVECTOR3(rect.left,rect.top,0));
-	D3DXVECTOR3 rb = ViewPort::GetInstance()->getViewPortPosition(D3DXVECTOR3(rect.right , rect.bottom, 0));
+		lt = ViewPort::GetInstance()->getViewPortPosition(D3DXVECTOR3(rect.left, rect.top, 0));
+		rb = ViewPort::GetInstance()->getViewPortPosition(D3DXVECTOR3(rect.right, rect.bottom, 0));
 
-	D3DXVECTOR2 trans = D3DXVECTOR2(_translation.x, _translation.y);
+		trans = D3DXVECTOR2(_translation.x, _translation.y);
+	}
+	else
+	{
+		lt = D3DXVECTOR3(rect.left, rect.top,0);
+		rb = D3DXVECTOR3(rect.right, rect.bottom,0);
+	}
+	
 
 	D3DXVECTOR2 lines[] = { D3DXVECTOR2(lt.x + trans.x, lt.y + trans.y),
 		D3DXVECTOR2(rb.x + trans.x, lt.y + trans.y),

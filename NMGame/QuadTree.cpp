@@ -144,3 +144,25 @@ vector<GameVisibleEntity*> QuadTree::GetListObjectInViewport(MyRECT viewport)
 
 	return mListObjectInViewport;
 }
+
+void QuadTree::DrawQuadtree(QNode* node)
+{
+	GraphicsHelper::GetInstance()->DrawBoundingBox(node->GetBoundingBox(),D3DCOLOR_XRGB(0,255,0));
+
+	if (node->GetLT())
+	{
+		DrawQuadtree(node->GetLB());
+		DrawQuadtree(node->GetLT());
+		DrawQuadtree(node->GetRB());
+		DrawQuadtree(node->GetRT());
+	/*	GraphicsHelper::GetInstance()->DrawBoundingBox(node->GetLB()->GetBoundingBox(), D3DCOLOR_XRGB(0, 255, 0));
+		GraphicsHelper::GetInstance()->DrawBoundingBox(node->GetLT()->GetBoundingBox(), D3DCOLOR_XRGB(0, 255, 0));
+		GraphicsHelper::GetInstance()->DrawBoundingBox(node->GetRB()->GetBoundingBox(), D3DCOLOR_XRGB(0, 255, 0));
+		GraphicsHelper::GetInstance()->DrawBoundingBox(node->GetRT()->GetBoundingBox(), D3DCOLOR_XRGB(0, 255, 0));*/
+	}
+}
+
+QNode * QuadTree::GetRoot()
+{
+	return this->mRoot;
+}

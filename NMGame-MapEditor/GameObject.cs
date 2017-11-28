@@ -310,7 +310,7 @@ namespace NMGame_MapEditor
 
         public MyRECT getBoundingBoxInWorldAxis()
         {
-            return new MyRECT(this.MLeft, 10494 - this.MTop, 10494 - this.MBottom, this.MRight);
+            return new MyRECT(this.MLeft,10494 -this.MTop, 10494 -  this.MBottom, this.MRight);
         }
 
         public MyRECT getMoveRectInWorldAxis()

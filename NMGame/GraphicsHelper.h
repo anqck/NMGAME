@@ -19,7 +19,7 @@ public:
 	void						DrawSurface(const RECT* sourceRect, const RECT* desRect);
 
 	void						DrawLine(D3DXVECTOR2 lines[], int count, D3DXCOLOR color);
-	void						DrawBoundingBox(MyRECT rect, D3DXCOLOR color);
+	void						DrawBoundingBox(MyRECT rect, D3DXCOLOR color, bool	translationFlag = false);
 
 private:
 	GraphicsHelper();

@@ -29,7 +29,7 @@ void QNode::AddChilds(QNode * lt, QNode * rt, QNode * lb, QNode * rb)
 	this->mChilds.push_back(lt);
 	this->mChilds.push_back(rt);
 	this->mChilds.push_back(lb);
-	this->mChilds.push_back(rt);
+	this->mChilds.push_back(rb);
 }
 
 QNode * QNode::GetLT()

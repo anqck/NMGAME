@@ -18,6 +18,10 @@ public:
 	void							ListObjectInViewport(MyRECT viewport, QNode* node);
 	vector<GameVisibleEntity*>		GetListObjectInViewport(MyRECT viewport);
 
+	static void						DrawQuadtree(QNode* node);
+
+	QNode*							GetRoot();
+
 private:
 	QNode*							mRoot;
 

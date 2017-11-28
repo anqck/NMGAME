@@ -141,10 +141,10 @@ namespace NMGame_MapEditor
 
         private void Split()
         {
-            this.NodeLT = new QNode(this.mID * 10, this.mLevel + 1, mTop, mLeft, (mRight - mLeft) / 2, (mTop - mBottom) / 2);
-            this.NodeRT = new QNode(this.mID * 10 + 1, this.mLevel + 1, mTop, (mRight - mLeft) / 2, mRight, (mTop - mBottom) / 2);
-            this.NodeLB = new QNode(this.mID * 10 + 2, this.mLevel + 1, (mTop - mBottom) / 2, mLeft, (mRight - mLeft) / 2, mBottom);
-            this.NodeRB = new QNode(this.mID * 10 + 3, this.mLevel + 1, (mTop - mBottom) / 2, (mRight - mLeft) / 2, mRight, mBottom);
+            this.NodeLT = new QNode(this.mID * 10, this.mLevel + 1, mTop, mLeft, mLeft + (mRight - mLeft) / 2, mBottom + (mTop - mBottom) / 2);
+            this.NodeRT = new QNode(this.mID * 10 + 1, this.mLevel + 1, mTop, mLeft + (mRight - mLeft) / 2, mRight, mBottom + (mTop - mBottom) / 2);
+            this.NodeLB = new QNode(this.mID * 10 + 2, this.mLevel + 1, mBottom + (mTop - mBottom) / 2, mLeft, mLeft + (mRight - mLeft) / 2, mBottom);
+            this.NodeRB = new QNode(this.mID * 10 + 3, this.mLevel + 1, mBottom + (mTop - mBottom) / 2, mLeft + (mRight - mLeft) / 2, mRight, mBottom);
         }
 
 
@@ -203,6 +203,10 @@ namespace NMGame_MapEditor
             {
                 GameObject obj = this.MListObject[i];
 
+                if (obj.MKey == 21)
+                {
+                    int c = 0;
+                }
                 int index = this.getObjectNodeID(obj);
 
                 switch (index)
@@ -249,8 +253,8 @@ namespace NMGame_MapEditor
                         }
                 }
             }
-            this.MListObject.Clear();
 
+            this.MListObject.Clear();
             //Gọi đệ quy xuống các node con
             for (int i = 0; i < mChilds.Count(); i++)
                 mChilds[i].BuildTree();
