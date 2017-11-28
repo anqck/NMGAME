@@ -145,7 +145,7 @@ namespace NMGame_MapEditor
                 case EObjectID.STAIRFLAGCHANGE:
                 case EObjectID.BLOCK:
                 case EObjectID.SWINGBAR:
-                
+                case EObjectID.FIREGROUND:
                     return false;
                 case EObjectID.APPLE:
                 case EObjectID.CAMEL:

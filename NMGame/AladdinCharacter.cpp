@@ -58,7 +58,7 @@ void AladdinCharacter::LoadResource()
 
 	//DoNothing
 	temp.push_back(MyRECT(53, 128, 165, 103));
-	this->mAladdinState.push_back(new ObjectState(temp, 10, L"AladdinCharacter\\AladdinStand.png", D3DXVECTOR2(0, -0.6f), CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectState(temp, 10, L"AladdinCharacter\\AladdinStand.png", D3DXVECTOR2(0, -0.4f), CenterArchor::CenterBottom));
 	temp.clear();
 
 	//Walk
@@ -466,14 +466,20 @@ void AladdinCharacter::LoadResource()
 
 
 	//Falling
-	temp.push_back(MyRECT(0, 175, 229, 62));
-	temp.push_back(MyRECT(63, 175, 225, 126));
-	temp.push_back(MyRECT(70, 57, 102, 130));
-	temp.push_back(MyRECT(115, 0, 50, 174));
-	temp.push_back(MyRECT(60, 0, 56, 114));
-	temp.push_back(MyRECT(0, 0, 59, 59));
-	temp.push_back(MyRECT(0, 60, 118, 69));
-	temp.push_back(MyRECT(0, 119, 174, 70));
+	temp.push_back(MyRECT(0, 0, 54, 69));
+	temp.push_back(MyRECT(0, 55, 106, 74));
+	temp.push_back(MyRECT(0, 107, 156, 73));
+	temp.push_back(MyRECT(0, 157, 195, 66));
+	temp.push_back(MyRECT(0, 196, 232, 63));
+	temp.push_back(MyRECT(70, 0, 35, 149));
+	temp.push_back(MyRECT(75, 106, 140, 168));
+	temp.push_back(MyRECT(74, 141, 175, 167));
+	temp.push_back(MyRECT(67, 176, 210, 160));
+	temp.push_back(MyRECT(64, 211, 245, 157));
+	temp.push_back(MyRECT(75, 36, 70, 168));
+	temp.push_back(MyRECT(75, 71, 105, 168));
+	temp.push_back(MyRECT(150, 0, 34, 243));
+
 
 
 
@@ -489,7 +495,7 @@ void AladdinCharacter::LoadResource()
 	temp.push_back(MyRECT(49, 62, 121, 99));
 	temp.push_back(MyRECT(0, 122, 181, 49));
 
-	this->mAladdinState.push_back(new ObjectState(temp, 14, L"AladdinCharacter\\Damaged.png", D3DXVECTOR2(0, -0.4f), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectState(temp, 14, L"AladdinCharacter\\Damaged.png", D3DXVECTOR2(0, 0.0f), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 	//RopeAttack
@@ -525,6 +531,26 @@ void AladdinCharacter::LoadResource()
 
 	this->mAladdinState.push_back(new ObjectState(temp, 14, L"AladdinCharacter\\SwingDoNothing.png", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
+
+	//Spring
+	temp.push_back(MyRECT(0, 0, 59, 44));
+	temp.push_back(MyRECT(0, 60, 109, 54));
+	temp.push_back(MyRECT(0, 110, 147, 32));
+	temp.push_back(MyRECT(0, 148, 183, 34));
+	temp.push_back(MyRECT(55, 44, 82, 95));
+	temp.push_back(MyRECT(55, 83, 121, 86));
+	temp.push_back(MyRECT(87, 83, 120, 125));
+	temp.push_back(MyRECT(88, 0, 39, 123));
+	temp.push_back(MyRECT(45, 0, 43, 87));
+	temp.push_back(MyRECT(0, 110, 147, 32));
+	temp.push_back(MyRECT(0, 148, 183, 34));
+	temp.push_back(MyRECT(55, 44, 82, 95));
+	temp.push_back(MyRECT(55, 83, 121, 86));
+	temp.push_back(MyRECT(87, 83, 120, 125));
+	temp.push_back(MyRECT(88, 0, 39, 123));
+
+	this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinCharacter\\Spring.png", D3DXVECTOR2(0, 1.2f), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	temp.clear();
 }
 
 #pragma endregion
@@ -539,6 +565,12 @@ void AladdinCharacter::Update(float DeltaTime)
 	//this->CheckCollisionWithRope(DeltaTime, mListRope);
 
 #pragma region Animate&Move
+	//Update Attack Wall Anamate
+	if (this->mWallCollision && this->mCurrentState == AState::Attack1)
+	{
+		if (this->mAladdinState.at(this->mCurrentState)->GetCurrentIdx() == 3 && this->mAladdinState.at(this->mCurrentState)->isNextFrame == true)
+			this->mAladdinState.at(this->mCurrentState)->GoToFrame(6);
+	}
 	//Animate and move
 	if (this->mCurrentState != AState::RopeClimb)
 	{
@@ -596,12 +628,11 @@ void AladdinCharacter::Update(float DeltaTime)
 	
 
 	//this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, -0.5);
-	if (this->mCurrentState != AState::RunAndJump && this->mCurrentState != AState::StandJump && this->mCurrentState != AState::JumpAttack && this->mCurrentState != AState::JumpThrow && this->mCurrentState != AState::RopeClimb && this->mCurrentState != AState::RopeJump)
+	if (this->mCurrentState != AState::RunAndJump && this->mCurrentState != AState::StandJump && this->mCurrentState != AState::JumpAttack && this->mCurrentState != AState::JumpThrow && this->mCurrentState != AState::RopeClimb && this->mCurrentState != AState::RopeJump && this->mCurrentState != AState::Spring)
 	{
 		
 			this->mAladdinState.at(mCurrentState)->ResetDefaultVelocity();
-			//this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, -0.8);
-			
+			//this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x, -0.8);		
 	}
 
 	if (this->mCurrentState == AState::Push)
@@ -697,6 +728,7 @@ void AladdinCharacter::Update(float DeltaTime)
 	case AState::Falling:
 	case AState::StandJump:
 	case AState::RopeJump:
+	case AState::Spring:
 	{
 
 		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
@@ -862,7 +894,8 @@ void AladdinCharacter::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 	case VK_SPACE:
-		this->mPosition = D3DXVECTOR3(10000, WORLD_Y - MAP_HEIGHT + 300 , 0);
+		//this->mPosition = D3DXVECTOR3(7500, WORLD_Y - MAP_HEIGHT + 1200 , 0);
+		this->mPosition = D3DXVECTOR3(4900, WORLD_Y - MAP_HEIGHT +1200, 0);
 		this->mAladdinState.at(this->mCurrentState)->SetPosition(this->mPosition);
 		break;
 	case VK_RIGHT:
@@ -930,6 +963,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::RunAndJump:
 		case AState::JumpAttack:
 		case AState::JumpThrow:
+		case AState::Spring:
 			if (isGrounded() == true)
 			{
 				this->allowStateChange = true;
@@ -1041,6 +1075,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::SwingAttack:
 		case AState::SwingThrow:
 		case AState::SwingWait:
+		case AState::Spring:
 			break;
 		case AState::RopeAttack:
 		case AState::RopeThrow:
@@ -1102,6 +1137,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::SwingAttack:
 		case AState::SwingThrow:
 		case AState::SwingWait:
+		case AState::Spring:
 			break;
 		default:
 			flagKeyPressed = true;
@@ -1156,6 +1192,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::JumpAttack:
 		case AState::RunAndJump:
 		case AState::RopeJump:
+		case AState::Spring:
 			if (allowAttack)
 			{
 				allowAttack = false;
@@ -1245,6 +1282,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::JumpThrow:
 		case AState::RunAndJump:
 		case AState::RopeJump:
+		case AState::Spring:
 			if (allowAttack)
 			{
 				allowAttack = false;
@@ -1334,6 +1372,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::RopeJump:
 		case AState::JumpAttack:
 		case AState::JumpThrow:
+		case AState::Spring:
 			break;
 		default:
 	
@@ -1442,7 +1481,6 @@ void AladdinCharacter::ProcessInput()
 				this->mAladdinState.at(mCurrentState)->mSprite->SetPosition(mLastRope->GetBoundingBox().left + (mLastRope->GetBoundingBox().right - mLastRope->GetBoundingBox().left) / 2, this->mAladdinState.at(mCurrentState)->GetPosition().y);
 				break;
 			}
-			
 		case AState::RunAndJump:
 			if (this->mAladdinState.at(mCurrentState)->isDone() && !isGrounded())
 			{
@@ -1464,6 +1502,7 @@ void AladdinCharacter::ProcessInput()
 			}
 			break;
 		case AState::RopeJump:
+		case AState::Spring:
 			if (isGrounded() == true)
 			{
 				this->allowStateChange = true;
@@ -1601,7 +1640,7 @@ void AladdinCharacter::_BeforeStateChange(AState &changeTo)
 		isClimbing = false;*/
 	
 	//Nếu chuyển hành động nhảy này sáng hành động nhảy khác thì lấy vận tốc của hành động nhảy trước đó
-	if ((mCurrentState == AState::RunAndJump || mCurrentState == AState::StandJump || mCurrentState == AState::RopeJump || mCurrentState == AState::JumpAttack || mCurrentState == AState::JumpThrow) && (changeTo == AState::JumpAttack || changeTo == AState::JumpThrow))
+	if ((mCurrentState == AState::RunAndJump || mCurrentState == AState::StandJump || mCurrentState == AState::RopeJump || mCurrentState == AState::JumpAttack || mCurrentState == AState::JumpThrow || mCurrentState == AState::Spring) && (changeTo == AState::JumpAttack || changeTo == AState::JumpThrow))
 		this->mAladdinState.at(changeTo)->SetVelocity(0,this->mAladdinState.at(mCurrentState)->GetVelocity().y);
 	else if ((mCurrentState == AState::JumpAttack || mCurrentState == AState::JumpThrow ) && changeTo == AState::RunAndJump)
 	{
@@ -1785,6 +1824,7 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 		{
 			//_yCollision = this->mAladdinState.at(mCurrentState)->GetVelocity().y*collision.EntryTime;
 
+			
 			/*if (obj->GetBoundingBox().top <= this->GetBoundingBox().top && obj->GetBoundingBox().bottom >= this->GetBoundingBox().bottom)
 				return;*/
 
@@ -1921,6 +1961,34 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 			this->mAladdinState.at(mCurrentState)->ResetDefaultVelocity();
 		}		
 		break;
+	case EObjectID::JUMPBAR:
+		if (collision.dir == Direction::Up)
+		{
+			this->allowStateChange = true;
+			this->setCurrentState(AState::Spring);
+			//this->mAladdinState.at(mCurrentState)->GoToFrame(1);
+			this->mAladdinState.at(mCurrentState)->resetFrame();
+			this->mAladdinState.at(mCurrentState)->ResetDefaultVelocity();
+		}
+		break;
+	case EObjectID::THROWINGPOT:
+		if (collision.dir == Direction::Up)
+		{
+			this->mOpacityRender = true;
+
+			if (this->mCurrentState == AState::DoNothing || this->mCurrentState == AState::Stand)
+			{
+				this->allowStateChange = true;
+				this->setCurrentState(AState::Damaged);
+			}
+
+
+			if (obj->GetCurrentState()->GetIsNextFrame())
+				mHP--;
+			mOpacityTime = 0;
+
+		}
+		break;
 	}
 	
 }
@@ -1962,7 +2030,7 @@ void AladdinCharacter::processCollisionAABB(GameVisibleEntity * obj, bool AABBre
 		case EObjectID::ENEMY1:
 			this->mOpacityRender = true;
 
-			if (this->mCurrentState == AState::DoNothing)
+			if (this->mCurrentState == AState::DoNothing || this->mCurrentState == AState::Stand)
 			{
 				this->allowStateChange = true;
 				this->setCurrentState(AState::Damaged);
@@ -1973,6 +2041,21 @@ void AladdinCharacter::processCollisionAABB(GameVisibleEntity * obj, bool AABBre
 				mHP--;
 			mOpacityTime = 0;
 			
+			break;
+		case EObjectID::FIREGROUND:
+			this->mOpacityRender = true;
+
+			if (this->mCurrentState == AState::DoNothing || this->mCurrentState == AState::Stand)
+			{
+				this->allowStateChange = true;
+				this->setCurrentState(AState::Damaged);
+			}
+
+
+			if (obj->GetCurrentState()->GetIsNextFrame())
+				mHP--;
+			mOpacityTime = 0;
+
 			break;
 		}
 	}
@@ -2055,6 +2138,9 @@ void AladdinCharacter::PrintLogState()
 		break;
 	case AState::RopeJump:
 		printLog("Rope Jump ");
+		break;
+	case AState::Damaged:
+		printLog("Damage ");
 		break;
 	default:
 		printLog("Else");

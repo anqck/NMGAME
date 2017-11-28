@@ -121,6 +121,7 @@
     <ClCompile Include="CollapseGround.cpp" />
     <ClCompile Include="SwingBar.cpp" />
     <ClCompile Include="JumpBar.cpp" />
+    <ClCompile Include="FireGround.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -257,6 +258,9 @@
       <Filter>Object\StaticObject</Filter>
     </ClInclude>
     <ClInclude Include="JumpBar.h">
+      <Filter>Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="FireGround.h">
       <Filter>Object\StaticObject</Filter>
     </ClInclude>
   </ItemGroup>

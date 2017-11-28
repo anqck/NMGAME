@@ -4,7 +4,7 @@ Camel::Camel()
 {
 	this->mID = EObjectID::CAMEL;
 
-	this->mCanBeHitByFlyingObject = true;
+	this->mCanBeHitByFlyingObject = false;
 
 	mWidth = 110;
 	mHeight = 60;

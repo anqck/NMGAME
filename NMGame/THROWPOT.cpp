@@ -14,13 +14,14 @@ ThrowPot::ThrowPot(D3DXVECTOR3 pos)
 
 	this->mCanBeHitByFlyingObject = true;
 	this->mCanBeAttack = true;
+	this->mCanAttack = true;
 
 	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = MyRECT(0, 0, 0, 0);
 
 
-	mWidth = 40;
-	mHeight = 40;
+	mWidth = 55;
+	mHeight = 55;
 
 	vector<MyRECT> temp;
 

@@ -51,7 +51,8 @@ enum AState
 	Damaged,
 	RopeAttack,
 	RopeThrow,
-	SwingDoNothing
+	SwingDoNothing,
+	Spring
 };
 
 

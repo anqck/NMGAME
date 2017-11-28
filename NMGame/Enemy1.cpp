@@ -131,7 +131,7 @@ void Enemy1::Update(float DeltaTime)
 void Enemy1::Render(float DeltaTime)
 {
 	//if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_3))
-		GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetAttackBoundingBox(), D3DCOLOR_XRGB(255, 255, 0));
+		//GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetAttackBoundingBox(), D3DCOLOR_XRGB(255, 255, 0));
 
 	GameVisibleEntity::Render(DeltaTime);
 	//GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetAttackRange(), D3DCOLOR_XRGB(255,0,255));
@@ -164,9 +164,6 @@ void Enemy1::processCollision(float DeltaTime, GameVisibleEntity * obj, Collisio
 
 void Enemy1::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith)
 {
-	
-
-
 	switch ((EObjectID)obj->GetID())
 	{
 	case EObjectID::ALADDIN:

@@ -2,6 +2,7 @@
 #ifndef __JUMPBAR_H__
 #define __JUMPBAR_H__
 #include "GameVisibleEntity.h"
+#include "ObjectStateWithLoop.h"
 
 enum JumpBarState
 {
@@ -13,7 +14,7 @@ class JumpBar :public GameVisibleEntity
 {
 public:
 	JumpBar();
-	JumpBar(MyRECT bb);
+	JumpBar(MyRECT bb, D3DXVECTOR3 pos);
 	~JumpBar();
 
 	void						Render(float DeltaTime);
