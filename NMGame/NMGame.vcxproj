@@ -163,7 +163,9 @@
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemy1.cpp" />
+    <ClCompile Include="Enemy2.cpp" />
     <ClCompile Include="Enemy3.cpp" />
+    <ClCompile Include="Fire.cpp" />
     <ClCompile Include="FireGround.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameLog.cpp" />
@@ -184,6 +186,7 @@
     <ClCompile Include="SceneInformation.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="SlideColumn.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stair.cpp" />
     <ClCompile Include="StairFlagChange.cpp" />
@@ -212,7 +215,9 @@
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemy1.h" />
+    <ClInclude Include="Enemy2.h" />
     <ClInclude Include="Enemy3.h" />
+    <ClInclude Include="Fire.h" />
     <ClInclude Include="FireGround.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLog.h" />
@@ -233,6 +238,7 @@
     <ClInclude Include="Rope.h" />
     <ClInclude Include="SceneInformation.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SlideColumn.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stair.h" />
     <ClInclude Include="StairFlagChange.h" />
@@ -248,6 +254,7 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

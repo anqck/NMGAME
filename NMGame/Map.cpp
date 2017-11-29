@@ -26,7 +26,7 @@ void Map::Render(float DeltaTime, MapLevel mMapLevel)
 	switch (mMapLevel)
 	{
 	case MapLevel::MapLevel1:
-		GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel1, MyRECT(0, 0, 4771, 688), D3DXVECTOR3(0, 0, 0), inPosition, D3DXVECTOR2(2.2,2.5), translation);
+		GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel1, MyRECT(0, 0, 4770, 688), D3DXVECTOR3(0, 0, 0), inPosition, D3DXVECTOR2(2.2,2.5), translation);
 		//GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel1, MyRECT(0, 0, 4771, 688), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0));
 		break;
 	case  MapLevel::MapLevel2:

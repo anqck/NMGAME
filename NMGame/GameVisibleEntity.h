@@ -45,7 +45,8 @@ enum EObjectID
 	ALADDIN,
 	THROWINGAPPLE, //Táo quăng ra
 	THROWINGCAMEL, //Lạc đà bắn ra
-	THROWINGPOT
+	THROWINGPOT,
+	FIRE
 };
 
 class GameVisibleEntity {

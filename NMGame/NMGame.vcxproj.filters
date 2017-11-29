@@ -120,8 +120,17 @@
     <ClCompile Include="StairFlagChange.cpp" />
     <ClCompile Include="CollapseGround.cpp" />
     <ClCompile Include="SwingBar.cpp" />
-    <ClCompile Include="JumpBar.cpp" />
-    <ClCompile Include="FireGround.cpp" />
+    <ClCompile Include="JumpBar.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="FireGround.cpp">
+      <Filter>Object\StaticObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy2.cpp" />
+    <ClCompile Include="SlideColumn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -263,10 +272,20 @@
     <ClInclude Include="FireGround.h">
       <Filter>Object\StaticObject</Filter>
     </ClInclude>
+    <ClInclude Include="Fire.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy2.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SlideColumn.h">
+      <Filter>Object\StaticObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

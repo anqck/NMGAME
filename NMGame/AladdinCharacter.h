@@ -16,6 +16,7 @@
 #include "StoppingDust.h"
 #include "Rope.h"
 #include "SwingBar.h"
+#include "SlideColumn.h"
 
 enum AState
 {
@@ -52,7 +53,8 @@ enum AState
 	RopeAttack,
 	RopeThrow,
 	SwingDoNothing,
-	Spring
+	Spring,
+	Slide
 };
 
 
@@ -119,6 +121,9 @@ protected:
 
 	bool					mRopeCollision;
 	Rope*					mLastRope;
+
+	bool					mSlideColumnCollision;
+	SlideColumn*			mLastSlideColumn;
 
 	bool					mSwingBarCollision;
 	SwingBar*					mLastSwingBar;

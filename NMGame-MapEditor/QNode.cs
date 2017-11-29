@@ -9,7 +9,7 @@ namespace NMGame_MapEditor
 {
     class QNode
     {
-        private const int MAX_LEVEL = 4;
+        private const int MAX_LEVEL = 5;
         private const int MAX_OBJECT = 1;
 
         private int mLevel;

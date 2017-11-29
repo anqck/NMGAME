@@ -1,4 +1,5 @@
 #include "FireGround.h"
+#include "AladdinCharacter.h"
 
 FireGround::FireGround()
 {
@@ -9,37 +10,18 @@ FireGround::FireGround()
 
 	this->mID = EObjectID::FIREGROUND;
 
-	this->mCurrentState = FireGroundState::FireGroundState_Normal;
+	
+	//this->mCurrentState = FireGroundState::FireGroundState_Normal;
+
 }
 
 FireGround::FireGround(MyRECT bb):FireGround()
 {
 	this->mBoundingBox = this->mInteractBoundingBox = bb;
-	this->mPosition = D3DXVECTOR3(mBoundingBox.left + (mBoundingBox.right - mBoundingBox.left), mBoundingBox.bottom, 0);
+	
+	this->mWidth = bb.right - bb.left;
+	this->mHeight = bb.top - bb.bottom;
 
-	vector<MyRECT> temp;
-	//DoNothing
-	temp.push_back(MyRECT(0, 0, 0, 0));
-	this->mState.push_back(new ObjectState(temp, 20, L"Object\\Enemy\\Enemy1\\DoNothing.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
-
-	temp.clear();
-
-	//Attack
-	temp.push_back(MyRECT(119, 0, 44, 177));
-	temp.push_back(MyRECT(0, 171, 221, 71, D3DXVECTOR3(-7, 0, 0)));
-	temp.push_back(MyRECT(72, 137, 174, 147, D3DXVECTOR3(-1, 0, 0)));
-	temp.push_back(MyRECT(61, 87, 136, 122, D3DXVECTOR3(-2, 0, 0)));
-	temp.push_back(MyRECT(0, 0, 92, 58, D3DXVECTOR3(29, 1, 0)));
-	temp.push_back(MyRECT(59, 0, 86, 118, D3DXVECTOR3(26, 1, 0)));
-	temp.push_back(MyRECT(0, 93, 170, 60, D3DXVECTOR3(20, 1, 0)));
-	temp.push_back(MyRECT(119, 45, 86, 179, D3DXVECTOR3(1, 1, 0)));
-	this->mState.push_back(new ObjectStateWithLoop(temp, 13, L"Object\\Enemy\\Enemy1\\Attack.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
-
-	temp.clear();
-
-
-	this->mState.at(0)->SetPosition(this->mPosition);
-	this->mState.at(1)->SetPosition(this->mPosition);
 }
 
 FireGround::~FireGround()
@@ -48,9 +30,21 @@ FireGround::~FireGround()
 
 void FireGround::Update(float DeltaTime)
 {
-	this->mState.at(mCurrentState)->Update(DeltaTime);
+	//this->mState.at(mCurrentState)->Update(DeltaTime);
+	//printLog(std::to_string(this->mFireArr.size()).c_str());
 
-	switch (mCurrentState)
+	for (int i = 0; i < mFireArr.size(); i++)
+	{
+		mFireArr.at(i)->Update(DeltaTime,mAladdin->getCurrentObjectState()->GetPosition(), mOnFire);
+		if (mFireArr.at(i)->isDone())
+		{
+			delete mFireArr.at(i);
+			mFireArr.erase(mFireArr.begin() + i);
+			i--;
+		}
+
+	}
+	/*switch (mCurrentState)
 	{
 	case FireGroundState::FireGroundState_Fire:
 		{
@@ -59,14 +53,20 @@ void FireGround::Update(float DeltaTime)
 		}
 
 		break;
-	}
+	}*/
 }
 
 void FireGround::Render(float DeltaTime)
 {
 	GameVisibleEntity::Render(DeltaTime);
 
-	this->mState.at(mCurrentState)->Render();
+	for (int i = 0; i < mFireArr.size(); i++)
+	{
+		mFireArr.at(i)->Render(DeltaTime);
+
+	}
+
+	//this->mState.at(mCurrentState)->Render();
 }
 
 void FireGround::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith)
@@ -74,25 +74,62 @@ void FireGround::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, 
 	switch ((EObjectID)obj->GetID())
 	{
 	case EObjectID::ALADDIN:
+		
+
 		if (collisionWith == CollisionWith::InteractBoundingBox)
 		{
+			
 			if (AABBresult)
-				mOnFire = true;
-			else
-				mOnFire = false;
-
-			switch (mCurrentState)
 			{
-			case FireGroundState::FireGroundState_Normal:
-				if (AABBresult == true)
+				mAladdin = ((AladdinCharacter*)obj);
+
+				if ((this->mLastAladdinPosInInteractBox.x + 70  < mAladdin->getCurrentObjectState()->GetPosition().x || this->mLastAladdinPosInInteractBox.x - 70 > mAladdin->getCurrentObjectState()->GetPosition().x)&& (((AladdinCharacter*)obj)->GetBoundingBox().left > this->GetBoundingBox().left - 15) &&(((AladdinCharacter*)obj)->GetBoundingBox().right < this->GetBoundingBox().right + 15))
 				{
-					//this->mState.at(FireGroundState::FireGroundState_Fire)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-					mCurrentState = FireGroundState::FireGroundState_Fire;
+					this->mLastAladdinPosInInteractBox = ((AladdinCharacter*)obj)->getCurrentObjectState()->GetPosition();
+					mCurrentIntersectFire = new Fire(this->mLastAladdinPosInInteractBox);
+					mFireArr.push_back(mCurrentIntersectFire);
 				}
+				mOnFire = true;
 			}
-			break;
+			else
+			{
+				mLastAladdinPosInInteractBox = D3DXVECTOR3(0, 0, 0);
+				mOnFire = false;
+			}
+				
+
+		/*	if (AABBresult == true)
+			{
+
+			}*/
+			//switch (mCurrentState)
+			//{
+			//case FireGroundState::FireGroundState_Normal:
+			//	if (AABBresult == true)
+			//	{
+			//		//this->mState.at(FireGroundState::FireGroundState_Fire)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+			//		mCurrentState = FireGroundState::FireGroundState_Fire;
+			//	}
+			//}
+			//break;
 			
 		}
 	}
+}
+
+MyRECT FireGround::GetAttackBoundingBox()
+{
+	for (int i = 0; i < mFireArr.size(); i++)
+	{
+		if (mFireArr.at(i)->GetAttackBoundingBox().top != 0 && mFireArr.at(i)->GetAttackBoundingBox().bottom != 0)
+			return mFireArr.at(i)->GetAttackBoundingBox();
+
+	}
+	return MyRECT(0, 0, 0, 0);
+}
+
+Fire * FireGround::GetCurrentIntersectFire()
+{
+	return this->mCurrentIntersectFire;
 }
 

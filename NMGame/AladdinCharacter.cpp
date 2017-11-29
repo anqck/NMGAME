@@ -1,5 +1,6 @@
 ﻿#include "AladdinCharacter.h"
 #include "StairFlagChange.h"
+#include "FireGround.h"
 #include"KeyboardHelper.h"
 
 #include <dinput.h>
@@ -40,6 +41,8 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	this->mIsGrounded = false;
 	isClimbing = false;
 	mWallCollision = false;
+	mSwingBarCollision = false;
+	mSlideColumnCollision = false;
 
 	this->mStoppingDust = NULL;
 
@@ -197,7 +200,7 @@ void AladdinCharacter::LoadResource()
 	temp.push_back(MyRECT(0, 121, 174, 58));
 	temp.push_back(MyRECT(0, 121, 174, 58));
 
-	this->mAladdinState.push_back(new ObjectState(temp, 11, L"AladdinAction\\AladdinRunJump.png", D3DXVECTOR2(0, 1.05), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectState(temp, 11, L"AladdinAction\\AladdinRunJump.png", D3DXVECTOR2(0, 1.1), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
@@ -252,7 +255,7 @@ void AladdinCharacter::LoadResource()
 	temp.push_back(MyRECT(0, 0, 59, 44));
 	temp.push_back(MyRECT(155, 51, 88, 205));
 
-	this->mAladdinState.push_back(new ObjectState(temp, 11, L"AladdinCharacter\\StandJump.png", D3DXVECTOR2(0, 0.95f), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectState(temp, 11, L"AladdinCharacter\\StandJump.png", D3DXVECTOR2(0, 1.0f), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 	//JumpAttack
@@ -484,7 +487,7 @@ void AladdinCharacter::LoadResource()
 
 
 
-	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 12, L"AladdinCharacter\\Falling.png", D3DXVECTOR2(0, -0.8f), CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectStateWithLoop(temp, 12, L"AladdinCharacter\\Falling.png", D3DXVECTOR2(0, -0.9f), CenterArchor::CenterBottom));
 	temp.clear();
 
 	//Damaged
@@ -551,6 +554,11 @@ void AladdinCharacter::LoadResource()
 
 	this->mAladdinState.push_back(new ObjectState(temp, 13, L"AladdinCharacter\\Spring.png", D3DXVECTOR2(0, 1.2f), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
+
+	//Slide
+	temp.push_back(MyRECT(0, 0, 28, 79));
+	this->mAladdinState.push_back(new ObjectState(temp, 10, L"AladdinCharacter\\Slide.png", D3DXVECTOR2(0, -0.5f), CenterArchor::CenterBottom));
+	temp.clear();
 }
 
 #pragma endregion
@@ -561,6 +569,7 @@ void AladdinCharacter::Update(float DeltaTime)
 	this->PrintLogState();	
 
 	//printLog(std::to_string(this->mHP).c_str());
+	
 	//this->CheckCollisionWithGround(DeltaTime, mListGround);
 	//this->CheckCollisionWithRope(DeltaTime, mListRope);
 
@@ -712,7 +721,7 @@ void AladdinCharacter::Update(float DeltaTime)
 		{
 			float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
 				|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
-				((mDir == Direction::Right) ? (1) : (-1))*0.4 : 0;
+				((mDir == Direction::Right) ? (1) : (-1))*0.45 : 0;
 		
 
 			this->mAladdinState.at(mCurrentState)->SetVelocity(vx, this->mAladdinState.at(mCurrentState)->GetVelocity().y - 0.045);
@@ -894,9 +903,9 @@ void AladdinCharacter::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 	case VK_SPACE:
-		//this->mPosition = D3DXVECTOR3(7500, WORLD_Y - MAP_HEIGHT + 1200 , 0);
-		this->mPosition = D3DXVECTOR3(4900, WORLD_Y - MAP_HEIGHT +1200, 0);
-		//this->mPosition = D3DXVECTOR3(0, WORLD_Y - MAP_HEIGHT, 0);
+		//this->mPosition = D3DXVECTOR3(7500, WORLD_Y - MAP_HEIGHT + 800 , 0);
+		//this->mPosition = D3DXVECTOR3(9000, WORLD_Y - MAP_HEIGHT +1500, 0);
+		this->mPosition = D3DXVECTOR3(5500, WORLD_Y - MAP_HEIGHT + 100, 0);
 		this->mAladdinState.at(this->mCurrentState)->SetPosition(this->mPosition);
 		break;
 	case VK_RIGHT:
@@ -1018,7 +1027,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::Falling:
 		case AState::RopeAttack:
 		case AState::RopeThrow:
-
+	
 			break;
 		case AState::Walk:
 			if (mRopeCollision == true && this->GetBoundingBox().top <= mLastRope->GetBoundingBox().top )
@@ -1039,13 +1048,24 @@ void AladdinCharacter::ProcessInput()
 				break;
 			}
 		default:
-			if (mWallCollision == false)
+			if (mWallCollision == false && !mSwingBarCollision && !mSlideColumnCollision)
 			{
 				flagKeyPressed = true;
 				this->setAllowStateChange(true);
 				this->setCurrentState(AState::Walk);
 			}
-			else 
+			else if (mSwingBarCollision)
+			{
+				flagKeyPressed = true;
+
+
+				this->setAllowStateChange(true);
+				this->setCurrentState(AState::SwingMove);
+				this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, -this->mHeight / 2 + mLastSwingBar->GetBoundingBox().bottom + (mLastSwingBar->GetBoundingBox().top - mLastSwingBar->GetBoundingBox().bottom) / 2);
+				this->mAladdinState.at(mCurrentState)->mSprite->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, -this->mHeight + mLastSwingBar->GetBoundingBox().bottom + (mLastSwingBar->GetBoundingBox().top - mLastSwingBar->GetBoundingBox().bottom) / 2);
+
+			}
+			else
 			{
 				if (mIsGrounded == true)
 				{
@@ -1077,6 +1097,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::SwingThrow:
 		case AState::SwingWait:
 		case AState::Spring:
+		case AState::Slide:
 			break;
 		case AState::RopeAttack:
 		case AState::RopeThrow:
@@ -1139,6 +1160,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::SwingThrow:
 		case AState::SwingWait:
 		case AState::Spring:
+		case AState::Slide:
 			break;
 		default:
 			flagKeyPressed = true;
@@ -1157,6 +1179,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::RopeThrow:
 		case AState::SwingThrow:
 		case AState::SwingMove:
+		case AState::Slide:
 			break;
 		case AState::RunAttack:
 		case AState::Walk:
@@ -1238,6 +1261,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::RopeAttack:
 		case AState::SwingMove:
 		case AState::SwingAttack:
+		case AState::Slide:
 			break;
 		case AState::RopeThrow:
 		case AState::RopeClimb:
@@ -1374,6 +1398,7 @@ void AladdinCharacter::ProcessInput()
 		case AState::JumpAttack:
 		case AState::JumpThrow:
 		case AState::Spring:
+		case AState::Slide:
 			break;
 		default:
 	
@@ -1455,6 +1480,13 @@ void AladdinCharacter::ProcessInput()
 				this->setCurrentState(AState::DoNothing);
 			}
 			break;
+		case AState::Slide:
+			if (mSlideColumnCollision == false)
+			{
+				this->allowStateChange = true;
+				this->setCurrentState(AState::DoNothing);
+			}
+			break;
 		case AState::SwingMove:
 			if (mSwingBarCollision == true)
 			{
@@ -1482,6 +1514,17 @@ void AladdinCharacter::ProcessInput()
 				this->mAladdinState.at(mCurrentState)->mSprite->SetPosition(mLastRope->GetBoundingBox().left + (mLastRope->GetBoundingBox().right - mLastRope->GetBoundingBox().left) / 2, this->mAladdinState.at(mCurrentState)->GetPosition().y);
 				break;
 			}
+			else if (mSlideColumnCollision == true && this->mAladdinState.at(mCurrentState)->GetVelocity().y <= 0 && this->GetBoundingBox().top <= mLastSlideColumn->GetBoundingBox().top)
+			{
+				flagKeyPressed = true;
+				this->allowStateChange = true;
+				this->setCurrentState(AState::Slide);
+				//this->mCurrentState = AState::RopeClimb;
+				this->mAladdinState.at(mCurrentState)->SetPosition(mLastSlideColumn->GetBoundingBox().left + (mLastSlideColumn->GetBoundingBox().right - mLastSlideColumn->GetBoundingBox().left) / 2, this->mAladdinState.at(mCurrentState)->GetPosition().y);
+				this->mAladdinState.at(mCurrentState)->mSprite->SetPosition(-this->mWidth / 2 + mLastSlideColumn->GetBoundingBox().left + (mLastSlideColumn->GetBoundingBox().right - mLastSlideColumn->GetBoundingBox().left) / 2, this->mAladdinState.at(mCurrentState)->GetPosition().y);
+				break;
+			}
+
 		case AState::RunAndJump:
 			if (this->mAladdinState.at(mCurrentState)->isDone() && !isGrounded())
 			{
@@ -1544,8 +1587,11 @@ void AladdinCharacter::ProcessInput()
 			}
 			break;
 		default:
-			this->setAllowStateChange(true);
-			this->setCurrentState(AState::DoNothing);
+			{
+				this->setAllowStateChange(true);
+				this->setCurrentState(AState::DoNothing);
+			}
+			
 			//allowJump = true;
 			/*if (this->mIsGrounded == true)
 			{
@@ -1713,6 +1759,7 @@ void AladdinCharacter::ResetFlagCollision()
 	this->mWallCollision = false;
 	this->mRopeCollision = false;
 	this->mSwingBarCollision = false;
+	this->mSlideColumnCollision = false;
 }
 
 bool AladdinCharacter::isGrounded()
@@ -1930,24 +1977,33 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 		}
 		break;
 	case EObjectID::SWINGBAR:
-		if (collision.dir == Direction::Down )
+		if (collision.dir == Direction::Down || collision.dir == Direction::Up)
 		{
 			mSwingBarCollision = true;
 			mLastSwingBar = (SwingBar*)obj;
 
-			/*	this->allowStateChange = true;
-			this->setCurrentState(AState::RopeClimb);*/
-
-			//if ((this->mCurrentState == AState::RopeJump) /*&& mLastRope->GetBoundingBox().top >= this->GetBoundingBox().top*/)
-			//{
-			//	this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x ,  this->mAladdinState.at(mCurrentState)->GetPosition().y *  (this->mHeight / 2 + (obj->GetBoundingBox().top - obj->GetBoundingBox().bottom) / 2));
-
-				this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x*collision.EntryTime, this->mAladdinState.at(mCurrentState)->GetVelocity().y *collision.EntryTime );
-
-			//	this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
-			//}
+			this->setAllowStateChange(true);
+			this->setCurrentState(AState::SwingDoNothing);
+			this->mAladdinState.at(mCurrentState)->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, -this->mHeight / 2 + mLastSwingBar->GetBoundingBox().bottom + (mLastSwingBar->GetBoundingBox().top - mLastSwingBar->GetBoundingBox().bottom) / 2);
+			this->mAladdinState.at(mCurrentState)->mSprite->SetPosition(this->mAladdinState.at(mCurrentState)->GetPosition().x, -this->mHeight + mLastSwingBar->GetBoundingBox().bottom + (mLastSwingBar->GetBoundingBox().top - mLastSwingBar->GetBoundingBox().bottom) / 2);
 
 
+				//this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x*collision.EntryTime, this->mAladdinState.at(mCurrentState)->GetVelocity().y *collision.EntryTime );
+		}
+		break;
+	case EObjectID::SLIDECOLUMN:
+		if (collision.dir == Direction::Left || collision.dir == Direction::Right)
+		{
+			mSlideColumnCollision = true;
+			mLastSlideColumn = (SlideColumn*)obj;
+
+			this->setAllowStateChange(true);
+			this->setCurrentState(AState::Slide);
+			this->mAladdinState.at(mCurrentState)->SetPosition( mLastSlideColumn->GetBoundingBox().left + (mLastSlideColumn->GetBoundingBox().right - mLastSlideColumn->GetBoundingBox().left) / 2,this->mAladdinState.at(mCurrentState)->GetPosition().y);
+			this->mAladdinState.at(mCurrentState)->mSprite->SetPosition(-this->mWidth / 2 + mLastSlideColumn->GetBoundingBox().left + (mLastSlideColumn->GetBoundingBox().right - mLastSlideColumn->GetBoundingBox().left) / 2, this->mAladdinState.at(mCurrentState)->GetPosition().y);
+
+
+			//this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x*collision.EntryTime, this->mAladdinState.at(mCurrentState)->GetVelocity().y *collision.EntryTime );
 		}
 		break;
 	case EObjectID::BLOCK:
@@ -2012,7 +2068,10 @@ void AladdinCharacter::processCollisionAABB(GameVisibleEntity * obj, bool AABBre
 			mSwingBarCollision = true;
 			mLastSwingBar = (SwingBar*)obj;
 			break;
-
+		case EObjectID::SLIDECOLUMN:
+			mSlideColumnCollision = true;
+			mLastSlideColumn = (SlideColumn*)obj;
+			break;
 		case EObjectID::GROUND:
 			/*if (this->GetBoundingBox().bottom < obj->GetBoundingBox().top && this->GetBoundingBox().left > obj->GetBoundingBox().left && this->GetBoundingBox().right < obj->GetBoundingBox().right&& this->GetBoundingBox().bottom > obj->GetBoundingBox().bottom)
 			{
@@ -2053,7 +2112,7 @@ void AladdinCharacter::processCollisionAABB(GameVisibleEntity * obj, bool AABBre
 			}
 
 
-			if (obj->GetCurrentState()->GetIsNextFrame())
+			if (((FireGround*)obj)->GetCurrentIntersectFire()->GetCurrentState()->GetIsNextFrame())
 				mHP--;
 			mOpacityTime = 0;
 
@@ -2142,6 +2201,12 @@ void AladdinCharacter::PrintLogState()
 		break;
 	case AState::Damaged:
 		printLog("Damage ");
+		break;
+	case AState::Slide:
+		printLog("Slide ");
+		break;
+	case AState::Falling:
+		printLog("Falling ");
 		break;
 	default:
 		printLog("Else");

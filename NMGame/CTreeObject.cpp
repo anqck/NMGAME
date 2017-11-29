@@ -15,6 +15,7 @@
 #include "SwingBar.h"
 #include "JumpBar.h"
 #include "FireGround.h"
+#include "SlideColumn.h"
 
 CTreeObject::CTreeObject()
 {
@@ -50,6 +51,8 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 		return new Rope(bb);
 	case  EObjectID::SWINGBAR:
 		return new SwingBar(bb);
+	case  EObjectID::SLIDECOLUMN:
+		return new SlideColumn(bb);
 	case  EObjectID::FIREGROUND:
 		return new FireGround(bb);
 	case  EObjectID::JUMPBAR:

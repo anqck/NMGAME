@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Enemy.h"
+#include "Fire.h"
 
-enum FireGroundState
-{
-	FireGroundState_Normal,
-	FireGroundState_Fire
-};
+//enum FireGroundState
+//{
+//	FireGroundState_Normal,
+//	FireGroundState_Fire
+//};
 class FireGround : public Enemy
 {
 public:
@@ -20,12 +21,18 @@ public:
 	void						processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
 	//void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
-	//MyRECT						GetAttackBoundingBox();
+	MyRECT						GetAttackBoundingBox();
 
-	ObjectState *				GetCurrentState() { return this->mState.at(mCurrentState); }
+	Fire*						GetCurrentIntersectFire();
 
 private:
-	FireGroundState				mCurrentState;
+	vector<ObjectState*>		mState;
+	Fire*						mCurrentIntersectFire;
+
+	vector<Fire*>				mFireArr;
+
+	AladdinCharacter*			mAladdin;
+	D3DXVECTOR3					mLastAladdinPosInInteractBox;
 
 	bool						mOnFire;
 

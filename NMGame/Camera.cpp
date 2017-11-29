@@ -139,7 +139,7 @@ void Camera::Update(AladdinCharacter* object)
 				else
 					this->mVelocity.x = -20;
 			}
-				//this->mVelocity.x = -20;
+
 		}		
 	}
 
@@ -156,54 +156,14 @@ void Camera::Update(AladdinCharacter* object)
 	{
 		this->mVelocity.y = aladdinY - (cameraY - DELTA_CAMERA);
 	}
-	////Left
-	//if (object->getCurrentState() == AState::LookUp)
-	//{
-	//	if ( mPosition.y < aladdinY + 550)
-	//		this->mVelocity.y = 10;
 
-	//}
-	//else
-	//{
-	//	if (aladdinX < cameraX - DELTA_CAMERA)
-	//	{
-	//		this->mVelocity.x = aladdinX - cameraX + DELTA_CAMERA;
-	//	}
-
-	//	//Right
-	//	if (aladdinX > cameraX + DELTA_CAMERA)
-	//	{
-	//		this->mVelocity.x = aladdinX - cameraX - DELTA_CAMERA;
-	//		//this->mVelocity.x = 10;
-	//	}
-
-	//	//Top
-	//	if (aladdinY < cameraY - DELTA_CAMERA)
-	//	{
-	//		this->mVelocity.y = aladdinY - (cameraY - DELTA_CAMERA);
-	//	}
-	//	//Bottom
-	//	if (aladdinY > cameraY + DELTA_CAMERA)
-	//	{
-	//		this->mVelocity.y = aladdinY - (cameraY + DELTA_CAMERA);
-	//	}
-	//}
-	//
 	
 	this->mPosition.x += mVelocity.x;
 	this->mPosition.y += mVelocity.y;
 
 	NomalizeCamera();
 
-	/*this->_position.x = aladdinX - halfWidth;
-	this->_position.y = aladdinY + halfHeight;*/
 
-	//_rectBound.top = _position.y - _height;
-	//_rectBound.left = _position.x - _width;
-	//_rectBound.right = _position.x + _width;
-	//_rectBound.bottom = _position.y + _height;
-
-	//GraphicsHelper::GetInstance()->DrawSurface(NULL, new Rect(_position.y, _position.x, _position.x + 50, _position.y + 50, D3DXVECTOR3(0, 0, 0)));
 }
 
 D3DXVECTOR3 Camera::GetPosition()
