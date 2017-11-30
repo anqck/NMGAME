@@ -105,6 +105,13 @@ void GameVisibleEntity::SetPosition(int X, int Y)
 	this->mPosition.y = Y;
 }
 
+D3DXVECTOR2 GameVisibleEntity::GetVelocity()
+{
+	return D3DXVECTOR2(0,0);
+}
+
+
+
 void GameVisibleEntity::SetWidthAndHeight(int width, int height)
 {
 	this->mWidth = width;

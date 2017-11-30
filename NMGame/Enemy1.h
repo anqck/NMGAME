@@ -27,6 +27,10 @@ public:
 
 	ObjectState *				GetCurrentState() { return this->mState.at(mCurrentState); }
 
+	D3DXVECTOR2					GetVelocity();
+
+	bool						isDone();
+
 private:
 	Eneymy1State				mCurrentState;
 

@@ -1,6 +1,6 @@
 #include "ThrowApple.h"
 #include "ThrowPot.h"
-
+#include "FlyingKnife.h"
 
 ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 {
@@ -140,12 +140,15 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 //	case EObjectID::CAMEL:
 	case EObjectID::THROWPOTENEMY:
 	case EObjectID::ENEMY1:
+	case EObjectID::ENEMY2:
+	case EObjectID::ENEMY3:
 	case EObjectID::WALL:
 	case EObjectID::STAIR:
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 		mCollisioned = true;
 		break;
 	case EObjectID::THROWINGPOT:
+	
 		//this->mVelocity = D3DXVECTOR2(0, 0);
 		if (((ThrowPot*)obj)->GetCurrentStateID() == ThrowPotState::ThrowPot_Normal)
 
@@ -154,7 +157,15 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 			mCollisioned = true;
 
 		}
-		
+		break;
+	case EObjectID::THROWINGKNIFE:
+		if (((FlyingKnife*)obj)->GetCurrenStateID() == FlyingKnifeState::FlyingKnifeState_Normal)
+
+		{
+			this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
+			mCollisioned = true;
+
+		}
 		break;
 	}
 }

@@ -129,8 +129,12 @@
     <ClCompile Include="FireGround.cpp">
       <Filter>Object\StaticObject</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy2.cpp" />
     <ClCompile Include="SlideColumn.cpp" />
+    <ClCompile Include="Enemy2.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="FalledSand.cpp" />
+    <ClCompile Include="FlyingKnife.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -280,6 +284,12 @@
     </ClInclude>
     <ClInclude Include="SlideColumn.h">
       <Filter>Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingKnife.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="FalledSand.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

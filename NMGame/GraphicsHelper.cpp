@@ -107,20 +107,9 @@ void GraphicsHelper::DrawTexture(LPDIRECT3DTEXTURE9 Texture, MyRECT sourceRect, 
 	this->mSpriteHandler->GetTransform(&oldMatrix);
 	this->mSpriteHandler->SetTransform(&mMatrix);
 
-	
-
-	//D3DXVECTOR3 center = D3DXVECTOR3((this->mSourceRect.right - this->mSourceRect.left) / 2, (this->mSourceRect.bottom - this->mSourceRect.top) / 2, 0);//Tâm của sprite cần vẽ
-
-
 	mSpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-
-
-
 	this->GetDirectDevice()->SetTextureStageState(0, D3DTSS_CONSTANT, AlphaValue);
 	this->GetDirectDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_CONSTANT);
-
-
-
 
 	mSpriteHandler->Draw(Texture, &sourceRect, &center, &position, D3DCOLOR_XRGB(255, 255, 255));
 

@@ -16,7 +16,7 @@ Enemy1::Enemy1() : Enemy::Enemy()
 
 	this->mCurrentState = Eneymy1State::Eneymy1State_DoNothing;
 
-	mWidth = 40;
+	mWidth = 10;
 	mHeight = 140;
 
 	this->mHP = 2;
@@ -157,6 +157,9 @@ void Enemy1::processCollision(float DeltaTime, GameVisibleEntity * obj, Collisio
 			this->mState.at(Eneymy1State::Eneymy1State_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
 			mCurrentState = Eneymy1State::Eneymy1State_Explosion;
 
+			this->mWidth = 0;
+			this->mHeight = 0;
+
 		}
 		
 	}
@@ -223,7 +226,7 @@ void Enemy1::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 			case Eneymy1State::Eneymy1State_Explosion:
 				if (this->mState.at(mCurrentState)->isDone())
 				{
-
+					
 					mDone = true;
 				}
 				break;
@@ -251,6 +254,10 @@ void Enemy1::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 				{
 					this->mState.at(Eneymy1State::Eneymy1State_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
 					mCurrentState = Eneymy1State::Eneymy1State_Explosion;
+					this->mWidth = 0;
+					this->mHeight = 0;
+
+
 
 				}
 			}
@@ -288,4 +295,14 @@ MyRECT Enemy1::GetAttackBoundingBox()
 		return MyRECT(0, 0, 0, 0);
 
 	}
+}
+
+D3DXVECTOR2 Enemy1::GetVelocity()
+{
+	return this->mState.at(mCurrentState)->GetVelocity();
+}
+
+bool Enemy1::isDone()
+{
+	return this->mDone;
 }

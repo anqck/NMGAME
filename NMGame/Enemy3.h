@@ -1,10 +1,10 @@
 #pragma once
 #include "Enemy.h"
-
-enum Eneymy3State
+#include "FlyingKnife.h"
+enum Enemy3State
 {
 	Eneymy3State_Normal,
-	Eneymy3State_Explosion
+	Enemy3State_Explosion
 };
 class Enemy3 : public Enemy 
 {
@@ -16,8 +16,13 @@ public:
 	void						Update(float DeltaTime);
 	void						Render(float DeltaTime);
 
+	void						processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
+	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
+
 private:
-	Eneymy3State				mCurrentState;
+	Enemy3State				mCurrentState;
+
+	D3DXVECTOR3					mLastAladdinPosInInteractBox;
 
 
 };

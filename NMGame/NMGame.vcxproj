@@ -165,8 +165,10 @@
     <ClCompile Include="Enemy1.cpp" />
     <ClCompile Include="Enemy2.cpp" />
     <ClCompile Include="Enemy3.cpp" />
+    <ClCompile Include="FalledSand.cpp" />
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="FireGround.cpp" />
+    <ClCompile Include="FlyingKnife.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameLog.cpp" />
     <ClCompile Include="GameVisibleEntity.cpp" />
@@ -217,8 +219,10 @@
     <ClInclude Include="Enemy1.h" />
     <ClInclude Include="Enemy2.h" />
     <ClInclude Include="Enemy3.h" />
+    <ClInclude Include="FalledSand.h" />
     <ClInclude Include="Fire.h" />
     <ClInclude Include="FireGround.h" />
+    <ClInclude Include="FlyingKnife.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameLog.h" />
     <ClInclude Include="GameVisibleEntity.h" />

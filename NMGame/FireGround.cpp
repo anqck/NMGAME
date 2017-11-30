@@ -10,6 +10,8 @@ FireGround::FireGround()
 
 	this->mID = EObjectID::FIREGROUND;
 
+	this->mDone = false;
+
 	
 	//this->mCurrentState = FireGroundState::FireGroundState_Normal;
 

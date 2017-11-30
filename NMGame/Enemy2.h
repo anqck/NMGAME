@@ -1,14 +1,17 @@
 #pragma once
 #include "Enemy.h"
+#include "FireGround.h"
 
-enum Eneymy2State
+enum Enemy2State
 {
-	Eneymy2State_DoNothing,
-	Eneymy2State_Attack1,
-	Eneymy2State_Attack2,
-	Eneymy2State_Run,
-	Eneymy2State_Damage,
-	Eneymy2State_Explosion
+	Enemy2State_DoNothing,
+	Enemy2State_Attack1,
+	Enemy2State_Attack2,
+	Enemy2State_Run,
+	Enemy2State_Run_FireGround,
+	Enemy2State_Taunt,
+	Enemy2State_Damage,
+	Enemy2State_Explosion
 };
 class Enemy2 : public Enemy
 {
@@ -28,10 +31,16 @@ public:
 
 	ObjectState *				GetCurrentState() { return this->mState.at(mCurrentState); }
 
+	D3DXVECTOR2					GetVelocity();
+
 private:
-	Eneymy2State				mCurrentState;
+	Enemy2State					mCurrentState;
 
 	D3DXVECTOR3					mLastAladdinPosInInteractBox;
+
+	FireGround*					mLastFireGround;
+	bool						mOnFire;
+
 
 
 

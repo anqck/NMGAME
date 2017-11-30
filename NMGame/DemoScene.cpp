@@ -150,11 +150,32 @@ void DemoScene::CheckCollision(float DeltaTime)
 
 	for (int i = 0; i < mListObjectInViewPort.size(); i++)
 	{
+		
 		//Check collision with Object interact with InteractBB
 		if (mListObjectInViewPort.at(i)->GetInteractWithInteractBB())
 		{
 			mListObjectInViewPort.at(i)->processCollisionAABB(this->mAladdin, this->mAladdin->GetBoundingBox().Intersects(mListObjectInViewPort.at(i)->GetInteractBoundingBox()), CollisionWith::InteractBoundingBox);
 		}
+
+		//Check collision with other Object interact with InteractBB
+		for (int j = i + 1; j < mListObjectInViewPort.size(); j++)
+		{
+			if (mListObjectInViewPort.at(j)->GetInteractWithInteractBB()|| mListObjectInViewPort.at(i)->GetInteractWithInteractBB())
+			{
+				
+				//if (Collision::GetSweptBoardphaseBox(mListObjectInViewPort.at(i)->GetBoundingBox(), mListObjectInViewPort.at(i)->GetVelocity(), DeltaTime).Intersects(mListObjectInViewPort.at(j)->GetBoundingBox()) == true)
+				{
+					CollisionResult res = Collision::SweptAABB(DeltaTime, mListObjectInViewPort.at(i)->GetBoundingBox(), this->mListObjectInViewPort.at(i)->GetVelocity(), mListObjectInViewPort.at(j)->GetBoundingBox(), mListObjectInViewPort.at(j)->GetVelocity());
+					if (res.EntryTime < 1 && res.EntryTime >= 0)
+					{
+						mListObjectInViewPort.at(i)->processCollision(DeltaTime, mListObjectInViewPort.at(j), res);
+						mListObjectInViewPort.at(j)->processCollision(DeltaTime, mListObjectInViewPort.at(i), res);
+					}
+				}
+			}
+		}
+
+		
 
 		//Check collision with Object can be attack and Aladdin when attack
 		if (this->mListObjectInViewPort.at(i)->GetCanBeAttack())
@@ -247,6 +268,7 @@ void DemoScene::CheckCollision(float DeltaTime)
 				if (res.EntryTime < 1 && res.EntryTime >= 0)
 				{
 					mAladdin->processCollision(DeltaTime, this->mListFlyingObject.at(i), res);
+					mListFlyingObject.at(i)->processCollision(DeltaTime, mAladdin, res);
 				}
 			}
 

@@ -18,3 +18,8 @@ Enemy::Enemy(MyRECT bb, D3DXVECTOR3 pos) : Enemy()
 Enemy::~Enemy()
 {
 }
+
+D3DXVECTOR2 Enemy::GetVelocity()
+{
+	return D3DXVECTOR2(0,0);
+}

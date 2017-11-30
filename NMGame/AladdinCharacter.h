@@ -14,6 +14,7 @@
 
 #include "ThrowApple.h"
 #include "StoppingDust.h"
+#include "FalledSand.h"
 #include "Rope.h"
 #include "SwingBar.h"
 #include "SlideColumn.h"
@@ -54,7 +55,8 @@ enum AState
 	RopeThrow,
 	SwingDoNothing,
 	Spring,
-	Slide
+	Slide,
+	Falled
 };
 
 
@@ -150,7 +152,7 @@ protected:
 	bool					flagKeyPressed ;
 
 	StoppingDust*			mStoppingDust;
-
+	FalledSand*				mFalledSand;
 
 	
 

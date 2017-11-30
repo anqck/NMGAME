@@ -87,7 +87,7 @@ bool Sprite::IsFlipVertical()
 
 void Sprite::FlipVertical(bool flip_vertical)
 {
-	this->isFlipVertical = flip_vertical;
+	this->isFlipVertical = flip_vertical;	
 }
 
 TransformObject Sprite::GetTransformPosition()

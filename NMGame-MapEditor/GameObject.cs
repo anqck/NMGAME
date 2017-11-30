@@ -340,6 +340,12 @@ namespace NMGame_MapEditor
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.CollapseGround);
                 case EObjectID.JUMPBAR:
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.JumpBar);
+                case EObjectID.ENEMY1:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.Enemy1);
+                case EObjectID.ENEMY2:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.Enemy2);
+                case EObjectID.ENEMY3:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.Enemy3);
                 default:
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.Camel);
             }

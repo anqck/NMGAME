@@ -1,6 +1,6 @@
 #include "ViewPort.h"
 
-ViewPort*				ViewPort::mInstance = NULL;
+ViewPort*	ViewPort::mInstance = NULL;
 
 ViewPort * ViewPort::GetInstance()
 {

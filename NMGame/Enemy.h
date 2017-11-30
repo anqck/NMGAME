@@ -15,6 +15,10 @@ public:
 
 	virtual MyRECT				GetAttackBoundingBox() { return MyRECT(0, 0, 0, 0); };
 	virtual ObjectState *		GetCurrentState() { return this->mState.at(mCurrentState); }
+
+	virtual D3DXVECTOR2			GetVelocity();
+
+	virtual bool				isDone() { return mDone; };
 protected:
 	int			mHP;
 

@@ -8,6 +8,7 @@
 #include "Wall.h"
 #include "Block.h"
 #include "Enemy1.h"
+#include "Enemy2.h"
 #include "Enemy3.h"
 #include "Apple.h"
 #include "StairFlagChange.h"
@@ -73,6 +74,8 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 		return new ThrowPotEnemy(pos);
 	case EObjectID::ENEMY1:
 		return new Enemy1(bb, pos);
+	case EObjectID::ENEMY2:
+		return new Enemy2(bb, pos);
 	case EObjectID::ENEMY3:
 		return new Enemy3(bb, pos);
 	case EObjectID::STAIRFLAGCHANGE:

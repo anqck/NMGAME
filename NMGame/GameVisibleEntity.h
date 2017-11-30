@@ -46,7 +46,8 @@ enum EObjectID
 	THROWINGAPPLE, //Táo quăng ra
 	THROWINGCAMEL, //Lạc đà bắn ra
 	THROWINGPOT,
-	FIRE
+	FIRE,
+	THROWINGKNIFE
 };
 
 class GameVisibleEntity {
@@ -94,6 +95,8 @@ public:
 	D3DXVECTOR3				GetPosition();
 	void					SetPosition(D3DXVECTOR3 Position);
 	void					SetPosition(int X, int Y);
+
+	virtual D3DXVECTOR2		GetVelocity();
 
 	void					SetWidthAndHeight(int width, int height);
 
