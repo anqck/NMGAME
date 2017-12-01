@@ -142,6 +142,8 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 	case EObjectID::ENEMY1:
 	case EObjectID::ENEMY2:
 	case EObjectID::ENEMY3:
+	case EObjectID::ENEMY4:
+	case EObjectID::ENEMY5:
 	case EObjectID::WALL:
 	case EObjectID::STAIR:
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);

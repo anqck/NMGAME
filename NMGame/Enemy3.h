@@ -16,6 +16,8 @@ public:
 	void						Update(float DeltaTime);
 	void						Render(float DeltaTime);
 
+	ObjectState *				GetCurrentState() { return this->mState.at(mCurrentState); }
+
 	void						processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 

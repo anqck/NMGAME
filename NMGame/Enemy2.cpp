@@ -115,7 +115,7 @@ Enemy2::Enemy2(MyRECT bb, D3DXVECTOR3 pos) : Enemy2()
 	temp.push_back(MyRECT(54, 110, 159, 107, D3DXVECTOR3(2, 0, 0)));
 	temp.push_back(MyRECT(108, 38, 75, 162, D3DXVECTOR3(-4, 0, 0)));
 	temp.push_back(MyRECT(54, 205, 249, 107));
-	this->mState.push_back(new ObjectState(temp, 14, L"Object\\Enemy\\Enemy2\\Taunt.png", D3DXVECTOR2(0.0f, -0.4f), CenterArchor::CenterBottom));
+	this->mState.push_back(new ObjectState(temp, 14, L"Object\\Enemy\\Enemy2\\Taunt.png", D3DXVECTOR2(0.0f, -0), CenterArchor::CenterBottom));
 
 	temp.clear();
 
@@ -176,8 +176,7 @@ void Enemy2::Update(float DeltaTime)
 
 	this->mState.at(mCurrentState)->SetFlipVertical(((mDir == Direction::Right) ? (false) : (true)));
 
-	if (mLastFireGround != nullptr)
-	{
+
 		switch (mCurrentState)
 		{
 		case Enemy2State::Enemy2State_DoNothing:
@@ -186,10 +185,18 @@ void Enemy2::Update(float DeltaTime)
 			mCurrentState = Enemy2State::Enemy2State_Taunt;
 			break;
 		case Enemy2State::Enemy2State_Run:
-			if (mLastFireGround->GetBoundingBox().Intersects(this->GetBoundingBox()))
+			if (mLastFireGround != nullptr)
 			{
-				this->mState.at(Enemy2State::Enemy2State_Run_FireGround)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-				mCurrentState = Enemy2State::Enemy2State_Run_FireGround;
+				if (mLastFireGround->GetBoundingBox().Intersects(this->GetBoundingBox()))
+				{
+					this->mState.at(Enemy2State::Enemy2State_Run_FireGround)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy2State::Enemy2State_Run_FireGround;
+				}
+				else if (this->GetBoundingBox().left <= this->mInteractBoundingBox.left + 10 || this->GetBoundingBox().right >= this->mInteractBoundingBox.right - 10)
+				{
+					this->mState.at(Enemy2State::Enemy2State_DoNothing)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy2State::Enemy2State_DoNothing;
+				}
 			}
 			else if (this->GetBoundingBox().left <= this->mInteractBoundingBox.left + 10 || this->GetBoundingBox().right >= this->mInteractBoundingBox.right - 10)
 			{
@@ -199,16 +206,26 @@ void Enemy2::Update(float DeltaTime)
 			break;
 			
 		case Enemy2State::Enemy2State_Run_FireGround:
-			if (!mLastFireGround->GetBoundingBox().Intersects(this->GetBoundingBox()))
+			if (mLastFireGround != nullptr)
 			{
-				if (this->mDir == Direction::Left && (mLastAladdinPosInInteractBox.x > this->mState.at(mCurrentState)->GetPosition().x + 30/*|| mLastAladdinPosInInteractBox.x - this->mState.at(mCurrentState)->GetPosition().x >= 60*/)|| this->mDir == Direction::Right && mLastAladdinPosInInteractBox.x < this->mState.at(mCurrentState)->GetPosition().x - 30)
+				if (!mLastFireGround->GetBoundingBox().Intersects(this->GetBoundingBox()))
 				{
-					int randNumber = rand() % 2; //33%
-					if (randNumber == 0)
+					if (this->mDir == Direction::Left && (mLastAladdinPosInInteractBox.x > this->mState.at(mCurrentState)->GetPosition().x + 30/*|| mLastAladdinPosInInteractBox.x - this->mState.at(mCurrentState)->GetPosition().x >= 60*/) || this->mDir == Direction::Right && mLastAladdinPosInInteractBox.x < this->mState.at(mCurrentState)->GetPosition().x - 30)
 					{
-						this->mState.at(Enemy2State::Enemy2State_Taunt)->resetFrame();
-						this->mState.at(Enemy2State::Enemy2State_Taunt)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-						mCurrentState = Enemy2State::Enemy2State_Taunt;
+						int randNumber = rand() % 2; //33%
+						if (randNumber == 0)
+						{
+							this->mState.at(Enemy2State::Enemy2State_Taunt)->resetFrame();
+							this->mState.at(Enemy2State::Enemy2State_Taunt)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+							mCurrentState = Enemy2State::Enemy2State_Taunt;
+
+						}
+						else
+						{
+							this->mState.at(Enemy2State::Enemy2State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+							mCurrentState = Enemy2State::Enemy2State_Run;
+						}
+
 
 					}
 					else
@@ -216,25 +233,30 @@ void Enemy2::Update(float DeltaTime)
 						this->mState.at(Enemy2State::Enemy2State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
 						mCurrentState = Enemy2State::Enemy2State_Run;
 					}
-
-					
 				}
-				else
-				{
-					this->mState.at(Enemy2State::Enemy2State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-					mCurrentState = Enemy2State::Enemy2State_Run;
-				}
-				
 			}
 			break;
 		
 		case Enemy2State::Enemy2State_Damage:
 			if (this->mState.at(mCurrentState)->isDone())
 			{
-				if (mLastFireGround->GetBoundingBox().Intersects(this->GetBoundingBox()))
+				if (mLastFireGround != nullptr)
 				{
-					this->mState.at(Enemy2State::Enemy2State_Run_FireGround)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-					mCurrentState = Enemy2State::Enemy2State_Run_FireGround;
+					if (mLastFireGround->GetBoundingBox().Intersects(this->GetBoundingBox()))
+					{
+						this->mState.at(Enemy2State::Enemy2State_Run_FireGround)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+						mCurrentState = Enemy2State::Enemy2State_Run_FireGround;
+					}
+					else if (this->GetBoundingBox().left <= this->mInteractBoundingBox.left + 10 || this->GetBoundingBox().right >= this->mInteractBoundingBox.right - 10)
+					{
+						this->mState.at(Enemy2State::Enemy2State_DoNothing)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+						mCurrentState = Enemy2State::Enemy2State_DoNothing;
+					}
+					else
+					{
+						this->mState.at(Enemy2State::Enemy2State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+						mCurrentState = Enemy2State::Enemy2State_Run;
+					}
 				}
 				else if (this->GetBoundingBox().left <= this->mInteractBoundingBox.left + 10 || this->GetBoundingBox().right >= this->mInteractBoundingBox.right - 10)
 				{
@@ -252,7 +274,7 @@ void Enemy2::Update(float DeltaTime)
 		}
 	}
 	
-}
+
 
 void Enemy2::Render(float DeltaTime)
 {
@@ -302,18 +324,19 @@ void Enemy2::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 				}
 				break;
 			case Enemy2State::Enemy2State_Taunt:
-				if (this->mState.at(mCurrentState)->isDone())
+				if (this->GetAttackRange().Intersects(obj->GetBoundingBox()))
 				{
-					if (!(this->GetBoundingBox().left <= this->mInteractBoundingBox.left + 10 || this->GetBoundingBox().right >= this->mInteractBoundingBox.right - 10))
+					this->mState.at(Enemy2State::Enemy2State_Attack1)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy2State::Enemy2State_Attack1;
+					this->mState.at(Enemy2State::Enemy2State_Attack1)->resetFrame();
+				}
+				else if (this->mState.at(mCurrentState)->isDone())
+				{
+					if (this->mLastAladdinPosInInteractBox.x >= this->mInteractBoundingBox.left && this->mLastAladdinPosInInteractBox.x <= this->mInteractBoundingBox.right)
 					{
 						this->mState.at(Enemy2State::Enemy2State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+						this->mState.at(Enemy2State::Enemy2State_Run)->SetVelocity(0.4, this->mState.at(mCurrentState)->GetVelocity().y);
 						mCurrentState = Enemy2State::Enemy2State_Run;
-					}
-					else if (this->GetAttackRange().Intersects(obj->GetBoundingBox()))
-					{
-						this->mState.at(Enemy2State::Enemy2State_Attack1)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-						mCurrentState = Enemy2State::Enemy2State_Attack1;
-						this->mState.at(Enemy2State::Enemy2State_Attack1)->resetFrame();
 					}
 					else
 					{
@@ -393,6 +416,7 @@ void Enemy2::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 					mDone = true;
 				}
 				break;
+
 			}
 		}
 		else if ((collisionWith == CollisionWith::SwordBoundingBox))
@@ -531,3 +555,9 @@ D3DXVECTOR2 Enemy2::GetVelocity()
 {
 	return this->mState.at(mCurrentState)->GetVelocity();
 }
+
+bool Enemy2::isDone()
+{
+	return this->mDone;;
+}
+

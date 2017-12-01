@@ -1,20 +1,23 @@
 #pragma once
 #include "Enemy.h"
-
-enum Enemy1State
+#include "FlyingKnife.h"
+#include "AladdinCharacter.h"
+enum Enemy4State
 {
-	Enemy1State_DoNothing,
-	Enemy1State_Attack,
-	Enemy1State_Run,
-	Enemy1State_Damage,
-	Enemy1State_Explosion
+	Enemy4State_DoNothing,
+	Enemy4State_Wait,
+	Enemy4State_Run,
+	Enemy4State_Attack,
+
+	Enemy4State_TuotQuan,
+	Enemy4State_Explosion
 };
-class Enemy1 : public Enemy
+class Enemy4 : public Enemy
 {
 public:
-	Enemy1();
-	Enemy1(MyRECT bb, D3DXVECTOR3 pos);
-	~Enemy1();
+	Enemy4();
+	Enemy4(MyRECT bb, D3DXVECTOR3 pos);
+	~Enemy4();
 
 	void						Update(float DeltaTime);
 	void						Render(float DeltaTime);
@@ -25,6 +28,7 @@ public:
 	MyRECT						GetAttackRange();
 	MyRECT						GetAttackBoundingBox();
 
+
 	ObjectState *				GetCurrentState() { return this->mState.at(mCurrentState); }
 
 	D3DXVECTOR2					GetVelocity();
@@ -32,10 +36,11 @@ public:
 	bool						isDone();
 
 private:
-	Enemy1State				mCurrentState;
+	Enemy4State					mCurrentState;
+
 
 	D3DXVECTOR3					mLastAladdinPosInInteractBox;
-	
+
 
 
 };

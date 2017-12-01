@@ -10,6 +10,8 @@
 #include "Enemy1.h"
 #include "Enemy2.h"
 #include "Enemy3.h"
+#include "Enemy4.h"
+#include "Enemy5.h"
 #include "Apple.h"
 #include "StairFlagChange.h"
 #include "CollapseGround.h"
@@ -78,6 +80,10 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 		return new Enemy2(bb, pos);
 	case EObjectID::ENEMY3:
 		return new Enemy3(bb, pos);
+	case EObjectID::ENEMY4:
+		return new Enemy4(bb, pos);
+	case EObjectID::ENEMY5:
+		return new Enemy5(bb, pos);
 	case EObjectID::STAIRFLAGCHANGE:
 		return new StairFlagChange(bb,changefr, changeto);
 	}

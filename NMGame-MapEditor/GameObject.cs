@@ -346,6 +346,12 @@ namespace NMGame_MapEditor
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.Enemy2);
                 case EObjectID.ENEMY3:
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.Enemy3);
+                case EObjectID.ENEMY4:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.Enemy4);
+                case EObjectID.ENEMY5:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.Enemy5);
+                case EObjectID.THROWPOT:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.ThrowPotEnemy);
                 default:
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.Camel);
             }

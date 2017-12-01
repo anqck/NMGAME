@@ -47,7 +47,8 @@ enum EObjectID
 	THROWINGCAMEL, //Lạc đà bắn ra
 	THROWINGPOT,
 	FIRE,
-	THROWINGKNIFE
+	THROWINGKNIFE,
+	THROWINGCAMELSALIVA
 };
 
 class GameVisibleEntity {

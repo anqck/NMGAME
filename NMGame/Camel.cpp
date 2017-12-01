@@ -1,4 +1,6 @@
 #include "Camel.h"
+#include "SceneManager.h"
+#include "FlyingCamelSaliva.h"
 
 Camel::Camel()
 {
@@ -34,7 +36,7 @@ Camel::Camel(D3DXVECTOR3 pos) : Camel()
 	temp.push_back(MyRECT(113, 178, 241, 157));
 
 
-	this->mState.push_back(new ObjectStateWithLoop(temp, 14, L"Object\\Camel.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mState.push_back(new ObjectStateWithLoop(temp, 13, L"Object\\Camel.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 
 
 	this->mState.at(0)->SetPosition(pos);
@@ -64,7 +66,11 @@ void Camel::Update(float DeltaTime)
 	{
 	case CamelState::DoNothing1:
 	case CamelState::JumpOn:
-		if (this->mState.at(mCurrentState)->isDone())
+		if (this->mState.at(mCurrentState)->GetCurrentIdx() == 3 && this->mState.at(mCurrentState)->isNextFrame == true)
+		{
+			SceneManager::GetInstance()->GetCurrentScene()->AddFlyingObject(new FlyingCamalSaliva(D3DXVECTOR3(this->mState.at(mCurrentState)->GetPosition().x +  130, this->mState.at(mCurrentState)->GetPosition().y + 45, 0), D3DXVECTOR2( 0.6, 0), D3DXVECTOR2(0, 0)));
+		}
+		else if (this->mState.at(mCurrentState)->isDone())
 			this->mCurrentState = CamelState::DoNothing1;
 	}
 	

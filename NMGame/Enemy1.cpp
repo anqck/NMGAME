@@ -14,7 +14,7 @@ Enemy1::Enemy1() : Enemy::Enemy()
 
 	this->mDone = false;
 
-	this->mCurrentState = Eneymy1State::Eneymy1State_DoNothing;
+	this->mCurrentState = Enemy1State::Enemy1State_DoNothing;
 
 	mWidth = 10;
 	mHeight = 140;
@@ -27,7 +27,7 @@ Enemy1::Enemy1(MyRECT bb, D3DXVECTOR3 pos) : Enemy1()
 	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = bb;
 
-	this->mCurrentState = Eneymy1State::Eneymy1State_DoNothing;
+	this->mCurrentState = Enemy1State::Enemy1State_DoNothing;
 
 	this->mPosition = pos;
 
@@ -118,7 +118,7 @@ void Enemy1::Update(float DeltaTime)
 
 	switch (mCurrentState)
 	{
-	case Eneymy1State::Eneymy1State_Run:
+	case Enemy1State::Enemy1State_Run:
 		/*if (this->mPosition.x != mLastAladdinPosInInteractBox.x)
 		{
 			this->m
@@ -148,14 +148,14 @@ void Enemy1::processCollision(float DeltaTime, GameVisibleEntity * obj, Collisio
 		{
 			this->mHP--;
 
-			this->mState.at(Eneymy1State::Eneymy1State_Damage)->resetFrame();
-			this->mState.at(Eneymy1State::Eneymy1State_Damage)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-			mCurrentState = Eneymy1State::Eneymy1State_Damage;
+			this->mState.at(Enemy1State::Enemy1State_Damage)->resetFrame();
+			this->mState.at(Enemy1State::Enemy1State_Damage)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+			mCurrentState = Enemy1State::Enemy1State_Damage;
 		}
 		else if (this->mHP == 1)
 		{
-			this->mState.at(Eneymy1State::Eneymy1State_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-			mCurrentState = Eneymy1State::Eneymy1State_Explosion;
+			this->mState.at(Enemy1State::Enemy1State_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+			mCurrentState = Enemy1State::Enemy1State_Explosion;
 
 			this->mWidth = 0;
 			this->mHeight = 0;
@@ -176,54 +176,54 @@ void Enemy1::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 		{
 			switch (mCurrentState)
 			{
-			case Eneymy1State::Eneymy1State_DoNothing:
+			case Enemy1State::Enemy1State_DoNothing:
 				if (AABBresult == true)
 				{
-					this->mState.at(Eneymy1State::Eneymy1State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-					mCurrentState = Eneymy1State::Eneymy1State_Run;
+					this->mState.at(Enemy1State::Enemy1State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy1State::Enemy1State_Run;
 				}
 
 				if (this->GetAttackRange().Intersects(obj->GetBoundingBox()))
 				{
-					this->mState.at(Eneymy1State::Eneymy1State_Attack)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-					mCurrentState = Eneymy1State::Eneymy1State_Attack;
-					this->mState.at(Eneymy1State::Eneymy1State_Attack)->resetFrame();
+					this->mState.at(Enemy1State::Enemy1State_Attack)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy1State::Enemy1State_Attack;
+					this->mState.at(Enemy1State::Enemy1State_Attack)->resetFrame();
 				}
 
 
 				break;
-			case Eneymy1State::Eneymy1State_Run:
+			case Enemy1State::Enemy1State_Run:
 
 
 				if (this->GetAttackRange().Intersects(obj->GetBoundingBox()))
 				{
-					this->mState.at(Eneymy1State::Eneymy1State_Attack)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-					mCurrentState = Eneymy1State::Eneymy1State_Attack;
-					this->mState.at(Eneymy1State::Eneymy1State_Attack)->resetFrame();
+					this->mState.at(Enemy1State::Enemy1State_Attack)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy1State::Enemy1State_Attack;
+					this->mState.at(Enemy1State::Enemy1State_Attack)->resetFrame();
 				}
 				else if (this->GetBoundingBox().left <= this->mInteractBoundingBox.left + 10 || this->GetBoundingBox().right >= this->mInteractBoundingBox.right - 10)
 				{
-					this->mState.at(Eneymy1State::Eneymy1State_DoNothing)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-					mCurrentState = Eneymy1State::Eneymy1State_DoNothing;
+					this->mState.at(Enemy1State::Enemy1State_DoNothing)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy1State::Enemy1State_DoNothing;
 				}
 
 
 				break;
-			case Eneymy1State::Eneymy1State_Attack:
+			case Enemy1State::Enemy1State_Attack:
 				if (!this->GetAttackRange().Intersects(obj->GetBoundingBox()) && this->mState.at(mCurrentState)->isDone())
 				{
-					this->mState.at(Eneymy1State::Eneymy1State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-					mCurrentState = Eneymy1State::Eneymy1State_Run;
+					this->mState.at(Enemy1State::Enemy1State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy1State::Enemy1State_Run;
 					//this->mState.at(mCurrentState)->SetVelocity(0, 0);
 				}
-			case Eneymy1State::Eneymy1State_Damage:
+			case Enemy1State::Enemy1State_Damage:
 				if (this->mState.at(mCurrentState)->isDone())
 				{
-					this->mState.at(Eneymy1State::Eneymy1State_DoNothing)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-					mCurrentState = Eneymy1State::Eneymy1State_DoNothing;
+					this->mState.at(Enemy1State::Enemy1State_DoNothing)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy1State::Enemy1State_DoNothing;
 				}
 				break;
-			case Eneymy1State::Eneymy1State_Explosion:
+			case Enemy1State::Enemy1State_Explosion:
 				if (this->mState.at(mCurrentState)->isDone())
 				{
 					
@@ -239,21 +239,21 @@ void Enemy1::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 
 			switch (mCurrentState)
 			{
-			case Eneymy1State::Eneymy1State_Damage:
+			case Enemy1State::Enemy1State_Damage:
 				break;
 			default:
 				if (this->mHP == 2)
 				{
 					this->mHP--;
 
-					this->mState.at(Eneymy1State::Eneymy1State_Damage)->resetFrame();
-					this->mState.at(Eneymy1State::Eneymy1State_Damage)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-					mCurrentState = Eneymy1State::Eneymy1State_Damage;
+					this->mState.at(Enemy1State::Enemy1State_Damage)->resetFrame();
+					this->mState.at(Enemy1State::Enemy1State_Damage)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy1State::Enemy1State_Damage;
 				}
 				else if (this->mHP == 1)
 				{
-					this->mState.at(Eneymy1State::Eneymy1State_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-					mCurrentState = Eneymy1State::Eneymy1State_Explosion;
+					this->mState.at(Enemy1State::Enemy1State_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy1State::Enemy1State_Explosion;
 					this->mWidth = 0;
 					this->mHeight = 0;
 
@@ -279,7 +279,7 @@ MyRECT Enemy1::GetAttackBoundingBox()
 {
 	switch (mCurrentState)
 	{
-	case Eneymy1State::Eneymy1State_Attack:
+	case Enemy1State::Enemy1State_Attack:
 
 		switch (mState.at(mCurrentState)->GetCurrentIdx())
 		{

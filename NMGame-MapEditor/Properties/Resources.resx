@@ -136,10 +136,19 @@
   <data name="Enemy3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Enemy3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Enemy4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Enemy4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Enemy5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DoNothing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="JumpBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\JumpBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MapLevel1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapLevel1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ThrowPotEnemy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ThrowPotEnemy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

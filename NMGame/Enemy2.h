@@ -33,6 +33,8 @@ public:
 
 	D3DXVECTOR2					GetVelocity();
 
+	bool						isDone();
+
 private:
 	Enemy2State					mCurrentState;
 

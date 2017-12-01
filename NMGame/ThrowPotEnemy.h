@@ -24,6 +24,8 @@ public:
 
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 	void						processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
+
+	ObjectState *				GetCurrentState() { return this->mState.at(mCurrentState); }
 private:
 	vector<ObjectState*>		mState;
 	ThrowPotEnemyState			mCurrentState;

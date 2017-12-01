@@ -98,6 +98,14 @@ void Enemy3::Update(float DeltaTime)
 				SceneManager::GetInstance()->GetCurrentScene()->AddFlyingObject(new FlyingKnife(D3DXVECTOR3(this->mState.at(mCurrentState)->GetPosition().x + ((this->mDir == Direction::Right) ? 1 : -1) * 32, this->mState.at(mCurrentState)->GetPosition().y + 25, 0), this->mDir, D3DXVECTOR2(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 1.1, 0.8), D3DXVECTOR2(0, -0.18)));
 			
 		}
+		break;
+	case Enemy3State::Enemy3State_Explosion:
+		if (this->mState.at(mCurrentState)->isDone())
+		{
+
+			mDone = true;
+		}
+		break;
 	}
 }
 

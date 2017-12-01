@@ -123,6 +123,26 @@ namespace NMGame_MapEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Enemy4 {
+            get {
+                object obj = ResourceManager.GetObject("Enemy4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Enemy5 {
+            get {
+                object obj = ResourceManager.GetObject("Enemy5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap JumpBar {
             get {
                 object obj = ResourceManager.GetObject("JumpBar", resourceCulture);
@@ -136,6 +156,16 @@ namespace NMGame_MapEditor.Properties {
         internal static System.Drawing.Bitmap MapLevel1 {
             get {
                 object obj = ResourceManager.GetObject("MapLevel1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ThrowPotEnemy {
+            get {
+                object obj = ResourceManager.GetObject("ThrowPotEnemy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

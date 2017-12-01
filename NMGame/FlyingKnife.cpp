@@ -132,6 +132,8 @@ void FlyingKnife::processCollision(float DeltaTime, GameVisibleEntity * obj, Col
 	case EObjectID::GROUND:
 	case EObjectID::WALL:
 	case EObjectID::STAIR:
+	case EObjectID::ENEMY3:
+	case EObjectID::ENEMY4:
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 		mCollisioned = true;
 		break;
@@ -176,7 +178,7 @@ void FlyingKnife::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult,
 		if (this->mCurrentState == FlyingKnifeState::FlyingKnifeState_Normal)
 		{
 			this->mVelocity.x = -this->mState.at(mCurrentState)->GetVelocity().x;
-			this->mState.at(mCurrentState)->SetVelocity(  D3DXVECTOR2(this->mVelocity.x, 1.4));
+			this->mState.at(mCurrentState)->SetVelocity(  D3DXVECTOR2(this->mVelocity.x, this->mVelocity.y + 0.1));
 		}
 		break;
 	

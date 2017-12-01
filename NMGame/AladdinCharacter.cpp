@@ -499,7 +499,7 @@ void AladdinCharacter::LoadResource()
 	temp.push_back(MyRECT(49, 62, 121, 99));
 	temp.push_back(MyRECT(0, 122, 181, 49));
 
-	this->mAladdinState.push_back(new ObjectState(temp, 14, L"AladdinCharacter\\Damaged.png", D3DXVECTOR2(0, 0.0f), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mAladdinState.push_back(new ObjectState(temp, 14, L"AladdinCharacter\\Damaged.png", D3DXVECTOR2(0, -0.4f), D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 	//RopeAttack
@@ -585,7 +585,7 @@ void AladdinCharacter::LoadResource()
 #pragma region Update&Render
 void AladdinCharacter::Update(float DeltaTime)
 {
-	this->PrintLogState();	
+	//this->PrintLogState();	
 
 	//printLog(std::to_string(this->mHP).c_str());
 	
@@ -2093,6 +2093,7 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 			if (this->mCurrentState == AState::DoNothing || this->mCurrentState == AState::Stand)
 			{
 				this->allowStateChange = true;
+				this->mAladdinState.at(AState::Damaged)->SetVelocity(this->mAladdinState.at(this->mCurrentState)->GetVelocity());
 				this->setCurrentState(AState::Damaged);
 			}
 
@@ -2109,7 +2110,9 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 		if (this->mCurrentState == AState::DoNothing || this->mCurrentState == AState::Stand)
 		{
 			this->allowStateChange = true;
+			this->mAladdinState.at(AState::Damaged)->SetVelocity(this->mAladdinState.at(this->mCurrentState)->GetVelocity());
 			this->setCurrentState(AState::Damaged);
+
 		}
 
 
@@ -2166,6 +2169,7 @@ void AladdinCharacter::processCollisionAABB(GameVisibleEntity * obj, bool AABBre
 			if (this->mCurrentState == AState::DoNothing || this->mCurrentState == AState::Stand)
 			{
 				this->allowStateChange = true;
+				this->mAladdinState.at(AState::Damaged)->SetVelocity(this->mAladdinState.at(this->mCurrentState)->GetVelocity());
 				this->setCurrentState(AState::Damaged);
 			}
 			
@@ -2181,6 +2185,7 @@ void AladdinCharacter::processCollisionAABB(GameVisibleEntity * obj, bool AABBre
 			if (this->mCurrentState == AState::DoNothing || this->mCurrentState == AState::Stand)
 			{
 				this->allowStateChange = true;
+				this->mAladdinState.at(AState::Damaged)->SetVelocity(this->mAladdinState.at(this->mCurrentState)->GetVelocity());
 				this->setCurrentState(AState::Damaged);
 			}
 
