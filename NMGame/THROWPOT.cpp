@@ -131,6 +131,7 @@ void ThrowPot::processCollision(float DeltaTime, GameVisibleEntity * obj, Collis
 {
 	switch ((EObjectID)obj->GetID())
 	{
+	case EObjectID::STAIR:
 	case EObjectID::GROUND:
 	case EObjectID::CAMEL:
 	case EObjectID::THROWPOTENEMY:

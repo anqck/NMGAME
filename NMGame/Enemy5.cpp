@@ -173,6 +173,13 @@ void Enemy5::Update(float DeltaTime)
 			mCurrentState = Enemy5State::Enemy5State_DoNothing;
 		}
 		break;
+	case Enemy5State::Enemy5State_Explosion:
+		if (this->mState.at(mCurrentState)->isDone())
+		{
+
+			mDone = true;
+		}
+		break;
 	}
 }
 
@@ -298,5 +305,5 @@ D3DXVECTOR2 Enemy5::GetVelocity()
 
 bool Enemy5::isDone()
 {
-	return false;
+	return mDone;
 }

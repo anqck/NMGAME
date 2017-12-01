@@ -63,7 +63,7 @@ Enemy4::Enemy4(MyRECT bb, D3DXVECTOR3 pos) : Enemy4()
 	temp.push_back(MyRECT(61, 0, 37, 113));
 	temp.push_back(MyRECT(0, 124, 159, 50));
 	temp.push_back(MyRECT(56, 76, 113, 103));
-	this->mState.push_back(new ObjectStateWithLoop(temp, 12, L"Object\\Enemy\\Enemy4\\Run.png", D3DXVECTOR2(0.15, 0), CenterArchor::CenterBottom));
+	this->mState.push_back(new ObjectStateWithLoop(temp, 12, L"Object\\Enemy\\Enemy4\\Run.png", D3DXVECTOR2(0.15, -0.4), CenterArchor::CenterBottom));
 
 	temp.clear();
 
@@ -146,6 +146,7 @@ void Enemy4::Update(float DeltaTime)
 		}
 		else if (this->mLastAladdinPosInInteractBox.x >= this->mInteractBoundingBox.left && this->mLastAladdinPosInInteractBox.x <= this->mInteractBoundingBox.right)
 		{
+			this->mState.at(Enemy4State::Enemy4State_Run)->SetVelocity(0.15, this->mState.at(mCurrentState)->GetVelocity().y);
 			this->mState.at(Enemy4State::Enemy4State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
 			mCurrentState = Enemy4State::Enemy4State_Run;
 		}
@@ -205,6 +206,7 @@ void Enemy4::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 			case Enemy4State::Enemy4State_Wait:
 				if (this->mLastAladdinPosInInteractBox.x >= this->mInteractBoundingBox.left && this->mLastAladdinPosInInteractBox.x <= this->mInteractBoundingBox.right)
 				{
+					this->mState.at(Enemy4State::Enemy4State_Run)->SetVelocity(0.15, this->mState.at(mCurrentState)->GetVelocity().y);
 					this->mState.at(Enemy4State::Enemy4State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
 					mCurrentState = Enemy4State::Enemy4State_Run;
 				}
@@ -248,6 +250,37 @@ void Enemy4::processCollision(float DeltaTime, GameVisibleEntity * obj, Collisio
 {
 	switch ((EObjectID)obj->GetID())
 	{
+	case EObjectID::GROUND:
+
+		if (collision.dir == Direction::Up || collision.dir == Direction::Down)
+		{
+
+
+			this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x, this->mState.at(mCurrentState)->GetVelocity().y*collision.EntryTime);
+
+
+		}
+
+		break;
+	case EObjectID::STAIR:
+		if (collision.dir == Direction::Left || collision.dir == Direction::Right)
+		{
+			/*mWallCollision = true;
+
+			this->mAladdinState.at(mCurrentState)->SetVelocity(this->mAladdinState.at(mCurrentState)->GetVelocity().x*collision.EntryTime, this->mAladdinState.at(mCurrentState)->GetVelocity().y);
+
+			this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();*/
+			this->mState.at(mCurrentState)->SetPosition(this->mState.at(mCurrentState)->GetPosition().x, obj->GetBoundingBox().top);
+		}
+		else if (collision.dir == Direction::Up || collision.dir == Direction::Down)
+		{
+
+
+			this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x, this->mState.at(mCurrentState)->GetVelocity().y*collision.EntryTime);
+
+
+		}
+		break;
 	case EObjectID::THROWINGKNIFE:
 	case EObjectID::THROWINGAPPLE:
 		if (collision.dir == Right)
@@ -313,7 +346,7 @@ MyRECT Enemy4::GetAttackBoundingBox()
 
 D3DXVECTOR2 Enemy4::GetVelocity()
 {
-	return D3DXVECTOR2();
+	return this->mState.at(mCurrentState)->GetVelocity();
 }
 
 bool Enemy4::isDone()

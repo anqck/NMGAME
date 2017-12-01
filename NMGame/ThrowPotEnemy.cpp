@@ -146,3 +146,13 @@ void ThrowPotEnemy::processCollisionAABB(GameVisibleEntity * obj, bool AABBresul
 
 	}
 }
+
+bool ThrowPotEnemy::isDone()
+{
+	return mDone;
+}
+
+ThrowPotEnemyState ThrowPotEnemy::GetCurrentStateID()
+{
+	return mCurrentState;
+}

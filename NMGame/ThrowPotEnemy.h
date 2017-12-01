@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameVisibleEntity.h"
+#include "Enemy.h"
 #include "ObjectStateWithLoop.h"
 #include "SceneManager.h"
 #include "ThrowPot.h"
@@ -26,6 +26,10 @@ public:
 	void						processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
 
 	ObjectState *				GetCurrentState() { return this->mState.at(mCurrentState); }
+
+	bool						isDone();
+
+	ThrowPotEnemyState			GetCurrentStateID();
 private:
 	vector<ObjectState*>		mState;
 	ThrowPotEnemyState			mCurrentState;

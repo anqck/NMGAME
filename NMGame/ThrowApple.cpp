@@ -1,6 +1,7 @@
 #include "ThrowApple.h"
 #include "ThrowPot.h"
 #include "FlyingKnife.h"
+#include "ThrowPotEnemy.h"
 
 ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 {
@@ -138,7 +139,7 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 	{
 	case EObjectID::GROUND:
 //	case EObjectID::CAMEL:
-	case EObjectID::THROWPOTENEMY:
+	
 	case EObjectID::ENEMY1:
 	case EObjectID::ENEMY2:
 	case EObjectID::ENEMY3:
@@ -148,6 +149,15 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 	case EObjectID::STAIR:
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 		mCollisioned = true;
+		break;
+	case EObjectID::THROWPOTENEMY:
+		if (((ThrowPotEnemy*)obj)->GetCurrentStateID() == ThrowPotEnemyState::ThrowPotEnemy_ThrowingPot)
+
+		{
+			this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
+			mCollisioned = true;
+
+		}
 		break;
 	case EObjectID::THROWINGPOT:
 	
