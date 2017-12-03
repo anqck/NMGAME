@@ -18,6 +18,7 @@
 #include "Rope.h"
 #include "SwingBar.h"
 #include "SlideColumn.h"
+#include "CheckPoint.h"
 
 enum AState
 {
@@ -67,7 +68,6 @@ public:
 	AladdinCharacter();
 	AladdinCharacter( D3DXVECTOR3	pos);
 
-
 	void			Update(float DeltaTime);
 	void			Render(float DeltaTime);			//
 	void			OnKeyDown(int keyCode);
@@ -97,6 +97,8 @@ public:
 
 	int				GetHP();
 
+	void			GoToLastCheckPoint();
+
 	void			AddApple(int number);
 	int				GetAppleCount();
 
@@ -109,7 +111,9 @@ protected:
 	vector<ObjectState*>	mAladdinState;
 	AState					mCurrentState;
 	int						mHP;
+	int						mGemCount;
 	int						mAppleCount;
+	int						mScore;
 	Direction				mDir;
 
 	bool					allowStateChange;
@@ -128,14 +132,16 @@ protected:
 	SlideColumn*			mLastSlideColumn;
 
 	bool					mSwingBarCollision;
-	SwingBar*					mLastSwingBar;
+	SwingBar*				mLastSwingBar;
 
 	//Falling
 	float					mNotOnGroundTime;
 	bool					mFallingFlag;
 
+	//Checkpoint
+	CheckPoint*				mLastCheckPoint;
 
-	//float					_yCollision;
+
 
 	bool					mOpacityRender;
 	bool					mIsOpacityRendered;
@@ -153,9 +159,6 @@ protected:
 
 	StoppingDust*			mStoppingDust;
 	FalledSand*				mFalledSand;
-
-	
-
 };
 
 #endif _ALADDIN_H__

@@ -28,4 +28,7 @@ private:
 	//ObjectState				mLifeSprite;
 	int						mLife;
 
+	bool					mAppleOpacityRendered;
+	int						mApplemOpacityTime;
+
 };

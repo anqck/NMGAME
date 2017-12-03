@@ -124,6 +124,9 @@
   <data name="Camel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Camel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CheckPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CheckPoint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CollapseGround" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CollapseGround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,11 +145,20 @@
   <data name="Enemy5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DoNothing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Gem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="JumpBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\JumpBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Lamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lamp (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="MapLevel1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapLevel1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Peddler" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WithShopDoNothing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ThrowPotEnemy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ThrowPotEnemy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

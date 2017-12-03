@@ -40,7 +40,7 @@ namespace NMGame_MapEditor
             ENEMY4,
             ENEMY5, //Núp trong bình, quăng táo 0 dame
             THROWPOT,
-            TRADER, //bán hàng
+            PEDDLER, //bán hàng
 
             STAIRFLAGCHANGE,
         }
@@ -126,6 +126,8 @@ namespace NMGame_MapEditor
                 case EObjectID.APPLE:
                 case EObjectID.COLLAPSEGROUND:
                 case EObjectID.JUMPBAR:
+                case EObjectID.CHECKPOINT:
+                case EObjectID.GEM:
                     return false;
                 case EObjectID.ENEMY1:
                 case EObjectID.STAIRFLAGCHANGE:
@@ -352,6 +354,14 @@ namespace NMGame_MapEditor
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.Enemy5);
                 case EObjectID.THROWPOT:
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.ThrowPotEnemy);
+                case EObjectID.CHECKPOINT:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.CheckPoint);
+                case EObjectID.LAMP:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.Lamp);
+                case EObjectID.GEM:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.Gem);
+                case EObjectID.PEDDLER:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.Peddler);
                 default:
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.Camel);
             }

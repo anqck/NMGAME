@@ -2,6 +2,7 @@
 #include "StairFlagChange.h"
 #include "FireGround.h"
 #include"KeyboardHelper.h"
+#include "CheckPoint.h"
 
 #include <dinput.h>
 #include <string> 
@@ -20,6 +21,8 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	mFallingFlag = false;
 	LoadResource();
 
+	this->mLastCheckPoint = nullptr;
+
 	mOpacityRender = false;
 	mIsOpacityRendered = false;
 
@@ -29,6 +32,8 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	this->mDir = Direction::Right;
 	this->mHP = 8;
 	this->mAppleCount = 10;
+	this->mScore = 0;
+	this->mGemCount = 0;
 	this->mWidth = 30;
 	this->mHeight = 100;
 
@@ -55,6 +60,7 @@ void AladdinCharacter::LoadResource()
 	this->mID = EObjectID::ALADDIN;
 	vector<MyRECT> temp;
 
+	
 	
 
 	/*this->mWidth = 63 * 2;
@@ -954,10 +960,10 @@ void AladdinCharacter::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 	case VK_SPACE:
-		//this->mPosition = D3DXVECTOR3(7500, WORLD_Y - MAP_HEIGHT + 800 , 0);
+		this->mPosition = D3DXVECTOR3(7500, WORLD_Y - MAP_HEIGHT + 1100 , 0);
 		//this->mPosition = D3DXVECTOR3(9000, WORLD_Y - MAP_HEIGHT +1500, 0);
 		//this->mPosition = D3DXVECTOR3(4900, WORLD_Y - MAP_HEIGHT + 1100, 0);
-		this->mPosition = D3DXVECTOR3(2500, WORLD_Y - MAP_HEIGHT + 200, 0);
+		//this->mPosition = D3DXVECTOR3(2500, WORLD_Y - MAP_HEIGHT + 200, 0);
 		this->mAladdinState.at(this->mCurrentState)->SetPosition(this->mPosition);
 		break;
 	case VK_RIGHT:
@@ -2121,6 +2127,13 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 
 		mOpacityTime = 0;
 		break;
+	case EObjectID::CHECKPOINT:
+		//if (((CheckPoint*)obj)->GetCurrentStateID() == CheckPointState::CheckPointState_Normal)
+		{
+			this->mLastCheckPoint = (CheckPoint*)obj;
+
+		}
+		break;
 	}
 	
 }
@@ -2164,6 +2177,7 @@ void AladdinCharacter::processCollisionAABB(GameVisibleEntity * obj, bool AABBre
 		{
 		case EObjectID::ENEMY1:
 		case EObjectID::ENEMY2:
+		case EObjectID::ENEMY5:
 			this->mOpacityRender = true;
 
 			if (this->mCurrentState == AState::DoNothing || this->mCurrentState == AState::Stand)
@@ -2203,6 +2217,33 @@ void AladdinCharacter::processCollisionAABB(GameVisibleEntity * obj, bool AABBre
 int AladdinCharacter::GetHP()
 {
 	return this->mHP;
+}
+
+void AladdinCharacter::GoToLastCheckPoint()
+{
+	this->mCurrentState = AState::DoNothing;
+
+	if (mLastCheckPoint == nullptr)
+	{
+		this->mPosition = D3DXVECTOR3(100, WORLD_Y - MAP_HEIGHT + 161, 0);
+	}
+	else
+	{
+		this->mPosition = D3DXVECTOR3(mLastCheckPoint->GetPosition().x , mLastCheckPoint->GetPosition().y + 20,0);
+		
+	}
+
+	this->mOpacityRender = true;
+	this->mOpacityTime = -500;
+	//this->mPosition = this->mLastCheckPointPosition;
+	this->mAladdinState.at(mCurrentState)->SetPosition(mPosition);
+	this->mDir = Direction::Right;
+	this->mHP = 8;
+
+	this->mAppleCount = 10;
+
+
+
 }
 
 void AladdinCharacter::AddApple(int number)

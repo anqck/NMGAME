@@ -18,6 +18,9 @@ public:
 	void							ListObjectInViewport(MyRECT viewport, QNode* node);
 	vector<GameVisibleEntity*>		GetListObjectInViewport(MyRECT viewport);
 
+	void							ListAllObject(QNode* node);
+	vector<GameVisibleEntity*>		GetListAllObject();
+
 	static void						DrawQuadtree(QNode* node);
 
 	QNode*							GetRoot();
@@ -31,6 +34,9 @@ private:
 	vector<GameVisibleEntity*>		mListObjectInViewport;
 	std::map<int, CTreeObject*>		_mListObjectInViewport;
 
+	//AllObj
+	vector<GameVisibleEntity*>		mListAllObjectInViewport;
+	std::map<int, CTreeObject*>		_mListAllObjectInViewport;
 
 
 

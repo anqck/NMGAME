@@ -1,5 +1,6 @@
 #include "Enemy2.h"
 
+#include "Lamp.h"
 Enemy2::Enemy2() : Enemy::Enemy()
 {
 	this->mCanBeAttack = true;
@@ -288,7 +289,15 @@ void Enemy2::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 {
 	switch(obj->GetID())
 	{
-
+	case EObjectID::LAMP:
+		if (((Lamp*)obj)->GetCollisioned() && this->GetBoundingBox().Intersects(obj->GetInteractBoundingBox()))
+		{
+			this->mState.at(Enemy2State::Enemy2State_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+			mCurrentState = Enemy2State::Enemy2State_Explosion;
+			this->mWidth = 0;
+			this->mHeight = 0;
+		}
+		break;
 	case EObjectID::ALADDIN:
 		if (AABBresult == true)
 			mLastAladdinPosInInteractBox = obj->GetCurrentState()->GetPosition();

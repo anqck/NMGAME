@@ -13,12 +13,16 @@
 #include "Enemy4.h"
 #include "Enemy5.h"
 #include "Apple.h"
+#include "Lamp.h"
 #include "StairFlagChange.h"
 #include "CollapseGround.h"
 #include "SwingBar.h"
 #include "JumpBar.h"
 #include "FireGround.h"
 #include "SlideColumn.h"
+#include "CheckPoint.h"
+#include "Gem.h"
+#include "Peddler.h"
 
 CTreeObject::CTreeObject()
 {
@@ -46,6 +50,7 @@ CTreeObject::~CTreeObject()
 
 GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb, int changefr, int changeto)
 {
+
 	switch ((EObjectID)id)
 	{
 	case  EObjectID::GROUND:
@@ -70,6 +75,8 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 		return new CollapseGround(pos);
 	case EObjectID::APPLE:
 		return new Apple(pos);
+	case EObjectID::LAMP:
+		return new Lamp(pos,bb);
 	case EObjectID::CAMEL:
 		return new Camel(pos);
 	case EObjectID::THROWPOTENEMY:
@@ -84,6 +91,12 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 		return new Enemy4(bb, pos);
 	case EObjectID::ENEMY5:
 		return new Enemy5(bb, pos);
+	case EObjectID::CHECKPOINT:
+		return new CheckPoint( pos);
+	case EObjectID::GEM:
+		return new Gem(pos);
+	case EObjectID::PEDDLER:
+		return new Peddler(bb,pos);
 	case EObjectID::STAIRFLAGCHANGE:
 		return new StairFlagChange(bb,changefr, changeto);
 	}

@@ -4,6 +4,14 @@
 
 #include "GameVisibleEntity.h"
 
+enum SceneID
+{
+	SceneID_MenuScene,
+	SceneID_GameScene1,
+	SceneID_GameSceneBoss,
+	SceneID_DieScene,
+	SceneID_ContinueScene
+};
 
 //Interface contact between "Game" class and "GameSence" class
 class IScene
@@ -18,7 +26,11 @@ public:
 	virtual void LoadResource() = 0;
 
 	virtual void AddFlyingObject(GameVisibleEntity* obj) {};
+
+	SceneID		 GetSceneID() { return this->mSceneID; };
 	//virtual bool IsDead() = 0;
+protected:
+	SceneID			mSceneID;
 };
 
 

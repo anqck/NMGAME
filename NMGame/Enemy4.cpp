@@ -1,5 +1,5 @@
 #include "Enemy4.h"
-
+#include "Lamp.h"
 Enemy4::Enemy4()
 {
 
@@ -193,7 +193,15 @@ void Enemy4::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 {
 	switch (obj->GetID())
 	{
-
+	case EObjectID::LAMP:
+		if (((Lamp*)obj)->GetCollisioned() && this->GetBoundingBox().Intersects(obj->GetInteractBoundingBox()))
+		{
+			this->mState.at(Enemy4State::Enemy4State_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+			mCurrentState = Enemy4State::Enemy4State_Explosion;
+			this->mWidth = 0;
+			this->mHeight = 0;
+		}
+		break;
 	case EObjectID::ALADDIN:
 
 		if (AABBresult == true)

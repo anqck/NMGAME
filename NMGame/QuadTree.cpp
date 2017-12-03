@@ -55,8 +55,6 @@ void QuadTree::LoadQuadTree(std::string filePath)
 			mListObject[std::atoi(ObjectKey.c_str())] = new CTreeObject(std::atoi(ObjectKey.c_str()), std::atoi(_EObjectID.c_str()), D3DXVECTOR3(std::atoi(PosX.c_str()), std::atoi(PosY.c_str()), 0), MyRECT(std::atoi(Top.c_str()), std::atoi(Left.c_str()), std::atoi(Right.c_str()), std::atoi(Bottom.c_str())));
 		}
 		
-		
-		
 	}
 
 	
@@ -91,6 +89,11 @@ void QuadTree::LoadQuadTree(std::string filePath)
 	}
 
 	mRoot = mMapQuadTree.find(1)->second;
+
+	//Load list all obj 
+	ListAllObject(mRoot);
+
+
 }
 
 void QuadTree::ListObjectInViewport(MyRECT viewport, QNode * node)
@@ -112,6 +115,8 @@ void QuadTree::ListObjectInViewport(MyRECT viewport, QNode * node)
 					if (_mListObjectInViewport.count(node->GetListCTreeObject().at(i)->GetKey()) == 0) //Kiểm tra xem obj key có trong list chưa
 					{
 						_mListObjectInViewport[node->GetListCTreeObject().at(i)->GetKey()] = node->GetListCTreeObject().at(i);
+						if (!node->GetListCTreeObject().at(i)->GetGameObject()->isDone())
+							mListObjectInViewport.push_back(node->GetListCTreeObject().at(i)->GetGameObject());
 					}
 				}
 				
@@ -137,12 +142,51 @@ vector<GameVisibleEntity*> QuadTree::GetListObjectInViewport(MyRECT viewport)
 
 	this->ListObjectInViewport(viewport, mRoot);
 
-	for (map<int, CTreeObject*>	::iterator it = _mListObjectInViewport.begin(); it != _mListObjectInViewport.end(); ++it) {
-		if(!it->second->GetGameObject()->isDone())
-			mListObjectInViewport.push_back(it->second->GetGameObject());
-	}
+	//for (map<int, CTreeObject*>	::iterator it = _mListObjectInViewport.begin(); it != _mListObjectInViewport.end(); ++it) {
+	//	if(!it->second->GetGameObject()->isDone())
+	//		mListObjectInViewport.push_back(it->second->GetGameObject());
+	//}
 
 	return mListObjectInViewport;
+}
+
+void QuadTree::ListAllObject(QNode* node)
+{
+	if (node == mRoot) //Nếu đối số truyền vào là node gốc thì clear list
+	{
+		_mListAllObjectInViewport.clear();
+	}
+	//nếu đối số truyền vào là node lá thì đưa ra list
+	if (!node->GetLT())
+	{
+			if (node->GetListCTreeObject().size() > 0)
+			{
+				//Giải quyết trùng lập các Object và đưa vào list
+				for (int i = 0; i < node->GetListCTreeObject().size(); i++)
+				{
+					if (_mListAllObjectInViewport.count(node->GetListCTreeObject().at(i)->GetKey()) == 0) //Kiểm tra xem obj key có trong list chưa
+					{
+						_mListAllObjectInViewport[node->GetListCTreeObject().at(i)->GetKey()] = node->GetListCTreeObject().at(i);
+						this->mListAllObjectInViewport.push_back(node->GetListCTreeObject().at(i)->GetGameObject());
+					}
+				}
+
+			}
+		}
+	
+	else //Nếu chưa phải là node lá thì tiếp tục gọi đệ quy
+	{
+		ListAllObject(node->GetLT());
+		ListAllObject( node->GetRT());
+		ListAllObject( node->GetLB());
+		ListAllObject( node->GetRB());
+	}
+
+}
+
+vector<GameVisibleEntity*> QuadTree::GetListAllObject()
+{
+	return this->mListAllObjectInViewport;
 }
 
 void QuadTree::DrawQuadtree(QNode* node)

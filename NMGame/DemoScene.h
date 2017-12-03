@@ -32,9 +32,11 @@ public:
 	void					ProcessInput();
 	void					CheckCollision(float DeltaTime);
 
-	
-	
+	void					GoToLastCheckPoint();
 
+	
+	
+	int						GetAladdinHP();
 	void					AddFlyingObject(GameVisibleEntity* obj);
 
 protected:	
@@ -43,7 +45,7 @@ protected:
 	AladdinGame					*mGame;
 	SceneInformation			*mSceneInformation;
 
-	bool						allowAttack;
+	//bool						allowAttack;
 
 	QuadTree					*mQuadTree;
 

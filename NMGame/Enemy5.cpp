@@ -1,5 +1,5 @@
 #include "Enemy5.h"
-
+#include "Lamp.h"
 Enemy5::Enemy5()
 {
 	this->mCanBeAttack = true;
@@ -10,7 +10,7 @@ Enemy5::Enemy5()
 
 	mLastAladdinPosInInteractBox = D3DXVECTOR3(0, 0, 0);
 
-	this->mID = EObjectID::ENEMY4;
+	this->mID = EObjectID::ENEMY5;
 
 	this->mDone = false;
 
@@ -187,7 +187,7 @@ void Enemy5::Render(float DeltaTime)
 {
 	GameVisibleEntity::Render(DeltaTime);
 
-	GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetAttackRange(), D3DCOLOR_XRGB(255, 0, 255));
+	//GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetAttackBoundingBox(), D3DCOLOR_XRGB(255, 0, 255));
 	this->mState.at(mCurrentState)->Render();
 }
 
@@ -195,7 +195,15 @@ void Enemy5::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 {
 	switch (obj->GetID())
 	{
-
+	case EObjectID::LAMP:
+		if (((Lamp*)obj)->GetCollisioned() && this->GetBoundingBox().Intersects(obj->GetInteractBoundingBox()))
+		{
+			this->mState.at(Enemy5State::Enemy5State_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+			mCurrentState = Enemy5State::Enemy5State_Explosion;
+			this->mWidth = 0;
+			this->mHeight = 0;
+		}
+		break;
 	case EObjectID::ALADDIN:
 
 		if (AABBresult == true)
@@ -295,7 +303,20 @@ MyRECT Enemy5::GetAttackRange()
 
 MyRECT Enemy5::GetAttackBoundingBox()
 {
-	return MyRECT();
+	switch (mCurrentState)
+	{
+	case Enemy5State::Enemy5State_Attack:
+
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 2:
+			return MyRECT(this->mState.at(mCurrentState)->GetCurrentFrameBoundingBox().top + 20, this->mState.at(mCurrentState)->GetCurrentFrameBoundingBox().left + ((mDir == Direction::Right) ? (45) : (-60)), this->mState.at(mCurrentState)->GetCurrentFrameBoundingBox().right + ((mDir == Direction::Right) ? (60) : (-45)), this->mState.at(mCurrentState)->GetCurrentFrameBoundingBox().bottom + 20);
+		default:
+			return MyRECT(0, 0, 0, 0);
+		}
+
+		break;
+	}
 }
 
 D3DXVECTOR2 Enemy5::GetVelocity()

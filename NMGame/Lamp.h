@@ -1,33 +1,31 @@
 #pragma once
-#ifndef __JUMPBAR_H__
-#define __JUMPBAR_H__
+
 #include "GameVisibleEntity.h"
 #include "ObjectStateWithLoop.h"
 
-enum JumpBarState
+enum LampState
 {
-	JumpBarState_Normal,
-	JumpBarState_JumpOn,
-	JumpBarState_Shine
+	LampState_Normal,
+	LampState_Disappear
 };
 
-class JumpBar :public GameVisibleEntity
+class Lamp : public GameVisibleEntity
 {
 public:
-	JumpBar();
-	JumpBar(MyRECT bb, D3DXVECTOR3 pos);
-	~JumpBar();
+	Lamp();
+	Lamp(D3DXVECTOR3 pos, MyRECT bb);
+	~Lamp();
 
 	void						Render(float DeltaTime);
 	void						Update(float DeltaTime);
 
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
+	bool						GetCollisioned();
+
 protected:
 	vector<ObjectState*>		mState;
-	JumpBarState					mCurrentState;
+	LampState					mCurrentState;
 
-
+	bool						mCollisioned;
 };
-
-#endif __JUMPBAR_H__

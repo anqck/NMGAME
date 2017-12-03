@@ -1,5 +1,6 @@
 #include "AladdinGame.h"
 #include "DemoScene.h"
+#include "DieScene.h"
 #include "IntroScene.h"
 
 
@@ -26,7 +27,7 @@ void AladdinGame::LoadResource()
 
 void AladdinGame::Update(float DeltaTime)
 {
-	SceneManager::GetInstance()->GetCurrentScene()->Update(DeltaTime);
+	SceneManager::GetInstance()->Update(DeltaTime);
 }
 
  void AladdinGame::RenderFrame(float DeltaTime)

@@ -15,7 +15,7 @@ public:
 
 	IScene* GetCurrentScene();
 	void	 Update(float DeltaTime);
-	void	Render(float DeltaTime);
+	void	 Render(float DeltaTime);
 	void	 ReplaceScene(IScene *scene);
 	//void ReplaceScene(Scene *scenedest, TransitionEffect *effect);
 	//void OnFinishTransition();
@@ -24,6 +24,8 @@ private:
 	SceneManager();
 	static SceneManager     *mInstace;
 	IScene                  *mCurrentScene;
+
+	IScene					*mCurrentGame;
 };
 
 #endif

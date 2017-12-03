@@ -35,11 +35,21 @@ JumpBar::JumpBar(MyRECT bb, D3DXVECTOR3 pos) : JumpBar()
 	temp.push_back(MyRECT(0, 0, 44, 22));
 	temp.push_back(MyRECT(25, 45, 87, 45));
 	this->mState.push_back(new ObjectStateWithLoop(temp, 14, L"Object\\StaticObject\\JumpBar_JumpOn.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	temp.clear();
 
+
+	temp.push_back(MyRECT(54, 44, 87, 72));
+	temp.push_back(MyRECT(0, 55, 98, 22));
+	temp.push_back(MyRECT(23, 55, 98, 44));
+	temp.push_back(MyRECT(0, 0, 54, 27,D3DXVECTOR3(6,0,0)));
+	temp.push_back(MyRECT(28, 0, 51, 53, D3DXVECTOR3(4, 0, 0)));
+	temp.push_back(MyRECT(54, 0, 43, 75));
+	this->mState.push_back(new ObjectState(temp,14, L"Object\\StaticObject\\JumpBarShine.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	temp.clear();
 
 	this->mState.at(0)->SetPosition(pos);
 	this->mState.at(1)->SetPosition(pos);
-	temp.clear();
+	this->mState.at(2)->SetPosition(pos);
 
 }
 
@@ -61,7 +71,14 @@ void JumpBar::Update(float DeltaTime)
 	switch (mCurrentState)
 	{
 	case JumpBarState::JumpBarState_Normal:
+		if (rand() % 50 == 0)
+		{
+			this->mCurrentState = JumpBarState::JumpBarState_Shine;
+			this->mState.at(mCurrentState)->resetFrame();
+		}
 		break;
+	case JumpBarState::JumpBarState_Shine:
+
 	case JumpBarState::JumpBarState_JumpOn:
 		if (this->mState.at(mCurrentState)->isDone())
 			this->mCurrentState = JumpBarState::JumpBarState_Normal;

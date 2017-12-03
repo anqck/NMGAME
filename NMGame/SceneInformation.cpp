@@ -12,6 +12,9 @@ SceneInformation::SceneInformation(AladdinCharacter * aladdinChar)
 
 	this->mHP = 8;
 
+	mAppleOpacityRendered = false;
+	this->mApplemOpacityTime = 0;
+
 	this->mStringAppleCount = new Alphabet(D3DXVECTOR3(690, 545, 0), std::to_string(aladdinChar->GetAppleCount()));
 }
 
@@ -106,7 +109,24 @@ void SceneInformation::Render()
 
 	if (mAladdin->GetAppleCount() != 0)
 	{
-		this->mAppleSprite->Render();
+		if (mAladdin->GetAppleCount() <= 5)
+		{
+			if (mAppleOpacityRendered)
+			{
+				this->mAppleSprite->OpacityRender(D3DCOLOR_ARGB(0, 255, 255, 255));
+				
+			}
+			else
+			{
+				this->mAppleSprite->Render();
+
+			}
+		}
+		else
+		{
+			this->mAppleSprite->Render();
+		}
+		
 		this->mStringAppleCount->Render();
 	}
 	
@@ -114,6 +134,26 @@ void SceneInformation::Render()
 
 void SceneInformation::Update(float DeltaTime)
 {
+
+	//OpacityApple
+	if (mAladdin->GetAppleCount() <= 5)
+	{
+		if (mApplemOpacityTime >= 7 * DeltaTime)
+		{
+			
+			if (mAppleOpacityRendered)
+			{
+				mAppleOpacityRendered = false;
+			}
+			else
+				mAppleOpacityRendered = true;
+
+			mApplemOpacityTime = 0;
+		}
+		else
+			mApplemOpacityTime += DeltaTime;
+	}
+
 	mHP = mAladdin->GetHP();
 	this->mStringAppleCount->SetString(std::to_string(mAladdin->GetAppleCount()));
 	if (mHP  >= 0)

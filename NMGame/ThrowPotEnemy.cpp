@@ -1,4 +1,5 @@
 #include "ThrowPotEnemy.h"
+#include "Lamp.h"
 
 ThrowPotEnemy::ThrowPotEnemy()
 {
@@ -117,33 +118,46 @@ void ThrowPotEnemy::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 
 void ThrowPotEnemy::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith)
 {
-	if (collisionWith == CollisionWith::InteractBoundingBox)
+	switch (obj->GetID())
 	{
-		if (this->mCurrentState == ThrowPotEnemyState::ThrowPotEnemy_Explosion)
-			return;
-
-		if (AABBresult == true)
-		{
-			this->mCurrentState = ThrowPotEnemyState::ThrowPotEnemy_ThrowingPot;
-		}
-		else
-		{
-			if (this->mCurrentState == ThrowPotEnemyState::ThrowPotEnemy_ThrowingPot && this->mState.at(mCurrentState)->isDone())
-				this->mCurrentState = ThrowPotEnemyState::ThrowPotEnemy_DoNothing;
-
-		}
-	}
-	else if(collisionWith == CollisionWith::SwordBoundingBox)
-	{
-		if (!AABBresult)
-			return ;
-
- 		if (this->mCurrentState == ThrowPotEnemyState::ThrowPotEnemy_ThrowingPot)
+	case EObjectID::LAMP:
+		if (((Lamp*)obj)->GetCollisioned() && this->GetBoundingBox().Intersects(obj->GetInteractBoundingBox()))
 		{
 			this->mState.at(ThrowPotEnemyState::ThrowPotEnemy_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
 			mCurrentState = ThrowPotEnemyState::ThrowPotEnemy_Explosion;
+			this->mWidth = 0;
+			this->mHeight = 0;
 		}
+		break;
+	case EObjectID::ALADDIN:
+		if (collisionWith == CollisionWith::InteractBoundingBox)
+		{
+			if (this->mCurrentState == ThrowPotEnemyState::ThrowPotEnemy_Explosion)
+				return;
 
+			if (AABBresult == true)
+			{
+				this->mCurrentState = ThrowPotEnemyState::ThrowPotEnemy_ThrowingPot;
+			}
+			else
+			{
+				if (this->mCurrentState == ThrowPotEnemyState::ThrowPotEnemy_ThrowingPot && this->mState.at(mCurrentState)->isDone())
+					this->mCurrentState = ThrowPotEnemyState::ThrowPotEnemy_DoNothing;
+
+			}
+		}
+		else if (collisionWith == CollisionWith::SwordBoundingBox)
+		{
+			if (!AABBresult)
+				return;
+
+			if (this->mCurrentState == ThrowPotEnemyState::ThrowPotEnemy_ThrowingPot)
+			{
+				this->mState.at(ThrowPotEnemyState::ThrowPotEnemy_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+				mCurrentState = ThrowPotEnemyState::ThrowPotEnemy_Explosion;
+			}
+
+		}
 	}
 }
 

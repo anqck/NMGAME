@@ -38,7 +38,7 @@ enum EObjectID
 	ENEMY4,
 	ENEMY5, //Núp trong bình, quăng táo 0 dame
 	THROWPOTENEMY,
-	TRADER, //bán hàng
+	PEDDLER, //bán hàng
 
 	STAIRFLAGCHANGE,
 

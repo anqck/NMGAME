@@ -135,9 +135,20 @@
     </ClCompile>
     <ClCompile Include="FalledSand.cpp" />
     <ClCompile Include="FlyingKnife.cpp" />
-    <ClCompile Include="Enemy4.cpp" />
     <ClCompile Include="FlyingCamelSaliva.cpp" />
-    <ClCompile Include="Enemy5.cpp" />
+    <ClCompile Include="Lamp.cpp" />
+    <ClCompile Include="Enemy5.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy4.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="DieScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckPoint.cpp" />
+    <ClCompile Include="Gem.cpp" />
+    <ClCompile Include="Peddler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -302,6 +313,21 @@
     </ClInclude>
     <ClInclude Include="Enemy5.h">
       <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Lamp.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DieScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckPoint.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Gem.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Peddler.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

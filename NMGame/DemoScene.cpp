@@ -2,12 +2,13 @@
 
 DemoScene::DemoScene()
 {
+	this->mSceneID = SceneID::SceneID_GameScene1;
 }
 
-DemoScene::DemoScene(AladdinGame * game)
+DemoScene::DemoScene(AladdinGame * game) : DemoScene()
 {
 	this->mGame = game;
-	allowAttack = true;
+	//allowAttack = true;
 
 }
 
@@ -102,17 +103,10 @@ void DemoScene::Render(float DeltaTime)
 void DemoScene::LoadResource()
 {
 	this->mMap = new DemoMap();
-
 	
-	D3DXVECTOR3 imagepos; //vector for the position of the sprite
 
-	imagepos.x = 100.0f; //coord x of our sprite
-	imagepos.y = WORLD_Y - MAP_HEIGHT + 161; //coord y of out sprite
-	imagepos.z = 0.0f; //coord z of out sprite
+	this->mAladdin = new AladdinCharacter(D3DXVECTOR3(100, WORLD_Y - MAP_HEIGHT + 161,0));
 
-	this->mAladdin = new AladdinCharacter(imagepos);
-
-	//mCamel = new Camel(D3DXVECTOR3(500, WORLD_Y - MAP_HEIGHT + 90,0));
 
 	//Camera::GetInstance()->SetPosition(100.0f, WORLD_Y - MAP_HEIGHT + 90 );
 
@@ -173,6 +167,16 @@ void DemoScene::CheckCollision(float DeltaTime)
 					}
 				}
 			}
+
+			if (mListObjectInViewPort.at(i)->GetInteractWithInteractBB())
+			{
+				mListObjectInViewPort.at(i)->processCollisionAABB(this->mAladdin, this->mAladdin->GetBoundingBox().Intersects(mListObjectInViewPort.at(i)->GetInteractBoundingBox()), CollisionWith::InteractBoundingBox);
+				if (mListObjectInViewPort.at(j)->GetInteractWithInteractBB())
+				{
+					mListObjectInViewPort.at(i)->processCollisionAABB(mListObjectInViewPort.at(j), mListObjectInViewPort.at(j)->GetInteractBoundingBox().Intersects(mListObjectInViewPort.at(i)->GetInteractBoundingBox()), CollisionWith::InteractBoundingBox);
+					mListObjectInViewPort.at(j)->processCollisionAABB(mListObjectInViewPort.at(i), mListObjectInViewPort.at(j)->GetInteractBoundingBox().Intersects(mListObjectInViewPort.at(i)->GetInteractBoundingBox()), CollisionWith::InteractBoundingBox);
+				}
+			}
 		}
 
 		
@@ -180,7 +184,7 @@ void DemoScene::CheckCollision(float DeltaTime)
 		//Check collision with Object can be attack and Aladdin when attack
 		if (this->mListObjectInViewPort.at(i)->GetCanBeAttack())
 		{
-			if (mAladdin->getCurrentState() == AState::Attack1 || mAladdin->getCurrentState() == AState::SitAttack || mAladdin->getCurrentState() == AState::JumpAttack)
+			if (mAladdin->getCurrentState() == AState::Attack1 || mAladdin->getCurrentState() == AState::SitAttack || mAladdin->getCurrentState() == AState::JumpAttack || mAladdin->getCurrentState() == AState::RunAttack || mAladdin->getCurrentState() == AState::LookUpAttack || mAladdin->getCurrentState() == AState::RopeAttack || mAladdin->getCurrentState() == AState::SwingAttack)
 				mListObjectInViewPort.at(i)->processCollisionAABB(this->mAladdin, this->mAladdin->GetAttackBoundingBox().Intersects(mListObjectInViewPort.at(i)->GetBoundingBox()), CollisionWith::SwordBoundingBox);
 		}
 
@@ -229,6 +233,11 @@ void DemoScene::CheckCollision(float DeltaTime)
 		{
 			for (int j = 0; j < mListObjectInViewPort.size(); j++)
 			{
+				if (mListObjectInViewPort.at(j)->GetInteractWithInteractBB())
+				{					
+					mListFlyingObject.at(i)->processCollisionAABB(mListObjectInViewPort.at(j), mListFlyingObject.at(i)->GetInteractBoundingBox().Intersects(mListObjectInViewPort.at(j)->GetInteractBoundingBox()), CollisionWith::InteractBoundingBox);
+				}
+
 				if (mListObjectInViewPort.at(j)->GetCanBeHitByFlyingObject()) //Kiểm tra Object có thể va chạm với flying obj không, giảm số lần kt SweptAABB
 				{
 					if (mListObjectInViewPort.at(j)->GetCanBeAttack())
@@ -313,6 +322,17 @@ void DemoScene::CheckCollision(float DeltaTime)
 	}*/
 }
 
+void DemoScene::GoToLastCheckPoint()
+{
+	mQuadTree->LoadQuadTree("Map//1.txt");
+	this->mAladdin->GoToLastCheckPoint();
+}
+
+
+int DemoScene::GetAladdinHP()
+{
+	return this->mAladdin->GetHP();
+}
 
 void DemoScene::AddFlyingObject(GameVisibleEntity *obj)
 {

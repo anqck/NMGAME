@@ -1,22 +1,21 @@
 #pragma once
-#ifndef __JUMPBAR_H__
-#define __JUMPBAR_H__
+
 #include "GameVisibleEntity.h"
 #include "ObjectStateWithLoop.h"
 
-enum JumpBarState
+enum GemState
 {
-	JumpBarState_Normal,
-	JumpBarState_JumpOn,
-	JumpBarState_Shine
+	GemState_Normal,
+	GemState_Shine,
+	GemState_Disappear
 };
 
-class JumpBar :public GameVisibleEntity
+class Gem : public GameVisibleEntity
 {
 public:
-	JumpBar();
-	JumpBar(MyRECT bb, D3DXVECTOR3 pos);
-	~JumpBar();
+	Gem();
+	Gem(D3DXVECTOR3 pos);
+	~Gem();
 
 	void						Render(float DeltaTime);
 	void						Update(float DeltaTime);
@@ -25,9 +24,5 @@ public:
 
 protected:
 	vector<ObjectState*>		mState;
-	JumpBarState					mCurrentState;
-
-
+	GemState					mCurrentState;
 };
-
-#endif __JUMPBAR_H__

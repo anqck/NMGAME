@@ -1,5 +1,5 @@
 #include "ThrowPot.h"
-
+#include "Lamp.h"
 ThrowPot::ThrowPot(D3DXVECTOR3 pos)
 {
 	mCollisioned = false;
@@ -163,6 +163,15 @@ void ThrowPot::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Co
 	
 	switch ((EObjectID)obj->GetID())
 	{
+	case EObjectID::LAMP:
+		if (((Lamp*)obj)->GetCollisioned() && this->GetBoundingBox().Intersects(obj->GetInteractBoundingBox()))
+		{
+			this->mState.at(ThrowPotState::ThrowPot_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+			mCurrentState = ThrowPotState::ThrowPot_Explosion;
+			this->mWidth = 0;
+			this->mHeight = 0;
+		}
+		break;
 	case EObjectID::ALADDIN:
 	/*	AladdinCharacter * aladdin = (AladdinCharacter*)obj;
 		if (aladdin->getCurrentState() == AState::Attack1)

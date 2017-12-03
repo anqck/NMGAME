@@ -83,6 +83,16 @@ namespace NMGame_MapEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CheckPoint {
+            get {
+                object obj = ResourceManager.GetObject("CheckPoint", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CollapseGround {
             get {
                 object obj = ResourceManager.GetObject("CollapseGround", resourceCulture);
@@ -143,6 +153,16 @@ namespace NMGame_MapEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Gem {
+            get {
+                object obj = ResourceManager.GetObject("Gem", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap JumpBar {
             get {
                 object obj = ResourceManager.GetObject("JumpBar", resourceCulture);
@@ -153,9 +173,29 @@ namespace NMGame_MapEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Lamp {
+            get {
+                object obj = ResourceManager.GetObject("Lamp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MapLevel1 {
             get {
                 object obj = ResourceManager.GetObject("MapLevel1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Peddler {
+            get {
+                object obj = ResourceManager.GetObject("Peddler", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

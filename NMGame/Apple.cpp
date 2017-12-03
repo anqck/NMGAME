@@ -34,7 +34,7 @@ Apple::Apple(D3DXVECTOR3 pos) : Apple()
 	temp.push_back(MyRECT(0, 43, 63, 12));
 	temp.push_back(MyRECT(20, 21, 37, 30));
 
-	this->mState.push_back(new ObjectStateWithLoop(temp, 14, L"Object\\AppleDisappear.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mState.push_back(new ObjectState(temp, 14, L"Object\\AppleDisappear.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 
 
 	this->mState.at(0)->SetPosition(pos);

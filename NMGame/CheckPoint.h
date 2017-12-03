@@ -1,33 +1,32 @@
 #pragma once
-#ifndef __JUMPBAR_H__
-#define __JUMPBAR_H__
+
 #include "GameVisibleEntity.h"
 #include "ObjectStateWithLoop.h"
 
-enum JumpBarState
+enum CheckPointState
 {
-	JumpBarState_Normal,
-	JumpBarState_JumpOn,
-	JumpBarState_Shine
+	CheckPointState_Normal,
+	CheckPointState_Check,
+	CheckPointState_Revise
 };
 
-class JumpBar :public GameVisibleEntity
+class CheckPoint : public GameVisibleEntity
 {
 public:
-	JumpBar();
-	JumpBar(MyRECT bb, D3DXVECTOR3 pos);
-	~JumpBar();
+	CheckPoint();
+	CheckPoint(D3DXVECTOR3 pos);
+	~CheckPoint();
 
 	void						Render(float DeltaTime);
 	void						Update(float DeltaTime);
 
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
+	CheckPointState				GetCurrentStateID();
 protected:
 	vector<ObjectState*>		mState;
-	JumpBarState					mCurrentState;
+	CheckPointState				mCurrentState;
 
 
+	int							mLastCheckPointScore;
 };
-
-#endif __JUMPBAR_H__

@@ -3,6 +3,10 @@
 
 Alphabet::Alphabet()
 {
+	
+
+
+
 	mBangChuCai['0'] = MyRECT(17, 15, 29, 31);
 	mBangChuCai['1'] = MyRECT(47, 113, 119, 61);
 	mBangChuCai['2'] = MyRECT(47, 73, 83, 61);
