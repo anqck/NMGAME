@@ -1,5 +1,7 @@
 ﻿#include "DemoScene.h"
 
+
+
 DemoScene::DemoScene()
 {
 	this->mSceneID = SceneID::SceneID_GameScene1;
@@ -18,7 +20,7 @@ DemoScene::~DemoScene()
 
 void DemoScene::Update(float DeltaTime)
 {
-	
+	this->mMap->Update(DeltaTime);
 
 	mListObjectInViewPort = mQuadTree->GetListObjectInViewport(Camera::GetInstance()->GetBoundingBoxInWorldAxis());	
 
@@ -56,21 +58,10 @@ void DemoScene::Update(float DeltaTime)
 
 void DemoScene::Render(float DeltaTime)
 {
+
 	
-	LPDIRECT3DSURFACE9			_Surface;
-	GraphicsHelper::GetInstance()->GetDirectDevice()->CreateOffscreenPlainSurface(
-		100,
-		100,
-		D3DFMT_X8R8G8B8,
-		D3DPOOL_DEFAULT,
-		&_Surface,
-		NULL);
 
-	GraphicsHelper::GetInstance()->GetDirectDevice()->ColorFill(_Surface, NULL, D3DCOLOR_XRGB(0, 0, 0));
-
-	GraphicsHelper::GetInstance()->GetDirectDevice()->StretchRect(_Surface,	NULL, GraphicsHelper::GetInstance()->GetBackBuffer(),	NULL,D3DTEXF_NONE);
-
-
+	this->mMap->Render(DeltaTime, MapLevel::MapBackground);
 	this->mMap->Render(DeltaTime,MapLevel::MapLevel1);
 
 	//this->mCamel->Render(DeltaTime);
@@ -115,6 +106,7 @@ void DemoScene::LoadResource()
 	mQuadTree->LoadQuadTree("Map//1.txt");
 
 	mSceneInformation = new SceneInformation(this->mAladdin);
+	
 	
 
 }

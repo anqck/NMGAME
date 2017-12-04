@@ -186,6 +186,7 @@
     <ClCompile Include="Lamp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MovableBackground.cpp" />
     <ClCompile Include="MyRECT.cpp" />
     <ClCompile Include="ObjectState.cpp" />
     <ClCompile Include="ObjectStateWithLoop.cpp" />
@@ -249,6 +250,7 @@
     <ClInclude Include="KeyboardHelper.h" />
     <ClInclude Include="Lamp.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MovableBackground.h" />
     <ClInclude Include="MyRECT.h" />
     <ClInclude Include="ObjectState.h" />
     <ClInclude Include="ObjectStateWithLoop.h" />

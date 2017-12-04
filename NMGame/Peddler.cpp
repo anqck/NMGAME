@@ -14,7 +14,7 @@ Peddler::Peddler(MyRECT bb, D3DXVECTOR3 pos) : Peddler()
 {
 	this->mPosition = pos;
 
-	this->mCurrentState = PeddlerState::PeddlerState_Wait;
+	this->mCurrentState = PeddlerState::PeddlerState_DoNothing;
 
 	this->mInteractBoundingBox = bb;
 
@@ -71,44 +71,72 @@ Peddler::Peddler(MyRECT bb, D3DXVECTOR3 pos) : Peddler()
 	temp.clear();
 
 	//Wait
-	temp.push_back(MyRECT(57, 87, 115, 112,D3DXVECTOR3(12,-3,0)));
-	temp.push_back(MyRECT(0, 0, 28, 56, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(0, 29, 57, 56, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(0, 58, 86, 56, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(0, 87, 115, 56, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 0, 28, 113, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 29, 57, 113, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 58, 86, 113, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(0, 87, 115, 56, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 0, 28, 113, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 29, 57, 113, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 58, 86, 113, D3DXVECTOR3(12, -3, 0)));
+	temp.push_back(MyRECT(114, 115, 141, 166,D3DXVECTOR3(13,-2,0)));
+	temp.push_back(MyRECT(114, 87, 114, 168, D3DXVECTOR3(12, -3, 0)));
+	temp.push_back(MyRECT(114, 58, 86, 169, D3DXVECTOR3(12, -3, 0)));
+	temp.push_back(MyRECT(0, 203, 231, 56, D3DXVECTOR3(12, -3, 0)));
+	temp.push_back(MyRECT(57, 174, 202, 113, D3DXVECTOR3(12, -3, 0)));
+	temp.push_back(MyRECT(57, 203, 231, 113,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(114, 0, 28, 170,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(114, 29, 57, 170,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(171, 0, 28, 227,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(0, 0, 28, 56,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(0, 29, 57, 56,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(0, 58, 86, 56,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(0, 87, 115, 56,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(57, 0, 28, 113,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(57, 29, 57, 113,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(57, 58, 86, 113,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(57, 87, 115, 113,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(0, 116, 144, 56,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(0, 145, 173, 56,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(57, 116, 144, 113,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(0, 174, 202, 56,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(57, 145, 173, 113,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(171, 29, 57, 226,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(170, 58, 85, 224,D3DXVECTOR3(12,-3,0)));
+	temp.push_back(MyRECT(114, 142, 168, 166,D3DXVECTOR3(13,-2,0)));
+
 
 	this->mState.push_back(new ObjectState(temp, 14, L"Object\\Peddler\\Wait.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 	//WaitWithShop
-	temp.push_back(MyRECT(57, 87, 115, 112, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(0, 0, 28, 56, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(0, 29, 57, 56, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(0, 58, 86, 56, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(0, 87, 115, 56, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 0, 28, 113, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 29, 57, 113, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 58, 86, 113, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(0, 87, 115, 56, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 0, 28, 113, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 29, 57, 113, D3DXVECTOR3(12, -3, 0)));
-	temp.push_back(MyRECT(57, 58, 86, 113, D3DXVECTOR3(12, -3, 0)));
+	temp.push_back(MyRECT(360, 248, 371, 430));
+	temp.push_back(MyRECT(0, 0, 123, 71,D3DXVECTOR3(0,-1,0)));
+	temp.push_back(MyRECT(144, 372, 495, 215, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(288, 124, 247, 359, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(432, 0, 123, 503, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(216, 248, 371, 287, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(360, 124, 247, 431, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(288, 248, 371, 359, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(432, 124, 247, 503, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(216, 372, 495, 287, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(0, 124, 247, 71, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(72, 0, 123, 143, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(144, 0, 123, 215, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(72, 124, 247, 143, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(144, 124, 247, 215, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(0, 248, 371, 71, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(72, 248, 371, 143, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(0, 372, 495, 71, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(144, 248, 371, 215, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(72, 372, 495, 143, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(216, 0, 123, 287, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(288, 0, 123, 359, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(216, 124, 247, 287, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(360, 0, 123, 431, D3DXVECTOR3(0, -1, 0)));
+	temp.push_back(MyRECT(288, 372, 495, 358, D3DXVECTOR3(0, 0, 0)));
 
-	this->mState.push_back(new ObjectState(temp, 14, L"Object\\Peddler\\WithShopWait.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+
+	this->mState.push_back(new ObjectState(temp, 12, L"Object\\Peddler\\WithShopWait.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 	this->mState.at(0)->SetPosition(pos);
 	this->mState.at(1)->SetPosition(pos);
 	this->mState.at(2)->SetPosition(pos);
 	this->mState.at(3)->SetPosition(pos);
-
+	this->mState.at(4)->SetPosition(pos);
 
 }
 
@@ -134,6 +162,19 @@ void Peddler::Update(float DeltaTime)
 		if (this->mState.at(this->mCurrentState)->isDone())
 		{
 			this->mCurrentState = PeddlerState::PeddlerState_DoNothing;
+		}
+		break;
+	case PeddlerState::PeddlerState_WithShopDoNothing:
+		if (rand() % 60 == 0)
+		{
+			this->mCurrentState = PeddlerState::PeddlerState_WaitWithShop;
+			this->mState.at(mCurrentState)->resetFrame();
+		}
+		break;
+	case PeddlerState::PeddlerState_WaitWithShop:
+		if (this->mState.at(this->mCurrentState)->isDone())
+		{
+			this->mCurrentState = PeddlerState::PeddlerState_WithShopDoNothing;
 		}
 		break;
 	case PeddlerState::PeddlerState_ShopAppear:
@@ -182,7 +223,7 @@ void Peddler::processCollision(float DeltaTime, GameVisibleEntity * obj, Collisi
 
 MyRECT Peddler::GetItem1BoundingBox()
 {
-	if (this->mCurrentState == PeddlerState::PeddlerState_WithShopDoNothing)
+	if (this->mCurrentState == PeddlerState::PeddlerState_WithShopDoNothing || this->mCurrentState == PeddlerState::PeddlerState_WaitWithShop)
 		return MyRECT(this->GetBoundingBox().top, this->GetBoundingBox().left + 10, this->GetBoundingBox().right - 40, this->GetBoundingBox().bottom);
 	else
 		return MyRECT(0, 0, 0, 0);

@@ -13,7 +13,7 @@ Camera * Camera::GetInstance()
 Camera::Camera()
 {
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
-
+	mVelocity = D3DXVECTOR2(0, 0);
 	this->mWidth = GLOBAL::GetWindowsWidth();
 	this->mHeight = GLOBAL::GetWindowsHeight();
 	preDir = Direction::Right;
@@ -182,6 +182,11 @@ void Camera::SetPosition(int X, int Y)
 	this->mPosition.y = Y;
 }
 
+D3DXVECTOR2 Camera::GetVelocity()
+{
+	return this->mVelocity;
+}
+
 MyRECT Camera::GetBoundingBoxInWorldAxis()
 {
 	return MyRECT(mPosition.y,mPosition.x, mPosition.x + mWidth, mPosition.y - mHeight);
@@ -197,7 +202,10 @@ void Camera::NomalizeCamera()
 	
 	//Left top
 	if (lt_position.x < 0)
+	{
 		this->mPosition.x = 0;
+		this->mVelocity.x = 0;
+	}		
 	if (lt_position.y > WORLD_Y)
 		this->mPosition.y = WORLD_Y;
 

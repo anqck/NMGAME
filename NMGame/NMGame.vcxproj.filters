@@ -149,6 +149,7 @@
     <ClCompile Include="CheckPoint.cpp" />
     <ClCompile Include="Gem.cpp" />
     <ClCompile Include="Peddler.cpp" />
+    <ClCompile Include="MovableBackground.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -328,6 +329,9 @@
     </ClInclude>
     <ClInclude Include="Peddler.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MovableBackground.h">
+      <Filter>Scene\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

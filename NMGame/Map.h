@@ -7,6 +7,7 @@
 
 enum MapLevel
 {
+	MapBackground,
 	MapLevel1,
 	MapLevel2
 };

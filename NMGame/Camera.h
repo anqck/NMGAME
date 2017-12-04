@@ -21,6 +21,8 @@ public:
 	void					SetPosition(D3DXVECTOR3 Position);
 	void					SetPosition(int X, int Y);
 
+	D3DXVECTOR2				GetVelocity();
+
 	MyRECT					GetBoundingBoxInWorldAxis();
 
 private:
