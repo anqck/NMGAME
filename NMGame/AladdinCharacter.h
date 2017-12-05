@@ -102,6 +102,12 @@ public:
 	void			AddApple(int number);
 	int				GetAppleCount();
 
+	void			AddGem(int number);
+	int				GetGemCount();
+
+	void			AddLife(int number);
+	int				GetLifeCount();
+
 	MyRECT			GetBoundingBox();
 	MyRECT			GetAttackBoundingBox();
 
@@ -113,8 +119,8 @@ protected:
 	int						mHP;
 	int						mGemCount;
 	int						mAppleCount;
-	int						mScore;
 	Direction				mDir;
+	int						mLife;
 
 	bool					allowStateChange;
 	float					mTime;					//Đếm thời gian 

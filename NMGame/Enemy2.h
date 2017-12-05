@@ -20,6 +20,8 @@ public:
 	Enemy2(MyRECT bb, D3DXVECTOR3 pos);
 	~Enemy2();
 
+	void						ResetDefault();
+
 	void						Update(float DeltaTime);
 	void						Render(float DeltaTime);
 
@@ -36,6 +38,7 @@ public:
 	bool						isDone();
 
 private:
+	D3DXVECTOR3					mDefaultPosition;
 	Enemy2State					mCurrentState;
 
 	D3DXVECTOR3					mLastAladdinPosInInteractBox;

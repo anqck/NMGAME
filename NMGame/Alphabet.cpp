@@ -85,7 +85,20 @@ void Alphabet::Render()
 
 }
 
+void Alphabet::OpacityRender(DWORD AlphaValue)
+{
+	for (int i = 0; i < this->mString.length(); i++)
+	{
+		GraphicsHelper::GetInstance()->DrawTexture(mAlphabetTexture, this->mBangChuCai[mString[i]], this->mBangChuCai[mString[i]].GetCenterArchorPosision(CenterArchor::CenterTop), D3DXVECTOR3(this->mPosition.x + 20 * i, this->mPosition.y, 0), D3DXVECTOR2(1.5, 1.5), D3DXVECTOR2(0,0),0,D3DXVECTOR2(0,0), AlphaValue);
+	}
+}
+
 void Alphabet::SetString(std::string string)
 {
 	this->mString = string;
+}
+
+void Alphabet::SetPosition(D3DXVECTOR3 pos)
+{
+	this->mPosition = pos;
 }

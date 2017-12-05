@@ -55,6 +55,10 @@ GameVisibleEntity::GameVisibleEntity( int X, int Y)
 	mDone = false;
 }
 
+void GameVisibleEntity::ResetDefault()
+{
+}
+
 void GameVisibleEntity::Render(float DeltaTime)
 {
 	if(KeyboardHelper::GetInstance()->IsKeyDown(DIK_1))

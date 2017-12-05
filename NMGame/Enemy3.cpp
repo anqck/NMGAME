@@ -29,7 +29,7 @@ Enemy3::Enemy3(MyRECT bb, D3DXVECTOR3 pos) : Enemy3::Enemy3()
 
 	this->mCurrentState = Enemy3State::Eneymy3State_Normal;
 
-	this->mPosition = pos;
+	this->mPosition = this->mDefaultPosition = pos;
 	
 
 	vector<MyRECT> temp;
@@ -74,6 +74,28 @@ Enemy3::Enemy3(MyRECT bb, D3DXVECTOR3 pos) : Enemy3::Enemy3()
 
 Enemy3::~Enemy3()
 {
+}
+
+void Enemy3::ResetDefault()
+{
+	mLastAladdinPosInInteractBox = D3DXVECTOR3(0, 0, 0);
+
+
+	this->mDone = false;
+
+	this->mCurrentState = Enemy3State::Eneymy3State_Normal;
+	this->mPosition = mDefaultPosition;
+
+	this->mState.at(mCurrentState)->SetPosition(mDefaultPosition);
+
+	mLastAladdinPosInInteractBox = D3DXVECTOR3(0, 0, 0);
+
+	mWidth = 10;
+	mHeight = 140;
+
+	this->mHP = 2;
+
+	this->mState.at(Enemy3State::Enemy3State_Explosion)->resetFrame();
 }
 
 void Enemy3::Update(float DeltaTime)

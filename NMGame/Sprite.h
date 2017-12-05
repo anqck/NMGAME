@@ -29,7 +29,7 @@ protected:
 	bool					isFlipVertical;		// Lât hình theo trục dọc
 
 public:
-	Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect, CenterArchor center = CenterArchor::TopLeft);
+	Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect, CenterArchor center = CenterArchor::TopLeft, D3DXVECTOR2 renderScale = D3DXVECTOR2(2, 2.5));
 	~Sprite();
 
 	void SetFrame(int frameIdx);

@@ -139,3 +139,13 @@ CheckPointState CheckPoint::GetCurrentStateID()
 {
 	return this->mCurrentState;
 }
+
+void CheckPoint::SetScore(int score)
+{
+	this->mLastCheckPointScore = score;
+}
+
+int CheckPoint::GetScore()
+{
+	return this->mLastCheckPointScore;
+}

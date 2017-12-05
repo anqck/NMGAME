@@ -44,9 +44,6 @@
     <ClCompile Include="GraphicsHelper.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="IntroScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="KeyboardHelper.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
@@ -104,8 +101,6 @@
     <ClCompile Include="Rope.cpp">
       <Filter>Object\StaticObject</Filter>
     </ClCompile>
-    <ClCompile Include="Block.cpp" />
-    <ClCompile Include="Apple.cpp" />
     <ClCompile Include="Enemy3.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
@@ -116,10 +111,6 @@
       <Filter>Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="SceneInformation.cpp" />
-    <ClCompile Include="Alphabet.cpp" />
-    <ClCompile Include="StairFlagChange.cpp" />
-    <ClCompile Include="CollapseGround.cpp" />
-    <ClCompile Include="SwingBar.cpp" />
     <ClCompile Include="JumpBar.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -129,14 +120,9 @@
     <ClCompile Include="FireGround.cpp">
       <Filter>Object\StaticObject</Filter>
     </ClCompile>
-    <ClCompile Include="SlideColumn.cpp" />
     <ClCompile Include="Enemy2.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="FalledSand.cpp" />
-    <ClCompile Include="FlyingKnife.cpp" />
-    <ClCompile Include="FlyingCamelSaliva.cpp" />
-    <ClCompile Include="Lamp.cpp" />
     <ClCompile Include="Enemy5.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
@@ -146,10 +132,50 @@
     <ClCompile Include="DieScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="CheckPoint.cpp" />
-    <ClCompile Include="Gem.cpp" />
-    <ClCompile Include="Peddler.cpp" />
     <ClCompile Include="MovableBackground.cpp" />
+    <ClCompile Include="FalledSand.cpp" />
+    <ClCompile Include="CollapseGround.cpp" />
+    <ClCompile Include="CheckPoint.cpp" />
+    <ClCompile Include="Apple.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Lamp.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Gem.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Peddler.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SlideColumn.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="StairFlagChange.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SwingBar.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingKnife.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingCamelSaliva.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Alphabet.cpp">
+      <Filter>Font</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreFont.cpp" />
+    <ClCompile Include="ShopText.cpp" />
+    <ClCompile Include="HalfApple.cpp" />
+    <ClCompile Include="ContinueScene.cpp" />
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -193,9 +219,6 @@
     </ClInclude>
     <ClInclude Include="GraphicsHelper.h">
       <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="IntroScene.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardHelper.h">
       <Filter>Framework</Filter>
@@ -333,6 +356,19 @@
     <ClInclude Include="MovableBackground.h">
       <Filter>Scene\Map</Filter>
     </ClInclude>
+    <ClInclude Include="ScoreFont.h">
+      <Filter>Font</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopText.h" />
+    <ClInclude Include="HalfApple.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ContinueScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -363,6 +399,9 @@
     </Filter>
     <Filter Include="Object\StaticObject">
       <UniqueIdentifier>{66cb1264-192a-4a9e-b603-5af4a2901c65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Font">
+      <UniqueIdentifier>{e9abf829-c49f-45ba-93f6-e6baad8f15b1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

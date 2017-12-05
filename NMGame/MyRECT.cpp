@@ -65,3 +65,8 @@ bool MyRECT::Intersects(MyRECT rect)
 		|| bottom > rect.top
 		|| rect.bottom > top);;
 }
+
+bool MyRECT::Contains(MyRECT rect)
+{
+	return ((this->left <= rect.left) && (right >= rect.right) && (top >= rect.top) && (bottom >= bottom));
+}

@@ -31,6 +31,8 @@ protected:
 	int						mOpacity;
 
 	bool					mDone;
+
+	LPDIRECT3DSURFACE9			_Surface;
 };
 
 #endif

@@ -159,6 +159,7 @@
     <ClCompile Include="CheckPoint.cpp" />
     <ClCompile Include="CollapseGround.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="ContinueScene.cpp" />
     <ClCompile Include="CTreeObject.cpp" />
     <ClCompile Include="DemoMap.cpp" />
     <ClCompile Include="DemoScene.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="GraphicsHelper.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="HalfApple.cpp" />
     <ClCompile Include="JumpBar.cpp" />
     <ClCompile Include="KeyboardHelper.cpp" />
     <ClCompile Include="Lamp.cpp" />
@@ -196,7 +198,9 @@
     <ClCompile Include="Rope.cpp" />
     <ClCompile Include="SceneInformation.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="MenuScene.cpp" />
+    <ClCompile Include="ScoreFont.cpp" />
+    <ClCompile Include="ShopText.cpp" />
     <ClCompile Include="SlideColumn.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stair.cpp" />
@@ -222,6 +226,7 @@
     <ClInclude Include="CheckPoint.h" />
     <ClInclude Include="CollapseGround.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="ContinueScene.h" />
     <ClInclude Include="CTreeObject.h" />
     <ClInclude Include="DemoMap.h" />
     <ClInclude Include="DemoScene.h" />
@@ -244,7 +249,8 @@
     <ClInclude Include="Global.h" />
     <ClInclude Include="GraphicsHelper.h" />
     <ClInclude Include="Ground.h" />
-    <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="HalfApple.h" />
+    <ClInclude Include="MenuScene.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="JumpBar.h" />
     <ClInclude Include="KeyboardHelper.h" />
@@ -260,6 +266,8 @@
     <ClInclude Include="Rope.h" />
     <ClInclude Include="SceneInformation.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ScoreFont.h" />
+    <ClInclude Include="ShopText.h" />
     <ClInclude Include="SlideColumn.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stair.h" />

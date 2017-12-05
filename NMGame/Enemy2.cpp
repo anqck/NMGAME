@@ -31,7 +31,7 @@ Enemy2::Enemy2(MyRECT bb, D3DXVECTOR3 pos) : Enemy2()
 	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = bb;
 
-	this->mPosition = pos;
+	this->mPosition = mDefaultPosition = pos;
 
 
 	vector<MyRECT> temp;
@@ -156,6 +156,29 @@ Enemy2::~Enemy2()
 {
 }
 
+void Enemy2::ResetDefault()
+{
+	this->mDone = false;
+	this->mOnFire = false;
+
+	mLastFireGround = nullptr;
+
+	this->mCurrentState = Enemy2State::Enemy2State_DoNothing;
+
+	mWidth = 10;
+	mHeight = 140;
+
+	this->mHP = 2;
+
+	this->mPosition = mDefaultPosition;
+
+	this->mState.at(mCurrentState)->SetPosition(mDefaultPosition);
+
+	mLastAladdinPosInInteractBox = D3DXVECTOR3(0, 0, 0);
+
+	this->mState.at(Enemy2State::Enemy2State_Explosion)->resetFrame();
+}
+
 void Enemy2::Update(float DeltaTime)
 {
 	
@@ -166,13 +189,13 @@ void Enemy2::Update(float DeltaTime)
 	this->mState.at(mCurrentState)->ResetDefaultVelocity();
 
 	
-	if (!mOnFire &&this->mCurrentState != Enemy2State::Enemy2State_Run_FireGround)
+	/*if (!mOnFire &&this->mCurrentState != Enemy2State::Enemy2State_Run_FireGround)
 	{
 		if (mLastAladdinPosInInteractBox.x <= this->mPosition.x)
 			this->mDir = Direction::Left;
 		else
 			this->mDir = Direction::Right;
-	}
+	}*/
 	
 
 	this->mState.at(mCurrentState)->SetFlipVertical(((mDir == Direction::Right) ? (false) : (true)));
@@ -299,6 +322,14 @@ void Enemy2::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 		}
 		break;
 	case EObjectID::ALADDIN:
+		if (!mOnFire &&this->mCurrentState != Enemy2State::Enemy2State_Run_FireGround)
+		{
+			if (obj->GetCurrentState()->GetPosition().x <= this->mPosition.x)
+				this->mDir = Direction::Left;
+			else
+				this->mDir = Direction::Right;
+		}
+
 		if (AABBresult == true)
 			mLastAladdinPosInInteractBox = obj->GetCurrentState()->GetPosition();
 		if (collisionWith == CollisionWith::InteractBoundingBox)

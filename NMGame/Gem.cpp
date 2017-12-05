@@ -1,5 +1,5 @@
 #include "Gem.h"
-
+#include "AladdinCharacter.h"
 #include <stdlib.h>
 
 Gem::Gem()
@@ -105,7 +105,7 @@ void Gem::processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionRe
 	switch ((EObjectID)obj->GetID())
 	{
 	case EObjectID::ALADDIN:
-	/*	((AladdinCharacter *)obj)->AddApple(1);*/
+		((AladdinCharacter *)obj)->AddGem(1);
 		this->mCurrentState = GemState::GemState_Disappear;
 
 

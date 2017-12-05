@@ -27,7 +27,7 @@ Enemy5::Enemy5(MyRECT bb, D3DXVECTOR3 pos) : Enemy5()
 	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = bb;
 
-	this->mPosition = pos;
+	this->mPosition = this->mDefaultPosition =  pos;
 
 
 	vector<MyRECT> temp;
@@ -108,6 +108,26 @@ Enemy5::Enemy5(MyRECT bb, D3DXVECTOR3 pos) : Enemy5()
 
 Enemy5::~Enemy5()
 {
+}
+
+void Enemy5::ResetDefault()
+{
+	mLastAladdinPosInInteractBox = D3DXVECTOR3(0, 0, 0);
+
+	this->mDone = false;
+
+	this->mCurrentState = Enemy5State::Enemy5State_DoNothing;
+
+	mWidth = 10;
+	mHeight = 100;
+
+	this->mHP = 2;
+
+	this->mPosition = mDefaultPosition;
+
+	this->mState.at(mCurrentState)->SetPosition(mDefaultPosition);
+
+	this->mState.at(Enemy5State::Enemy5State_Explosion)->resetFrame();
 }
 
 void Enemy5::Update(float DeltaTime)

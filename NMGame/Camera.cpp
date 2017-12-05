@@ -216,13 +216,20 @@ void Camera::NomalizeCamera()
 
 	//Right top
 	if (rt_position.x > WORLD_X)
+	{
 		this->mPosition.x = WORLD_X - GLOBAL::GetWindowsWidth();
+		this->mVelocity.x = 0;
+	}
+		
 	if (rt_position.y > WORLD_Y)
 		this->mPosition.y = WORLD_Y;
 
 	//Right bottom
 	if (rb_position.x > WORLD_X)
+	{
 		this->mPosition.x = WORLD_X - GLOBAL::GetWindowsWidth();
+		this->mVelocity.x = 0;
+	}
 	if (rb_position.y < WORLD_Y - MAP_HEIGHT)
 		this->mPosition.y = WORLD_Y - MAP_HEIGHT + GLOBAL::GetWindowsHeight();
 }

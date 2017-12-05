@@ -1,7 +1,6 @@
 #include "AladdinGame.h"
 #include "DemoScene.h"
-#include "DieScene.h"
-#include "IntroScene.h"
+
 
 
 
@@ -15,10 +14,12 @@ void AladdinGame::LoadResource()
 
 	//Temp code
 	//DemoScene* scene = new DemoScene(this);
-	DemoScene * scene = new DemoScene();
-	scene->LoadResource();
-	this->AddScene(scene);
-	SceneManager::GetInstance()->ReplaceScene(scene);
+	//DemoScene * scene = new DemoScene();
+	//scene->LoadResource();
+
+	//this->AddScene(scene);
+
+	SceneManager::GetInstance()->Initialize();
 
 
 	//this->mAladdinHelper = new AladdinHelper(this->mAladdinSpriteHandler, imagepos);

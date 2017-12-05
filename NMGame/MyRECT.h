@@ -25,6 +25,7 @@ public:
 	D3DXVECTOR3	getCenterTranslation();
 
 	bool		Intersects(MyRECT rect);
+	bool		Contains(MyRECT rect);
 private:
 	D3DXVECTOR3	centerTranslation;
 	

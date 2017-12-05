@@ -34,19 +34,19 @@ Lamp::Lamp(D3DXVECTOR3 pos, MyRECT bb) : Lamp()
 	temp.push_back(MyRECT(164, 54, 80, 188));
 	temp.push_back(MyRECT(49, 252, 312, 98));
 	temp.push_back(MyRECT(77, 0, 82, 163));
-	temp.push_back(MyRECT(74, 84, 166, 154));
-	temp.push_back(MyRECT(0, 0, 83, 76));
-	temp.push_back(MyRECT(0, 84, 167, 73));
-	temp.push_back(MyRECT(136, 167, 247, 206));
-	temp.push_back(MyRECT(63, 168, 250, 135));
-	temp.push_back(MyRECT(0, 168, 251, 62));
-	temp.push_back(MyRECT(155, 83, 164, 208));
-	temp.push_back(MyRECT(0, 252, 329, 48));
-	temp.push_back(MyRECT(164, 0, 53, 205));
-	temp.push_back(MyRECT(99, 251, 293, 138));
-	temp.push_back(MyRECT(139, 248, 268, 172));
+	temp.push_back(MyRECT(74, 84, 166, 154,D3DXVECTOR3(0,3,0)));
+	temp.push_back(MyRECT(0, 0, 83, 76, D3DXVECTOR3(0, 4, 0)));
+	temp.push_back(MyRECT(0, 84, 167, 73, D3DXVECTOR3(0, 4, 0)));
+	temp.push_back(MyRECT(136, 167, 247, 206, D3DXVECTOR3(0, 6, 0)));
+	temp.push_back(MyRECT(63, 168, 250, 135, D3DXVECTOR3(0, 4, 0)));
+	temp.push_back(MyRECT(0, 168, 251, 62, D3DXVECTOR3(0, 9, 0)));
+	temp.push_back(MyRECT(155, 83, 164, 208, D3DXVECTOR3(0, 14, 0)));
+	temp.push_back(MyRECT(0, 252, 329, 48, D3DXVECTOR3(0, 20, 0)));
+	temp.push_back(MyRECT(164, 0, 53, 205, D3DXVECTOR3(0, 24, 0)));
+	temp.push_back(MyRECT(99, 251, 293, 138, D3DXVECTOR3(4, 26, 0)));
+	temp.push_back(MyRECT(139, 248, 268, 172, D3DXVECTOR3(0, 29, 0)));
 
-	this->mState.push_back(new ObjectStateWithLoop(temp, 14, L"Object\\LampDisappear.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mState.push_back(new ObjectState(temp, 21, L"Object\\LampDisappear.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 
 
 	this->mState.at(0)->SetPosition(pos);

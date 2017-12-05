@@ -5,6 +5,9 @@
 DemoScene::DemoScene()
 {
 	this->mSceneID = SceneID::SceneID_GameScene1;
+
+	this->LoadResource();
+	
 }
 
 DemoScene::DemoScene(AladdinGame * game) : DemoScene()
@@ -94,7 +97,7 @@ void DemoScene::Render(float DeltaTime)
 void DemoScene::LoadResource()
 {
 	this->mMap = new DemoMap();
-	
+	this->mScore = 0;
 
 	this->mAladdin = new AladdinCharacter(D3DXVECTOR3(100, WORLD_Y - MAP_HEIGHT + 161,0));
 
@@ -316,7 +319,12 @@ void DemoScene::CheckCollision(float DeltaTime)
 
 void DemoScene::GoToLastCheckPoint()
 {
-	mQuadTree->LoadQuadTree("Map//1.txt");
+	//mQuadTree->LoadQuadTree("Map//1.txt");
+	for (int i = 0; i < mQuadTree->GetListAllObject().size(); i++)
+	{
+		mQuadTree->GetListAllObject().at(i)->ResetDefault();
+	}
+	
 	this->mAladdin->GoToLastCheckPoint();
 }
 
@@ -324,6 +332,11 @@ void DemoScene::GoToLastCheckPoint()
 int DemoScene::GetAladdinHP()
 {
 	return this->mAladdin->GetHP();
+}
+
+int DemoScene::GetAladdinLife()
+{
+	return this->mAladdin->GetLifeCount();
 }
 
 void DemoScene::AddFlyingObject(GameVisibleEntity *obj)

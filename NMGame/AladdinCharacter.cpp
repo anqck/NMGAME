@@ -8,6 +8,7 @@
 #include <string> 
 #include <stdlib.h>
 
+#include "Camera.h"
 
 #pragma region Init
 AladdinCharacter::AladdinCharacter()
@@ -16,10 +17,15 @@ AladdinCharacter::AladdinCharacter()
 
 AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 {
+	LoadResource();
+
+	this->mWidth = 30;
+	this->mHeight = 100;
+
 	this->mStairLayer = 0;
 	this->mNotOnGroundTime = 0;
 	mFallingFlag = false;
-	LoadResource();
+	
 
 	this->mLastCheckPoint = nullptr;
 
@@ -30,12 +36,11 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	this->mPosition = pos;
 	this->mAladdinState.at(mCurrentState)->SetPosition(pos);	
 	this->mDir = Direction::Right;
+
 	this->mHP = 8;
 	this->mAppleCount = 10;
-	this->mScore = 0;
 	this->mGemCount = 0;
-	this->mWidth = 30;
-	this->mHeight = 100;
+	this->mLife = 0;
 
 	this->mTime = 0;
 
@@ -60,11 +65,6 @@ void AladdinCharacter::LoadResource()
 	this->mID = EObjectID::ALADDIN;
 	vector<MyRECT> temp;
 
-	
-	
-
-	/*this->mWidth = 63 * 2;
-	this->mHeight = 48 * 2.5 ;*/
 
 	//DoNothing
 	temp.push_back(MyRECT(53, 128, 165, 103));
@@ -713,7 +713,7 @@ void AladdinCharacter::Update(float DeltaTime)
 				this->allowStateChange = true;
 				this->setCurrentState(AState::Wait2);
 				
-				printLog("2");
+				
 			}
 		}
 		break;
@@ -725,8 +725,7 @@ void AladdinCharacter::Update(float DeltaTime)
 			{
 				this->allowStateChange = true;
 				this->setCurrentState(AState::Wait1);
-	
-				printLog("1");
+
 			}
 		}
 		break;
@@ -960,9 +959,9 @@ void AladdinCharacter::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 	case VK_SPACE:
-		this->mPosition = D3DXVECTOR3(7500, WORLD_Y - MAP_HEIGHT + 1100 , 0);
+		//this->mPosition = D3DXVECTOR3(7500, WORLD_Y - MAP_HEIGHT + 1100 , 0);
 		//this->mPosition = D3DXVECTOR3(9000, WORLD_Y - MAP_HEIGHT +1500, 0);
-		//this->mPosition = D3DXVECTOR3(4900, WORLD_Y - MAP_HEIGHT + 1100, 0);
+		this->mPosition = D3DXVECTOR3(4900, WORLD_Y - MAP_HEIGHT + 1100, 0);
 		//this->mPosition = D3DXVECTOR3(2500, WORLD_Y - MAP_HEIGHT + 200, 0);
 		this->mAladdinState.at(this->mCurrentState)->SetPosition(this->mPosition);
 		break;
@@ -1837,6 +1836,26 @@ void AladdinCharacter::SetGrounded(bool allow)
 
 
 
+void AladdinCharacter::AddGem(int number)
+{
+	this->mGemCount += number;
+}
+
+int AladdinCharacter::GetGemCount()
+{
+	return this->mGemCount;
+}
+
+void AladdinCharacter::AddLife(int number)
+{
+	this->mLife += number;
+}
+
+int AladdinCharacter::GetLifeCount()
+{
+	return this->mLife;
+}
+
 MyRECT AladdinCharacter::GetBoundingBox()
 {
 	mBoundingBox.left = mPosition.x - mWidth / 2;
@@ -2128,8 +2147,9 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 		mOpacityTime = 0;
 		break;
 	case EObjectID::CHECKPOINT:
-		//if (((CheckPoint*)obj)->GetCurrentStateID() == CheckPointState::CheckPointState_Normal)
+		if (((CheckPoint*)obj)->GetCurrentStateID() == CheckPointState::CheckPointState_Normal)
 		{
+			((CheckPoint*)obj)->SetScore(SceneManager::GetInstance()->GetCurrentScene()->GetScore());
 			this->mLastCheckPoint = (CheckPoint*)obj;
 
 		}
@@ -2226,21 +2246,27 @@ void AladdinCharacter::GoToLastCheckPoint()
 	if (mLastCheckPoint == nullptr)
 	{
 		this->mPosition = D3DXVECTOR3(100, WORLD_Y - MAP_HEIGHT + 161, 0);
+		SceneManager::GetInstance()->GetCurrentScene()->SetScore(0);
 	}
 	else
 	{
-		this->mPosition = D3DXVECTOR3(mLastCheckPoint->GetPosition().x , mLastCheckPoint->GetPosition().y + 20,0);
 		
+		
+		this->mPosition = D3DXVECTOR3(mLastCheckPoint->GetPosition().x , mLastCheckPoint->GetPosition().y + 20 ,0);
+		Camera::GetInstance()->Update(this);
+		SceneManager::GetInstance()->GetCurrentScene()->SetScore(mLastCheckPoint->GetScore());
 	}
 
 	this->mOpacityRender = true;
 	this->mOpacityTime = -500;
-	//this->mPosition = this->mLastCheckPointPosition;
+
 	this->mAladdinState.at(mCurrentState)->SetPosition(mPosition);
 	this->mDir = Direction::Right;
 	this->mHP = 8;
+	this->mLife--;
 
 	this->mAppleCount = 10;
+
 
 
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Enemy.h"
 #include "FireGround.h"
+#include "ShopText.h"
 
 enum PeddlerState
 {
@@ -9,6 +10,7 @@ enum PeddlerState
 	PeddlerState_ShopAppear,
 	PeddlerState_Wait,
 	PeddlerState_WaitWithShop,
+	PeddlerState_WaitWithShop2
 
 };
 class Peddler : public Enemy
@@ -28,11 +30,13 @@ public:
 	ObjectState *				GetCurrentState() { return this->mState.at(mCurrentState); }
 
 	MyRECT						GetItem1BoundingBox();
-
+	MyRECT						GetItem2BoundingBox();
 
 
 private:
 	PeddlerState				mCurrentState;
+
+	ShopText*					mShopText;
 
 
 

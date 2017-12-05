@@ -23,6 +23,9 @@ public:
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
 	CheckPointState				GetCurrentStateID();
+
+	void						SetScore(int score);
+	int							GetScore();
 protected:
 	vector<ObjectState*>		mState;
 	CheckPointState				mCurrentState;

@@ -19,6 +19,8 @@ public:
 	Enemy4(MyRECT bb, D3DXVECTOR3 pos);
 	~Enemy4();
 
+	void						ResetDefault();
+
 	void						Update(float DeltaTime);
 	void						Render(float DeltaTime);
 
@@ -36,6 +38,7 @@ public:
 	bool						isDone();
 
 private:
+	D3DXVECTOR3					mDefaultPosition;
 	Enemy4State					mCurrentState;
 
 

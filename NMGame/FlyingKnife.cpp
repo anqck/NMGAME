@@ -140,11 +140,11 @@ void FlyingKnife::processCollision(float DeltaTime, GameVisibleEntity * obj, Col
 
 	case EObjectID::THROWINGAPPLE:
 
-		if (this->mCurrentState == FlyingKnifeState::FlyingKnifeState_Normal)
+		/*if (this->mCurrentState == FlyingKnifeState::FlyingKnifeState_Normal)
 		{
 			this->mState.at(FlyingKnifeState::FlyingKnifeState_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
 			mCurrentState = FlyingKnifeState::FlyingKnifeState_Explosion;
-		}
+		}*/
 		break;
 
 	case EObjectID::ALADDIN:

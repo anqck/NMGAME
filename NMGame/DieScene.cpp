@@ -44,16 +44,8 @@ void DieScene::Update(float DeltaTime)
 
 void DieScene::Render(float DeltaTime)
 {
-	LPDIRECT3DSURFACE9			_Surface;
-	GraphicsHelper::GetInstance()->GetDirectDevice()->CreateOffscreenPlainSurface(
-		100,
-		100,
-		D3DFMT_X8R8G8B8,
-		D3DPOOL_DEFAULT,
-		&_Surface,
-		NULL);
-
-	GraphicsHelper::GetInstance()->GetDirectDevice()->ColorFill(_Surface, NULL, D3DCOLOR_XRGB(0, 0, 0));
+	
+	
 
 	GraphicsHelper::GetInstance()->GetDirectDevice()->StretchRect(_Surface, NULL, GraphicsHelper::GetInstance()->GetBackBuffer(), NULL, D3DTEXF_NONE);
 
@@ -77,12 +69,18 @@ void DieScene::Render(float DeltaTime)
 void DieScene::LoadResource()
 
 {
+	GraphicsHelper::GetInstance()->GetDirectDevice()->CreateOffscreenPlainSurface(
+		100,
+		100,
+		D3DFMT_X8R8G8B8,
+		D3DPOOL_DEFAULT,
+		&_Surface,
+		NULL);
+
+	GraphicsHelper::GetInstance()->GetDirectDevice()->ColorFill(_Surface, NULL, D3DCOLOR_XRGB(0, 0, 0));
+
 	vector<MyRECT> temp;
 
-
-
-	/*this->mWidth = 63 * 2;
-	this->mHeight = 48 * 2.5 ;*/
 
 	//DoNothing	
 	temp.push_back(MyRECT(0, 0, 68, 29, D3DXVECTOR3(-2, 0, 0)));

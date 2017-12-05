@@ -12,8 +12,10 @@ public:
 	~Alphabet();
 
 	void							Render();
+	void							OpacityRender(DWORD AlphaValue);
 
 	void							SetString(std::string string);
+	void							SetPosition(D3DXVECTOR3 pos);
 private:
 	std::map<char, MyRECT>	mBangChuCai;
 	LPDIRECT3DTEXTURE9				mAlphabetTexture;

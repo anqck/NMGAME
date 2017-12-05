@@ -8,6 +8,10 @@ Peddler::Peddler()
 	mHeight = 100;
 
 	this->mDone = false;
+
+	mShopText = new ShopText();
+
+	
 }
 
 Peddler::Peddler(MyRECT bb, D3DXVECTOR3 pos) : Peddler()
@@ -132,12 +136,31 @@ Peddler::Peddler(MyRECT bb, D3DXVECTOR3 pos) : Peddler()
 	this->mState.push_back(new ObjectState(temp, 12, L"Object\\Peddler\\WithShopWait.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
+
+	//WaitWithShop2
+	temp.push_back(MyRECT(285, 0, 125, 355,D3DXVECTOR3(1,0,0)));
+	temp.push_back(MyRECT(214, 0, 133, 284, D3DXVECTOR3(5, 0, 0)));
+	temp.push_back(MyRECT(71, 0, 157, 141, D3DXVECTOR3(17, 0, 0)));
+	temp.push_back(MyRECT(142, 0, 152, 213, D3DXVECTOR3(15, -1, 0)));
+	temp.push_back(MyRECT(0, 158, 303, 70, D3DXVECTOR3(11, 0, 0)));
+	temp.push_back(MyRECT(71, 158, 303, 141, D3DXVECTOR3(11,0, 0)));
+	temp.push_back(MyRECT(142, 153, 298, 212, D3DXVECTOR3(11, 0, 0)));
+	temp.push_back(MyRECT(0, 304, 449, 70, D3DXVECTOR3(11, 0, 0)));
+	temp.push_back(MyRECT(71, 304, 449, 141, D3DXVECTOR3(11, 0, 0)));
+	temp.push_back(MyRECT(142, 299, 444, 212, D3DXVECTOR3(11, 0, 0)));
+	temp.push_back(MyRECT(0, 0, 157, 70, D3DXVECTOR3(17, 0, 0)));
+	temp.push_back(MyRECT(214, 134, 259, 284, D3DXVECTOR3(1, 0, 0)));
+	temp.push_back(MyRECT(285, 126, 249, 355, D3DXVECTOR3(0, 0, 0)));
+
+	this->mState.push_back(new ObjectState(temp, 13, L"Object\\Peddler\\WithShopWait2.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	temp.clear();
+
 	this->mState.at(0)->SetPosition(pos);
 	this->mState.at(1)->SetPosition(pos);
 	this->mState.at(2)->SetPosition(pos);
 	this->mState.at(3)->SetPosition(pos);
 	this->mState.at(4)->SetPosition(pos);
-
+	this->mState.at(5)->SetPosition(pos);
 }
 
 Peddler::~Peddler()
@@ -146,6 +169,8 @@ Peddler::~Peddler()
 
 void Peddler::Update(float DeltaTime)
 {
+	this->mShopText->Update(DeltaTime);
+
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
 
@@ -157,6 +182,7 @@ void Peddler::Update(float DeltaTime)
 			this->mCurrentState = PeddlerState::PeddlerState_Wait;
 			this->mState.at(mCurrentState)->resetFrame();
 		}
+		
 		break;
 	case PeddlerState::PeddlerState_Wait:
 		if (this->mState.at(this->mCurrentState)->isDone())
@@ -170,7 +196,13 @@ void Peddler::Update(float DeltaTime)
 			this->mCurrentState = PeddlerState::PeddlerState_WaitWithShop;
 			this->mState.at(mCurrentState)->resetFrame();
 		}
+		else if (rand() % 60 == 1)
+		{
+			this->mCurrentState = PeddlerState::PeddlerState_WaitWithShop2;
+			this->mState.at(mCurrentState)->resetFrame();
+		}
 		break;
+	case PeddlerState::PeddlerState_WaitWithShop2:
 	case PeddlerState::PeddlerState_WaitWithShop:
 		if (this->mState.at(this->mCurrentState)->isDone())
 		{
@@ -184,19 +216,25 @@ void Peddler::Update(float DeltaTime)
 		}
 		break;
 	}
+
+
 }
 
 void Peddler::Render(float DeltaTime)
 {
 	GameVisibleEntity::Render(DeltaTime);
 
-	GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetItem1BoundingBox(), D3DCOLOR_XRGB(255, 255, 255));
+	//GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetItem1BoundingBox(), D3DCOLOR_XRGB(255, 255, 255));
+	//GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetItem2BoundingBox(), D3DCOLOR_XRGB(255, 255, 255));
 
 	this->mState.at(mCurrentState)->Render();
+
+	this->mShopText->Render();
 }
 
 void Peddler::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith)
 {
+	
 	switch (obj->GetID())
 	{
 	case EObjectID::ALADDIN:
@@ -207,12 +245,55 @@ void Peddler::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Col
 				this->mCurrentState = PeddlerState::PeddlerState_ShopAppear;
 				this->mState.at(this->mCurrentState)->resetFrame();
 			}
+
+			if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_UP))
+			{
+				if (this->GetItem1BoundingBox().Contains(obj->GetBoundingBox()))
+				{
+					printLog("Item 1");
+
+					if (this->mShopText->isDone())
+					{
+						if (((AladdinCharacter*)obj)->GetGemCount() >= 5)
+						{
+							((AladdinCharacter*)obj)->AddGem(-5);
+							((AladdinCharacter*)obj)->AddLife(1);
+							mShopText->PrintText(ShopTextState::ShopTextState_ItsADeal);
+						}
+						else
+						{
+							mShopText->PrintText(ShopTextState::ShopTextState_FindsMoreGems);
+						}
+					}
+						
+				}
+				else if (this->GetItem2BoundingBox().Contains(obj->GetBoundingBox()))
+				{
+					printLog("Item 2");
+					if (this->mShopText->isDone())
+					{
+						if (((AladdinCharacter*)obj)->GetGemCount() >= 10)
+						{
+							((AladdinCharacter*)obj)->AddGem(-10);
+							//((AladdinCharacter*)obj)->AddLife(1);
+							mShopText->PrintText(ShopTextState::ShopTextState_ItsADeal);
+						}
+						else
+						{
+							mShopText->PrintText(ShopTextState::ShopTextState_FindsMoreGems);
+						}
+					}
+				}
+			}
 				
 		}
 		else
 		{
 			if(this->mCurrentState  != PeddlerState::PeddlerState_Wait)
 				this->mCurrentState = PeddlerState::PeddlerState_DoNothing;
+
+			
+			//if(this->GetBoundingBox().Intersects(this))
 		}
 	}
 }
@@ -223,8 +304,17 @@ void Peddler::processCollision(float DeltaTime, GameVisibleEntity * obj, Collisi
 
 MyRECT Peddler::GetItem1BoundingBox()
 {
-	if (this->mCurrentState == PeddlerState::PeddlerState_WithShopDoNothing || this->mCurrentState == PeddlerState::PeddlerState_WaitWithShop)
-		return MyRECT(this->GetBoundingBox().top, this->GetBoundingBox().left + 10, this->GetBoundingBox().right - 40, this->GetBoundingBox().bottom);
+	if (this->mCurrentState == PeddlerState::PeddlerState_WithShopDoNothing || this->mCurrentState == PeddlerState::PeddlerState_WaitWithShop || this->mCurrentState == PeddlerState::PeddlerState_WaitWithShop2)
+		return MyRECT(this->GetBoundingBox().top + 20, this->GetBoundingBox().left - 70, this->GetBoundingBox().left + 5, this->GetBoundingBox().bottom - 20);
 	else
 		return MyRECT(0, 0, 0, 0);
+}
+
+MyRECT Peddler::GetItem2BoundingBox()
+{
+	if (this->mCurrentState == PeddlerState::PeddlerState_WithShopDoNothing || this->mCurrentState == PeddlerState::PeddlerState_WaitWithShop || this->mCurrentState == PeddlerState::PeddlerState_WaitWithShop2)
+		return MyRECT(this->GetBoundingBox().top + 20, this->GetBoundingBox().left + 6.5, this->GetBoundingBox().right - 20, this->GetBoundingBox().bottom - 20);
+	else
+		return MyRECT(0, 0, 0, 0);
+
 }

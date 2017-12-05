@@ -27,7 +27,7 @@ Enemy1::Enemy1(MyRECT bb, D3DXVECTOR3 pos) : Enemy1()
 {
 	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = bb;
-
+	mDefaultPosition = pos;
 	this->mCurrentState = Enemy1State::Enemy1State_DoNothing;
 
 	this->mPosition = pos;
@@ -105,15 +105,35 @@ Enemy1::~Enemy1()
 {
 }
 
+void Enemy1::ResetDefault()
+{
+	this->mDone = false;
+
+	mLastAladdinPosInInteractBox = D3DXVECTOR3(0, 0, 0);
+
+	this->mCurrentState = Enemy1State::Enemy1State_DoNothing;
+
+	this->mPosition = mDefaultPosition;
+
+	this->mState.at(mCurrentState)->SetPosition(mDefaultPosition);
+
+	mWidth = 10;
+	mHeight = 140;
+
+	this->mHP = 2;
+
+	this->mState.at(Enemy1State::Enemy1State_Explosion)->resetFrame();
+}
+
 void Enemy1::Update(float DeltaTime)
 {
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
 
-	if (mLastAladdinPosInInteractBox.x <= this->mPosition.x)
+	/*if (mLastAladdinPosInInteractBox.x <= this->mPosition.x)
 		this->mDir = Direction::Left;
 	else
-		this->mDir = Direction::Right;
+		this->mDir = Direction::Right;*/
 
 	this->mState.at(mCurrentState)->SetFlipVertical(((mDir == Direction::Right) ? (false) : (true)));
 
@@ -180,6 +200,10 @@ void Enemy1::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 		}
 		break;
 	case EObjectID::ALADDIN:
+		if (obj->GetCurrentState()->GetPosition().x <= this->mPosition.x)
+			this->mDir = Direction::Left;
+		else
+			this->mDir = Direction::Right; 
 		if (AABBresult == true)
 			mLastAladdinPosInInteractBox = obj->GetCurrentState()->GetPosition();
 		if (collisionWith == CollisionWith::InteractBoundingBox)

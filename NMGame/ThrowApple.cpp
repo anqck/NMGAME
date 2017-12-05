@@ -2,6 +2,7 @@
 #include "ThrowPot.h"
 #include "FlyingKnife.h"
 #include "ThrowPotEnemy.h"
+#include "HalfApple.h"
 
 ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 {
@@ -175,7 +176,9 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 
 		{
 			this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
-			mCollisioned = true;
+			SceneManager::GetInstance()->GetCurrentScene()->AddFlyingObject(new HalfApple(this->mState.at(mCurrentState)->GetPosition(),Direction::Left,0.2));
+			SceneManager::GetInstance()->GetCurrentScene()->AddFlyingObject(new HalfApple(this->mState.at(mCurrentState)->GetPosition(), Direction::Right,0.5));
+			mDone = true;
 
 		}
 		break;

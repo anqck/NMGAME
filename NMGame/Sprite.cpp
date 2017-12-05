@@ -1,8 +1,9 @@
 ﻿#include "Sprite.h"
 #include "Camera.h"
 
-Sprite::Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect, CenterArchor center)
+Sprite::Sprite( LPWSTR FilePath, D3DCOLOR transcolor, vector<MyRECT> listSourceRect, CenterArchor center, D3DXVECTOR2 renderScale)
 {
+	this->mScale = renderScale;
 
 	this->mPosition = D3DXVECTOR3(0, 0, 0);
 
@@ -146,11 +147,11 @@ MyRECT Sprite::GetCurrentFrameBoundingBox()
 void Sprite::Render(DWORD AlphaValue)
 {
 	//Temp code
-	D3DXVECTOR2 tempScale = D3DXVECTOR2(((isFlipVertical)?-1:1) * 2, 2.5);
+	//D3DXVECTOR2 tempScale = D3DXVECTOR2(((isFlipVertical)?-1:1) * 2, 2.5);
 
 	D3DXVECTOR3 center = this->mSourceRect.GetCenterArchorPosision(this->mCenterArchor);
 
-	GraphicsHelper::GetInstance()->DrawTexture(mTexture, this->mSourceRect, center,this->GetTransformPosition().mPosition, tempScale,D3DXVECTOR2(0,0),0.0f, D3DXVECTOR2(0, 0),AlphaValue);
+	GraphicsHelper::GetInstance()->DrawTexture(mTexture, this->mSourceRect, center,this->GetTransformPosition().mPosition, D3DXVECTOR2(((isFlipVertical) ? -1 : 1) * this->mScale.x, this->mScale.y),D3DXVECTOR2(0,0),0.0f, D3DXVECTOR2(0, 0),AlphaValue);
 	
 	//Draw Boundingbox for debug
 	//if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_3))

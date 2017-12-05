@@ -34,9 +34,9 @@ public:
 
 	void					GoToLastCheckPoint();
 
-	
-	
 	int						GetAladdinHP();
+	int						GetAladdinLife();
+
 	void					AddFlyingObject(GameVisibleEntity* obj);
 
 protected:	

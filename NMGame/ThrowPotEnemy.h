@@ -19,6 +19,8 @@ public:
 	ThrowPotEnemy(D3DXVECTOR3 pos);
 	~ThrowPotEnemy();
 
+	void						ResetDefault();
+
 	void						Render(float DeltaTime);
 	void						Update(float DeltaTime);
 
@@ -31,6 +33,8 @@ public:
 
 	ThrowPotEnemyState			GetCurrentStateID();
 private:
+
+
 	vector<ObjectState*>		mState;
 	ThrowPotEnemyState			mCurrentState;
 };

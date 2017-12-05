@@ -28,7 +28,7 @@ Enemy4::Enemy4(MyRECT bb, D3DXVECTOR3 pos) : Enemy4()
 	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	this->mInteractBoundingBox = bb;
 
-	this->mPosition = pos;
+	this->mPosition = this->mDefaultPosition = pos;
 
 
 	vector<MyRECT> temp;
@@ -119,6 +119,25 @@ Enemy4::~Enemy4()
 {
 }
 
+void Enemy4::ResetDefault()
+{
+	this->mDone = false;
+
+	this->mCurrentState = Enemy4State::Enemy4State_Wait;
+
+	mWidth = 10;
+	mHeight = 140;
+
+	this->mHP = 2;
+
+	this->mPosition = mDefaultPosition;
+
+	this->mState.at(mCurrentState)->SetPosition(mDefaultPosition);
+
+	mLastAladdinPosInInteractBox = D3DXVECTOR3(0, 0, 0);
+	this->mState.at(Enemy4State::Enemy4State_Explosion)->resetFrame();
+}
+
 void Enemy4::Update(float DeltaTime)
 {
 	this->mState.at(mCurrentState)->Update(DeltaTime);
@@ -144,12 +163,7 @@ void Enemy4::Update(float DeltaTime)
 			this->mState.at(Enemy4State::Enemy4State_Attack)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
 			mCurrentState = Enemy4State::Enemy4State_Attack;
 		}
-		else if (this->mLastAladdinPosInInteractBox.x >= this->mInteractBoundingBox.left && this->mLastAladdinPosInInteractBox.x <= this->mInteractBoundingBox.right)
-		{
-			this->mState.at(Enemy4State::Enemy4State_Run)->SetVelocity(0.15, this->mState.at(mCurrentState)->GetVelocity().y);
-			this->mState.at(Enemy4State::Enemy4State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-			mCurrentState = Enemy4State::Enemy4State_Run;
-		}
+		//else 
 		break;
 	case Enemy4State::Enemy4State_Run:
 		if (this->GetBoundingBox().left <= this->mInteractBoundingBox.left + 10 || this->GetBoundingBox().right >= this->mInteractBoundingBox.right - 10)
@@ -211,6 +225,14 @@ void Enemy4::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 		{
 			switch (mCurrentState)
 			{
+			case Enemy4State::Enemy4State_DoNothing:
+				if (this->mLastAladdinPosInInteractBox.x >= this->mInteractBoundingBox.left && this->mLastAladdinPosInInteractBox.x <= this->mInteractBoundingBox.right && obj->GetCurrentState()->GetPosition().x >= this->mInteractBoundingBox.left && obj->GetCurrentState()->GetPosition().x <= this->mInteractBoundingBox.right && obj->GetCurrentState()->GetPosition().y >= this->mInteractBoundingBox.bottom && obj->GetCurrentState()->GetPosition().y <= this->mInteractBoundingBox.top)
+				{
+					this->mState.at(Enemy4State::Enemy4State_Run)->SetVelocity(0.15, this->mState.at(mCurrentState)->GetVelocity().y);
+					this->mState.at(Enemy4State::Enemy4State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+					mCurrentState = Enemy4State::Enemy4State_Run;
+				}
+				break;
 			case Enemy4State::Enemy4State_Wait:
 				if (this->mLastAladdinPosInInteractBox.x >= this->mInteractBoundingBox.left && this->mLastAladdinPosInInteractBox.x <= this->mInteractBoundingBox.right)
 				{

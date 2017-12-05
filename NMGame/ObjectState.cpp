@@ -1,6 +1,6 @@
 #include "ObjectState.h"
 
-ObjectState::ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, CenterArchor center)
+ObjectState::ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, CenterArchor center,D3DXVECTOR2 renderScale)
 {
 	this->mVelocity = this->mDefaultVelocity = velocity;
 	this->ResetFlag = true;
@@ -11,7 +11,7 @@ ObjectState::ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR file
 
 	this->mEndIdx = rect.size();
 
-	this->mSprite = new Sprite(filePath, D3DCOLOR_XRGB(255, 0, 255), rect, center);
+	this->mSprite = new Sprite(filePath, D3DCOLOR_XRGB(255, 0, 255), rect, center, renderScale);
 
 	this->mAcceleration = D3DXVECTOR2(0, 0);
 

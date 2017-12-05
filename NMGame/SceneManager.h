@@ -11,14 +11,19 @@ class SceneManager
 {
 public:
 	static SceneManager *GetInstance();
+
 	~SceneManager();
 
-	IScene* GetCurrentScene();
-	void	 Update(float DeltaTime);
-	void	 Render(float DeltaTime);
-	void	 ReplaceScene(IScene *scene);
+	IScene*		 GetCurrentScene();
+	void		Initialize();
+
+	void		Update(float DeltaTime);
+	void		Render(float DeltaTime);
+	void		ReplaceScene(IScene *scene);
 	//void ReplaceScene(Scene *scenedest, TransitionEffect *effect);
 	//void OnFinishTransition();
+
+	
 
 private:
 	SceneManager();
@@ -26,6 +31,8 @@ private:
 	IScene                  *mCurrentScene;
 
 	IScene					*mCurrentGame;
+
+
 };
 
 #endif

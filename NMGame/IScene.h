@@ -27,10 +27,15 @@ public:
 
 	virtual void AddFlyingObject(GameVisibleEntity* obj) {};
 
-	SceneID		 GetSceneID() { return this->mSceneID; };
-	//virtual bool IsDead() = 0;
-protected:
+	SceneID		GetSceneID() { return this->mSceneID; };
+
+	void		SetScore(int s) {		mScore = s;	};
+	int			GetScore() { return this->mScore; };
+
+	//virtual bool IsDead() = 0;;
 	SceneID			mSceneID;
+
+	int				mScore;
 };
 
 

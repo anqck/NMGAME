@@ -15,7 +15,14 @@ SceneInformation::SceneInformation(AladdinCharacter * aladdinChar)
 	mAppleOpacityRendered = false;
 	this->mApplemOpacityTime = 0;
 
-	this->mStringAppleCount = new Alphabet(D3DXVECTOR3(690, 545, 0), std::to_string(aladdinChar->GetAppleCount()));
+	this->mStringAppleCount = new Alphabet(D3DXVECTOR3(740, 540, 0), std::to_string(aladdinChar->GetAppleCount()));
+	this->mStringGemCount = new Alphabet(D3DXVECTOR3(650, 540, 0), std::to_string(aladdinChar->GetGemCount()));
+	this->mStringLifeCount = new Alphabet(D3DXVECTOR3(100, 540, 0), std::to_string(aladdinChar->GetLifeCount()));
+
+	mStringScore = new ScoreFont(D3DXVECTOR3(750, 60, 0),"");
+
+
+	
 }
 
 void SceneInformation::LoadResource()
@@ -98,12 +105,24 @@ void SceneInformation::LoadResource()
 
 
 	temp.push_back(MyRECT(0, 0, 16, 16));
-	this->mAppleSprite = new ObjectState(temp, 14, L"Object\\SceneInformation\\Apple.png", D3DXVECTOR2(0, 0), CenterArchor::TopLeft);
+	this->mAppleSprite = new ObjectState(temp, 14, L"Object\\SceneInformation\\Apple.png", D3DXVECTOR2(0, 0), CenterArchor::TopLeft,D3DXVECTOR2(2.1,2.3));
+	temp.clear();
+
+	temp.push_back(MyRECT(0, 0, 16, 16));
+	this->mGemSprite = new ObjectState(temp, 14, L"Object\\SceneInformation\\Gem.png", D3DXVECTOR2(0, 0), CenterArchor::TopLeft,D3DXVECTOR2(2.1, 2.1));
+	temp.clear();
+
+	temp.push_back(MyRECT(0, 0, 22, 24));
+	this->mLifeSprite = new ObjectState(temp, 14, L"Object\\SceneInformation\\Life.png", D3DXVECTOR2(0, 0), CenterArchor::TopLeft, D3DXVECTOR2(2.3, 2.3));
 	temp.clear();
 }
 
 void SceneInformation::Render()
 {
+	//Score
+	if (SceneManager::GetInstance()->GetCurrentScene()->GetScore() != 0)
+		mStringScore->Render();
+
 	if(mHP >=0)
 		this->mHeathBar.at(mHP )->Render();
 
@@ -130,10 +149,29 @@ void SceneInformation::Render()
 		this->mStringAppleCount->Render();
 	}
 	
+
+	//Gem Count
+	if (mAladdin->GetGemCount() != 0)
+	{
+		
+			
+		this->mGemSprite->Render();
+		this->mStringGemCount->Render();
+	}
+
+	//Life count
+	if (mAladdin->GetLifeCount() != 0)
+	{
+
+
+		this->mLifeSprite->Render();
+		this->mStringLifeCount->Render();
+	}
 }
 
 void SceneInformation::Update(float DeltaTime)
 {
+	this->mStringScore->SetString(std::to_string(SceneManager::GetInstance()->GetCurrentScene()->GetScore()).c_str());
 
 	//OpacityApple
 	if (mAladdin->GetAppleCount() <= 5)
@@ -155,11 +193,20 @@ void SceneInformation::Update(float DeltaTime)
 	}
 
 	mHP = mAladdin->GetHP();
+
 	this->mStringAppleCount->SetString(std::to_string(mAladdin->GetAppleCount()));
+	this->mStringGemCount->SetString(std::to_string(mAladdin->GetGemCount()));
+	this->mStringLifeCount->SetString(std::to_string(mAladdin->GetLifeCount()));
+
 	if (mHP  >= 0)
 	{
 		this->mHeathBar.at(mHP )->Update(DeltaTime);
 		this->mHeathBar.at(mHP )->SetPosition(Camera::GetInstance()->GetPosition().x + 40, Camera::GetInstance()->GetPosition().y - 45);
 	}
-	this->mAppleSprite->SetPosition(Camera::GetInstance()->GetPosition().x + 640, Camera::GetInstance()->GetPosition().y - 530);
+
+	this->mAppleSprite->SetPosition(Camera::GetInstance()->GetPosition().x + 690, Camera::GetInstance()->GetPosition().y - 530);
+	this->mGemSprite->SetPosition(Camera::GetInstance()->GetPosition().x + 600, Camera::GetInstance()->GetPosition().y - 532);
+	this->mLifeSprite->SetPosition(Camera::GetInstance()->GetPosition().x + 30, Camera::GetInstance()->GetPosition().y - 513);
 }
+
+

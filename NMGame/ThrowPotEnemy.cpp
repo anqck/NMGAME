@@ -41,6 +41,8 @@ ThrowPotEnemy::ThrowPotEnemy(D3DXVECTOR3 pos) : ThrowPotEnemy()
 	this->mState.push_back(new ObjectStateWithLoop(temp, 13, L"Object\\ThrowPot\\ThrowHand.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
+
+	//Explosion
 	temp.push_back(MyRECT(0, 0, 88, 55));
 	temp.push_back(MyRECT(0, 89, 171, 51));
 	temp.push_back(MyRECT(56, 0, 86, 108));
@@ -69,11 +71,25 @@ ThrowPotEnemy::~ThrowPotEnemy()
 {
 }
 
+void ThrowPotEnemy::ResetDefault()
+{
+	this->mDone = false;
+
+	this->mCurrentState = ThrowPotEnemyState::ThrowPotEnemy_DoNothing;
+
+	mWidth = 50;
+	mHeight = 50;
+
+	this->mState.at(ThrowPotEnemyState::ThrowPotEnemy_Explosion)->resetFrame();
+}
+
 void ThrowPotEnemy::Render(float DeltaTime)
 {
 	GameVisibleEntity::Render(DeltaTime);
 
 	this->mState.at(mCurrentState)->Render();
+
+	
 }
 
 void ThrowPotEnemy::Update(float DeltaTime)

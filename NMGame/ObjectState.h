@@ -7,7 +7,7 @@
 class ObjectState
 {
 public:
-	ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, CenterArchor center = CenterArchor::Center);
+	ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, CenterArchor center = CenterArchor::Center, D3DXVECTOR2 renderScale = D3DXVECTOR2(2, 2.5));
 	ObjectState(std::vector<MyRECT> rect, int Animate_rate, LPWSTR filePath, D3DXVECTOR2 velocity, D3DXVECTOR2 acceleration, CenterArchor center = CenterArchor::Center);
 	/*ObjectState(D3DXVECTOR3 Position);
 	ObjectState(int X, int Y);*/

@@ -2,6 +2,8 @@
 #include "AladdinCharacter.h"
 #include "Camera.h"
 #include "Alphabet.h"
+#include "ScoreFont.h"
+#include "ShopText.h"
 
 class SceneInformation
 {
@@ -15,18 +17,27 @@ public:
 	void						Update(float DeltaTime);
 
 private:
-	AladdinCharacter*		mAladdin;
+	AladdinCharacter*			mAladdin;
 
-	vector<ObjectState*>	mHeathBar;
-	int						mHP;
+	vector<ObjectState*>		mHeathBar;
+	int							mHP;
 
 	ObjectState*				mAppleSprite;
 	Alphabet*					mStringAppleCount;
 
-	int						mScore;
+	//Alphabet*					mString;
 
-	//ObjectState				mLifeSprite;
-	int						mLife;
+	ObjectState*				mGemSprite;
+	Alphabet*					mStringGemCount;
+
+	ObjectState*				mLifeSprite;
+	Alphabet*					mStringLifeCount;
+
+	int							mScore;
+	ScoreFont*					mStringScore;
+
+
+	int							mLife;
 
 	bool					mAppleOpacityRendered;
 	int						mApplemOpacityTime;

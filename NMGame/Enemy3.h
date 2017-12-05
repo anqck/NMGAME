@@ -13,6 +13,8 @@ public:
 	Enemy3(MyRECT bb, D3DXVECTOR3 pos) ;
 	~Enemy3();
 
+	void						ResetDefault();
+
 	void						Update(float DeltaTime);
 	void						Render(float DeltaTime);
 
@@ -22,7 +24,8 @@ public:
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
 private:
-	Enemy3State				mCurrentState;
+	D3DXVECTOR3					mDefaultPosition;
+	Enemy3State					mCurrentState;
 
 	D3DXVECTOR3					mLastAladdinPosInInteractBox;
 
