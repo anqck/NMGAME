@@ -16,6 +16,8 @@ public:
 	Apple(D3DXVECTOR3 pos);
 	~Apple();
 
+	void						ResetDefault();
+
 	void						Render(float DeltaTime);
 	void						Update(float DeltaTime);
 

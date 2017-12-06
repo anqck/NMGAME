@@ -42,8 +42,8 @@ void DemoMap::LoadResource()
 
 	D3DXCreateTextureFromFileEx(GraphicsHelper::GetInstance()->GetDirectDevice(), L"MapLevel2.png", mImageInfo.Width,
 		mImageInfo.Height,
-		1,
-		D3DUSAGE_DYNAMIC,
+		D3DX_DEFAULT,
+		0,
 		D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,

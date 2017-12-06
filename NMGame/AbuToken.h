@@ -2,32 +2,30 @@
 
 #include "GameVisibleEntity.h"
 #include "ObjectStateWithLoop.h"
+#include "SceneManager.h"
 
-enum LampState
+enum AbuTokenState
 {
-	LampState_Normal,
-	LampState_Disappear
+	AbuTokenState_1,
+	AbuTokenState_2,
+	AbuTokenState_Disappear
 };
 
-class Lamp : public GameVisibleEntity
+class AbuToken : public GameVisibleEntity
 {
 public:
-	Lamp();
-	Lamp(D3DXVECTOR3 pos, MyRECT bb);
-	~Lamp();
-	
-		void						ResetDefault();
+	AbuToken();
+	AbuToken(D3DXVECTOR3 pos);
+	~AbuToken();
+
+	void						ResetDefault();
 
 	void						Render(float DeltaTime);
 	void						Update(float DeltaTime);
 
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
-	bool						GetCollisioned();
-
 protected:
 	vector<ObjectState*>		mState;
-	LampState					mCurrentState;
-
-	bool						mCollisioned;
+	AbuTokenState			mCurrentState;
 };

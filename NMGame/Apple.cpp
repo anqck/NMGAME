@@ -9,6 +9,8 @@ Apple::Apple()
 
 	mWidth = 30;
 	mHeight = 30;
+
+	this->mDone = false;
 }
 
 Apple::Apple(D3DXVECTOR3 pos) : Apple()
@@ -44,6 +46,15 @@ Apple::Apple(D3DXVECTOR3 pos) : Apple()
 
 Apple::~Apple()
 {
+}
+
+void Apple::ResetDefault()
+{
+	mWidth = 30;
+	mHeight = 30;
+
+	this->mDone = false;
+	this->mCurrentState = AppleState::AppleState_Normal;
 }
 
 void Apple::Render(float DeltaTime)
@@ -85,8 +96,12 @@ void Apple::processCollision(float DeltaTime, GameVisibleEntity * obj, Collision
 	switch ((EObjectID)obj->GetID())
 	{
 	case EObjectID::ALADDIN:
-		((AladdinCharacter *)obj)->AddApple(1);
-		this->mCurrentState = AppleState::AppleState_Disappear;
+		if (this->mCurrentState == AppleState::AppleState_Normal)
+		{
+			((AladdinCharacter *)obj)->AddApple(1);
+			this->mCurrentState = AppleState::AppleState_Disappear;
+		}
+		
 
 
 		break;

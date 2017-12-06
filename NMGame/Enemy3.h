@@ -30,4 +30,7 @@ private:
 	D3DXVECTOR3					mLastAladdinPosInInteractBox;
 
 
+	bool						mCollision;
+
+
 };

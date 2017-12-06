@@ -7,6 +7,8 @@ DemoScene::DemoScene()
 	this->mSceneID = SceneID::SceneID_GameScene1;
 
 	this->LoadResource();
+
+	mScore = 0;
 	
 }
 
@@ -337,6 +339,21 @@ int DemoScene::GetAladdinHP()
 int DemoScene::GetAladdinLife()
 {
 	return this->mAladdin->GetLifeCount();
+}
+
+int DemoScene::GetScore()
+{
+	return this->mScore;
+}
+
+void DemoScene::SetScore(int number)
+{
+	this->mScore = number;
+}
+
+void DemoScene::AddScore(int number)
+{
+	this->mScore += number;
 }
 
 void DemoScene::AddFlyingObject(GameVisibleEntity *obj)

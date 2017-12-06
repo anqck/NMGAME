@@ -3,31 +3,27 @@
 #include "GameVisibleEntity.h"
 #include "ObjectStateWithLoop.h"
 
-enum LampState
+enum HealthState
 {
-	LampState_Normal,
-	LampState_Disappear
+	HeathState_Normal,
+	HeathState_Disappear
 };
 
-class Lamp : public GameVisibleEntity
+class Health : public GameVisibleEntity
 {
 public:
-	Lamp();
-	Lamp(D3DXVECTOR3 pos, MyRECT bb);
-	~Lamp();
-	
-		void						ResetDefault();
+	Health();
+	Health(D3DXVECTOR3 pos);
+	~Health();
+
+	void						ResetDefault();
 
 	void						Render(float DeltaTime);
 	void						Update(float DeltaTime);
 
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
-	bool						GetCollisioned();
-
 protected:
 	vector<ObjectState*>		mState;
-	LampState					mCurrentState;
-
-	bool						mCollisioned;
+	HealthState					mCurrentState;
 };

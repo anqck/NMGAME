@@ -1,5 +1,7 @@
 #include "Gem.h"
 #include "AladdinCharacter.h"
+#include "SceneManager.h"
+#include "DemoScene.h"
 #include <stdlib.h>
 
 Gem::Gem()
@@ -8,6 +10,8 @@ Gem::Gem()
 
 	mWidth = 30;
 	mHeight = 30;
+
+	this->mDone = false;
 }
 
 Gem::Gem(D3DXVECTOR3 pos) : Gem()
@@ -58,6 +62,16 @@ Gem::~Gem()
 {
 }
 
+void Gem::ResetDefault()
+{
+	mWidth = 30;
+	mHeight = 30;
+
+	this->mDone = false;
+
+	this->mCurrentState = GemState::GemState_Shine;
+}
+
 void Gem::Render(float DeltaTime)
 {
 	GameVisibleEntity::Render(DeltaTime);
@@ -105,9 +119,13 @@ void Gem::processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionRe
 	switch ((EObjectID)obj->GetID())
 	{
 	case EObjectID::ALADDIN:
-		((AladdinCharacter *)obj)->AddGem(1);
-		this->mCurrentState = GemState::GemState_Disappear;
-
+		if (this->mCurrentState == GemState::GemState_Normal || this->mCurrentState == GemState::GemState_Shine)
+		{
+			((AladdinCharacter *)obj)->AddGem(1);
+			this->mCurrentState = GemState::GemState_Disappear;
+			((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->AddScore(150);
+		}
+		
 
 		break;
 	}

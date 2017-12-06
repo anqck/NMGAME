@@ -4,6 +4,7 @@
 #include "Alphabet.h"
 #include "ScoreFont.h"
 #include "ShopText.h"
+#include "NumberFont.h"
 
 class SceneInformation
 {
@@ -23,17 +24,18 @@ private:
 	int							mHP;
 
 	ObjectState*				mAppleSprite;
-	Alphabet*					mStringAppleCount;
+	NumberFont*					mStringAppleCount;
+	//Alphabet*					mStringAppleCount;
 
 	//Alphabet*					mString;
 
 	ObjectState*				mGemSprite;
-	Alphabet*					mStringGemCount;
+	NumberFont*					mStringGemCount;
 
 	ObjectState*				mLifeSprite;
-	Alphabet*					mStringLifeCount;
+	NumberFont*					mStringLifeCount;
 
-	int							mScore;
+	
 	ScoreFont*					mStringScore;
 
 
@@ -41,5 +43,8 @@ private:
 
 	bool					mAppleOpacityRendered;
 	int						mApplemOpacityTime;
+
+	bool					mHPOpacityRendered;
+	int						mHPmOpacityTime;
 
 };

@@ -91,13 +91,15 @@ public:
 	bool			isGrounded();
 	void			SetGrounded(bool allow);
 
-
+	
 	void			processCollision(float DeltaTime, GameVisibleEntity *obj, CollisionResult collision);
 	void			processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
 
-	int				GetHP();
-
+	void			SetLastCheckPoint(CheckPoint* checkpoint);
 	void			GoToLastCheckPoint();
+
+	void			AddHP(int number);
+	int				GetHP();
 
 	void			AddApple(int number);
 	int				GetAppleCount();

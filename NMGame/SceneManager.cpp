@@ -43,13 +43,13 @@ void SceneManager::Update(float DeltaTime)
 	case  SceneID::SceneID_DieScene:
 		if (((DieScene*)mCurrentScene)->isDone() == true)
 		{
-			if (((DemoScene*)mCurrentScene)->GetAladdinLife() >= 1)
+			if (((DemoScene*)mCurrentGame)->GetAladdinLife() >= 1)
 			{
 				this->mCurrentScene = this->mCurrentGame;
 				((DemoScene*)mCurrentGame)->GoToLastCheckPoint();
 			}
 			else
-				this->mCurrentScene = new ContinueScene();
+				ReplaceScene(new ContinueScene());
 			
 		}
 		break;
@@ -58,7 +58,7 @@ void SceneManager::Update(float DeltaTime)
 		{
 			DemoScene * scene = new DemoScene();
 
-			this->mCurrentScene = scene;
+			ReplaceScene(scene);
 		}
 		else if (((ContinueScene*)mCurrentScene)->isDone() == ContinueSceneState::No)
 		{
@@ -70,7 +70,7 @@ void SceneManager::Update(float DeltaTime)
 		case MenuSceneState::MenuSceneState_Scene1:
 			DemoScene * scene = new DemoScene();
 
-			this->mCurrentScene = scene;
+			ReplaceScene(scene);
 			break;
 		}
 		break;

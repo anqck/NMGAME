@@ -22,7 +22,10 @@
 #include "SlideColumn.h"
 #include "CheckPoint.h"
 #include "Gem.h"
+#include "Health.h"
 #include "Peddler.h"
+#include "GenieToken.h"
+#include "AbuToken.h"
 
 CTreeObject::CTreeObject()
 {
@@ -95,6 +98,12 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 		return new CheckPoint( pos);
 	case EObjectID::GEM:
 		return new Gem(pos);
+	case EObjectID::HEATH:
+		return new Health(pos);
+	case EObjectID::MONKEY:
+		return new AbuToken(pos);
+	case EObjectID::GENIE:
+		return new GenieToken(pos);
 	case EObjectID::PEDDLER:
 		return new Peddler(bb,pos);
 	case EObjectID::STAIRFLAGCHANGE:

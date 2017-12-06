@@ -29,13 +29,11 @@ public:
 
 	SceneID		GetSceneID() { return this->mSceneID; };
 
-	void		SetScore(int s) {		mScore = s;	};
-	int			GetScore() { return this->mScore; };
 
 	//virtual bool IsDead() = 0;;
 	SceneID			mSceneID;
 
-	int				mScore;
+	
 };
 
 

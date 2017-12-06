@@ -15,6 +15,8 @@ Lamp::Lamp()
 	this->mBoundingBox = MyRECT(0, 0, 0, 0);
 	
 	this->mCollisioned = false;
+
+	this->mDone = false;
 }
 
 Lamp::Lamp(D3DXVECTOR3 pos, MyRECT bb) : Lamp()
@@ -58,6 +60,17 @@ Lamp::~Lamp()
 {
 }
 
+void Lamp::ResetDefault()
+{
+	mWidth = 30;
+	mHeight = 30;
+
+	this->mDone = false;
+	this->mCollisioned = false;
+
+	this->mCurrentState = LampState::LampState_Normal;
+}
+
 void Lamp::Render(float DeltaTime)
 {
 	GameVisibleEntity::Render(DeltaTime);
@@ -98,9 +111,14 @@ void Lamp::processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionR
 	switch ((EObjectID)obj->GetID())
 	{
 	case EObjectID::ALADDIN:
-		//((AladdinCharacter *)obj)->AddApple(1);
-		this->mCurrentState = LampState::LampState_Disappear;
-		this->mCollisioned = true;
+		if (this->mCurrentState == LampState::LampState_Normal)
+		{
+			
+			this->mCurrentState = LampState::LampState_Disappear;
+			this->mState.at(LampState::LampState_Disappear)->resetFrame();
+			this->mCollisioned = true;
+		}
+		
 
 		break;
 	}

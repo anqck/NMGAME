@@ -36,10 +36,16 @@ public:
 
 	int						GetAladdinHP();
 	int						GetAladdinLife();
+	
+	int						GetScore();
+	void					SetScore(int number);
+	void					AddScore(int number);
 
 	void					AddFlyingObject(GameVisibleEntity* obj);
 
 protected:	
+	int							mScore; 
+
 	DemoMap						*mMap;
 	AladdinCharacter			*mAladdin;
 	AladdinGame					*mGame;
@@ -49,7 +55,7 @@ protected:
 
 	QuadTree					*mQuadTree;
 
-	vector<GameVisibleEntity*>	mListObjectInViewPort;
+	vector<GameVisibleEntity*>		mListObjectInViewPort;
 
 	vector<GameVisibleEntity*>		mListFlyingObject;	//Các táo ném ra
 };

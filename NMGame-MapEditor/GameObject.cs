@@ -128,6 +128,9 @@ namespace NMGame_MapEditor
                 case EObjectID.JUMPBAR:
                 case EObjectID.CHECKPOINT:
                 case EObjectID.GEM:
+                case EObjectID.HEATH:
+                    case EObjectID.MONKEY:
+                    case EObjectID.GENIE:
                     return false;
                 case EObjectID.ENEMY1:
                 case EObjectID.STAIRFLAGCHANGE:
@@ -360,6 +363,12 @@ namespace NMGame_MapEditor
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.Lamp);
                 case EObjectID.GEM:
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.Gem);
+                case EObjectID.HEATH:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.Health);
+                case EObjectID.MONKEY:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.AbuToken);
+                case EObjectID.GENIE:
+                    return new Bitmap(NMGame_MapEditor.Properties.Resources.GenieToken);
                 case EObjectID.PEDDLER:
                     return new Bitmap(NMGame_MapEditor.Properties.Resources.Peddler);
                 default:

@@ -59,9 +59,6 @@
     <ClCompile Include="ObjectStateWithLoop.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
@@ -176,6 +173,13 @@
     <ClCompile Include="MenuScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Health.cpp" />
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberFont.cpp" />
+    <ClCompile Include="GenieToken.cpp" />
+    <ClCompile Include="AbuToken.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -237,9 +241,6 @@
     </ClInclude>
     <ClInclude Include="ObjectStateWithLoop.h">
       <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Framework</Filter>
@@ -368,6 +369,21 @@
     </ClInclude>
     <ClInclude Include="MenuScene.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberFont.h">
+      <Filter>Font</Filter>
+    </ClInclude>
+    <ClInclude Include="AbuToken.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GenieToken.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

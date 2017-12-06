@@ -95,6 +95,8 @@ void Enemy3::ResetDefault()
 
 	this->mHP = 2;
 
+	mCollision = false;
+
 	this->mState.at(Enemy3State::Enemy3State_Explosion)->resetFrame();
 }
 
@@ -112,9 +114,9 @@ void Enemy3::Update(float DeltaTime)
 	switch (mCurrentState)
 	{
 	case Enemy3State::Eneymy3State_Normal:
-		if (this->mState.at(mCurrentState)->GetCurrentIdx() == 1 && this->mState.at(mCurrentState)->isNextFrame == true)
+		if (this->mState.at(mCurrentState)->GetCurrentIdx() == 1 && this->mState.at(mCurrentState)->isNextFrame == true && mCollision)
 		{
-			if (this->mLastAladdinPosInInteractBox.x <= this->mPosition.x - 200 && this->mDir == Direction::Left || this->mLastAladdinPosInInteractBox.x >= this->mPosition.x + 200 && this->mDir == Direction::Right)
+			if (this->mLastAladdinPosInInteractBox.x <= this->mPosition.x - 200 && this->mDir == Direction::Left || this->mLastAladdinPosInInteractBox.x >= this->mPosition.x + 200 && this->mDir == Direction::Right )
 				SceneManager::GetInstance()->GetCurrentScene()->AddFlyingObject(new FlyingKnife(D3DXVECTOR3(this->mState.at(mCurrentState)->GetPosition().x + ((this->mDir == Direction::Right) ? 1 : -1) * 32, this->mState.at(mCurrentState)->GetPosition().y + 95, 0), this->mDir, D3DXVECTOR2(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 0.3, 1.1),D3DXVECTOR2(0,-0.04)));
 			else
 				SceneManager::GetInstance()->GetCurrentScene()->AddFlyingObject(new FlyingKnife(D3DXVECTOR3(this->mState.at(mCurrentState)->GetPosition().x + ((this->mDir == Direction::Right) ? 1 : -1) * 32, this->mState.at(mCurrentState)->GetPosition().y + 25, 0), this->mDir, D3DXVECTOR2(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 1.1, 0.8), D3DXVECTOR2(0, -0.18)));
@@ -153,8 +155,30 @@ void Enemy3::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 		break;
 	case EObjectID::ALADDIN:
 		if (AABBresult == true)
+		{
 			mLastAladdinPosInInteractBox = obj->GetCurrentState()->GetPosition();
-		if ((collisionWith == CollisionWith::SwordBoundingBox))
+			mCollision = true;
+		}
+		else
+			mCollision = false;
+
+		if ((collisionWith == CollisionWith::InteractBoundingBox))
+		{
+			/*switch (mCurrentState)
+			{
+			case Enemy3State::Eneymy3State_Normal:
+				if (this->mState.at(mCurrentState)->GetCurrentIdx() == 1 && this->mState.at(mCurrentState)->isNextFrame == true)
+				{
+					if (this->mLastAladdinPosInInteractBox.x <= this->mPosition.x - 200 && this->mDir == Direction::Left || this->mLastAladdinPosInInteractBox.x >= this->mPosition.x + 200 && this->mDir == Direction::Right)
+						SceneManager::GetInstance()->GetCurrentScene()->AddFlyingObject(new FlyingKnife(D3DXVECTOR3(this->mState.at(mCurrentState)->GetPosition().x + ((this->mDir == Direction::Right) ? 1 : -1) * 32, this->mState.at(mCurrentState)->GetPosition().y + 95, 0), this->mDir, D3DXVECTOR2(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 0.3, 1.1), D3DXVECTOR2(0, -0.04)));
+					else
+						SceneManager::GetInstance()->GetCurrentScene()->AddFlyingObject(new FlyingKnife(D3DXVECTOR3(this->mState.at(mCurrentState)->GetPosition().x + ((this->mDir == Direction::Right) ? 1 : -1) * 32, this->mState.at(mCurrentState)->GetPosition().y + 25, 0), this->mDir, D3DXVECTOR2(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 1.1, 0.8), D3DXVECTOR2(0, -0.18)));
+
+				}
+				break;
+			}*/
+		}
+		else if ((collisionWith == CollisionWith::SwordBoundingBox))
 		{
 			if (!AABBresult)
 				return;

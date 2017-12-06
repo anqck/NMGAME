@@ -17,6 +17,8 @@ public:
 	Gem(D3DXVECTOR3 pos);
 	~Gem();
 
+	void						ResetDefault();
+
 	void						Render(float DeltaTime);
 	void						Update(float DeltaTime);
 

@@ -9,6 +9,7 @@
 #include <stdlib.h>
 
 #include "Camera.h"
+#include "DemoScene.h"
 
 #pragma region Init
 AladdinCharacter::AladdinCharacter()
@@ -39,8 +40,8 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 
 	this->mHP = 8;
 	this->mAppleCount = 10;
-	this->mGemCount = 0;
-	this->mLife = 0;
+	this->mGemCount = 5;
+	this->mLife = 3;
 
 	this->mTime = 0;
 
@@ -2146,14 +2147,14 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 
 		mOpacityTime = 0;
 		break;
-	case EObjectID::CHECKPOINT:
-		if (((CheckPoint*)obj)->GetCurrentStateID() == CheckPointState::CheckPointState_Normal)
-		{
-			((CheckPoint*)obj)->SetScore(SceneManager::GetInstance()->GetCurrentScene()->GetScore());
-			this->mLastCheckPoint = (CheckPoint*)obj;
+	//case EObjectID::CHECKPOINT:
+	//	if (((CheckPoint*)obj)->GetCurrentStateID() == CheckPointState::CheckPointState_Normal)
+	//	{
+	//		((CheckPoint*)obj)->SetScore(((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->GetScore());
+	//		this->mLastCheckPoint = (CheckPoint*)obj;
 
-		}
-		break;
+	//	}
+	//	break;
 	}
 	
 }
@@ -2234,9 +2235,22 @@ void AladdinCharacter::processCollisionAABB(GameVisibleEntity * obj, bool AABBre
 	
 }
 
+void AladdinCharacter::AddHP(int number)
+{
+	this->mHP += number;
+
+	if (this->mHP > 8)
+		this->mHP = 8;
+}
+
 int AladdinCharacter::GetHP()
 {
 	return this->mHP;
+}
+
+void AladdinCharacter::SetLastCheckPoint(CheckPoint * checkpoint)
+{
+	this->mLastCheckPoint = checkpoint;
 }
 
 void AladdinCharacter::GoToLastCheckPoint()
@@ -2246,15 +2260,13 @@ void AladdinCharacter::GoToLastCheckPoint()
 	if (mLastCheckPoint == nullptr)
 	{
 		this->mPosition = D3DXVECTOR3(100, WORLD_Y - MAP_HEIGHT + 161, 0);
-		SceneManager::GetInstance()->GetCurrentScene()->SetScore(0);
+		((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->SetScore(0);
 	}
 	else
 	{
-		
-		
 		this->mPosition = D3DXVECTOR3(mLastCheckPoint->GetPosition().x , mLastCheckPoint->GetPosition().y + 20 ,0);
 		Camera::GetInstance()->Update(this);
-		SceneManager::GetInstance()->GetCurrentScene()->SetScore(mLastCheckPoint->GetScore());
+		((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->SetScore(mLastCheckPoint->GetScore());
 	}
 
 	this->mOpacityRender = true;

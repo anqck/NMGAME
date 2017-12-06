@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbuToken.cpp" />
     <ClCompile Include="AladdinCharacter.cpp" />
     <ClCompile Include="AladdinGame.cpp" />
     <ClCompile Include="AladdinState.cpp" />
@@ -179,10 +180,12 @@
     <ClCompile Include="GameLog.cpp" />
     <ClCompile Include="GameVisibleEntity.cpp" />
     <ClCompile Include="Gem.cpp" />
+    <ClCompile Include="GenieToken.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="GraphicsHelper.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HalfApple.cpp" />
+    <ClCompile Include="Health.cpp" />
     <ClCompile Include="JumpBar.cpp" />
     <ClCompile Include="KeyboardHelper.cpp" />
     <ClCompile Include="Lamp.cpp" />
@@ -190,6 +193,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MovableBackground.cpp" />
     <ClCompile Include="MyRECT.cpp" />
+    <ClCompile Include="NumberFont.cpp" />
     <ClCompile Include="ObjectState.cpp" />
     <ClCompile Include="ObjectStateWithLoop.cpp" />
     <ClCompile Include="Peddler.cpp" />
@@ -215,6 +219,7 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbuToken.h" />
     <ClInclude Include="AladdinCharacter.h" />
     <ClInclude Include="AladdinGame.h" />
     <ClInclude Include="AladdinState.h" />
@@ -246,10 +251,12 @@
     <ClInclude Include="GameLog.h" />
     <ClInclude Include="GameVisibleEntity.h" />
     <ClInclude Include="Gem.h" />
+    <ClInclude Include="GenieToken.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="GraphicsHelper.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="HalfApple.h" />
+    <ClInclude Include="Health.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="JumpBar.h" />
@@ -258,6 +265,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MovableBackground.h" />
     <ClInclude Include="MyRECT.h" />
+    <ClInclude Include="NumberFont.h" />
     <ClInclude Include="ObjectState.h" />
     <ClInclude Include="ObjectStateWithLoop.h" />
     <ClInclude Include="Peddler.h" />

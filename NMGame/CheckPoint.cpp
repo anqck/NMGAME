@@ -127,8 +127,12 @@ void CheckPoint::processCollision(float DeltaTime, GameVisibleEntity * obj, Coll
 	{
 	case EObjectID::ALADDIN:
 		//((AladdinCharacter *)obj)->AddApple(1);
-		if(this->mCurrentState == CheckPointState::CheckPointState_Normal)
+		if (this->mCurrentState == CheckPointState::CheckPointState_Normal)
+		{
 			this->mCurrentState = CheckPointState::CheckPointState_Check;
+			((AladdinCharacter *)obj)->SetLastCheckPoint(this);
+		}
+			
 
 
 		break;
