@@ -50,6 +50,13 @@ ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 
 ThrowingApple::~ThrowingApple()
 { 
+	ObjectState* pd;
+	for (vector<ObjectState *>::iterator it = mState.begin(); it != mState.end(); ++it) {
+		pd = *it;
+		delete pd;
+	}
+
+
 }
 
 void ThrowingApple::Update(float DeltaTime)

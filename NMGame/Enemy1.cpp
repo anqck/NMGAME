@@ -235,7 +235,7 @@ void Enemy1::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 					mCurrentState = Enemy1State::Enemy1State_Attack;
 					this->mState.at(Enemy1State::Enemy1State_Attack)->resetFrame();
 				}
-				else if (this->GetBoundingBox().left <= this->mInteractBoundingBox.left + 10 || this->GetBoundingBox().right >= this->mInteractBoundingBox.right - 10)
+				else if (this->GetBoundingBox().left <= this->mInteractBoundingBox.left + 10 || this->GetBoundingBox().right >= this->mInteractBoundingBox.right - 10 || obj->GetCurrentState()->GetPosition().y > this->mInteractBoundingBox.top)
 				{
 					this->mState.at(Enemy1State::Enemy1State_DoNothing)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
 					mCurrentState = Enemy1State::Enemy1State_DoNothing;

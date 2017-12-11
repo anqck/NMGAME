@@ -143,13 +143,13 @@ void Enemy4::Update(float DeltaTime)
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
 
-	if (mLastAladdinPosInInteractBox.x != 0)
-	{
-		if (mLastAladdinPosInInteractBox.x <= this->mPosition.x)
-			this->mDir = Direction::Left;
-		else
-			this->mDir = Direction::Right;
-	}
+	//if (mLastAladdinPosInInteractBox.x != 0)
+	//{
+	//	if (mLastAladdinPosInInteractBox.x <= this->mPosition.x)
+	//		this->mDir = Direction::Left;
+	//	else
+	//		this->mDir = Direction::Right;
+	//}
 	
 
 	this->mState.at(mCurrentState)->SetFlipVertical(((mDir == Direction::Right) ? (false) : (true)));
@@ -217,6 +217,11 @@ void Enemy4::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 		}
 		break;
 	case EObjectID::ALADDIN:
+
+		if (obj->GetCurrentState()->GetPosition().x <= this->mPosition.x)
+			this->mDir = Direction::Left;
+		else
+			this->mDir = Direction::Right;
 
 		if (AABBresult == true)
 			mLastAladdinPosInInteractBox = obj->GetCurrentState()->GetPosition();

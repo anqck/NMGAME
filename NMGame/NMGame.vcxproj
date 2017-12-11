@@ -155,6 +155,8 @@
     <ClCompile Include="Alphabet.cpp" />
     <ClCompile Include="Apple.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="BossMap.cpp" />
+    <ClCompile Include="BossScene.cpp" />
     <ClCompile Include="Camel.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CheckPoint.cpp" />
@@ -186,6 +188,8 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HalfApple.cpp" />
     <ClCompile Include="Health.cpp" />
+    <ClCompile Include="Jafar.cpp" />
+    <ClCompile Include="JafarBullet.cpp" />
     <ClCompile Include="JumpBar.cpp" />
     <ClCompile Include="KeyboardHelper.cpp" />
     <ClCompile Include="Lamp.cpp" />
@@ -226,6 +230,8 @@
     <ClInclude Include="Alphabet.h" />
     <ClInclude Include="Apple.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="BossMap.h" />
+    <ClInclude Include="BossScene.h" />
     <ClInclude Include="Camel.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CheckPoint.h" />
@@ -257,6 +263,8 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="HalfApple.h" />
     <ClInclude Include="Health.h" />
+    <ClInclude Include="Jafar.h" />
+    <ClInclude Include="JafarBullet.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="JumpBar.h" />

@@ -4,17 +4,17 @@
 
 #include "MovableBackground.h"
 
-class DemoMap : public Map
+class BossMap : public Map
 {
 public:
-	DemoMap();
+	BossMap();
 
 	void LoadResource();
 
 	void	Render(float DeltaTime, MapLevel mMapLevel);
 	void	Update(float DeltaTime);
 
-protected:
-	vector<MovableBackground*>	mBackground;
+//protected:
+//	vector<MovableBackground*>	mBackground;
 
 };

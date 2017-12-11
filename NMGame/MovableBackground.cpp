@@ -4,7 +4,7 @@
 MovableBackground::MovableBackground()
 {
 	this->mPosition0 = D3DXVECTOR3(0, 0, 0);
-	this->mPosition1 = D3DXVECTOR3(-1024* 2.68, 0, 0);
+	this->mPosition1 = D3DXVECTOR3(-2048* 2.68, 0, 0);
 	mCurrentOnSceneIdx = 0;
 }
 
@@ -38,8 +38,8 @@ MovableBackground::~MovableBackground()
 
 void MovableBackground::Render(float DeltaTime)
 {
-	GraphicsHelper::GetInstance()->DrawTexture(mTexture0, MyRECT(0,0,1024,mImageInfo0.Height), D3DXVECTOR3(0,0,0), this->mPosition0, D3DXVECTOR2(2.2, 2.68), D3DXVECTOR2(0, 0), 0.0f, D3DXVECTOR2(0, 0),D3DCOLOR_ARGB(255,255,255,255) );
-	GraphicsHelper::GetInstance()->DrawTexture(mTexture0, MyRECT(0, 0, 1024, mImageInfo0.Height), D3DXVECTOR3(0, 0, 0), this->mPosition1, D3DXVECTOR2(2.2, 2.68), D3DXVECTOR2(0, 0), 0.0f, D3DXVECTOR2(0, 0), D3DCOLOR_ARGB(255, 255, 255, 255));
+	GraphicsHelper::GetInstance()->DrawTexture(mTexture0, MyRECT(0,0, mImageInfo0.Width,mImageInfo0.Height), D3DXVECTOR3(0,0,0), this->mPosition0, D3DXVECTOR2(2.2, 2.68), D3DXVECTOR2(0, 0), 0.0f, D3DXVECTOR2(0, 0),D3DCOLOR_ARGB(255,255,255,255) );
+	GraphicsHelper::GetInstance()->DrawTexture(mTexture0, MyRECT(0, 0, mImageInfo0.Width, mImageInfo0.Height), D3DXVECTOR3(0, 0, 0), this->mPosition1, D3DXVECTOR2(2.2, 2.68), D3DXVECTOR2(0, 0), 0.0f, D3DXVECTOR2(0, 0), D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 void MovableBackground::Update(float DeltaTime)
@@ -53,6 +53,11 @@ void MovableBackground::Update(float DeltaTime)
 			this->mPosition1 = D3DXVECTOR3(this->mPosition0.x + BG_WIDTH, this->mPosition0.y,0);
 			this->mCurrentOnSceneIdx = 1;
 		}
+		else if (this->mPosition0.x > 0)
+		{
+			this->mPosition1 = D3DXVECTOR3(this->mPosition0.x - BG_WIDTH, this->mPosition0.y, 0);
+			this->mCurrentOnSceneIdx = 1;
+		}
 	}
 	else
 	{
@@ -60,6 +65,11 @@ void MovableBackground::Update(float DeltaTime)
 		{
 			this->mPosition0 = D3DXVECTOR3(this->mPosition1.x + BG_WIDTH, this->mPosition1.y, 0);
 			mCurrentOnSceneIdx = 0;
+		}
+		else if (this->mPosition1.x > 0)
+		{
+			this->mPosition0 = D3DXVECTOR3(this->mPosition1.x - BG_WIDTH, this->mPosition1.y, 0);
+			this->mCurrentOnSceneIdx = 0;
 		}
 	}
 

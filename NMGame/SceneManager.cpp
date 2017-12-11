@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "MenuScene.h"
 #include "DemoScene.h"
+#include "BossScene.h"
 #include "DieScene.h"
 #include "ContinueScene.h"
 
@@ -24,7 +25,8 @@ IScene * SceneManager::GetCurrentScene()
 
 void SceneManager::Initialize()
 {
-	DemoScene * scene = new DemoScene();
+	BossScene * scene = new BossScene();
+	//DemoScene * scene = new DemoScene();
 
 	this->ReplaceScene(scene);
 }

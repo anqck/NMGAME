@@ -49,7 +49,9 @@ enum EObjectID
 	FIRE,
 	THROWINGKNIFE,
 	THROWINGCAMELSALIVA,
-	HALFAPPLE
+	HALFAPPLE,
+
+	BOSS_JAFAR
 };
 
 class GameVisibleEntity {
@@ -85,6 +87,7 @@ public:
 	GameVisibleEntity();
 	GameVisibleEntity( D3DXVECTOR3 pos);
 	GameVisibleEntity( int X, int Y);
+	virtual  ~GameVisibleEntity();
 
 	virtual void			ResetDefault();
 

@@ -37,11 +37,12 @@ void DemoScene::Update(float DeltaTime)
 		mListObjectInViewPort.at(i)->Update(DeltaTime);
 	}
 
+	
 	for (int i = 0; i < mListFlyingObject.size(); i++)
 	{
 		if (mListFlyingObject.at(i)->isDone() == true)
 		{
-			delete mListFlyingObject.at(i);
+			delete (mListFlyingObject.at(i));
 			mListFlyingObject.erase(mListFlyingObject.begin() + i);
 			i--;
 		}
@@ -98,6 +99,7 @@ void DemoScene::Render(float DeltaTime)
 
 void DemoScene::LoadResource()
 {
+
 	this->mMap = new DemoMap();
 	this->mScore = 0;
 
@@ -297,7 +299,7 @@ void DemoScene::CheckCollision(float DeltaTime)
 			//Kiểm tra vc với Aladdin
 			if (this->mListFlyingObject.at(i)->GetCanBeAttack())
 			{
-				if(mAladdin->getCurrentState() == AState::Attack1 || mAladdin->getCurrentState() == AState::SitAttack || mAladdin->getCurrentState() == AState::JumpAttack)
+				if(mAladdin->getCurrentState() == AState::Attack1 || mAladdin->getCurrentState() == AState::SitAttack || mAladdin->getCurrentState() == AState::JumpAttack || mAladdin->getCurrentState() == AState::LookUpAttack || mAladdin->getCurrentState() == AState::RopeAttack || mAladdin->getCurrentState() == AState::SwingAttack)
 					
 					mListFlyingObject.at(i)->processCollisionAABB(this->mAladdin, this->mAladdin->GetAttackBoundingBox().Intersects(mListFlyingObject.at(i)->GetBoundingBox()),CollisionWith::SwordBoundingBox);
 			}

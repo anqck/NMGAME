@@ -341,11 +341,10 @@ void Enemy2::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 
 				if (AABBresult == true)
 				{
-					if (mLastAladdinPosInInteractBox.x <= this->mPosition.x)
-						this->mDir = Direction::Left;
-					else
-						this->mDir = Direction::Right;
-
+					//if (mLastAladdinPosInInteractBox.x <= this->mPosition.x)
+					//	this->mDir = Direction::Left;
+					//else
+					//	this->mDir = Direction::Right;
 				
 
 					this->mState.at(Enemy2State::Enemy2State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
@@ -372,11 +371,20 @@ void Enemy2::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 				}
 				else if (this->mState.at(mCurrentState)->isDone())
 				{
-					if (this->mLastAladdinPosInInteractBox.x >= this->mInteractBoundingBox.left && this->mLastAladdinPosInInteractBox.x <= this->mInteractBoundingBox.right)
+					if (obj->GetCurrentState()->GetPosition().x >= this->mInteractBoundingBox.left && obj->GetCurrentState()->GetPosition().x <= this->mInteractBoundingBox.right)
 					{
-						this->mState.at(Enemy2State::Enemy2State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
-						this->mState.at(Enemy2State::Enemy2State_Run)->SetVelocity(0.4, this->mState.at(mCurrentState)->GetVelocity().y);
-						mCurrentState = Enemy2State::Enemy2State_Run;
+						if (this->GetBoundingBox().left <= this->mInteractBoundingBox.left + 10 || this->GetBoundingBox().right >= this->mInteractBoundingBox.right - 10)
+						{
+							this->mState.at(Enemy2State::Enemy2State_DoNothing)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+							this->mState.at(Enemy2State::Enemy2State_DoNothing)->SetVelocity(0, this->mState.at(mCurrentState)->GetVelocity().y);
+							mCurrentState = Enemy2State::Enemy2State_DoNothing;
+						}
+						else
+						{
+							this->mState.at(Enemy2State::Enemy2State_Run)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
+							this->mState.at(Enemy2State::Enemy2State_Run)->SetVelocity(0.4, this->mState.at(mCurrentState)->GetVelocity().y);
+							mCurrentState = Enemy2State::Enemy2State_Run;
+						}
 					}
 					else
 					{
@@ -427,7 +435,7 @@ void Enemy2::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Coll
 				{
 					if (this->GetAttackRange().Intersects(obj->GetBoundingBox()))
 					{
-						int randNumber = rand() % 3; //67%
+						int randNumber = rand() % 3; //37%
 						if (randNumber == 0 || randNumber == 1)
 						{
 							this->mState.at(Enemy2State::Enemy2State_Attack2)->resetFrame();

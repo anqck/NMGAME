@@ -55,8 +55,14 @@ GameVisibleEntity::GameVisibleEntity( int X, int Y)
 	mDone = false;
 }
 
+GameVisibleEntity::~GameVisibleEntity()
+{
+
+}
+
 void GameVisibleEntity::ResetDefault()
 {
+
 }
 
 void GameVisibleEntity::Render(float DeltaTime)
