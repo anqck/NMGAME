@@ -43,8 +43,10 @@ public:
 
 	void					AddFlyingObject(GameVisibleEntity* obj);
 
+	SceneInformation*		 GetSceneInformation();
+
 protected:	
-	int							mScore; 
+	//int							mScore; 
 
 	DemoMap						*mMap;
 	AladdinCharacter			*mAladdin;

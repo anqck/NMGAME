@@ -1,5 +1,5 @@
 #include "Peddler.h"
-
+#include "DemoScene.h"
 Peddler::Peddler()
 {
 	this->mInteractWithInteractBB = true;
@@ -9,7 +9,7 @@ Peddler::Peddler()
 
 	this->mDone = false;
 
-	mShopText = new ShopText();
+	
 
 	
 }
@@ -169,7 +169,7 @@ Peddler::~Peddler()
 
 void Peddler::Update(float DeltaTime)
 {
-	this->mShopText->Update(DeltaTime);
+	
 
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
@@ -229,7 +229,7 @@ void Peddler::Render(float DeltaTime)
 
 	this->mState.at(mCurrentState)->Render();
 
-	this->mShopText->Render();
+	
 }
 
 void Peddler::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith)
@@ -250,37 +250,39 @@ void Peddler::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Col
 			{
 				if (this->GetItem1BoundingBox().Contains(obj->GetBoundingBox()))
 				{
-					printLog("Item 1");
+					//printLog("Item 1");
 
-					if (this->mShopText->isDone())
+					if (((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->GetSceneInformation()->GetShopText()->isDone())
 					{
 						if (((AladdinCharacter*)obj)->GetGemCount() >= 5)
 						{
 							((AladdinCharacter*)obj)->AddGem(-5);
 							((AladdinCharacter*)obj)->AddLife(1);
-							mShopText->PrintText(ShopTextState::ShopTextState_ItsADeal);
+							((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->GetSceneInformation()->GetShopText()->PrintText(ShopTextState::ShopTextState_ItsADeal);
+							//mShopText->PrintText(ShopTextState::ShopTextState_ItsADeal);
 						}
 						else
 						{
-							mShopText->PrintText(ShopTextState::ShopTextState_FindsMoreGems);
+							((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->GetSceneInformation()->GetShopText()->PrintText(ShopTextState::ShopTextState_FindsMoreGems);
+							//mShopText->PrintText(ShopTextState::ShopTextState_FindsMoreGems);
 						}
 					}
 						
 				}
 				else if (this->GetItem2BoundingBox().Contains(obj->GetBoundingBox()))
 				{
-					printLog("Item 2");
-					if (this->mShopText->isDone())
+					//printLog("Item 2");
+					if (((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->GetSceneInformation()->GetShopText()->isDone())
 					{
 						if (((AladdinCharacter*)obj)->GetGemCount() >= 10)
 						{
 							((AladdinCharacter*)obj)->AddGem(-10);
 							//((AladdinCharacter*)obj)->AddLife(1);
-							mShopText->PrintText(ShopTextState::ShopTextState_ItsADeal);
+							((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->GetSceneInformation()->GetShopText()->PrintText(ShopTextState::ShopTextState_ItsADeal);
 						}
 						else
 						{
-							mShopText->PrintText(ShopTextState::ShopTextState_FindsMoreGems);
+							((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->GetSceneInformation()->GetShopText()->PrintText(ShopTextState::ShopTextState_FindsMoreGems);
 						}
 					}
 				}

@@ -362,3 +362,8 @@ void DemoScene::AddFlyingObject(GameVisibleEntity *obj)
 {
 	mListFlyingObject.push_back(obj);
 }
+
+SceneInformation * DemoScene::GetSceneInformation()
+{
+	return this->mSceneInformation;
+}

@@ -155,6 +155,7 @@
     <ClCompile Include="Alphabet.cpp" />
     <ClCompile Include="Apple.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="BossFire.cpp" />
     <ClCompile Include="BossMap.cpp" />
     <ClCompile Include="BossScene.cpp" />
     <ClCompile Include="Camel.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Alphabet.h" />
     <ClInclude Include="Apple.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="BossFire.h" />
     <ClInclude Include="BossMap.h" />
     <ClInclude Include="BossScene.h" />
     <ClInclude Include="Camel.h" />

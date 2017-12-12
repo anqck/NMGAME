@@ -40,14 +40,21 @@ public:
 	int						GetAladdinHP();
 	int						GetAladdinLife();
 
-	int						GetScore();
+	//int						GetScore();
 	void					SetScore(int number);
 	void					AddScore(int number);
 
+
+
 	void					AddFlyingObject(GameVisibleEntity* obj);
 
+	MyRECT					GetCenterRegionRECT();
+	GameVisibleEntity*		GetJafar();
+
 protected:
-	int							mScore;
+	MyRECT						mCenterRegionRECT;
+
+	//int							mScore;
 
 	BossMap						*mMap;
 	AladdinCharacter			*mAladdin;
@@ -60,6 +67,7 @@ protected:
 	vector<GameVisibleEntity*>		mListFlyingObject;	//Các táo ném ra
 
 	vector<GameVisibleEntity*>		mListLeftApple;
+	vector<GameVisibleEntity*>		mListRightApple;
 };
 
 #endif

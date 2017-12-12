@@ -4,6 +4,9 @@
 #include "Wall.h"
 #include "Apple.h"
 #include "Jafar.h"
+#include "JafarBullet.h"
+#include "BossFire.h"
+#include "FireGround.h"
 
 BossScene::BossScene()
 {
@@ -31,26 +34,45 @@ void BossScene::LoadResource()
 	this->mMap = new BossMap();
 	this->mScore = 0;
 
-	this->mAladdin = new AladdinCharacter(D3DXVECTOR3(620, WORLD_Y - 980 + 200 , 0));
-	//this->mJafar = new Jafar(D3DXVECTOR3(1230, WORLD_Y - 980 + 130, 0), mAladdin);
-	this->mJafar = new Jafar(D3DXVECTOR3(730, WORLD_Y - 980 + 130, 0), mAladdin);
+	this->mAladdin = new AladdinCharacter(D3DXVECTOR3(620, WORLD_Y - 980 +20 , 0));
+	this->mJafar = new Jafar(D3DXVECTOR3(1225 -100, WORLD_Y - 1082 + 130, 0), mAladdin);
+	//this->mJafar = new Jafar(D3DXVECTOR3(730, WORLD_Y - 980 + 130, 0), mAladdin);
+	
+	mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 1082 + 75, 300, 1955, WORLD_Y - 1085)));
 
-	mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 980 + 75, 400, 2500, WORLD_Y - 980)));
+	mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 1085 + 240, 500 - 110,710 - 110, WORLD_Y - 1085 +220)));
+	mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 1085 + 240, 920 - 110, 1130 - 110, WORLD_Y - 1085 + 220)));
+	mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 1085 + 240, 1345 - 110, 1555 - 110, WORLD_Y - 1085 + 220)));
+	mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 1085 + 240, 1760 - 110, 1980 - 110, WORLD_Y - 1085 + 220)));
 
-	mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 980 + 240, 500,710, WORLD_Y - 980 +220)));
-	mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 980 + 240, 920, 1130, WORLD_Y - 980 + 220)));
-	mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 980 + 240, 1340, 1555, WORLD_Y - 980 + 220)));
-	mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 980 + 240, 1760, 1980, WORLD_Y - 980 + 220)));
+	mListObjectInViewPort.push_back(new FireGround(MyRECT(WORLD_Y - 1085 + 260, 500 - 110, 710 - 110, WORLD_Y - 1085 + 220)));
+	mListObjectInViewPort.push_back(new FireGround(MyRECT(WORLD_Y - 1085 + 260, 920 - 110, 1130 - 110, WORLD_Y - 1085 + 220)));
+	mListObjectInViewPort.push_back(new FireGround(MyRECT(WORLD_Y - 1085 + 260, 1345 - 110, 1555 - 110, WORLD_Y - 1085 + 220)));
+	mListObjectInViewPort.push_back(new FireGround(MyRECT(WORLD_Y - 1085 + 260, 1760 - 110, 1980 - 110, WORLD_Y - 1085 + 220)));
 	//mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 980 + 240, 500, 710, WORLD_Y - 980 + 220)));
 	//mListObjectInViewPort.push_back(new Ground(MyRECT(WORLD_Y - 980 + 240, 500, 710, WORLD_Y - 980 + 220)));
 
-	mListObjectInViewPort.push_back(new Wall(MyRECT(WORLD_Y - 980 + 1000, 400, 500, WORLD_Y - 980)));
-	mListObjectInViewPort.push_back(new Wall(MyRECT(WORLD_Y - 980 + 1000, 1980, 2080, WORLD_Y - 980)));
+	mListObjectInViewPort.push_back(new Wall(MyRECT(WORLD_Y - 1085 + 1000, 400 - 100, 500 - 110, WORLD_Y - 1085)));
+	mListObjectInViewPort.push_back(new Wall(MyRECT(WORLD_Y - 1085 + 1000, 1980 - 110, 2080 - 110, WORLD_Y - 1085)));
 
-	mListLeftApple.push_back(new Apple(D3DXVECTOR3(955, WORLD_Y - 980 + 280,0)));
-	mListLeftApple.push_back(new Apple(D3DXVECTOR3(1007, WORLD_Y - 980 + 280, 0)));
-	mListLeftApple.push_back(new Apple(D3DXVECTOR3(981, WORLD_Y - 980 + 255, 0)));
-	mListLeftApple.push_back(new Apple(D3DXVECTOR3(981, WORLD_Y - 980 + 305, 0)));
+	//TempWall
+	mListObjectInViewPort.push_back(new Wall(MyRECT(WORLD_Y - 1085 + 1000, 400 - 100, 450 - 110, WORLD_Y - 1085)));
+	mListObjectInViewPort.push_back(new Wall(MyRECT(WORLD_Y - 1085 + 1000, 2030 - 110, 2080 - 110, WORLD_Y - 1085)));
+
+	//mListFlyingObject.push_back(new BossFire(D3DXVECTOR3(620, WORLD_Y - 980 + 20, 0), Direction::Left));
+	//mListLeftApple.push_back(new Apple(D3DXVECTOR3(955 - 110, WORLD_Y - 1085 + 280,0)));
+	//mListLeftApple.push_back(new Apple(D3DXVECTOR3(1007 - 110, WORLD_Y - 1085 + 280, 0)));
+	//mListLeftApple.push_back(new Apple(D3DXVECTOR3(981 - 110, WORLD_Y - 1085 + 255, 0)));
+	//mListLeftApple.push_back(new Apple(D3DXVECTOR3(981 - 110, WORLD_Y - 1085 + 305, 0)));
+
+
+	//mListRightApple.push_back(new Apple(D3DXVECTOR3(955 + 400, WORLD_Y - 1085 + 280, 0)));
+	//mListRightApple.push_back(new Apple(D3DXVECTOR3(1007 + 400, WORLD_Y - 1085 + 280, 0)));
+	//mListRightApple.push_back(new Apple(D3DXVECTOR3(981 + 400, WORLD_Y - 1085 + 255, 0)));
+	//mListRightApple.push_back(new Apple(D3DXVECTOR3(981 + 400, WORLD_Y - 1085 + 305, 0)));
+	//mListFlyingObject.push_back(new JafarBullet(D3DXVECTOR3(955, WORLD_Y - 980 + 280, 0),this->mAladdin));
+
+
 }
 
 void BossScene::Update(float DeltaTime)
@@ -70,7 +92,19 @@ void BossScene::Update(float DeltaTime)
 			i--;
 		}
 		else
-			mListObjectInViewPort.at(i)->Update(DeltaTime);
+		{
+			if (this->mListObjectInViewPort.at(i)->GetID() == EObjectID::FIREGROUND)
+			{
+				if (mJafar->GetCurrentStateID() == JafarState::JafarState_Snake)
+				{
+					mListObjectInViewPort.at(i)->Update(DeltaTime);
+				}
+			}
+			else
+				mListObjectInViewPort.at(i)->Update(DeltaTime);
+			
+		}
+			
 	}
 
 	for (int i = 0; i < mListFlyingObject.size(); i++)
@@ -97,21 +131,45 @@ void BossScene::Update(float DeltaTime)
 			mListLeftApple.at(i)->Update(DeltaTime);
 	}
 
+	for (int i = 0; i < mListRightApple.size(); i++)
+	{
+		if (mListRightApple.at(i)->isDone() == true)
+		{
+			delete (mListRightApple.at(i));
+			mListRightApple.erase(mListRightApple.begin() + i);
+			i--;
+		}
+		else
+			mListRightApple.at(i)->Update(DeltaTime);
+	}
+
 	Camera::GetInstance()->Update(this->mAladdin);
 
 	mSceneInformation->Update(DeltaTime);
 
-	if ((Camera::GetInstance()->GetPosition().x >= 1007 + 20 || Camera::GetInstance()->GetPosition().x + GLOBAL::GetWindowsWidth() <= 955 - 20) && mListLeftApple.size() == 0 && this->mAladdin->GetAppleCount() == 0)
+	if ((Camera::GetInstance()->GetPosition().x >= 1007 + 40 || Camera::GetInstance()->GetPosition().x + GLOBAL::GetWindowsWidth() <= 955 - 40) && mListLeftApple.size() == 0 && this->mAladdin->GetAppleCount() == 0)
 	{
-		mListLeftApple.push_back(new Apple(D3DXVECTOR3(955, WORLD_Y - 980 + 280, 0)));
-		mListLeftApple.push_back(new Apple(D3DXVECTOR3(1007, WORLD_Y - 980 + 280, 0)));
-		mListLeftApple.push_back(new Apple(D3DXVECTOR3(981, WORLD_Y - 980 + 255, 0)));
-		mListLeftApple.push_back(new Apple(D3DXVECTOR3(981, WORLD_Y - 980 + 305, 0)));
+		mListLeftApple.push_back(new Apple(D3DXVECTOR3(955 - 110, WORLD_Y - 1085 + 280, 0)));
+		mListLeftApple.push_back(new Apple(D3DXVECTOR3(1007 - 110, WORLD_Y - 1085 + 280, 0)));
+		mListLeftApple.push_back(new Apple(D3DXVECTOR3(981 - 110, WORLD_Y - 1085 + 255, 0)));
+		mListLeftApple.push_back(new Apple(D3DXVECTOR3(981 - 110, WORLD_Y - 1085 + 305, 0)));
 	}
+
+	if ((Camera::GetInstance()->GetPosition().x >= 1407 + 40 || Camera::GetInstance()->GetPosition().x + GLOBAL::GetWindowsWidth() <= 955 + 400 - 40) && mListRightApple.size() == 0 && this->mAladdin->GetAppleCount() == 0)
+	{
+		mListRightApple.push_back(new Apple(D3DXVECTOR3(955 + 400, WORLD_Y - 1085 + 280, 0)));
+		mListRightApple.push_back(new Apple(D3DXVECTOR3(1007 + 400, WORLD_Y - 1085 + 280, 0)));
+		mListRightApple.push_back(new Apple(D3DXVECTOR3(981 + 400, WORLD_Y - 1085 + 255, 0)));
+		mListRightApple.push_back(new Apple(D3DXVECTOR3(981 + 400, WORLD_Y - 1085 + 305, 0)));
+	}
+
+	
 }
 
 void BossScene::Render(float DeltaTime)
 {
+	
+
 	this->mMap->Render(DeltaTime, MapLevel::MapBackground);
 	this->mMap->Render(DeltaTime, MapLevel::MapLevel1);
 
@@ -132,6 +190,11 @@ void BossScene::Render(float DeltaTime)
 	for (int i = 0; i < mListLeftApple.size(); i++)
 	{
 		mListLeftApple.at(i)->Render(DeltaTime);
+	}
+
+	for (int i = 0; i < mListRightApple.size(); i++)
+	{
+		mListRightApple.at(i)->Render(DeltaTime);
 	}
 
 	mSceneInformation->Render();
@@ -309,8 +372,21 @@ void BossScene::CheckCollision(float DeltaTime)
 				mAladdin->processCollision(DeltaTime, this->mListFlyingObject.at(i), res);
 				mListFlyingObject.at(i)->processCollision(DeltaTime, mAladdin, res);
 			}
+
+			mAladdin->processCollisionAABB(this->mListFlyingObject.at(i), this->mListFlyingObject.at(i)->GetAttackBoundingBox().Intersects(mAladdin->GetBoundingBox()), CollisionWith::SwordBoundingBox);
+
 		}
 
+		//Ktra voi Jafar
+		//if (this->mListFlyingObject.at(i)->GetCanAttack())
+		{
+			CollisionResult res = Collision::SweptAABB(DeltaTime, this->mListFlyingObject.at(i)->GetBoundingBox(), this->mListFlyingObject.at(i)->GetCurrentState()->GetVelocity(), mJafar->GetBoundingBox(),D3DXVECTOR2(0,0));
+			if (res.EntryTime < 1 && res.EntryTime >= 0)
+			{
+				mJafar->processCollision(DeltaTime, this->mListFlyingObject.at(i), res);
+				mListFlyingObject.at(i)->processCollision(DeltaTime, mJafar, res);
+			}
+		}
 
 		//Kiểm tra vc với Aladdin
 		if (this->mListFlyingObject.at(i)->GetCanBeAttack())
@@ -333,28 +409,37 @@ void BossScene::CheckCollision(float DeltaTime)
 		}
 	}
 
+	for (int i = 0; i < mListRightApple.size(); i++)
+	{
+		CollisionResult res = Collision::SweptAABB(DeltaTime, mAladdin->GetBoundingBox(), mAladdin->getCurrentObjectState()->GetVelocity(), this->mListRightApple.at(i)->GetBoundingBox(), D3DXVECTOR2(0, 0));
+		if (res.EntryTime < 1 && res.EntryTime >= 0)
+		{
 
+			mListRightApple.at(i)->processCollision(DeltaTime, mAladdin, res);
+			mAladdin->processCollision(DeltaTime, mListRightApple.at(i), res);
+		}
+	}
+
+	mAladdin->processCollisionAABB(this->mJafar, this->mJafar->GetAttackBoundingBox().Intersects(mAladdin->GetBoundingBox()), CollisionWith::SwordBoundingBox);
 
 }
 
 void BossScene::GoToLastCheckPoint()
 {
+	this->mAladdin->GoToLastCheckPoint();
 }
 
 int BossScene::GetAladdinHP()
 {
-	return 0;
+	return this->mAladdin->GetHP();
 }
 
 int BossScene::GetAladdinLife()
 {
-	return 0;
+	return this->mAladdin->GetLifeCount();
 }
 
-int BossScene::GetScore()
-{
-	return 0;
-}
+
 
 void BossScene::SetScore(int number)
 {
@@ -367,4 +452,14 @@ void BossScene::AddScore(int number)
 void BossScene::AddFlyingObject(GameVisibleEntity * obj)
 {
 	this->mListFlyingObject.push_back(obj);
+}
+
+MyRECT BossScene::GetCenterRegionRECT()
+{
+	return this->mJafar->GetCenterRegionRECT();
+}
+
+GameVisibleEntity * BossScene::GetJafar()
+{
+	return this->mJafar;
 }

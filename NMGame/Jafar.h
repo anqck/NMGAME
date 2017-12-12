@@ -5,6 +5,7 @@ enum JafarState
 {
 	JafarState_DoNothing,
 	JafarState_Hut,
+	JafarState_HuToDoNothing,
 	JafarState_Snake
 };
 class Jafar : public Enemy
@@ -29,6 +30,10 @@ public:
 
 	D3DXVECTOR2					GetVelocity();
 
+	JafarState					GetCurrentStateID();
+
+	MyRECT						GetCenterRegionRECT();
+
 	bool						isDone();
 
 private:
@@ -37,6 +42,12 @@ private:
 	JafarState					mCurrentState;
 
 	AladdinCharacter*			mAladdin;
+
+	MyRECT						mCenterRegionRECT;
+	MyRECT						mAttackBoundingBox;
+
+	ObjectState*				mExposionEffect;
+	vector<ObjectStateWithLoop*>	mFireEffect;
 
 
 

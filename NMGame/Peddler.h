@@ -36,7 +36,7 @@ public:
 private:
 	PeddlerState				mCurrentState;
 
-	ShopText*					mShopText;
+	//ShopText*					mShopText;
 
 
 

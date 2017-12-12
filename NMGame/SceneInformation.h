@@ -17,6 +17,8 @@ public:
 	void						Render();
 	void						Update(float DeltaTime);
 
+	ShopText*					GetShopText();
+
 private:
 	AladdinCharacter*			mAladdin;
 
@@ -37,7 +39,8 @@ private:
 
 	
 	ScoreFont*					mStringScore;
-
+	
+	ShopText*					mShopText;
 
 	int							mLife;
 

@@ -4,6 +4,7 @@
 
 #include "GameVisibleEntity.h"
 
+
 enum SceneID
 {
 	SceneID_MenuScene,
@@ -27,12 +28,19 @@ public:
 
 	virtual void AddFlyingObject(GameVisibleEntity* obj) {};
 
+	//virtual
 	SceneID		GetSceneID() { return this->mSceneID; };
 
+	int						GetScore() { return this->mScore; };
 
 	//virtual bool IsDead() = 0;;
-	SceneID			mSceneID;
+	SceneID					mSceneID;
+	//SceneInformation			*mSceneInformation;
 
+	int							mScore;
+
+protected:
+	//SceneInformation			*mSceneInformation;
 	
 };
 

@@ -9,7 +9,8 @@
 enum ThrowingAppleState
 {
 	Normal,
-	Explosion
+	Explosion,
+	Boss_Explosion
 };
 class ThrowingApple : public GameVisibleEntity
 {
@@ -37,5 +38,7 @@ protected:
 
 	bool						mDone;
 	bool						mCollisioned;
+
+	bool						mBossCollisioned;
 	 
 };

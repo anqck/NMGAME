@@ -51,7 +51,9 @@ enum EObjectID
 	THROWINGCAMELSALIVA,
 	HALFAPPLE,
 
-	BOSS_JAFAR
+	BOSS_JAFAR,
+	JAFAR_BULLET,
+	BOSS_FIRE
 };
 
 class GameVisibleEntity {

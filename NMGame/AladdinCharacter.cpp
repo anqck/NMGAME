@@ -10,6 +10,9 @@
 
 #include "Camera.h"
 #include "DemoScene.h"
+#include "BossScene.h"
+#include "JafarBullet.h"
+#include "BossFire.h"
 
 #pragma region Init
 AladdinCharacter::AladdinCharacter()
@@ -634,6 +637,27 @@ void AladdinCharacter::Update(float DeltaTime)
 	this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
 #pragma endregion
 
+
+	//Boss Scene Only
+	if (SceneManager::GetInstance()->GetCurrentScene()->GetSceneID() == SceneID::SceneID_GameSceneBoss)
+	{
+		if ((this->mCurrentState == AState::Attack1  || this->mCurrentState == AState::RunAttack || this->mCurrentState == AState::SitAttack) && ((BossScene*)SceneManager::GetInstance()->GetCurrentScene())->GetCenterRegionRECT().Intersects(this->GetBoundingBox()))
+		{
+			this->allowStateChange = true;
+			this->setCurrentState(AState::Spring);
+
+			if (((BossScene*)SceneManager::GetInstance()->GetCurrentScene())->GetJafar()->GetPosition().x >= this->GetCurrentState()->GetPosition().x)
+				this->GetCurrentState()->SetVelocity(this->GetCurrentState()->GetVelocity().x - 2, this->GetCurrentState()->GetVelocity().y);
+			else if (((BossScene*)SceneManager::GetInstance()->GetCurrentScene())->GetJafar()->GetPosition().x <= this->GetCurrentState()->GetPosition().x)
+				this->GetCurrentState()->SetVelocity(this->GetCurrentState()->GetVelocity().x + 2, this->GetCurrentState()->GetVelocity().y);
+
+			//this->GetCurrentState()->SetVelocity()
+			mIsGrounded = false;
+
+		}
+
+	}
+
 	if (mIsGrounded)
 	{
 		mNotOnGroundTime = 0;
@@ -767,7 +791,6 @@ void AladdinCharacter::Update(float DeltaTime)
 	case AState::Falling:
 	case AState::StandJump:
 	case AState::RopeJump:
-	case AState::Spring:
 	{
 
 		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
@@ -778,9 +801,32 @@ void AladdinCharacter::Update(float DeltaTime)
 
 	}
 	break;
+	case AState::Spring:
+	{
+
+		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
+			|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
+			((mDir == Direction::Right) ? (1) : (-1))*0.35 : 0;
+
+		if (SceneManager::GetInstance()->GetCurrentScene()->GetSceneID() == SceneID::SceneID_GameSceneBoss)
+		{
+			if (((BossScene*)SceneManager::GetInstance()->GetCurrentScene())->GetJafar()->GetPosition().x >= this->GetCurrentState()->GetPosition().x)
+				this->mAladdinState.at(mCurrentState)->SetVelocity(-0.2 + vx, this->mAladdinState.at(mCurrentState)->GetVelocity().y - 0.04);
+			else if (((BossScene*)SceneManager::GetInstance()->GetCurrentScene())->GetJafar()->GetPosition().x <= this->GetCurrentState()->GetPosition().x)
+				this->mAladdinState.at(mCurrentState)->SetVelocity(0.2 + vx, this->mAladdinState.at(mCurrentState)->GetVelocity().y - 0.04);
+
+			
+		}
+			
+		else
+			this->mAladdinState.at(mCurrentState)->SetVelocity(vx, this->mAladdinState.at(mCurrentState)->GetVelocity().y - 0.04);
+
+	}
+	break;
 	case AState::JumpThrow:
 		if (this->mAladdinState.at(mCurrentState)->GetCurrentIdx() == 3 && this->mAladdinState.at(mCurrentState)->isNextFrame == true)
 		{
+			this->mAppleCount--;
 			SceneManager::GetInstance()->GetCurrentScene()->AddFlyingObject(new ThrowingApple(D3DXVECTOR3(this->mAladdinState.at(mCurrentState)->GetPosition().x + ((this->mDir == Direction::Right) ? 1 : -1) * 32, this->mAladdinState.at(mCurrentState)->GetPosition().y + 95, 0), this->mDir, D3DXVECTOR2(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 1.4, 0.1)));
 		}
 	case AState::JumpAttack:
@@ -1471,13 +1517,13 @@ void AladdinCharacter::ProcessInput()
 		}
 	}
 
-	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_Z))
+	/*if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_Z))
 	{
 		flagKeyPressed = true;
 		this->setAllowStateChange(true);
 		this->setCurrentState(AState::Couple);
 
-	}
+	}*/
 
 	if (flagKeyPressed == false)
 	{
@@ -2206,6 +2252,14 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 
 		mOpacityTime = 0;
 		break;
+	case EObjectID::JAFAR_BULLET:
+		
+		if (((BossScene*)SceneManager::GetInstance()->GetCurrentScene())->GetJafar()->GetPosition().x >= this->GetCurrentState()->GetPosition().x)
+			this->GetCurrentState()->SetVelocity(this->GetCurrentState()->GetVelocity().x + 1, this->GetCurrentState()->GetVelocity().y);
+		else if (((BossScene*)SceneManager::GetInstance()->GetCurrentScene())->GetJafar()->GetPosition().x <= this->GetCurrentState()->GetPosition().x)
+			this->GetCurrentState()->SetVelocity(this->GetCurrentState()->GetVelocity().x - 1, this->GetCurrentState()->GetVelocity().y);
+		
+		break;
 	//case EObjectID::CHECKPOINT:
 	//	if (((CheckPoint*)obj)->GetCurrentStateID() == CheckPointState::CheckPointState_Normal)
 	//	{
@@ -2250,6 +2304,10 @@ void AladdinCharacter::processCollisionAABB(GameVisibleEntity * obj, bool AABBre
 			if (this->GetBoundingBox().right == obj->GetBoundingBox().left || this->GetBoundingBox().left == obj->GetBoundingBox().right)
 				mWallCollision = true;
 			break;
+		case EObjectID::JAFAR_BULLET:
+			//if(((JafarBullet*)obj)->GetCurrentStateID() == JafarBulletState::JafarBulletState_Normal)
+
+			break;
 		}
 		break;
 	case CollisionWith::SwordBoundingBox:
@@ -2289,7 +2347,40 @@ void AladdinCharacter::processCollisionAABB(GameVisibleEntity * obj, bool AABBre
 			mOpacityTime = 0;
 
 			break;
+		case EObjectID::BOSS_FIRE:
+			this->mOpacityRender = true;
+
+			if (this->mCurrentState == AState::DoNothing || this->mCurrentState == AState::Stand)
+			{
+				this->allowStateChange = true;
+				this->mAladdinState.at(AState::Damaged)->SetVelocity(this->mAladdinState.at(this->mCurrentState)->GetVelocity());
+				this->setCurrentState(AState::Damaged);
+			}
+
+
+			if (((BossFire*)obj)->GetCurrentState()->GetIsNextFrame())
+				mHP--;
+			mOpacityTime = 0;
+
+			break;
+		case EObjectID::BOSS_JAFAR:
+			this->mOpacityRender = true;
+
+			if (this->mCurrentState == AState::DoNothing || this->mCurrentState == AState::Stand)
+			{
+				this->allowStateChange = true;
+				this->mAladdinState.at(AState::Damaged)->SetVelocity(this->mAladdinState.at(this->mCurrentState)->GetVelocity());
+				this->setCurrentState(AState::Damaged);
+			}
+
+
+			mHP--;
+			mOpacityTime = 0;
+
+			break;
+		
 		}
+
 	}
 	
 }
@@ -2318,8 +2409,15 @@ void AladdinCharacter::GoToLastCheckPoint()
 
 	if (mLastCheckPoint == nullptr)
 	{
-		this->mPosition = D3DXVECTOR3(100, WORLD_Y - MAP_HEIGHT + 161, 0);
-		((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->SetScore(0);
+		if (SceneManager::GetInstance()->GetCurrentScene()->GetSceneID() == SceneID::SceneID_GameScene1)
+		{
+			this->mPosition = D3DXVECTOR3(100, WORLD_Y - MAP_HEIGHT + 161, 0);
+			((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->SetScore(0);
+		}
+		else
+		{
+			this->mPosition = D3DXVECTOR3(620, WORLD_Y - 980 + 20, 0);
+		}
 	}
 	else
 	{

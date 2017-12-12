@@ -3,9 +3,7 @@
 #include "Camera.h"
 MovableBackground::MovableBackground()
 {
-	this->mPosition0 = D3DXVECTOR3(0, 0, 0);
-	this->mPosition1 = D3DXVECTOR3(-2048* 2.68, 0, 0);
-	mCurrentOnSceneIdx = 0;
+	
 }
 
 MovableBackground::MovableBackground(LPWSTR filePath, int height, D3DXVECTOR2 velocity, float CameraRate) : MovableBackground()
@@ -30,6 +28,10 @@ MovableBackground::MovableBackground(LPWSTR filePath, int height, D3DXVECTOR2 ve
 		&mImageInfo0,
 		NULL,
 		&mTexture0);
+	this->mPosition0 = D3DXVECTOR3(0, 0, 0);
+	this->mPosition1 = D3DXVECTOR3(-mImageInfo0.Width*2.2, 0, 0);
+	mCurrentOnSceneIdx = 0;
+
 }
 
 MovableBackground::~MovableBackground()
@@ -48,27 +50,27 @@ void MovableBackground::Update(float DeltaTime)
 
 	if (this->mCurrentOnSceneIdx == 0)
 	{
-		if (this->mPosition0.x + BG_WIDTH <= GLOBAL::GetWindowsWidth() + 10)
+		if (this->mPosition0.x + mImageInfo0.Width*2.2 <= GLOBAL::GetWindowsWidth() + 10)
 		{
-			this->mPosition1 = D3DXVECTOR3(this->mPosition0.x + BG_WIDTH, this->mPosition0.y,0);
+			this->mPosition1 = D3DXVECTOR3(this->mPosition0.x + mImageInfo0.Width*2.2, this->mPosition0.y,0);
 			this->mCurrentOnSceneIdx = 1;
 		}
 		else if (this->mPosition0.x > 0)
 		{
-			this->mPosition1 = D3DXVECTOR3(this->mPosition0.x - BG_WIDTH, this->mPosition0.y, 0);
+			this->mPosition1 = D3DXVECTOR3(this->mPosition0.x - mImageInfo0.Width*2.2, this->mPosition0.y, 0);
 			this->mCurrentOnSceneIdx = 1;
 		}
 	}
 	else
 	{
-		if (this->mPosition1.x + BG_WIDTH <= GLOBAL::GetWindowsWidth() + 10)
+		if (this->mPosition1.x + mImageInfo0.Width*2.2 <= GLOBAL::GetWindowsWidth() + 10)
 		{
-			this->mPosition0 = D3DXVECTOR3(this->mPosition1.x + BG_WIDTH, this->mPosition1.y, 0);
+			this->mPosition0 = D3DXVECTOR3(this->mPosition1.x + mImageInfo0.Width*2.2, this->mPosition1.y, 0);
 			mCurrentOnSceneIdx = 0;
 		}
 		else if (this->mPosition1.x > 0)
 		{
-			this->mPosition0 = D3DXVECTOR3(this->mPosition1.x - BG_WIDTH, this->mPosition1.y, 0);
+			this->mPosition0 = D3DXVECTOR3(this->mPosition1.x - mImageInfo0.Width*2.2, this->mPosition1.y, 0);
 			this->mCurrentOnSceneIdx = 0;
 		}
 	}

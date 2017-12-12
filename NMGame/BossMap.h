@@ -14,7 +14,7 @@ public:
 	void	Render(float DeltaTime, MapLevel mMapLevel);
 	void	Update(float DeltaTime);
 
-//protected:
-//	vector<MovableBackground*>	mBackground;
+protected:
+	vector<MovableBackground*>	mBackground;
 
 };

@@ -9,6 +9,8 @@ BossMap::BossMap()
 
 void BossMap::LoadResource()
 {
+	mBackground.push_back(new MovableBackground(L"Map\\mapboss2.png", 0, D3DXVECTOR2(0.00f, 0.0f),0.5));
+
 	D3DXIMAGE_INFO			mImageInfo;
 
 	D3DXGetImageInfoFromFile(L"Map\\mapboss.png", &mImageInfo);
@@ -50,9 +52,15 @@ void BossMap::Render(float DeltaTime, MapLevel mMapLevel)
 		GraphicsHelper::GetInstance()->GetDirectDevice()->ColorFill(_Surface, NULL, D3DCOLOR_XRGB(0, 0, 0));
 
 		GraphicsHelper::GetInstance()->GetDirectDevice()->StretchRect(_Surface, NULL, GraphicsHelper::GetInstance()->GetBackBuffer(), NULL, D3DTEXF_NONE);
+		
+		GraphicsHelper::GetInstance()->GetDirectDevice()->StretchRect(_Surface, NULL, GraphicsHelper::GetInstance()->GetBackBuffer(), NULL, D3DTEXF_NONE);
+		for (int i = 0; i < mBackground.size(); i++)
+		{
+			this->mBackground.at(i)->Render(DeltaTime);
+		}
 		break;
 	case MapLevel::MapLevel1:
-		GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel1, MyRECT(0, 0, 1100, 392), D3DXVECTOR3(0, 0, 0), inPosition, D3DXVECTOR2(2.2, 2.5), translation);
+		GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel1, MyRECT(0, 0, 1082, 538), D3DXVECTOR3(0, 0, 0), inPosition, D3DXVECTOR2(2.2, 2.5), translation);
 		//GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel1, MyRECT(0, 0, 4771, 688), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0));
 		break;
 	//case  MapLevel::MapLevel2:
@@ -64,4 +72,8 @@ void BossMap::Render(float DeltaTime, MapLevel mMapLevel)
 
 void BossMap::Update(float DeltaTime)
 {
+	for (int i = 0; i < mBackground.size(); i++)
+	{
+		this->mBackground.at(i)->Update(DeltaTime);
+	}
 }

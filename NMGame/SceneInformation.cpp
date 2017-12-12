@@ -24,7 +24,7 @@ SceneInformation::SceneInformation(AladdinCharacter * aladdinChar)
 
 	mStringScore = new ScoreFont(D3DXVECTOR3(750, 60, 0),"");
 
-
+	mShopText = new ShopText();
 	
 }
 
@@ -123,7 +123,7 @@ void SceneInformation::LoadResource()
 void SceneInformation::Render()
 {
 	//Score
-	if (((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->GetScore() != 0)
+	if ((SceneManager::GetInstance()->GetCurrentScene())->GetScore() != 0)
 		mStringScore->Render();
 
 	if (mHP >= 0)
@@ -189,11 +189,15 @@ void SceneInformation::Render()
 		this->mLifeSprite->Render();
 		this->mStringLifeCount->Render();
 	}
+
+	this->mShopText->Render();
 }
 
 void SceneInformation::Update(float DeltaTime)
 {
-	this->mStringScore->SetString(std::to_string(((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->GetScore()).c_str());
+	this->mShopText->Update(DeltaTime);
+
+	this->mStringScore->SetString(std::to_string((SceneManager::GetInstance()->GetCurrentScene())->GetScore()).c_str());
 
 	//OpacityApple
 	if (mAladdin->GetAppleCount() <= 5)
@@ -248,6 +252,13 @@ void SceneInformation::Update(float DeltaTime)
 	this->mAppleSprite->SetPosition(Camera::GetInstance()->GetPosition().x + 690, Camera::GetInstance()->GetPosition().y - 530);
 	this->mGemSprite->SetPosition(Camera::GetInstance()->GetPosition().x + 600, Camera::GetInstance()->GetPosition().y - 533);
 	this->mLifeSprite->SetPosition(Camera::GetInstance()->GetPosition().x + 30, Camera::GetInstance()->GetPosition().y - 513);
+
+	
+}
+
+ShopText * SceneInformation::GetShopText()
+{
+	return this->mShopText;
 }
 
 

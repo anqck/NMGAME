@@ -7,6 +7,7 @@
 ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 {
 	mCollisioned = false;
+	mBossCollisioned = false;
 
 	this->mID = EObjectID::THROWINGAPPLE;
 
@@ -44,6 +45,29 @@ ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 	//this->mState->SetPosition(pos);
 	temp.clear();
 
+	temp.push_back(MyRECT(101, 209, 228, 121));
+	temp.push_back(MyRECT(135, 171, 197, 162, D3DXVECTOR3(0, -2, 0)));
+	temp.push_back(MyRECT(135, 198, 224, 162, D3DXVECTOR3(0, -2, 0)));
+	temp.push_back(MyRECT(51, 200, 230, 80, D3DXVECTOR3(2, -2, 0)));
+	temp.push_back(MyRECT(103, 79, 122, 146, D3DXVECTOR3(-1, -10, 0)));
+	temp.push_back(MyRECT(162, 131, 169, 199, D3DXVECTOR3(-2, -6, 0)));
+	temp.push_back(MyRECT(103, 0, 78, 146, D3DXVECTOR3(0, -8, 0)));
+	temp.push_back(MyRECT(50, 0, 108, 102, D3DXVECTOR3(0, -13, 0)));
+	temp.push_back(MyRECT(51, 109, 199, 98, D3DXVECTOR3(0, -7, 0)));
+	temp.push_back(MyRECT(0, 111, 219, 50, D3DXVECTOR3(0, -14, 0)));
+	temp.push_back(MyRECT(0, 0, 110, 49, D3DXVECTOR3(1, -14, 0)));
+	temp.push_back(MyRECT(147, 44, 87, 186, D3DXVECTOR3(0, -4, 0)));
+	temp.push_back(MyRECT(99, 123, 166, 136, D3DXVECTOR3(0, -4, 0)));
+	temp.push_back(MyRECT(147, 88, 130, 184, D3DXVECTOR3(0, -4, 0)));
+	temp.push_back(MyRECT(147, 0, 43, 191, D3DXVECTOR3(0, -10, 0)));
+	temp.push_back(MyRECT(99, 167, 208, 134, D3DXVECTOR3(0, -5, 0)));
+	temp.push_back(MyRECT(185, 88, 128, 209, D3DXVECTOR3(1, 4, 0)));
+	temp.push_back(MyRECT(137, 131, 170, 161, D3DXVECTOR3(1, 5, 0)));
+	temp.push_back(MyRECT(187, 44, 69, 207, D3DXVECTOR3(0, 8, 0)));
+	temp.push_back(MyRECT(81, 209, 229, 100, D3DXVECTOR3(0, 8, 0)));
+	this->mState.push_back(new ObjectState(temp, 18, L"Object\\Explosion.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	temp.clear();
+
 	//this->mVelocity = D3DXVECTOR2(((mDir == Direction::Right) ? (1.0f) : (-1.0f)) * 1, 0.1);
 	this->mState.at(mCurrentState)->SetVelocity(this->mVelocity);
 }
@@ -74,6 +98,12 @@ void ThrowingApple::Update(float DeltaTime)
 			this->mState.at(mCurrentState)->SetVelocity(this->mVelocity.x, this->mState.at(mCurrentState)->GetVelocity().y - 0.032);
 			//this->mVelocity = this->mState.at(mCurrentState)->GetVelocity();
 		}
+		else if (mBossCollisioned)
+		{
+			this->mState.at(mCurrentState)->SetVelocity(0, 0);
+			mCurrentState = ThrowingAppleState::Boss_Explosion;
+			this->mState.at(mCurrentState)->SetPosition(this->mPosition);
+		}
 		else
 		{
 			this->mState.at(mCurrentState)->SetVelocity(0, 0);
@@ -81,30 +111,10 @@ void ThrowingApple::Update(float DeltaTime)
 			this->mState.at(mCurrentState)->SetPosition(this->mPosition);
 		}
 			
-		//this->mState.at(mCurrentState)->Update(DeltaTime);
-		//mTime += DeltaTime / 13;
 
-	
-	
-		
-
-		//this->mState.at(mCurrentState)->SetVelocity(((mDir == Direction::Left) ? (1.0f) : (-1.0f)) * 1.2, 0.5);
-		//this->mState.at(mCurrentState)->SetAcceleration(((mDir == Direction::Left) ? (1.0f) : (-1.0f)) * 0, -0.07);
-
-		//if (this->mState.at(mCurrentState)->GetPosition().y < WORLD_Y - MAP_HEIGHT + 90)
-		//{
-		//	this->mCurrentState = ThrowingAppleState::Explosion;
-		//	this->mState.at(mCurrentState)->SetPosition(this->mState.at(0)->GetPosition());
-
-		//	//mDone = true;
-		//	//this->mState->SetPosition(D3DXVECTOR3(100.0f, WORLD_Y - MAP_HEIGHT + 90, 0));
-		//}
-
-		//this->mPosition = this->mState.at(mCurrentState)->GetPosition();
-		//this->mState.at(mCurrentState)->mSprite->SetPosition(mPosition);
 		break;
 
-
+	case ThrowingAppleState::Boss_Explosion:
 	case ThrowingAppleState::Explosion:
 	{
 		
@@ -153,10 +163,16 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 	case EObjectID::ENEMY3:
 	case EObjectID::ENEMY4:
 	case EObjectID::ENEMY5:
+	
 	case EObjectID::WALL:
 	case EObjectID::STAIR:
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 		mCollisioned = true;
+		break;
+	case EObjectID::BOSS_JAFAR:
+		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
+		mCollisioned = true;
+		mBossCollisioned = true;
 		break;
 	case EObjectID::THROWPOTENEMY:
 		if (((ThrowPotEnemy*)obj)->GetCurrentStateID() == ThrowPotEnemyState::ThrowPotEnemy_ThrowingPot)

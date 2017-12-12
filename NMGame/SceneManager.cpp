@@ -42,18 +42,45 @@ void SceneManager::Update(float DeltaTime)
 			
 		}
 		break;
-	case  SceneID::SceneID_DieScene:
-		if (((DieScene*)mCurrentScene)->isDone() == true)
+	case  SceneID::SceneID_GameSceneBoss:
+		if (((BossScene*)mCurrentScene)->GetAladdinHP() <= -1)
 		{
-			if (((DemoScene*)mCurrentGame)->GetAladdinLife() >= 1)
-			{
-				this->mCurrentScene = this->mCurrentGame;
-				((DemoScene*)mCurrentGame)->GoToLastCheckPoint();
-			}
-			else
-				ReplaceScene(new ContinueScene());
-			
+			this->mCurrentScene = new DieScene();
+
 		}
+		break;
+	case  SceneID::SceneID_DieScene:
+		switch (mCurrentGame->GetSceneID())
+		{
+		case SceneID::SceneID_GameScene1:
+			if (((DieScene*)mCurrentScene)->isDone() == true)
+			{
+				if (((DemoScene*)mCurrentGame)->GetAladdinLife() >= 1)
+				{
+					this->mCurrentScene = this->mCurrentGame;
+					((DemoScene*)mCurrentGame)->GoToLastCheckPoint();
+				}
+				else
+					ReplaceScene(new ContinueScene());
+
+			}
+			break;
+		case SceneID::SceneID_GameSceneBoss:
+			if (((DieScene*)mCurrentScene)->isDone() == true)
+			{
+				if (((BossScene*)mCurrentGame)->GetAladdinLife() >= 1)
+				{
+					this->mCurrentScene = this->mCurrentGame;
+					((BossScene*)mCurrentGame)->GoToLastCheckPoint();
+				}
+				else
+					ReplaceScene(new ContinueScene());
+
+			}
+			break;
+			break;
+		}
+		
 		break;
 	case  SceneID::SceneID_ContinueScene:
 		if (((ContinueScene*)mCurrentScene)->isDone() == ContinueSceneState::Yes )
@@ -90,7 +117,7 @@ void SceneManager::ReplaceScene(IScene * scene)
 {
 	/*if (this->mCurrentScene)
 		delete(this->mCurrentScene);*/
-	if (scene->GetSceneID() == SceneID::SceneID_GameScene1)
+	if (scene->GetSceneID() == SceneID::SceneID_GameScene1 || scene->GetSceneID() == SceneID::SceneID_GameSceneBoss)
 	{
 		mCurrentGame = scene;
 	}

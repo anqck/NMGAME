@@ -184,6 +184,7 @@
     <ClCompile Include="BossScene.cpp" />
     <ClCompile Include="Jafar.cpp" />
     <ClCompile Include="JafarBullet.cpp" />
+    <ClCompile Include="BossFire.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -399,6 +400,9 @@
       <Filter>Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="JafarBullet.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BossFire.h">
       <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
