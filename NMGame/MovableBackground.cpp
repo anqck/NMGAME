@@ -28,8 +28,8 @@ MovableBackground::MovableBackground(LPWSTR filePath, int height, D3DXVECTOR2 ve
 		&mImageInfo0,
 		NULL,
 		&mTexture0);
-	this->mPosition0 = D3DXVECTOR3(0, 0, 0);
-	this->mPosition1 = D3DXVECTOR3(-mImageInfo0.Width*2.2, 0, 0);
+	this->mPosition0 = D3DXVECTOR3(0, height, 0);
+	this->mPosition1 = D3DXVECTOR3(-mImageInfo0.Width*2.2, height, 0);
 	mCurrentOnSceneIdx = 0;
 
 }

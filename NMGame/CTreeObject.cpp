@@ -26,6 +26,7 @@
 #include "Peddler.h"
 #include "GenieToken.h"
 #include "AbuToken.h"
+#include "LevelCompleteObject.h"
 
 CTreeObject::CTreeObject()
 {
@@ -108,6 +109,8 @@ GameVisibleEntity* CTreeObject::NewGameObject(int id, D3DXVECTOR3 pos, MyRECT bb
 		return new Peddler(bb,pos);
 	case EObjectID::STAIRFLAGCHANGE:
 		return new StairFlagChange(bb,changefr, changeto);
+	case EObjectID::LEVELCOMPLETE:
+		return new LevelCompleteObject(bb);
 	}
 }
 

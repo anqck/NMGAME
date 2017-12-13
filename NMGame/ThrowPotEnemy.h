@@ -32,6 +32,8 @@ public:
 	bool						isDone();
 
 	ThrowPotEnemyState			GetCurrentStateID();
+
+	void						PlaySoundOnState();
 private:
 
 

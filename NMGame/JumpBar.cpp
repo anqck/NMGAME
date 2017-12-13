@@ -1,5 +1,5 @@
 #include "JumpBar.h"
-
+#include "SoundHelper.h"
 JumpBar::JumpBar()
 {
 	this->mID = EObjectID::JUMPBAR;
@@ -25,16 +25,16 @@ JumpBar::JumpBar(MyRECT bb, D3DXVECTOR3 pos) : JumpBar()
 	temp.clear();
 
 	//JumpOn
-	temp.push_back(MyRECT(71, 42, 82, 86));
-	temp.push_back(MyRECT(46, 45, 85, 70));
-	temp.push_back(MyRECT(0, 45, 88, 24));
-	temp.push_back(MyRECT(55, 0, 41, 76));
-	temp.push_back(MyRECT(23, 0, 44, 38));
-	temp.push_back(MyRECT(77, 0, 41, 98));
-	temp.push_back(MyRECT(39, 0, 44, 54));
-	temp.push_back(MyRECT(0, 0, 44, 22));
+	temp.push_back(MyRECT(71, 42, 82, 86, D3DXVECTOR3(-1, -8, 0)));
+	temp.push_back(MyRECT(46, 45, 85, 70,D3DXVECTOR3(-1,0,0)));
+	temp.push_back(MyRECT(0, 45, 88, 24, D3DXVECTOR3(0, -7, 0)));
+	temp.push_back(MyRECT(55, 0, 41, 76, D3DXVECTOR3(-1, 0, 0)));
+	temp.push_back(MyRECT(23, 0, 44, 38, D3DXVECTOR3(1, -1, 0)));
+	temp.push_back(MyRECT(77, 0, 41, 98, D3DXVECTOR3(-1, 0, 0)));
+	temp.push_back(MyRECT(39, 0, 44, 54, D3DXVECTOR3(1, -1, 0)));
+	temp.push_back(MyRECT(0, 0, 44, 22, D3DXVECTOR3(1, 0, 0)));
 	temp.push_back(MyRECT(25, 45, 87, 45));
-	this->mState.push_back(new ObjectStateWithLoop(temp, 14, L"Object\\StaticObject\\JumpBar_JumpOn.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
+	this->mState.push_back(new ObjectState(temp, 14, L"Object\\StaticObject\\JumpBar_JumpOn.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom));
 	temp.clear();
 
 
@@ -91,5 +91,10 @@ void JumpBar::processCollision(float DeltaTime, GameVisibleEntity * obj, Collisi
 		return;
 
 	if (collision.dir == Direction::Up)
+	{
 		this->mCurrentState = JumpBarState::JumpBarState_JumpOn;
+		this->mState.at(this->mCurrentState)->resetFrame();
+		SoundHelper::GetInstance()->Play("JumpBar_JumpOn", false, 1);
+	}
+		
 }

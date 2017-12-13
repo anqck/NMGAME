@@ -1,5 +1,6 @@
 #include "Enemy3.h"
 #include "Lamp.h"
+#include "SoundHelper.h"
 Enemy3::Enemy3() : Enemy::Enemy()
 {
 	this->mCanBeAttack = true;
@@ -102,6 +103,8 @@ void Enemy3::ResetDefault()
 
 void Enemy3::Update(float DeltaTime)
 {
+	PlaySoundOnState();
+
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 
 	if (mLastAladdinPosInInteractBox.x <= this->mPosition.x)
@@ -220,5 +223,32 @@ void Enemy3::processCollision(float DeltaTime, GameVisibleEntity * obj, Collisio
 
 		}
 
+	}
+}
+
+void Enemy3::PlaySoundOnState()
+{
+	if (!mState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case Enemy3State::Eneymy3State_Normal:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+				SoundHelper::GetInstance()->Play("Enemy_Throw", false, 1);
+
+			break;
+		}
+		break;
+	case Enemy3State::Enemy3State_Explosion:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+			SoundHelper::GetInstance()->Play("Explosion", false, 1);
+			break;
+		}
+		break;
 	}
 }

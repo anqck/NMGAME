@@ -154,8 +154,8 @@ void DieScene::ProcessInput()
 	}
 }
 
-bool DieScene::isDone()
-{
-	return mDone;
-}
+//bool DieScene::isDone()
+//{
+//	return mDone;
+//}
 

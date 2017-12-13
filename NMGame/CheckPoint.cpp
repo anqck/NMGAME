@@ -1,6 +1,7 @@
 #include "CheckPoint.h"
 #include "AladdinCharacter.h"
 #include "SceneManager.h"
+#include "SoundHelper.h"
 
 CheckPoint::CheckPoint()
 {
@@ -131,6 +132,7 @@ void CheckPoint::processCollision(float DeltaTime, GameVisibleEntity * obj, Coll
 		{
 			this->mCurrentState = CheckPointState::CheckPointState_Check;
 			((AladdinCharacter *)obj)->SetLastCheckPoint(this);
+			SoundHelper::GetInstance()->Play("CheckPoint_Check");
 		}
 			
 
@@ -152,4 +154,10 @@ void CheckPoint::SetScore(int score)
 int CheckPoint::GetScore()
 {
 	return this->mLastCheckPointScore;
+}
+
+void CheckPoint::GoToLastCheckPoint()
+{
+	this->mCurrentState = CheckPointState::CheckPointState_Revise;
+	SoundHelper::GetInstance()->Play("CheckPoint_Revise");
 }

@@ -20,6 +20,7 @@ void GAME::Initialize()
 	//this->InitDevice();
 	GraphicsHelper::GetInstance()->Initialize();
 	KeyboardHelper::GetInstance()->Initialize();
+	SoundHelper::GetInstance()->Initialize();
 
 	ViewPort::GetInstance()->Initialize(0, 0);
 
@@ -127,58 +128,7 @@ void GAME::InitWindows()
 
 void GAME::InitDevice()
 {
-	//GLOBAL::SetDirect(Direct3DCreate9(D3D_SDK_VERSION));
-	//D3DPRESENT_PARAMETERS	d3dpp;
-
-	//ZeroMemory(&d3dpp, sizeof(d3dpp));
-
-	//d3dpp.Windowed = GLOBAL::GetFullScreen()?FALSE:TRUE;
-
-	//d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-
-	//d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
-	//d3dpp.BackBufferCount = 1;
-	//d3dpp.BackBufferHeight = GLOBAL::GetWindowsHeight();
-	//d3dpp.BackBufferWidth = GLOBAL::GetWindowsWidth();
-
-	//LPDIRECT3DDEVICE9 device;
-
-	//GLOBAL::GetDirect()->CreateDevice(
-	//	D3DADAPTER_DEFAULT,
-	//	D3DDEVTYPE_HAL,
-	//	GLOBAL::GetHWND(),
-	//	D3DCREATE_SOFTWARE_VERTEXPROCESSING,
-	//	&d3dpp,
-	//	&device);
-
-	//GLOBAL::SetDirectDevice(device);
-
-	//if (!GLOBAL::GetDirectDevice())
-	//{
-	//	MessageBox(NULL, L"Can't create Direct Device", L"Error", MB_OK | MB_ERR_INVALID_CHARS);
-	//	return;
-	//}
-
-	//LPDIRECT3DSURFACE9 backbuffer;
-
-	//GLOBAL::GetDirectDevice()->GetBackBuffer(
-	//	0,
-	//	0,
-	//	D3DBACKBUFFER_TYPE_MONO,
-	//	&backbuffer);
-
-	//GLOBAL::SetBackBuffer(backbuffer);
-
-	//LPD3DXSPRITE spriteHandler;
-
-	//if (D3DXCreateSprite(GLOBAL::GetDirectDevice(), &spriteHandler) != D3D_OK)
-	//{
-	//	MessageBox(NULL, L"Can't create spritehandler!", L"Error", MB_OK | MB_ERR_INVALID_CHARS);
-	//	return;
-	//}
-
-	//GLOBAL::SetSpriteHandler(spriteHandler);
-
+	
 
 }
 

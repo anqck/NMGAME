@@ -11,7 +11,8 @@ enum SceneID
 	SceneID_GameScene1,
 	SceneID_GameSceneBoss,
 	SceneID_DieScene,
-	SceneID_ContinueScene
+	SceneID_ContinueScene,
+	SceneID_LevelComplete
 };
 
 //Interface contact between "Game" class and "GameSence" class
@@ -28,6 +29,8 @@ public:
 
 	virtual void AddFlyingObject(GameVisibleEntity* obj) {};
 
+	bool		isDone() { return this->mDone; };
+	void		SetDone(bool done) { this->mDone = done; };
 	//virtual
 	SceneID		GetSceneID() { return this->mSceneID; };
 
@@ -38,7 +41,7 @@ public:
 	//SceneInformation			*mSceneInformation;
 
 	int							mScore;
-
+	bool						mDone;
 protected:
 	//SceneInformation			*mSceneInformation;
 	

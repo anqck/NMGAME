@@ -1,6 +1,7 @@
 #include "Health.h"
 #include "AladdinCharacter.h"
 #include "DemoScene.h"
+#include "SoundHelper.h"
 Health::Health()
 {
 	this->mID = EObjectID::HEATH;
@@ -98,6 +99,7 @@ void Health::processCollision(float DeltaTime, GameVisibleEntity * obj, Collisio
 			((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->AddScore(150);
 			((AladdinCharacter *)obj)->AddHP(2);
 			this->mCurrentState = HealthState::HeathState_Disappear;
+			SoundHelper::GetInstance()->Play("Health_Disappear");
 		}
 		
 		break;

@@ -1,5 +1,6 @@
 #include "Enemy4.h"
 #include "Lamp.h"
+#include "SoundHelper.h"
 Enemy4::Enemy4()
 {
 
@@ -140,6 +141,8 @@ void Enemy4::ResetDefault()
 
 void Enemy4::Update(float DeltaTime)
 {
+	PlaySoundOnState();
+
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
 
@@ -387,4 +390,31 @@ D3DXVECTOR2 Enemy4::GetVelocity()
 bool Enemy4::isDone()
 {
 	return this->mDone;
+}
+
+void Enemy4::PlaySoundOnState()
+{
+	if (!mState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case Enemy4State::Enemy4State_Attack:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+			SoundHelper::GetInstance()->Play("Enemy_Throw", false, 1);
+
+			break;
+		}
+		break;
+	case Enemy4State::Enemy4State_Explosion:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+			SoundHelper::GetInstance()->Play("Explosion", false, 1);
+			break;
+		}
+		break;
+	}
 }

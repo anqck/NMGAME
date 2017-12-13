@@ -1,7 +1,7 @@
 #include "Camel.h"
 #include "SceneManager.h"
 #include "FlyingCamelSaliva.h"
-
+#include "SoundHelper.h"
 Camel::Camel()
 {
 	this->mID = EObjectID::CAMEL;
@@ -60,6 +60,8 @@ void Camel::Render(float DeltaTime)
 
 void Camel::Update(float DeltaTime)
 {
+	PlaySoundOnState();
+
 	this->mState.at(mCurrentState)->Update(mTime);
 
 	switch (mCurrentState)
@@ -84,6 +86,26 @@ void Camel::processCollision(float DeltaTime, GameVisibleEntity * obj, Collision
 
 	if(collision.dir == Direction::Up)
 		this->mCurrentState = CamelState::JumpOn;
+}
+
+void Camel::PlaySoundOnState()
+{
+	if (!mState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case CamelState::JumpOn:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+			SoundHelper::GetInstance()->Play("Camel_Spit", false, 1);
+
+			break;
+		}
+		break;
+
+	}
 }
 
 

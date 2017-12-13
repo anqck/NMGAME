@@ -1,5 +1,7 @@
 #include "ThrowPot.h"
 #include "Lamp.h"
+#include "SoundHelper.h"
+
 ThrowPot::ThrowPot(D3DXVECTOR3 pos)
 {
 	mCollisioned = false;
@@ -77,6 +79,7 @@ ThrowPot::~ThrowPot()
 
 void ThrowPot::Update(float DeltaTime)
 {
+	PlaySoundOnState();
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
 
@@ -138,7 +141,7 @@ void ThrowPot::processCollision(float DeltaTime, GameVisibleEntity * obj, Collis
 		//this->mVelocity = D3DXVECTOR2(0, 0);
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 		//this->mCurrentState = ThrowingAppleState::Explosion;
-
+		
 		mCollisioned = true;
 		//this->mState.at(mCurrentState)->SetPosition(this->mState.at(0)->GetPosition().x + this->mState.at(0)->GetVelocity().x*collision.EntryTime, this->mState.at(0)->GetPosition().y + this->mState.at(0)->GetVelocity().y * collision.EntryTime);
 		break;
@@ -146,6 +149,7 @@ void ThrowPot::processCollision(float DeltaTime, GameVisibleEntity * obj, Collis
 
 		if (this->mCurrentState == ThrowPotState::ThrowPot_Normal)
 		{
+			
 			this->mState.at(ThrowPotState::ThrowPot_Explosion)->SetPosition(this->mState.at(mCurrentState)->GetPosition());
 			mCurrentState = ThrowPotState::ThrowPot_Explosion;
 		}
@@ -192,4 +196,31 @@ void ThrowPot::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Co
 bool ThrowPot::isDone()
 {
 	return mDone;
+}
+
+void ThrowPot::PlaySoundOnState()
+{
+	if (!mState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case ThrowPotState::ThrowPot_GroundExplosion:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 0:
+			SoundHelper::GetInstance()->Play("ThrowingPot_Explosion", false, 1);
+
+			break;
+		}
+		break;
+	case ThrowPotState::ThrowPot_Explosion:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 0:
+			SoundHelper::GetInstance()->Play("Explosion", false, 1);
+			break;
+		}
+		break;
+	}
 }

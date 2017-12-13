@@ -43,6 +43,7 @@ namespace NMGame_MapEditor
             PEDDLER, //bán hàng
 
             STAIRFLAGCHANGE,
+            LEVELCOMPLETE
         }
 
 
@@ -152,6 +153,7 @@ namespace NMGame_MapEditor
                 case EObjectID.SWINGBAR:
                 case EObjectID.FIREGROUND:
                 case EObjectID.SLIDECOLUMN:
+                case EObjectID.LEVELCOMPLETE:
                     return false;
                 case EObjectID.APPLE:
                 case EObjectID.CAMEL:

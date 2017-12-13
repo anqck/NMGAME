@@ -113,6 +113,8 @@ public:
 	MyRECT			GetBoundingBox();
 	MyRECT			GetAttackBoundingBox();
 
+	void			PlaySoundOnState();
+
 	void			PrintLogState();
 
 protected:
@@ -159,6 +161,9 @@ protected:
 	bool					allowJump;
 	bool					allowAction;
 	bool					isClimbing;
+
+	//int						mDefaultOpacityValue;
+	bool					mUnVisibleRender;
 
 	void					_BeforeStateChange(AState &changeTo);
 	void					_AfterStateChange();

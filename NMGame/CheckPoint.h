@@ -26,6 +26,8 @@ public:
 
 	void						SetScore(int score);
 	int							GetScore();
+
+	void						GoToLastCheckPoint();
 protected:
 	vector<ObjectState*>		mState;
 	CheckPointState				mCurrentState;

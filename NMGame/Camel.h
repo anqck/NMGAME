@@ -21,6 +21,8 @@ public:
 
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
+	void						PlaySoundOnState();
+
 protected:
 	vector<ObjectState*>		mState;	
 	CamelState					mCurrentState;

@@ -41,6 +41,7 @@ enum EObjectID
 	PEDDLER, //bán hàng
 
 	STAIRFLAGCHANGE,
+	LEVELCOMPLETE,
 
 	ALADDIN,
 	THROWINGAPPLE, //Táo quăng ra

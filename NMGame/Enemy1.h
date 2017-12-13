@@ -33,6 +33,8 @@ public:
 
 	bool						isDone();
 
+	void						PlaySoundOnState();
+
 private:
 	D3DXVECTOR3					mDefaultPosition;
 	Enemy1State					mCurrentState;

@@ -1,6 +1,7 @@
 #include "Enemy2.h"
 
 #include "Lamp.h"
+#include "SoundHelper.h"
 Enemy2::Enemy2() : Enemy::Enemy()
 {
 	this->mCanBeAttack = true;
@@ -181,7 +182,7 @@ void Enemy2::ResetDefault()
 
 void Enemy2::Update(float DeltaTime)
 {
-	
+	PlaySoundOnState();
 
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
@@ -607,5 +608,75 @@ D3DXVECTOR2 Enemy2::GetVelocity()
 bool Enemy2::isDone()
 {
 	return this->mDone;;
+}
+
+void Enemy2::PlaySoundOnState()
+{
+	if (!mState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case Enemy2State::Enemy2State_Attack1:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 2:
+				SoundHelper::GetInstance()->Play("Enemy_Attack", false, 1);
+
+
+			break;
+		}
+		break;
+	case Enemy2State::Enemy2State_Damage:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 2:
+			int randNumber = rand() % 2;
+			if (randNumber == 0)
+			{
+				SoundHelper::GetInstance()->Play("Enemy_Hit1", false, 1);
+			}
+			else
+			{
+				SoundHelper::GetInstance()->Play("Enemy_Hit2", false, 1);
+			}
+			break;
+		}
+		break;
+	case Enemy2State::Enemy2State_Run_FireGround:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 0:
+		case 3:
+		case 6:
+		case 9:
+		case 12:
+		case 15:
+		case 18:
+			int randNumber = rand() % 3;
+			if (randNumber == 0)
+			{
+				SoundHelper::GetInstance()->Play("Enemy_Oooh", false, 1);
+			}
+			else if (randNumber == 1)
+			{
+				SoundHelper::GetInstance()->Play("Enemy_Eeeh", false, 1);
+			}
+			else
+			{
+				SoundHelper::GetInstance()->Play("Enemy_Aaah", false, 1);
+			}
+			break;
+		}
+		break;
+	case Enemy2State::Enemy2State_Explosion:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+			SoundHelper::GetInstance()->Play("Explosion", false, 1);
+			break;
+		}
+		break;
+	}
 }
 

@@ -25,7 +25,7 @@ public:
 
 protected:
 	vector<ObjectState*>		mState;
-	JumpBarState					mCurrentState;
+	JumpBarState				mCurrentState;
 
 
 };

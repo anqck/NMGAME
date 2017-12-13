@@ -130,9 +130,6 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="MovableBackground.cpp" />
-    <ClCompile Include="FalledSand.cpp" />
-    <ClCompile Include="CollapseGround.cpp" />
-    <ClCompile Include="CheckPoint.cpp" />
     <ClCompile Include="Apple.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -166,25 +163,63 @@
     <ClCompile Include="Alphabet.cpp">
       <Filter>Font</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreFont.cpp" />
-    <ClCompile Include="ShopText.cpp" />
-    <ClCompile Include="HalfApple.cpp" />
     <ClCompile Include="ContinueScene.cpp" />
     <ClCompile Include="MenuScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Health.cpp" />
     <ClCompile Include="SceneManager.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="NumberFont.cpp" />
-    <ClCompile Include="GenieToken.cpp" />
-    <ClCompile Include="AbuToken.cpp" />
-    <ClCompile Include="BossMap.cpp" />
-    <ClCompile Include="BossScene.cpp" />
-    <ClCompile Include="Jafar.cpp" />
-    <ClCompile Include="JafarBullet.cpp" />
-    <ClCompile Include="BossFire.cpp" />
+    <ClCompile Include="LevelCompleteScene.cpp" />
+    <ClCompile Include="SoundHelper.cpp" />
+    <ClCompile Include="AbuToken.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BossFire.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BossMap.cpp">
+      <Filter>Scene\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="BossScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckPoint.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CollapseGround.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="FalledSand.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GenieToken.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="HalfApple.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="JafarBullet.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopText.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreFont.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberFont.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelCompleteObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Jafar.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AladdinCharacter.h">
@@ -365,7 +400,6 @@
     <ClInclude Include="ScoreFont.h">
       <Filter>Font</Filter>
     </ClInclude>
-    <ClInclude Include="ShopText.h" />
     <ClInclude Include="HalfApple.h">
       <Filter>Object</Filter>
     </ClInclude>
@@ -403,6 +437,18 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="BossFire.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelCompleteScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelCompleteObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundHelper.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopText.h">
       <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>

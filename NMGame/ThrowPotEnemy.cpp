@@ -1,6 +1,6 @@
 #include "ThrowPotEnemy.h"
 #include "Lamp.h"
-
+#include "SoundHelper.h"
 ThrowPotEnemy::ThrowPotEnemy()
 {
 	this->mID = EObjectID::THROWPOTENEMY;
@@ -94,7 +94,8 @@ void ThrowPotEnemy::Render(float DeltaTime)
 
 void ThrowPotEnemy::Update(float DeltaTime)
 {
-	
+	PlaySoundOnState();
+
 	this->mState.at(mCurrentState)->Update(mTime);
 
 	switch (mCurrentState)
@@ -185,4 +186,24 @@ bool ThrowPotEnemy::isDone()
 ThrowPotEnemyState ThrowPotEnemy::GetCurrentStateID()
 {
 	return mCurrentState;
+}
+
+void ThrowPotEnemy::PlaySoundOnState()
+{
+	if (!mState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case ThrowPotEnemyState::ThrowPotEnemy_Explosion:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 0:
+			SoundHelper::GetInstance()->Play("Explosion", false, 1);
+
+			break;
+		}
+		break;
+
+	}
 }

@@ -32,6 +32,7 @@ public:
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 	void						processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
 
+	void						PlaySoundOnState();
 
 protected:
 	vector<ObjectState*>		mState;

@@ -1,4 +1,5 @@
 #include "Fire.h"
+#include "SoundHelper.h"
 
 Fire::Fire()
 {
@@ -55,6 +56,7 @@ Fire::~Fire()
 
 void Fire::Update(float DeltaTime, D3DXVECTOR3 mNewAladdinpos, bool onFire)
 {
+	PlaySoundOnState();
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 
 	if(!onFire)
@@ -118,4 +120,25 @@ MyRECT Fire::GetAttackBoundingBox()
 bool Fire::isDone()
 {
 	return ((this->mCurrentState == FireState::FireGroundState_Done)&&(this->mState.at(mCurrentState)->isDone()));
+}
+
+void Fire::PlaySoundOnState()
+{
+	if (!mState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case FireState::FireGroundState_Fire:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 2:
+			SoundHelper::GetInstance()->Play("Fire", false, 1);
+		
+
+			break;
+		}
+		break;
+	}
+
 }

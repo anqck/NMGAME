@@ -1,5 +1,6 @@
 #include "Enemy5.h"
 #include "Lamp.h"
+#include "SoundHelper.h"
 Enemy5::Enemy5()
 {
 	this->mCanBeAttack = true;
@@ -132,6 +133,8 @@ void Enemy5::ResetDefault()
 
 void Enemy5::Update(float DeltaTime)
 {
+	PlaySoundOnState();
+
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
 
@@ -347,4 +350,22 @@ D3DXVECTOR2 Enemy5::GetVelocity()
 bool Enemy5::isDone()
 {
 	return mDone;
+}
+
+void Enemy5::PlaySoundOnState()
+{
+	if (!mState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case Enemy5State::Enemy5State_Explosion:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+			SoundHelper::GetInstance()->Play("Explosion", false, 1);
+			break;
+		}
+		break;
+	}
 }

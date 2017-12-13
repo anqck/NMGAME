@@ -1,4 +1,5 @@
 #include "CollapseGround.h"
+#include "SoundHelper.h"
 
 CollapseGround::CollapseGround()
 {
@@ -102,7 +103,7 @@ void CollapseGround::processCollision(float DeltaTime, GameVisibleEntity * obj, 
 {
 	if (obj->GetID() == EObjectID::ALADDIN &&collision.dir == Direction::Up)
 	{
-		
+		SoundHelper::GetInstance()->Play("CollapseGround_Collapsed", false, 1);
 		mCollisionFlag = true;
 	}
 		

@@ -1,5 +1,6 @@
 #include "MenuScene.h"
 #include "Camera.h"
+#include "SoundHelper.h"
 
 
 MenuScene::MenuScene()
@@ -8,11 +9,15 @@ MenuScene::MenuScene()
 	this->mOpacityRender = false;
 
 	this->mSceneID = SceneID::SceneID_MenuScene;
+	SoundHelper::GetInstance()->Stop();
+
 	LoadResource();
 
 	Camera::GetInstance()->SetPosition(0, GLOBAL::GetWindowsHeight());
 
 	this->mSelectIndex = 0;
+
+	
 }
 
 MenuScene::MenuScene(AladdinGame * game) :MenuScene()
@@ -25,6 +30,7 @@ MenuScene::~MenuScene()
 
 void MenuScene::LoadResource()
 {
+	SoundHelper::GetInstance()->Play("MenuSelect_Background", true, 1);
 	GraphicsHelper::GetInstance()->GetDirectDevice()->CreateOffscreenPlainSurface(
 		100,
 		100,
@@ -59,14 +65,14 @@ void MenuScene::LoadResource()
 	temp.push_back(MyRECT(0, 0, 32, 11, D3DXVECTOR3(0, 0, 0)));
 	temp.push_back(MyRECT(0, 0, 32, 11, D3DXVECTOR3(0, 0, 0)));
 
-	mMenuSelect = new ObjectStateWithLoop(temp, 13, L"Object\\Scene\\MenuScene\\3.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom);
+	mMenuSelect = new ObjectStateWithLoop(temp, 18, L"Object\\Scene\\MenuScene\\3.png", D3DXVECTOR2(0, 0), CenterArchor::CenterBottom);
 
 	this->mBackground.at(0)->SetPosition(0, GLOBAL::GetWindowsHeight());
 	this->mBackground.at(1)->SetPosition(GLOBAL::GetWindowsWidth()/2, GLOBAL::GetWindowsHeight()/2 + 50 );
 
 	mListString.push_back("SCENE 1");
-	mListString.push_back("SCENE 1");
-	mListString.push_back("SCENE 1");
+	mListString.push_back("SCENE BOSS");
+	//mListString.push_back("");
 
 	for (int i = 0; i < mListString.size(); i++)
 	{
@@ -106,6 +112,9 @@ void MenuScene::Update(float DeltaTime)
 			case 0:
 				this->mSceneState = MenuSceneState::MenuSceneState_Scene1;
 				break;
+			case 1:
+				this->mSceneState = MenuSceneState::MenuSceneState_SceneBoss;
+				break;
 			}
 		}
 	}
@@ -133,17 +142,26 @@ void MenuScene::OnKeyDown(int keyCode)
 	switch (keyCode)
 			{
 			case VK_UP:
-				if(!mOpacityRender)
+				if (!mOpacityRender)
+				{
+					SoundHelper::GetInstance()->Play("MenuSelect_SelectChange", false, 1);
 					this->mSelectIndex--;
+				}
+					
 				break;
 			case VK_DOWN:
-				if(~mOpacityRender)
+				if (~mOpacityRender)
+				{
+					SoundHelper::GetInstance()->Play("MenuSelect_SelectChange", false, 1);
 					this->mSelectIndex++;
+				}
 				break;
 			case VK_RETURN:
 				switch (mSelectIndex)
 				{
 				case 0:
+				case 1:
+					SoundHelper::GetInstance()->Play("MenuSelect_Selected", false, 1);
 					mOpacityRender = true;
 				}
 				break;

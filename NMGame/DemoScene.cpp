@@ -5,10 +5,13 @@
 DemoScene::DemoScene()
 {
 	this->mSceneID = SceneID::SceneID_GameScene1;
-
+	SoundHelper::GetInstance()->Stop();
 	this->LoadResource();
 
 	mScore = 0;
+	mDone = false;
+
+
 	
 }
 
@@ -99,6 +102,7 @@ void DemoScene::Render(float DeltaTime)
 
 void DemoScene::LoadResource()
 {
+	SoundHelper::GetInstance()->Play("Scene1_Background", true, 1);
 
 	this->mMap = new DemoMap();
 	this->mScore = 0;

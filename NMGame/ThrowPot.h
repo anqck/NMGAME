@@ -30,6 +30,8 @@ public:
 
 	bool						isDone();
 
+	void						PlaySoundOnState();
+
 protected:
 	vector<ObjectState*>		mState;
 

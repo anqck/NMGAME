@@ -194,6 +194,8 @@
     <ClCompile Include="JumpBar.cpp" />
     <ClCompile Include="KeyboardHelper.cpp" />
     <ClCompile Include="Lamp.cpp" />
+    <ClCompile Include="LevelCompleteObject.cpp" />
+    <ClCompile Include="LevelCompleteScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MovableBackground.cpp" />
@@ -211,6 +213,7 @@
     <ClCompile Include="ScoreFont.cpp" />
     <ClCompile Include="ShopText.cpp" />
     <ClCompile Include="SlideColumn.cpp" />
+    <ClCompile Include="SoundHelper.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stair.cpp" />
     <ClCompile Include="StairFlagChange.cpp" />
@@ -267,6 +270,8 @@
     <ClInclude Include="Health.h" />
     <ClInclude Include="Jafar.h" />
     <ClInclude Include="JafarBullet.h" />
+    <ClInclude Include="LevelCompleteObject.h" />
+    <ClInclude Include="LevelCompleteScene.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="JumpBar.h" />
@@ -287,6 +292,7 @@
     <ClInclude Include="ScoreFont.h" />
     <ClInclude Include="ShopText.h" />
     <ClInclude Include="SlideColumn.h" />
+    <ClInclude Include="SoundHelper.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stair.h" />
     <ClInclude Include="StairFlagChange.h" />

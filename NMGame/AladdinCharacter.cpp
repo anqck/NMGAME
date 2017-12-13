@@ -47,6 +47,7 @@ AladdinCharacter::AladdinCharacter( D3DXVECTOR3  pos)
 	this->mLife = 3;
 
 	this->mTime = 0;
+	mUnVisibleRender = false;
 
 	this->allowStateChange = true;
 	this->allowAttack = true;
@@ -637,6 +638,8 @@ void AladdinCharacter::Update(float DeltaTime)
 	this->mPosition = this->mAladdinState.at(mCurrentState)->GetPosition();
 #pragma endregion
 
+	//Sound
+	PlaySoundOnState();
 
 	//Boss Scene Only
 	if (SceneManager::GetInstance()->GetCurrentScene()->GetSceneID() == SceneID::SceneID_GameSceneBoss)
@@ -674,13 +677,37 @@ void AladdinCharacter::Update(float DeltaTime)
 
 	if (mOpacityRender == true)
 	{
-		if (mOpacityTime >= 20 * DeltaTime)
+		if (mLastCheckPoint != nullptr)
 		{
-			mOpacityRender = false;
-			mOpacityTime = 0;
+			if (mLastCheckPoint->GetCurrentStateID() != CheckPointState::CheckPointState_Revise)
+			{
+				mUnVisibleRender = false;
+				if (mOpacityTime >= 20 * DeltaTime)
+				{
+					mOpacityRender = false;
+					mOpacityTime = 0;
+				}
+				else
+					mOpacityTime += DeltaTime;
+			}
+			else
+			{
+				mUnVisibleRender = true;
+				this->mCurrentState = AState::DoNothing;
+			}
 		}
 		else
-			mOpacityTime += DeltaTime;
+		{
+			mUnVisibleRender = false;
+			if (mOpacityTime >= 20 * DeltaTime)
+			{
+				mOpacityRender = false;
+				mOpacityTime = 0;
+			}
+			else
+				mOpacityTime += DeltaTime;
+		}
+			
 	}
 
 	this->mAladdinState.at(mCurrentState)->SetFlipVertical((mDir == Direction::Left) ? (true) : (false));
@@ -833,9 +860,9 @@ void AladdinCharacter::Update(float DeltaTime)
 	{
 		float vx = (KeyboardHelper::GetInstance()->IsKeyDown(DIK_RIGHT)
 			|| KeyboardHelper::GetInstance()->IsKeyDown(DIK_LEFT)) ?
-			((mDir == Direction::Right) ? (1) : (-1))*0.3 : 0;
+			((mDir == Direction::Right) ? (1) : (-1))*0.4 : 0;
 
-		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, this->mAladdinState.at(mCurrentState)->GetVelocity().y - 0.0555);
+		this->mAladdinState.at(mCurrentState)->SetVelocity(vx, this->mAladdinState.at(mCurrentState)->GetVelocity().y - 0.048);
 		
 	}
 	break;
@@ -942,7 +969,7 @@ void AladdinCharacter::Update(float DeltaTime)
 
 void AladdinCharacter::Render(float DeltaTime)
 {
-	//if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_3))
+	if (KeyboardHelper::GetInstance()->IsKeyDown(DIK_3))
 		GraphicsHelper::GetInstance()->DrawBoundingBox(this->GetAttackBoundingBox(), D3DCOLOR_XRGB(255, 255, 0));
 
 	
@@ -953,7 +980,11 @@ void AladdinCharacter::Render(float DeltaTime)
 		this->mAladdinState.at(this->mCurrentState)->Render();
 	else
 	{
-		if (mIsOpacityRendered)
+		if (mUnVisibleRender)
+		{
+
+		}
+		else if (mIsOpacityRendered)
 		{
 			this->mAladdinState.at(this->mCurrentState)->OpacityRender(D3DCOLOR_ARGB(240, 255, 255, 255));
 			mIsOpacityRendered = false;
@@ -1008,8 +1039,8 @@ void AladdinCharacter::OnKeyDown(int keyCode)
 	case VK_SPACE:
 		//this->mPosition = D3DXVECTOR3(7500, WORLD_Y - MAP_HEIGHT + 1100 , 0);
 		//this->mPosition = D3DXVECTOR3(9000, WORLD_Y - MAP_HEIGHT +1500, 0);
-		this->mPosition = D3DXVECTOR3(10000, WORLD_Y - MAP_HEIGHT + 300, 0);
-		//this->mPosition = D3DXVECTOR3(2500, WORLD_Y - MAP_HEIGHT + 200, 0);
+		//this->mPosition = D3DXVECTOR3(10000, WORLD_Y - MAP_HEIGHT + 300, 0);
+		this->mPosition = D3DXVECTOR3(5500, WORLD_Y - MAP_HEIGHT + 200, 0);
 		this->mAladdinState.at(this->mCurrentState)->SetPosition(this->mPosition);
 		break;
 	case VK_RIGHT:
@@ -2037,6 +2068,87 @@ MyRECT AladdinCharacter::GetAttackBoundingBox()
 	}
 }
 
+void AladdinCharacter::PlaySoundOnState()
+{
+	if (!mAladdinState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case AState::RunAttack:
+	case AState::JumpAttack:
+	case AState::Attack1:
+	case AState::RopeAttack:
+	case AState::SwingAttack:
+		switch (mAladdinState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 2:
+			SoundHelper::GetInstance()->Play("Sword_High", false, 1);
+			break;
+		}
+		break;
+	
+	case AState::SitAttack:
+		switch (mAladdinState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+			SoundHelper::GetInstance()->Play("Sword_Low", false, 1);
+			break;
+		}
+		break;
+	case AState::LookUpAttack:
+		switch (mAladdinState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 3:
+		case 7:
+		case 15:
+		case 11:
+		case 19:
+			SoundHelper::GetInstance()->Play("Sword_High", false, 1);
+			break;
+		}
+		break;
+	case AState::JumpThrow:
+	case AState::RopeThrow:
+	case AState::RunThrow:
+	case AState::SitThrow:
+	case AState::SwingThrow:
+	case AState::ThrowApple:
+		switch (mAladdinState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 2:
+			SoundHelper::GetInstance()->Play("Apple_Throw", false, 1);
+			break;
+		}
+		break;
+	case AState::Damaged:
+		switch (mAladdinState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 0:
+			SoundHelper::GetInstance()->Play("Aladdin_Hit", false, 1);
+			break;
+		}
+		break;
+
+	case AState::Falled:
+		switch (mAladdinState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 0:
+			SoundHelper::GetInstance()->Play("Aladdin_Oof", false, 1);
+			break;
+		}
+		break;
+	case AState::Push:
+		switch (mAladdinState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 3:
+			SoundHelper::GetInstance()->Play("Aladdin_Push", false, 1);
+			break;
+		}
+		break;
+	}
+}
+
 AState AladdinCharacter::getCurrentState()
 {
 	return this->mCurrentState;
@@ -2260,6 +2372,9 @@ void AladdinCharacter::processCollision(float DeltaTime,GameVisibleEntity * obj,
 			this->GetCurrentState()->SetVelocity(this->GetCurrentState()->GetVelocity().x - 1, this->GetCurrentState()->GetVelocity().y);
 		
 		break;
+	case EObjectID::LEVELCOMPLETE:
+		SceneManager::GetInstance()->GetCurrentScene()->SetDone(true);
+		break;
 	//case EObjectID::CHECKPOINT:
 	//	if (((CheckPoint*)obj)->GetCurrentStateID() == CheckPointState::CheckPointState_Normal)
 	//	{
@@ -2424,6 +2539,7 @@ void AladdinCharacter::GoToLastCheckPoint()
 		this->mPosition = D3DXVECTOR3(mLastCheckPoint->GetPosition().x , mLastCheckPoint->GetPosition().y + 20 ,0);
 		Camera::GetInstance()->Update(this);
 		((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->SetScore(mLastCheckPoint->GetScore());
+		mLastCheckPoint->GoToLastCheckPoint();
 	}
 
 	this->mOpacityRender = true;

@@ -1,5 +1,5 @@
 #include "GenieToken.h"
-
+#include "SoundHelper.h"
 #include "DemoScene.h"
 GenieToken::GenieToken()
 {
@@ -7,8 +7,8 @@ GenieToken::GenieToken()
 
 	this->mCanBeHitByFlyingObject = false;
 
-	mWidth = 30;
-	mHeight = 30;
+	mWidth = 60;
+	mHeight = 100;
 
 	this->mDone = false;
 }
@@ -149,6 +149,8 @@ void GenieToken::processCollision(float DeltaTime, GameVisibleEntity * obj, Coll
 		{
 			((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->AddScore(250);
 			this->mCurrentState = GenieTokenState::GenieTokenState_Disappear;
+			SoundHelper::GetInstance()->Play("GenieToken_Disappear");
+			SoundHelper::GetInstance()->Play("GenieToken_Wow");
 		}
 		break;
 	}

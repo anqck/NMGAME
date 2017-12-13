@@ -1,6 +1,8 @@
 #include "Lamp.h"
 #include "AladdinCharacter.h"
 #include "Camera.h"
+#include "SoundHelper.h"
+
 
 Lamp::Lamp()
 {
@@ -80,6 +82,8 @@ void Lamp::Render(float DeltaTime)
 
 void Lamp::Update(float DeltaTime)
 {
+	PlaySoundOnState();
+
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
 
@@ -127,4 +131,24 @@ void Lamp::processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionR
 bool Lamp::GetCollisioned()
 {
 	return this->mCollisioned;
+}
+
+void Lamp::PlaySoundOnState()
+{
+	if (!mState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case LampState::LampState_Disappear:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 0:
+			SoundHelper::GetInstance()->Play("Lamp_Explosion", false, 1);
+
+			break;
+		}
+		break;
+
+	}
 }

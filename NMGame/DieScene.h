@@ -22,7 +22,7 @@ public:
 	void					OnKeyUp(int keyCode);
 	void					ProcessInput();
 
-	bool					isDone();
+	//bool					isDone();
 
 
 protected:
@@ -30,7 +30,7 @@ protected:
 	bool					mOpacityRender;
 	int						mOpacity;
 
-	bool					mDone;
+	//bool					mDone;
 
 	LPDIRECT3DSURFACE9			_Surface;
 };

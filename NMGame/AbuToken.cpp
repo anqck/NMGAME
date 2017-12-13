@@ -136,6 +136,8 @@ void AbuToken::processCollision(float DeltaTime, GameVisibleEntity * obj, Collis
 		{
 			((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->AddScore(150);
 			this->mCurrentState = AbuTokenState::AbuTokenState_Disappear;
+			SoundHelper::GetInstance()->Play("GenieToken_Disappear");
+			SoundHelper::GetInstance()->Play("GenieToken_Wow");
 		}
 		break;
 	}

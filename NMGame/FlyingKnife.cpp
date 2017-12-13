@@ -1,5 +1,5 @@
 #include "FlyingKnife.h"
-
+#include "SoundHelper.h"
 FlyingKnife::FlyingKnife(D3DXVECTOR3 pos, Direction dir)
 {
 	mAcceleration = D3DXVECTOR2(0, 0);
@@ -66,6 +66,8 @@ FlyingKnife::~FlyingKnife()
 
 void FlyingKnife::Update(float DeltaTime)
 {
+	PlaySoundOnState();
+
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
 
@@ -136,6 +138,7 @@ void FlyingKnife::processCollision(float DeltaTime, GameVisibleEntity * obj, Col
 	case EObjectID::ENEMY4:
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 		mCollisioned = true;
+		SoundHelper::GetInstance()->Play("ThrowingKnife_Ching");
 		break;
 
 	case EObjectID::THROWINGAPPLE:
@@ -183,4 +186,9 @@ void FlyingKnife::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult,
 		break;
 	
 	}
+}
+
+void FlyingKnife::PlaySoundOnState()
+{
+
 }

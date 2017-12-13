@@ -49,7 +49,8 @@ public:
 	void					AddFlyingObject(GameVisibleEntity* obj);
 
 	MyRECT					GetCenterRegionRECT();
-	GameVisibleEntity*		GetJafar();
+
+	Jafar*		GetJafar();
 
 protected:
 	MyRECT						mCenterRegionRECT;

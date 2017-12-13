@@ -11,7 +11,7 @@
 BossScene::BossScene()
 {
 	this->mSceneID = SceneID::SceneID_GameSceneBoss;
-
+	SoundHelper::GetInstance()->Stop();
 	this->LoadResource();
 
 	mScore = 0;
@@ -30,6 +30,7 @@ BossScene::~BossScene()
 
 void BossScene::LoadResource()
 {
+	SoundHelper::GetInstance()->Play("BossScene_Background", true, 1);
 	
 	this->mMap = new BossMap();
 	this->mScore = 0;
@@ -459,7 +460,7 @@ MyRECT BossScene::GetCenterRegionRECT()
 	return this->mJafar->GetCenterRegionRECT();
 }
 
-GameVisibleEntity * BossScene::GetJafar()
+Jafar * BossScene::GetJafar()
 {
 	return this->mJafar;
 }

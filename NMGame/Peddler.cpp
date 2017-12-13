@@ -169,7 +169,7 @@ Peddler::~Peddler()
 
 void Peddler::Update(float DeltaTime)
 {
-	
+	PlaySoundOnState();
 
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
@@ -259,7 +259,7 @@ void Peddler::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Col
 							((AladdinCharacter*)obj)->AddGem(-5);
 							((AladdinCharacter*)obj)->AddLife(1);
 							((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->GetSceneInformation()->GetShopText()->PrintText(ShopTextState::ShopTextState_ItsADeal);
-							//mShopText->PrintText(ShopTextState::ShopTextState_ItsADeal);
+							SoundHelper::GetInstance()->Play("Peddle_Buy", false, 1);
 						}
 						else
 						{
@@ -279,6 +279,7 @@ void Peddler::processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, Col
 							((AladdinCharacter*)obj)->AddGem(-10);
 							//((AladdinCharacter*)obj)->AddLife(1);
 							((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->GetSceneInformation()->GetShopText()->PrintText(ShopTextState::ShopTextState_ItsADeal);
+							SoundHelper::GetInstance()->Play("Peddle_Buy", false, 1);
 						}
 						else
 						{
@@ -319,4 +320,32 @@ MyRECT Peddler::GetItem2BoundingBox()
 	else
 		return MyRECT(0, 0, 0, 0);
 
+}
+
+void Peddler::PlaySoundOnState()
+{
+	if (!mState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case PeddlerState::PeddlerState_ShopAppear:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+		case 4:
+			SoundHelper::GetInstance()->Play("Peddle_Appear", false, 1);
+
+			break;
+		}
+		break;
+	/*case Enemy3State::Enemy3State_Explosion:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+			SoundHelper::GetInstance()->Play("Explosion", false, 1);
+			break;
+		}
+		break;*/
+	}
 }

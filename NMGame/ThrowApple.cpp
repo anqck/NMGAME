@@ -3,6 +3,7 @@
 #include "FlyingKnife.h"
 #include "ThrowPotEnemy.h"
 #include "HalfApple.h"
+#include "SoundHelper.h"
 
 ThrowingApple::ThrowingApple(D3DXVECTOR3 pos, Direction dir)
 {
@@ -166,18 +167,22 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 	
 	case EObjectID::WALL:
 	case EObjectID::STAIR:
+		SoundHelper::GetInstance()->Play("Apple_Splat", false , 1);
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 		mCollisioned = true;
 		break;
 	case EObjectID::BOSS_JAFAR:
+		SoundHelper::GetInstance()->Play("Apple_Splat", false, 1);
 		this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 		mCollisioned = true;
 		mBossCollisioned = true;
 		break;
 	case EObjectID::THROWPOTENEMY:
+
 		if (((ThrowPotEnemy*)obj)->GetCurrentStateID() == ThrowPotEnemyState::ThrowPotEnemy_ThrowingPot)
 
 		{
+			SoundHelper::GetInstance()->Play("Apple_Splat", false, 1);
 			this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 			mCollisioned = true;
 
@@ -189,6 +194,7 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 		if (((ThrowPot*)obj)->GetCurrentStateID() == ThrowPotState::ThrowPot_Normal)
 
 		{
+			SoundHelper::GetInstance()->Play("Apple_Splat", false, 1);
 			this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 			mCollisioned = true;
 
@@ -198,9 +204,11 @@ void ThrowingApple::processCollision(float DeltaTime, GameVisibleEntity * obj, C
 		if (((FlyingKnife*)obj)->GetCurrenStateID() == FlyingKnifeState::FlyingKnifeState_Normal)
 
 		{
+			SoundHelper::GetInstance()->Play("Apple_Splat", false, 1);
 			this->mState.at(mCurrentState)->SetVelocity(this->mState.at(mCurrentState)->GetVelocity().x * collision.EntryTime, this->mState.at(mCurrentState)->GetVelocity().y * collision.EntryTime);
 			SceneManager::GetInstance()->GetCurrentScene()->AddFlyingObject(new HalfApple(this->mState.at(mCurrentState)->GetPosition(),Direction::Left,0.2));
 			SceneManager::GetInstance()->GetCurrentScene()->AddFlyingObject(new HalfApple(this->mState.at(mCurrentState)->GetPosition(), Direction::Right,0.5));
+			SoundHelper::GetInstance()->Play("Apple_Slice", false, 1);
 			mDone = true;
 
 		}

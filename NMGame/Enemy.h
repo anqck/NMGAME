@@ -19,6 +19,9 @@ public:
 	virtual D3DXVECTOR2			GetVelocity();
 
 	virtual bool				isDone() { return mDone; };
+
+	int							GetHP() { return this->mHP; };
+
 protected:
 	int			mHP;
 

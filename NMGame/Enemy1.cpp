@@ -1,5 +1,6 @@
 #include "Enemy1.h"
 #include "Lamp.h"
+#include "SoundHelper.h"
 
 Enemy1::Enemy1() : Enemy::Enemy()
 {
@@ -127,6 +128,8 @@ void Enemy1::ResetDefault()
 
 void Enemy1::Update(float DeltaTime)
 {
+	PlaySoundOnState();
+
 	this->mState.at(mCurrentState)->Update(DeltaTime);
 	this->mPosition = this->mState.at(mCurrentState)->GetPosition();
 
@@ -339,4 +342,39 @@ D3DXVECTOR2 Enemy1::GetVelocity()
 bool Enemy1::isDone()
 {
 	return this->mDone;
+}
+
+void Enemy1::PlaySoundOnState()
+{
+	if (!mState.at(mCurrentState)->isNextFrame)
+		return;
+
+	switch (mCurrentState)
+	{
+	case Enemy1State::Enemy1State_Damage:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 2:
+			int randNumber = rand() % 2;
+			if (randNumber == 0)
+			{
+				SoundHelper::GetInstance()->Play("Enemy_Hit1", false, 1);
+			}
+			else
+			{
+				SoundHelper::GetInstance()->Play("Enemy_Hit2", false, 1);
+			}			
+			break;
+		}
+		break;
+	case Enemy1State::Enemy1State_Explosion:
+		switch (mState.at(mCurrentState)->GetCurrentIdx())
+		{
+		case 1:
+			SoundHelper::GetInstance()->Play("Explosion", false, 1);
+			break;
+		}
+		break;
+	}
+
 }

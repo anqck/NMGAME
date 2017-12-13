@@ -5,10 +5,10 @@ GraphicsHelper*		GraphicsHelper::mInstance = NULL;
 
 GraphicsHelper * GraphicsHelper::GetInstance()
 {
-	if (!mInstance)
-		GraphicsHelper::mInstance = new GraphicsHelper();
+		if (!mInstance)
+			GraphicsHelper::mInstance = new GraphicsHelper();
 
-	return GraphicsHelper::mInstance;
+		return GraphicsHelper::mInstance;
 }
 
 void GraphicsHelper::Initialize()

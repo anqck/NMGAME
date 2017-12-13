@@ -16,7 +16,7 @@ public:
 	Lamp(D3DXVECTOR3 pos, MyRECT bb);
 	~Lamp();
 	
-		void						ResetDefault();
+	void						ResetDefault();
 
 	void						Render(float DeltaTime);
 	void						Update(float DeltaTime);
@@ -24,6 +24,8 @@ public:
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
 	bool						GetCollisioned();
+
+	void						PlaySoundOnState();
 
 protected:
 	vector<ObjectState*>		mState;

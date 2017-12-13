@@ -23,6 +23,8 @@ public:
 	void						processCollisionAABB(GameVisibleEntity * obj, bool AABBresult, CollisionWith collisionWith);
 	void						processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionResult collision);
 
+	void						PlaySoundOnState();
+
 private:
 	D3DXVECTOR3					mDefaultPosition;
 	Enemy3State					mCurrentState;

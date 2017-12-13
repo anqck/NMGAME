@@ -1,6 +1,7 @@
 #include "Jafar.h"
 #include "JafarBullet.h"
 #include "BossFire.h"
+#include "SoundHelper.h"
 
 Jafar::Jafar()
 {
@@ -20,7 +21,7 @@ Jafar::Jafar()
 	mWidth = 10;
 	mHeight = 140;
 
-	this->mHP = 31;
+	this->mHP = 26;
 
 	
 	this->mTime = 0;
@@ -165,7 +166,7 @@ void Jafar::Update(float DeltaTime)
 		mTime = DeltaTime * 30;
 	}
 		
-	if (this->mHP == 20)
+	if (this->mHP == 15)
 	{
 		this->mCurrentState = JafarState::JafarState_Snake;
 	}
@@ -309,6 +310,7 @@ void Jafar::processCollision(float DeltaTime, GameVisibleEntity * obj, Collision
 	{
 	case EObjectID::THROWINGAPPLE:
 		this->mHP--;
+		SoundHelper::GetInstance()->Play("Jafar_Ooh");
 		break;
 	}
 }

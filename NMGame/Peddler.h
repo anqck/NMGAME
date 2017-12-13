@@ -32,6 +32,8 @@ public:
 	MyRECT						GetItem1BoundingBox();
 	MyRECT						GetItem2BoundingBox();
 
+	void						PlaySoundOnState();
+
 
 private:
 	PeddlerState				mCurrentState;

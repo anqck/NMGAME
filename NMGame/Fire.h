@@ -24,6 +24,8 @@ public:
 	ObjectState *				GetCurrentState() { return this->mState.at(mCurrentState); }
 
 	bool						isDone();
+
+	void						PlaySoundOnState();
 private:
 	vector<ObjectState*>		mState;
 	FireState					mCurrentState;

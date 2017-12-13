@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "DemoScene.h"
 #include <stdlib.h>
+#include "SoundHelper.h"
 
 Gem::Gem()
 {
@@ -124,6 +125,7 @@ void Gem::processCollision(float DeltaTime, GameVisibleEntity * obj, CollisionRe
 			((AladdinCharacter *)obj)->AddGem(1);
 			this->mCurrentState = GemState::GemState_Disappear;
 			((DemoScene*)SceneManager::GetInstance()->GetCurrentScene())->AddScore(150);
+			SoundHelper::GetInstance()->Play("Gem_Disappear");
 		}
 		
 

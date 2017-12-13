@@ -1,5 +1,6 @@
 #include "Apple.h"
 #include "AladdinCharacter.h"
+#include "SoundHelper.h"
 
 Apple::Apple()
 {
@@ -100,6 +101,8 @@ void Apple::processCollision(float DeltaTime, GameVisibleEntity * obj, Collision
 		{
 			((AladdinCharacter *)obj)->AddApple(1);
 			this->mCurrentState = AppleState::AppleState_Disappear;
+
+			SoundHelper::GetInstance()->Play("Apple_Collect");
 		}
 		
 
