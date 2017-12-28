@@ -189,6 +189,8 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HalfApple.cpp" />
     <ClCompile Include="Health.cpp" />
+    <ClCompile Include="IntroScene1.cpp" />
+    <ClCompile Include="ItemIntroScene.cpp" />
     <ClCompile Include="Jafar.cpp" />
     <ClCompile Include="JafarBullet.cpp" />
     <ClCompile Include="JumpBar.cpp" />
@@ -268,6 +270,8 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="HalfApple.h" />
     <ClInclude Include="Health.h" />
+    <ClInclude Include="IntroScene1.h" />
+    <ClInclude Include="ItemIntroScene.h" />
     <ClInclude Include="Jafar.h" />
     <ClInclude Include="JafarBullet.h" />
     <ClInclude Include="LevelCompleteObject.h" />

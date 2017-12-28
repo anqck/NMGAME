@@ -5,6 +5,8 @@
 #include "DieScene.h"
 #include "ContinueScene.h"
 #include "LevelCompleteScene.h"
+#include "ItemIntroScene.h"
+#include "IntroScene1.h"
 
 SceneManager*	SceneManager::mInstace;
 SceneManager * SceneManager::GetInstance()
@@ -29,6 +31,8 @@ void SceneManager::Initialize()
 	//LevelCompleteScene* scene = new LevelCompleteScene();
 	//BossScene * scene = new BossScene();
 	//DemoScene * scene = new DemoScene();
+	//ItemIntroScene * scene = new ItemIntroScene();
+	//IntroScene1 * scene = new IntroScene1();
 	MenuScene * scene = new MenuScene();
 
 	this->ReplaceScene(scene);
@@ -122,7 +126,7 @@ void SceneManager::Update(float DeltaTime)
 		{
 		case MenuSceneState::MenuSceneState_Scene1:
 
-			ReplaceScene(new DemoScene());
+			ReplaceScene(new ItemIntroScene());
 			break;
 		case MenuSceneState::MenuSceneState_SceneBoss:
 			ReplaceScene(new BossScene());
@@ -135,6 +139,20 @@ void SceneManager::Update(float DeltaTime)
 			MenuScene * scene = new MenuScene();
 
 			ReplaceScene(scene);
+		}
+		break;
+	case  SceneID::SceneID_ItemIntro:
+		if (((ItemIntroScene*)mCurrentScene)->isDone())
+		{
+			ReplaceScene(new IntroScene1());
+			break;
+		}
+		break;
+	case  SceneID::SceneID_IntroScene1:
+		if (((IntroScene1*)mCurrentScene)->isDone())
+		{
+			ReplaceScene(new DemoScene());
+			break;
 		}
 		break;
 	}

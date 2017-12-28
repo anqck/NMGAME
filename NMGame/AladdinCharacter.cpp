@@ -1037,10 +1037,10 @@ void AladdinCharacter::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 	case VK_SPACE:
-		//this->mPosition = D3DXVECTOR3(7500, WORLD_Y - MAP_HEIGHT + 1100 , 0);
+		this->mPosition = D3DXVECTOR3(7500, WORLD_Y - MAP_HEIGHT + 1100 , 0);
 		//this->mPosition = D3DXVECTOR3(9000, WORLD_Y - MAP_HEIGHT +1500, 0);
 		//this->mPosition = D3DXVECTOR3(10000, WORLD_Y - MAP_HEIGHT + 300, 0);
-		this->mPosition = D3DXVECTOR3(5500, WORLD_Y - MAP_HEIGHT + 200, 0);
+	//	this->mPosition = D3DXVECTOR3(5500, WORLD_Y - MAP_HEIGHT + 200, 0);
 		this->mAladdinState.at(this->mCurrentState)->SetPosition(this->mPosition);
 		break;
 	case VK_RIGHT:

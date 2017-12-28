@@ -107,7 +107,6 @@
     <ClCompile Include="Enemy1.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="SceneInformation.cpp" />
     <ClCompile Include="JumpBar.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -129,7 +128,6 @@
     <ClCompile Include="DieScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="MovableBackground.cpp" />
     <ClCompile Include="Apple.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -163,15 +161,12 @@
     <ClCompile Include="Alphabet.cpp">
       <Filter>Font</Filter>
     </ClCompile>
-    <ClCompile Include="ContinueScene.cpp" />
     <ClCompile Include="MenuScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="LevelCompleteScene.cpp" />
-    <ClCompile Include="SoundHelper.cpp" />
     <ClCompile Include="AbuToken.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -219,6 +214,27 @@
     </ClCompile>
     <ClCompile Include="Jafar.cpp">
       <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelCompleteScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemIntroScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ContinueScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene1.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MovableBackground.cpp">
+      <Filter>Scene\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneInformation.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundHelper.cpp">
+      <Filter>Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -336,7 +352,6 @@
     <ClInclude Include="Enemy1.h">
       <Filter>Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="SceneInformation.h" />
     <ClInclude Include="Alphabet.h">
       <Filter>Object</Filter>
     </ClInclude>
@@ -450,6 +465,15 @@
     </ClInclude>
     <ClInclude Include="ShopText.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemIntroScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene1.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneInformation.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -166,9 +166,10 @@ void Jafar::Update(float DeltaTime)
 		mTime = DeltaTime * 30;
 	}
 		
-	if (this->mHP == 15)
+	if (this->mHP == 15 && mCurrentState != JafarState::JafarState_Snake)
 	{
 		this->mCurrentState = JafarState::JafarState_Snake;
+		SoundHelper::GetInstance()->Play("Jafar_Snake");
 	}
 
 	switch (mCurrentState)
@@ -311,6 +312,7 @@ void Jafar::processCollision(float DeltaTime, GameVisibleEntity * obj, Collision
 	case EObjectID::THROWINGAPPLE:
 		this->mHP--;
 		SoundHelper::GetInstance()->Play("Jafar_Ooh");
+		SoundHelper::GetInstance()->Play("Jafar_Hit"); 
 		break;
 	}
 }

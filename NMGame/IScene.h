@@ -12,7 +12,9 @@ enum SceneID
 	SceneID_GameSceneBoss,
 	SceneID_DieScene,
 	SceneID_ContinueScene,
-	SceneID_LevelComplete
+	SceneID_LevelComplete,
+	SceneID_ItemIntro,
+	SceneID_IntroScene1
 };
 
 //Interface contact between "Game" class and "GameSence" class

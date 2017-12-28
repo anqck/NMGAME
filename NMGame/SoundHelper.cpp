@@ -76,7 +76,10 @@ void SoundHelper::LoadResource()
 	this->SetVolume(100, "Scene1_Background");
 
 	this->LoadSound("Sound\\BossScene_Background.wav", "BossScene_Background");
+	this->SetVolume(90, "BossScene_Background");
+
 	this->LoadSound("Sound\\LevelCompleteScene_Background.wav", "LevelCompleteScene_Background");
+	this->SetVolume(100, "LevelCompleteScene_Background");
 
 	this->LoadSound("Sound\\Apple_Throw.wav", "Apple_Throw");
 	this->SetVolume(83, "Apple_Throw");
@@ -97,6 +100,10 @@ void SoundHelper::LoadResource()
 
 	this->LoadSound("Sound\\Jafar_Ooh.wav", "Jafar_Ooh");
 	this->SetVolume(100, "Jafar_Ooh");
+	this->LoadSound("Sound\\Jafar_Snake.wav", "Jafar_Snake");
+	this->SetVolume(100, "Jafar_Snake");
+	this->LoadSound("Sound\\Jafar_Hit.wav", "Jafar_Hit");
+	this->SetVolume(85, "Jafar_Hit");
 	//Object
 	this->LoadSound("Sound\\Apple_Collect.wav", "Apple_Collect");
 	this->SetVolume(80, "Apple_Collect");

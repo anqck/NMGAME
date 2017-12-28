@@ -20,11 +20,11 @@ DemoMap::DemoMap()
 
 void DemoMap::LoadResource()
 {
-	D3DXIMAGE_INFO			mImageInfo;
+	
 
-	D3DXGetImageInfoFromFile(L"MapLevel1.png", &mImageInfo);
+	D3DXGetImageInfoFromFile(L"MapLevel1 2.png", &mImageInfo);
 
-	D3DXCreateTextureFromFileEx(GraphicsHelper::GetInstance()->GetDirectDevice(), L"MapLevel1.png", mImageInfo.Width,
+	D3DXCreateTextureFromFileEx(GraphicsHelper::GetInstance()->GetDirectDevice(), L"MapLevel1 2.png", mImageInfo.Width,
 		mImageInfo.Height,
 		1,
 		D3DUSAGE_DYNAMIC,
@@ -38,10 +38,10 @@ void DemoMap::LoadResource()
 		&this->mMapTextureLevel1);
 
 
-	D3DXGetImageInfoFromFile(L"MapLevel2.png", &mImageInfo);
+	D3DXGetImageInfoFromFile(L"MapLevel2 2.png", &mImageInfo1);
 
-	D3DXCreateTextureFromFileEx(GraphicsHelper::GetInstance()->GetDirectDevice(), L"MapLevel2.png", mImageInfo.Width,
-		mImageInfo.Height,
+	D3DXCreateTextureFromFileEx(GraphicsHelper::GetInstance()->GetDirectDevice(), L"MapLevel2 2.png", mImageInfo1.Width,
+		mImageInfo1.Height,
 		D3DX_DEFAULT,
 		0,
 		D3DFMT_UNKNOWN,
@@ -49,7 +49,7 @@ void DemoMap::LoadResource()
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
 		D3DCOLOR_XRGB(63, 72, 204),
-		&mImageInfo,
+		&mImageInfo1,
 		NULL,
 		&this->mMapTextureLevel2);
 
@@ -89,11 +89,11 @@ void DemoMap::Render(float DeltaTime, MapLevel mMapLevel)
 		}
 		break;
 	case MapLevel::MapLevel1:
-		GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel1, MyRECT(0, 0, 4770, 688), D3DXVECTOR3(0, 0, 0), inPosition, D3DXVECTOR2(2.2, 2.5), translation);
+		GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel1, MyRECT(0, 0, mImageInfo.Width, mImageInfo.Height), D3DXVECTOR3(0, 0, 0), inPosition, D3DXVECTOR2(2.2, 2.5), translation);
 		//GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel1, MyRECT(0, 0, 4771, 688), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0));
 		break;
 	case  MapLevel::MapLevel2:
-		GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel2, MyRECT(0, 0, 4770, 688), D3DXVECTOR3(0, 0, 0), inPosition, D3DXVECTOR2(2.2, 2.5), translation);
+		GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel2, MyRECT(0, 0, mImageInfo1.Width, mImageInfo1.Height), D3DXVECTOR3(0, 0, 0), inPosition, D3DXVECTOR2(2.2, 2.5), translation);
 		//GraphicsHelper::GetInstance()->DrawTexture(mMapTextureLevel1, MyRECT(0, 0, 4771, 688), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0));
 		break;
 	}

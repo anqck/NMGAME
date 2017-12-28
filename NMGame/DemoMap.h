@@ -17,4 +17,6 @@ public:
 protected:
 	vector<MovableBackground*>	mBackground;
 
+	D3DXIMAGE_INFO			mImageInfo;
+	D3DXIMAGE_INFO			mImageInfo1;
 };
